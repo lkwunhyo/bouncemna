@@ -1,0 +1,22 @@
+<div class="defaultContainer">
+  <h2>Contacts</h2>
+  <div class="search">
+    <input id="search" class="autosearch" [(ngModel)]="query" type="text" placeholder="Search a name.."><br>
+  </div><br>
+
+  <div class="contact_list">
+    <ul class="contacts">
+        <li *ngFor="let person of persons | search:'lastname,firstname,rating':query"
+          [class.selected]="person === selectedPerson"
+          (click)="onSelect(person)">
+          <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
+            height="18" width="18">&nbsp;&nbsp;
+          <a href="../profile/">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</a>
+      </li>
+    </ul>
+    <br>
+  </div>
+  <button mat-stroked-button onclick="window.location.href = '../contactform/'">Add</button>&nbsp;&nbsp;&nbsp;&nbsp;
+  <button mat-stroked-button onclick="window.location.href = '../deletecontact/'">Delete</button>
+  
+</div>

@@ -1,0 +1,37 @@
+<div class="addsexualcontainer">
+  <h2>Add Sexual Activity</h2>
+  <h3><u>Participants </u>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button mat-stroked-button onclick="window.location.href = '../addpartner/'">Add</button>&nbsp;
+    <button mat-stroked-button onclick="window.location.href = '../deletepartner/'">Delete</button><br>
+  </h3>
+
+  <form name="partnerlist">
+    <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
+      height="15" width="15">&nbsp;&nbsp;
+    Contact 1<br>
+    <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
+      height="15" width="15">&nbsp;&nbsp;
+      Contact 2<br>
+    <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
+      height="15" width="15">&nbsp;&nbsp;Placeholder Contacts..<br><br>
+  </form>
+
+  <form>
+    <h3><u>Activities Performed</u></h3>
+      <mat-checkbox name="activity" value="vaginal" formControlName="activity"> Vaginal Sex</mat-checkbox><br>
+      <mat-checkbox name="activity" value="anal" formControlName="activity"> Anal Sex</mat-checkbox><br>
+      <mat-checkbox name="activity" value="oral" formControlName="activity"> Oral Sex</mat-checkbox><br>
+      <mat-checkbox name="activity" value="other" formControlName="activity"> Other</mat-checkbox><br>
+    <h3><u>Contraceptives Used</u></h3>
+      <mat-checkbox name="contraceptive" value="condoms" formControlName="contraceptive"> Condoms</mat-checkbox><br>
+      <mat-checkbox name="contraceptive" value="pill" formControlName="contraceptive"> Pill</mat-checkbox><br>
+      
+    <h3><u>Comments</u></h3>
+    <mat-form-field>
+      <textarea matInput id="comment" formControlName="comment" placeholder="Add your comments.."
+        rows="5" cols="10"></textarea>
+    </mat-form-field><br>
+    <button class="submitbutton" mat-button type="submit" onclick="window.location.href = '../sexualhistory/'">Add</button><br>
+  </form>
+  <br><br>
+</div>

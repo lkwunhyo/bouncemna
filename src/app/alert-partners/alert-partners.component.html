@@ -1,0 +1,95 @@
+
+  <mat-vertical-stepper linear #stepper>
+    <mat-step [stepControl]="alertPartnersForm1" [editable]="isEditable" [completed]="false">
+      <form [formGroup]="alertPartnersForm1">
+        <ng-template matStepLabel>Choose Diagnosis</ng-template>
+        <h4>Diagnosis</h4>
+        <mat-form-field>
+          <mat-select class="diagnosis" formControlName="diagnosis" [(ngModel)]="alert.diagnosis" [class.selected]="disease === selectedDisease" > 
+              <mat-option *ngFor="let disease of diseases"
+              value = {{disease.name}} >{{ disease.name }} <!--> | {{disease.trace}} <-->
+              </mat-option > <!--> [class.selected]="disease === selectedDisease"<-->
+            </mat-select>
+          </mat-form-field>
+          <br>
+          Tracing period: <br>
+          {{getTrace()}}
+          <br>
+          <h4>Date of diagnosis</h4><br>
+          <mat-form-field>           
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <h4>Send STI alert to partners?</h4>
+          <mat-button-toggle-group>
+              <mat-button-toggle (click)="isSendMessage = true">Yes</mat-button-toggle>
+              <mat-button-toggle (click)="isSendMessage = false">No</mat-button-toggle>
+            </mat-button-toggle-group>
+
+        <div>
+          <br>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="alertPartnersForm2" *ngIf="isSendMessage" [editable]="isEditable" [completed]="false">
+      <form [formGroup]="alertPartnersForm2">
+        <ng-template matStepLabel>Choose your contacts</ng-template>
+          <!-->  <td>
+
+        <div *ngFor="let person of persons | search:'lastname,firstname,rating':query" class="checkbox">           
+            <label formControlName="contacts" >
+            <input type="checkbox" [(ngModel)]="alert.contacts">{{person.firstname}}<br>
+            </label>
+          </div>
+          </td><-->
+          <mat-checkbox name="contacts" formControlName="contacts" [(ngModel)]="alert.contacts" value="0">
+            <label>Select All</label>
+          </mat-checkbox><br>
+          <mat-checkbox name="contacts" formControlName="contacts" [(ngModel)]="alert.contacts" value="1">
+              <label>
+              John Cena
+              </label>
+            </mat-checkbox><br>
+            <mat-checkbox name="contacts" formControlName="contacts" [(ngModel)]="alert.contacts" value="2">
+             <label> 
+              Tony Stark
+            </label>
+            </mat-checkbox><br>
+            
+            <br><br>
+            <mat-radio-group formControlName="anonymity" [(ngModel)]="alert.anonymity">
+                <mat-radio-button  value="anonymous" ng-value="true">Send message anonymously</mat-radio-button> <br>
+                <mat-radio-button  value="identified">Include your name in message</mat-radio-button>  
+            </mat-radio-group>
+
+            <br><br>Message:<br> You may have contacted<br>{{alert.diagnosis}}, please get tested immediately
+        <div>
+          <!--><button mat-button matStepperPrevious>Back</button><-->
+          <button mat-button (click)="stepper.reset()">Reset</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="alertPartnersForm2" [editable]="isEditable" [completed]="false">
+      <ng-template matStepLabel>Completed</ng-template>
+      Form is completed
+      <div>
+        <!--><button mat-button matStepperPrevious>Back</button><-->
+        <button mat-button (click)="stepper.reset()" (click)="resetForm()">Reset</button>
+        <button mat-button matStepperNext>Submit</button>
+      </div>
+    </mat-step>
+    <mat-step [completed]="false">
+        <ng-template matStepLabel>Submitted</ng-template>
+        Form is submitted
+        <div *ngIf="isSendMessage"> Message is sent to selected contacts </div> 
+        <div *ngIf="!isSendMessage"> No message will be sent to your contacts </div> 
+        <div>       
+        <button mat-button (click)="stepper.reset()" (click)="resetForm()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+  
+

@@ -1,0 +1,57 @@
+
+
+
+<div class="defaultContainer">
+
+    <h2>Registration</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && onRegisterSubmit()" novalidate>
+      <div class="form-container">
+          First Name:<br>
+                 <input id="firstname"
+                 formControlName="firstname"
+                 [(ngModel)]="user.firstname"
+                 placeholder="Enter your name" /><br><br>
+
+          Last Name:<br>
+                 <input id="lastname"
+                 formControlName="lastname"
+                 [(ngModel)]="user.lastname"
+                 placeholder="Enter your name" /><br><br>      
+
+          Gender:<br>
+                 <input type="radio" name="gender" value="male" formControlName="gender" [(ngModel)]="user.gender"> Male<br>
+                 <input type="radio" name="gender" value="female" formControlName="gender" [(ngModel)]="user.gender"> Female<br>
+                 <input type="radio" name="gender" value="other" formControlName="gender" [(ngModel)]="user.gender"> Other<br><br>
+
+          
+          Email:<br>
+                 <input id="email"
+                 formControlName="email"
+                 [(ngModel)]="user.email"
+                 placeholder="Enter your email" /><br><br>
+          
+          Username<br>
+                 <input id="username"
+                 formControlName="username"
+                 [(ngModel)]="user.username"
+                 placeholder="Enter your name" /><br><br>
+
+          
+
+          Password:<br><input id="password"
+
+                 formControlName="password"
+                 [(ngModel)]="user.password"
+                 placeholder="Enter your password"
+                 [type]="hide ? 'password':'text'" /><br><br>
+
+
+        <button type="submit"
+                [disabled]="!registerForm.valid">Register</button>
+        <button button routerLink="/login">Login</button>
+      </div>
+    </form>
+
+    </div>
+

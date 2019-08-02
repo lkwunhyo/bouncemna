@@ -1,0 +1,23 @@
+.profileimg{
+    border-radius: 100px;
+    width: 110px;
+    height: 100px;
+    margin-left: 30%;
+    
+}
+
+.set_flex_row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.set_flex_column{
+    display: flex;
+    flex-direction: column;
+
+}
+
+table{
+    width: 100%;
+}

@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+    
+<div class = "defaultContainer"> 
+    <h1>Edit Profile</h1><br><br>
+    <img class ="profileimg"  src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg">
+       <form [formGroup]="editprofileForm">
+
+        <h4>First name:<br>
+        <input type="text" name="firstname" value="John">
+        </h4>
+        
+        <h4>Last name:<br>
+        <input type="text" name="lastname" value="Smith">
+        </h4>
+        
+        <h4>Phone:<br>
+        <input type="text" name="Phone" value="0123-456-789">
+        </h4>
+        
+        <h4>Email:<br>
+        <input type="text" name="Email" value="JohnSmth89@gamail.com">
+        </h4>
+        
+        <h4>Sex:<br>
+        <input type="radio" name="gender" value="male"> Male<br>
+        <input type="radio" name="gender" value="female"> Female<br>
+        <input type="radio" name="gender" value="other"> Other<br>
+        </h4>
+        
+        <h4>Bio:<br>
+        <textarea rows="4" cols="30">
+            My ideal date? I pick you up in my car, and there’s candles gently licking the air on the dashboard ‘Rich, 
+            there’s candles on the dashboard’, I smile. ‘Yeah, I know.’ We take a drive, go to a restaurant, have a wonderful 
+            meal and talk about life, goals, and ideals.  As we leave, you notice my car is ablaze. ‘Rich, your car is on fire!’.
+            ‘It’s okay – it’s not mine’ – at which point I pull out marshmallows. We cook them & eat them. Then I kiss you passionately. In front of the burning car.
+        </textarea></h4>
+        <br><br><br>
+      </form>
+
+      <div class= "btncontainer">
+          <button mat-button><a href= "../profile">Save</a></button>
+      </div>
+
+    </div>
+    
+   
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<!--<div class ="defaultContainer">
+    <full-calendar defaultView="dayGridMonth" [plugins]="calendarPlugins"></full-calendar>
+</div>-->
+
+<div class="todaydate">
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+  </div>
+
+<div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+      [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-day-view>
+
+
+
+
+  
+    <table>
+      <tr>
+      <td><div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()">
+        <button mat-button>Previous</button>
+      </div></td>
+
+      <td><div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+        <button mat-button>Today</button>
+      </div></td>
+
+      <td><div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()">
+        <button mat-button>Next</button>
+      </div></td>
+    </tr>
+    
+   
+    <!--<tr>
+      <td><div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+        <button mat-button>Month</button>
+      </div></td>
+      <td><div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
+        <button mat-button>Week</button>
+      </div></td>
+      <td><div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
+        <button mat-button>Day</button>
+      </div></td>
+    </tr>-->
+  
+</table>
+
+
+
+
+
+
+
+
+
+
+
+  <br><br>
+
+  <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
+
+
+  <h3>
+    Edit events
+    <button mat-button (click)="addEvent()">
+      add
+    </button>
+    <div class="clearfix"></div>
+  </h3>
+  
+  <div class="table-responsive">
+    <table class="table table-bordered">
+  
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>
+            <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()" />
+          </td>
+  
+  
+          <td>
+            <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start"
+              (ngModelChange)="refresh.next()" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
+          </td>
+  
+          <td>
+            <button class="remove" mat-button (click)="deleteEvent(event)">
+              remove
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br><br><br><br>
+  </div>
+
+
+
+
+</div>
+
+
+
+</html>

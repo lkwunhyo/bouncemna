@@ -1,0 +1,21 @@
+<div class="defaultContainer">
+  <h2>Contacts</h2>
+  <div class="search">
+    <input id="search" class="autosearch" [(ngModel)]="query" type="text" placeholder="Search a name.."><br>
+  </div>
+
+  <div class="contact_list">
+    <form>
+      <ul class="contacts">
+          <li *ngFor="let person of persons | search:'lastname,firstname,rating':query"
+            [class.selected]="person === selectedPerson"
+            (click)="onSelect(person)">
+            <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
+              height="18" width="18">&nbsp;&nbsp;
+            <mat-checkbox name="contact" value="">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>
+        </li>
+      </ul>
+      <button mat-button name="delete" onclick="window.location.href = '../contact/'">Delete</button><br>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+
+table {
+    width: 100%;
+    transition: none !important;
+    box-shadow: none !important;
+}
+.buttons {
+    display: flex;
+    justify-content: center;
+}

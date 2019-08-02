@@ -1,0 +1,43 @@
+.titlecontainer{
+    text-align: center;
+    margin-left: 28%;
+    /*margin: 0 auto;*/
+    margin-top: 1.5%;
+}
+
+.ui.inverted.vertical{
+    background: rgba(219, 69, 55, 0.884);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+a {
+    color:#ffffff;
+}
+
+
+.ui.top.attached.demo.menu{
+    background: #DB4437;
+    color: #ffffff;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+}
+
+
+.sidebar.icon{
+    color: #ffffff;
+}
+
+
+
+.pushable {
+  min-height: 100vh;
+
+}
+
+.ui.wide.left.sidebar, .ui.wide.right.sidebar {
+  height: 100vh;
+  position: fixed !important;
+  bottom: 0px !important;
+  top: 0px !important;
+}

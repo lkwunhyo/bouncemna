@@ -1,0 +1,23 @@
+
+
+<form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onRegisterSubmit()" novalidate>
+  <div class="defaultContainer">
+      <h2>Login</h2>
+      Name:<br><input id="name"
+             formControlName="name"
+             [(ngModel)]="user.name"
+             placeholder="Enter your name" /><br><br>
+             
+      Password:<br><input id="password"
+
+             formControlName="password"
+             [(ngModel)]="user.password"
+             placeholder="Enter your password"
+             [type]="hide ? 'password':'text'" /><br><br>
+
+
+    <button type="submit"
+            [disabled]="!loginForm.valid">Login</button>
+    <button button routerLink="/register">Register</button>
+  </div>
+</form>
