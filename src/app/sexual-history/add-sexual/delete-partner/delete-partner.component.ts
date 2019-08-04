@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Person } from '../../../models/person';
 import { PERSONS } from '../../../models/person_mock';
 import { ContactService } from '../../../services/contact.service';
@@ -9,7 +9,7 @@ import { ContactService } from '../../../services/contact.service';
   styleUrls: ['./delete-partner.component.css']
 })
 export class DeletePartnerComponent implements OnInit {
-
+    @Input() query: Person;
   constructor(private _contactService: ContactService) { };
 
   persons = [];

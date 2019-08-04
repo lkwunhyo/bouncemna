@@ -5,7 +5,8 @@
         <ng-template matStepLabel>Choose Diagnosis</ng-template>
         <h4>Diagnosis</h4>
         <mat-form-field>
-          <mat-select class="diagnosis" formControlName="diagnosis" [(ngModel)]="alert.diagnosis" [class.selected]="disease === selectedDisease" > 
+            <!--wrong way of implementing selection-->
+          <mat-select class="diagnosis" formControlName="diagnosis" [(ngModel)]="alert.diagnosis" (selectionChange)="getTrace()" > 
               <mat-option *ngFor="let disease of diseases"
               value = {{disease.name}} >{{ disease.name }} <!--> | {{disease.trace}} <-->
               </mat-option > <!--> [class.selected]="disease === selectedDisease"<-->
@@ -13,7 +14,7 @@
           </mat-form-field>
           <br>
           Tracing period: <br>
-          {{getTrace()}}
+          {{v}}
           <br>
           <h4>Date of diagnosis</h4><br>
           <mat-form-field>           

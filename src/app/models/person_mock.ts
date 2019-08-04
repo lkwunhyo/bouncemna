@@ -8,7 +8,7 @@ export const PERSONS: Person[] = [
         email: "example@example.com", age: 19, gender: "male", rating: 5 },
 
     { id: 13, firstname: "Bailey", lastname: "Johnson", phone: "04 *** ***", 
-        email: "example@example.com", age: 24, gender: "male", rating: 5 },
+        email: "example@example.com", age: 24, gender: "male", rating: 3 },
 
     { id: 14, firstname: "Chloe", lastname: "Miller", phone: "04 *** ***", 
         email: "example@example.com", age: 33, gender: "female", rating: 5 },

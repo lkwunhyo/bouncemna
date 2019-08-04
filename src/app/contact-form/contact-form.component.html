@@ -1,61 +1,62 @@
 <div class="defaultContainer">
   <h2>Add a Contact</h2>
   <form>
-    <div class="form-container">
-      Contact Details: <br>
-      <mat-form-field>
-        <input matInput id="firstname" placeholder="First name.." required>
-        <mat-icon matSuffix></mat-icon>
-      </mat-form-field><br>
-      <mat-form-field>
-        <input matInput id="lastname" placeholder="Last name.." required>
-        <mat-icon matSuffix></mat-icon>
-      </mat-form-field><br>
-      <mat-form-field>
-        <input matInput id="phone" placeholder="Phone number..">
-        <mat-icon matSuffix>phone</mat-icon>
-      </mat-form-field><br>
-      <mat-form-field>
-        <input matInput id="email" placeholder="Email.." [formControl]="email">
-        <mat-icon matSuffix>email</mat-icon>
-        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field><br>
-      <mat-form-field>
-        <!--
+      <div class="form-container">
+          Contact Details: <br>
+          <mat-form-field>
+              <input matInput id="firstname" placeholder="First name.." required>
+              <mat-icon matSuffix></mat-icon>
+          </mat-form-field><br>
+          <mat-form-field>
+              <input matInput id="lastname" placeholder="Last name.." required>
+              <mat-icon matSuffix></mat-icon>
+          </mat-form-field><br>
+          <mat-form-field>
+              <input matInput id="phone" placeholder="Phone number..">
+              <mat-icon matSuffix>phone</mat-icon>
+          </mat-form-field><br>
+          <mat-form-field>
+              <input matInput id="email" placeholder="Email.." [formControl]="email">
+              <mat-icon matSuffix>email</mat-icon>
+              <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field><br>
+          <mat-form-field>
+              <!--
         <input matInput id="age" placeholder="Age..">
         <mat-icon matSuffix></mat-icon>
         -->
-        <mat-label>Age.. </mat-label>
-        <mat-select>
-            <mat-option *ngFor="let age of ages" [value]="age.value">
-              {{age.viewValue}}
-            </mat-option>
-        </mat-select>
-      </mat-form-field><br>
-      <br>
-      
-      <mat-radio-group aria-label="Select a Gender">
-        Gender*:<br>
-        <mat-radio-button value="m">Male</mat-radio-button><br>
-        <mat-radio-button value="f">Female</mat-radio-button><br>
-        <mat-radio-button value="o">Other</mat-radio-button><br>
-      </mat-radio-group><br><br>
+              <mat-label>Age.. </mat-label>
+              <mat-select>
+                  <mat-option *ngFor="let age of ages" [value]="age.value">
+                      {{age.viewValue}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field><br>
+          <br>
 
-      Comments: <br>
-      <mat-form-field>
-        <textarea matInput id="comment" formControlName="comment" placeholder="Add your comments.." 
-          rows="5" cols="10"></textarea>
-      </mat-form-field>
-      <br><br>
+          <mat-radio-group aria-label="Select a Gender">
+              Gender*:<br>
+              <mat-radio-button value="m">Male</mat-radio-button><br>
+              <mat-radio-button value="f">Female</mat-radio-button><br>
+              <mat-radio-button value="o">Other</mat-radio-button><br>
+          </mat-radio-group><br><br>
 
-      Add New User Social Media Screenshot: <br><br>
-      <button mat-stroked-button (click)="fileInput.click()">Browse..</button>
-      <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
-      <br><br><br>     
+          Comments: <br>
+          <mat-form-field>
+              <textarea matInput id="comment" formControlName="comment" placeholder="Add your comments.."
+                        rows="5" cols="10"></textarea>
+          </mat-form-field>
+          <br><br>
 
-      <button mat-button class="submitbutton" type="submit" onclick="window.location.href = '../contact/'">Submit</button><br>
-      <br><br>
-    </div>
+          Add New User Social Media Screenshot: <br><br>
+          <button mat-stroked-button>Browse..</button> <!--(click)="fileInput.click()"-->
+          onFileSelected function has not been created yet.
+          <!--<input hidden (change)="onFileSelected()" #fileInput type="file" id="file">-->
+          <br><br><br>
+
+          <button mat-button class="submitbutton" type="submit" onclick="window.location.href = '../contact/'">Submit</button><br>
+          <br><br>
+      </div>
   </form>
 </div>
 

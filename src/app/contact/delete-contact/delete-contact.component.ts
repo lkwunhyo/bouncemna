@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
 import { Person } from '../../models/person';
 
@@ -13,7 +13,7 @@ export class DeleteContactComponent implements OnInit {
 
   ngOnInit() {
   }*/
-
+    @Input() query: Person;
   constructor(private _contactService: ContactService) { };
 
   persons = [];
