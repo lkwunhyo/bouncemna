@@ -13,8 +13,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../../AngApi/wwwroot",
-            "index": "src/app/home.component.html",
+            "outputPath": "wwwroot",
+            "index": "src/app/home/home.component.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
