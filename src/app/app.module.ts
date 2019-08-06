@@ -40,7 +40,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
+import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -92,7 +92,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
       useFactory: adapterFactory
     })
   ],
-  providers: [ContactService,MatDatepickerModule],
+    providers: [{ provide: APP_BASE_HREF, useValue: '/' }, ContactService,MatDatepickerModule],
   bootstrap: [AppComponent],
   
 })
