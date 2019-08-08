@@ -6,5 +6,6 @@ export class Person {
     email: string;
     age: number;
     gender: string;
+    comment: string;
     rating: number;
 };

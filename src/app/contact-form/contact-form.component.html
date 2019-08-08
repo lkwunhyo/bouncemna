@@ -1,22 +1,22 @@
 <div class="defaultContainer">
-  <h2>Add a Contact</h2>
-  <form>
+  <h2>Add a Contact</h2> {{ diagnostic }}
+  <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
       <div class="form-container">
           Contact Details: <br>
           <mat-form-field>
-              <input matInput id="firstname" placeholder="First name.." required>
+              <input matInput id="firstname" placeholder="First name.." [(ngModel)]="contact.firstname" name="firstname" required>
               <mat-icon matSuffix></mat-icon>
           </mat-form-field><br>
           <mat-form-field>
-              <input matInput id="lastname" placeholder="Last name.." required>
+              <input matInput id="lastname" placeholder="Last name.." [(ngModel)]="contact.lastname" name="lastname" required>
               <mat-icon matSuffix></mat-icon>
           </mat-form-field><br>
           <mat-form-field>
-              <input matInput id="phone" placeholder="Phone number..">
+              <input matInput id="phone" placeholder="Phone number.." [(ngModel)]="contact.phone" name="phone">
               <mat-icon matSuffix>phone</mat-icon>
           </mat-form-field><br>
           <mat-form-field>
-              <input matInput id="email" placeholder="Email.." [formControl]="email">
+              <input matInput id="email" placeholder="Email.." [formControl]="email" [(ngModel)]="contact.email" name="email">
               <mat-icon matSuffix>email</mat-icon>
               <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field><br>
@@ -26,7 +26,7 @@
         <mat-icon matSuffix></mat-icon>
         -->
               <mat-label>Age.. </mat-label>
-              <mat-select>
+              <mat-select [(ngModel)]="contact.age" name="age">
                   <mat-option *ngFor="let age of ages" [value]="age.value">
                       {{age.viewValue}}
                   </mat-option>
@@ -34,7 +34,7 @@
           </mat-form-field><br>
           <br>
 
-          <mat-radio-group aria-label="Select a Gender">
+          <mat-radio-group aria-label="Select a Gender" [(ngModel)]="contact.gender" name="gender">
               Gender*:<br>
               <mat-radio-button value="m">Male</mat-radio-button><br>
               <mat-radio-button value="f">Female</mat-radio-button><br>
@@ -43,8 +43,8 @@
 
           Comments: <br>
           <mat-form-field>
-              <textarea matInput id="comment" formControlName="comment" placeholder="Add your comments.."
-                        rows="5" cols="10"></textarea>
+              <textarea matInput id="comment" placeholder="Add your comments.."
+                        rows="5" cols="10" [(ngModel)]="contact.comment" name="comment"></textarea>
           </mat-form-field>
           <br><br>
 
@@ -54,7 +54,8 @@
           <!--<input hidden (change)="onFileSelected()" #fileInput type="file" id="file">-->
           <br><br><br>
 
-          <button mat-button class="submitbutton" type="submit" onclick="window.location.href = '../contact/'">Submit</button><br>
+          <button mat-button class="submitbutton" type="submit" [disabled]="!contactForm.form.valid"
+            onclick="window.location.href = '../contact/'">Submit</button><br>
           <br><br>
       </div>
   </form>
