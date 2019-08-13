@@ -17,6 +17,27 @@ export class DeleteContactComponent implements OnInit {
   constructor(private _contactService: ContactService) { };
 
   persons = [];
+
+  
+  OnCheckboxSelect(person, status:boolean) {
+    if (this.persons.indexOf(person) === -1 && status) {
+      this.persons.push(person);
+    }
+    else if(!status) {
+      let index = this.persons.indexOf(person);
+      this.persons.splice(index, 1);
+    }
+    //console.log(this.persons);
+  }
+  
+
+  OnSubmit() {
+    // Submit every person where person.selected == true
+    // Delete those from the database
+  }
+
+  get diagnostic() { return JSON.stringify(this.persons); }
+  
   selectedPerson: Person;
 
   ngOnInit() {
@@ -26,5 +47,6 @@ export class DeleteContactComponent implements OnInit {
   onSelect(person: Person): void {
     this.selectedPerson = person;
   }
+  
 
 }

@@ -1,5 +1,5 @@
 <div class="defaultContainer">
-  <h2>Contacts</h2>
+  <h2>Contacts</h2> {{ diagnostic }}
   <div class="search">
     <input id="search" class="autosearch" [(ngModel)]="query" type="text" placeholder="Search a name.."><br>
   </div>
@@ -7,13 +7,20 @@
   <div class="contact_list">
     <form>
       <ul class="contacts">
-          <li *ngFor="let person of persons | search:'lastname,firstname,rating':query"
+         <!-- <li *ngFor="let person of persons | search:'lastname,firstname,rating':query"
             [class.selected]="person === selectedPerson"
-            (click)="onSelect(person)">
+            (click)="onSelect(person)">  -->
+          <li *ngFor="let person of persons | search:'lastname,firstname,rating':query">
             <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
               height="18" width="18">&nbsp;&nbsp;
-            <mat-checkbox name="contact" value="">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>
-        </li>
+            <!--
+            <mat-checkbox value="{{person.id}}"
+            [(ngModel)]="persons.contact" name="{{person.firstname}}">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>
+            -->
+            <mat-checkbox [value]="delete_persons"
+            [(ngModel)]="person.selected" (change)="OnCheckboxSelect(person, $event.checked)" name="persons">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>
+
+          </li>
       </ul>
       <button mat-button name="delete" onclick="window.location.href = '../contact/'">Delete</button><br>
     </form>

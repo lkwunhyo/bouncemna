@@ -15,6 +15,22 @@ export class AddPartnerComponent implements OnInit {
   persons = [];
   selectedPerson: Person;
 
+  OnCheckboxSelect(person, status:boolean) {
+    if (this.persons.indexOf(person) === -1 && status) {
+      this.persons.push(person);
+    }
+    else if(!status) {
+      let index = this.persons.indexOf(person);
+      this.persons.splice(index, 1);
+    }
+    console.log(this.persons);
+  }
+
+  OnSubmit() {
+    // Submit every person where person.selected == true
+    // Delete those from the database
+  }
+
   ngOnInit() {
     this.persons = this._contactService.filterBy();
   }
