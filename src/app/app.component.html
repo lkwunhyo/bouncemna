@@ -1,40 +1,42 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
 
- <div class="ui top attached demo menu">
-   
-    <a class="item" (click)="sidebar.toggle()">
-        <i class="sidebar icon"></i>
-    </a>
-    <div class="titlecontainer">
-        <h2>{{title}}</h2>
+<div class="ui top attached demo menu">
+    <div>
+         <a class="item" (click)="sidebar.toggle()">
+             <i class="sidebar icon"></i>
+         </a>
     </div>
-</div>
-
-
-<sui-sidebar-container class="ui attached segment pushable"> <!-->Removed bottom <-->
-    <sui-sidebar class="inverted vertical" #sidebar>
-        <br><br>
-        <ul>
-            <li> <a routerLink="/home" (click)="sidebar.toggle()">Home</a></li><br>
-            <li> <a routerLink="/profile" (click)="sidebar.toggle()">Profile</a></li><br>
-            <!--<li> <a routerLink="/register">Register</a></li><br>-->
-            <!--<li> <a routerLink="/login">Login</a></li><br>-->
-            <li> <a routerLink="/contact" (click)="sidebar.toggle()">Contact</a></li><br>
-            <li> <a routerLink="/calender" (click)="sidebar.toggle()">Calendar</a></li><br>
-            <li> <a routerLink="/alertpartners" (click)="sidebar.toggle()">Alert Partner</a></li><br>
-            <li> <a routerLink="/sexualhistory" (click)="sidebar.toggle()">Sexual Activity</a></li><br>
-            <li> <a routerLink="/diagnosishistory" (click)="sidebar.toggle()">Diagnosis History</a></li><br>
-            <li> <a routerLink="/about" (click)="sidebar.toggle()">About Us</a></li><br>
-        </ul>
-      
-    </sui-sidebar>
-    <sui-sidebar-sibling [isDimmedWhenVisible]="true">
-        <div class="rendercontainer">
-            <router-outlet></router-outlet>
-        </div>
-    </sui-sidebar-sibling>
-</sui-sidebar-container>
-
-
-
+     <div class="titlecontainer alignmentadj">
+         <h2>{{title}}</h2>
+     </div>
+ </div>
+ 
+ 
+ <sui-sidebar-container class="ui attached segment pushable"> <!--Removed bottom <-->
+     <sui-sidebar class="inverted vertical" #sidebar>
+         <br><br>
+         <ul>
+             <li> <a routerLink="/home" (click)="sidebar.toggle()">Home</a></li><br>
+             <li> <a routerLink="/profile" (click)="sidebar.toggle()">Profile</a></li><br>
+             <!--<li> <a routerLink="/register">Register</a></li><br>-->
+             <!--<li> <a routerLink="/login">Login</a></li><br>-->
+             <li> <a routerLink="/contact" (click)="sidebar.toggle()">Contact</a></li><br>
+             <li> <a routerLink="/calender" (click)="sidebar.toggle()">Calendar</a></li><br>
+             <li> <a routerLink="/alertpartners" (click)="sidebar.toggle()">Alert Partner</a></li><br>
+             <li> <a routerLink="/sexualhistory" (click)="sidebar.toggle()">Sexual Activity</a></li><br>
+             <li> <a routerLink="/diagnosishistory" (click)="sidebar.toggle()">Diagnosis History</a></li><br>
+             <li> <a routerLink="/about" (click)="sidebar.toggle()">About Us</a></li><br>
+         </ul>
+       
+     </sui-sidebar>
+     <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+         <div class="rendercontainer">
+             <router-outlet></router-outlet>
+         </div>
+     </sui-sidebar-sibling>
+ </sui-sidebar-container>
+ 
+ 
+ 
+ 

@@ -1,9 +1,19 @@
 .titlecontainer{
     text-align: center;
-    margin-left: 28%;
-    /*margin: 0 auto;*/
-    margin-top: 1.5%;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
+
+.alignmentadj{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 
 .ui.inverted.vertical{
     background: rgba(219, 69, 55, 0.884);
@@ -20,6 +30,9 @@ a {
     color: #ffffff;
     padding-top: 5px;
     padding-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     
 }
 
@@ -32,7 +45,6 @@ a {
 
 .pushable {
   min-height: 100vh;
-
 }
 
 .ui.wide.left.sidebar, .ui.wide.right.sidebar {
