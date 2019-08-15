@@ -9,12 +9,9 @@
 @import 'https://fonts.googleapis.com/css?family=Roboto:400';
 
 .defaultContainer{
-    width: 80%;
-    /*margin-left: 15%;
-    margin-top: 5%;*/
+    width: 92%;
     margin: auto;
     margin-top: 5%;
-    
 }
 
 .ui.button{
@@ -22,29 +19,37 @@
     font: bold;
 }
 
-
 /* Home */
 
 .fact{
     margin-bottom: 10%;
     margin-top: 20%;
+    display: flex;
+    justify-content: center;
 }
 
 .pill{
     margin-top: 5%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .appointment{
-    margin-top: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 
 }
 
 .abstinence{
-    width: 80%;
-    /*margin-left: 15%;*/
-    margin: auto;
+    display: flex;
     margin-top: 5%;
     text-align: center;
+    justify-content: center;
 }
 
 /* Profile */
@@ -77,3 +82,18 @@ h1.h2.h3.h4 {
     padding-top: 0px;
     padding-bottom: 5px;
 }*/
+
+/* To hide side scrolling (start) */
+
+:-webkit-scrollbar-track {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+::-webkit-scrollbar-thumb {
+    display: none;
+}
+/* To hide side scrolling (end) */

@@ -1,0 +1,23 @@
+.events-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title-container > * {
+    width: 100%;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+}
+
+form {
+padding-left: 3%;
+padding-right: 3%;
+}
+
+.title {
+padding-left: 3%;
+padding-right: 3%;
+}

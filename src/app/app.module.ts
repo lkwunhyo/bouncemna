@@ -41,6 +41,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { APP_BASE_HREF } from '@angular/common';
+import { AddEventsComponent } from './calender/add-events/add-events.component';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { APP_BASE_HREF } from '@angular/common';
     CalenderComponent,
     DeleteContactComponent,
     DeletePartnerComponent,
+    AddEventsComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +90,7 @@ import { APP_BASE_HREF } from '@angular/common';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule,
+    MatDividerModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory

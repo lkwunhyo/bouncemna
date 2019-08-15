@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<div class="title">
+  <h2>New event</h2>
+</div>
+
+<form>
+
+  <div class="title-container">
+    <mat-form-field>
+      <input matInput placeholder="Enter title">
+    </mat-form-field>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="date-container">
+    <h3>Date:</h3>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+
+    <div class="clock">
+      <h3>Time:</h3>
+      <mat-form-field>
+        <input matInput placeholder="Hour">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Minute">
+      </mat-form-field>
+      <br>
+    </div>
+
+    <mat-radio-group aria-label="Select an option">
+      <mat-radio-button value="AM">AM</mat-radio-button><br><br>
+      <mat-radio-button value="PM">PM</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <br>
+  <mat-divider></mat-divider>
+
+  <div class="alert-container">
+    <h3>Select Alert:</h3>
+    <mat-form-field>
+      <mat-select placeholder="Alert">
+        <mat-option value="None">None</mat-option>
+        <mat-option value="On time">On time</mat-option>
+        <mat-option value="5">5 mins before</mat-option>
+        <mat-option value="15">15 mins before</mat-option>
+        <mat-option value="30">30 mins before</mat-option>
+        <mat-option value="1hr">1 hour before</mat-option>
+        <mat-option value="1d">1 day before</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div class="repeat-container">
+    <h3>Select Repeat:</h3>
+    <mat-form-field>
+      <mat-select placeholder="Repeat">
+        <mat-option value="never">Never</mat-option>
+        <mat-option value="daily">Daily</mat-option>
+        <mat-option value="weekly">Weekly</mat-option>
+        <mat-option value="monthly">Monthly</mat-option>
+        <mat-option value="yearly">Yearly</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div class="events-container">
+    <mat-form-field class="note">
+      <textarea matInput placeholder="Note"></textarea>
+    </mat-form-field>
+
+
+  </div>
+
+  <div class="buttons">
+    <button mat-flat-button color="primary">Save</button>
+  </div>
+
+</form>
+
+</html>

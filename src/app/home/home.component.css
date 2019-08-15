@@ -14,3 +14,8 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.headhm {
+    display:flex;
+    justify-content: center;
+}
