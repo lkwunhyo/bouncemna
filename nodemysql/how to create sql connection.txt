@@ -1,0 +1,5 @@
+http://www.mysqltutorial.org/mysql-nodejs/connect/
+
+for heavy payload
+
+https://codeforgeek.com/nodejs-mysql-tutorial/

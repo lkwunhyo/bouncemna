@@ -1,9 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\dist",
-    "\\dist\\bounce",
-    "\\src"
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\contact",
+    "\\src\\app\\services"
   ],
+  "SelectedNode": "\\src\\app\\services\\contact.service.ts",
   "PreviewInSolutionExplorer": false
 }

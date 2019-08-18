@@ -1,8 +1,28 @@
 //Install express server
 const express = require('express');
+const mysql = require('mysql');
 const path = require('path');
-
 const app = express();
+
+//connection stuff-----------------
+const con = mysql.createConnection({
+    host: "localhost",
+    user: "tryl",
+    password: "tryl"
+});
+
+con.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+
+con.end(function(err) {
+  if (err) {
+    return console.log('error:' + err.message);
+  }
+  console.log('Close the database connection.');
+});
+//end of connection stuff
 
 // Serve only the static files form the dist directory
 // Replace the '/dist/<to_your_project_name>' -------------- src is the app name
