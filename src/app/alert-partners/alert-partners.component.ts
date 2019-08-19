@@ -46,8 +46,8 @@ export class AlertPartnersComponent implements OnInit {
     this.alertPartnersForm1 = this.formBuilder.group({
       'diagnosis': [this.alert.diagnosis, [
         Validators.required
-      ]],
-      'message': [this.alert.message, [
+        ]],
+        'message': [this.alert.message = 'bye', [
         //Validators.required
       ]],
     });
@@ -88,7 +88,8 @@ export class AlertPartnersComponent implements OnInit {
     this.alertPartnersForm1.get(event.target.attributes.formcontrolname.value)
     .setValue(event.target.checked);
     this.alertPartnersForm2.get(event.target.attributes.formcontrolname.value)
-    .setValue(event.target.checked);
+          .setValue(event.target.checked);
+
 }
 
 checkPartTwo(){

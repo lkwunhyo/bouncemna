@@ -2,6 +2,8 @@
   <mat-vertical-stepper linear #stepper>
     <mat-step [stepControl]="alertPartnersForm1" [editable]="isEditable" [completed]="false">
       <form [formGroup]="alertPartnersForm1">
+          {{alertPartnersForm1.value | json}}
+          {{isSendMessage}}
         <ng-template matStepLabel>Choose Diagnosis</ng-template>
         <h4>Diagnosis</h4>
         <mat-form-field>
