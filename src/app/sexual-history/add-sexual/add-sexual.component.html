@@ -17,7 +17,7 @@
   </form>
 
   <form>
-    <!--
+      <!--
     <h3><u>Activities Performed</u></h3>
       <mat-checkbox name="activity" value="vaginal" formControlName="activity"> Vaginal Sex</mat-checkbox><br>
       <mat-checkbox name="activity" value="anal" formControlName="activity"> Anal Sex</mat-checkbox><br>
@@ -27,24 +27,25 @@
       <mat-checkbox name="contraceptive" value="condoms" formControlName="contraceptive"> Condoms</mat-checkbox><br>
       <mat-checkbox name="contraceptive" value="pill" formControlName="contraceptive"> Pill</mat-checkbox><br>
     -->
-    <h3><u>Activities Performed</u></h3>
+      <h3><u>Activities Performed</u></h3>
       <li *ngFor="let activity of sexualactivity_list">
-        <mat-checkbox [value]="sexual_activities"
-        [(ngModel)]="activity.selected" (change)="OnCheckboxSelect(activity, activities_performed, $event.checked)" name="activities">{{ activity }} Sex</mat-checkbox>
+          <mat-checkbox [value]="sexual_activities"
+                        [(ngModel)]="activity.selected" (change)="OnCheckboxSelect(activity, activities_performed, $event.checked)" name="activities">{{ activity }}Sex</mat-checkbox>
       </li>
-    <h3><u>Contraceptives Used</u></h3>
+      <h3><u>Contraceptives Used</u></h3>
       <li *ngFor="let contraceptive of contraceptive_list">
-        <mat-checkbox [value]="contraceptives_"
-        [(ngModel)]="contraceptive.selected" (change)="OnCheckboxSelect(contraceptive, contraceptives_used, $event.checked)" name="contraceptives">{{ contraceptive }} Sex</mat-checkbox>
+          <mat-checkbox [value]="contraceptives_"
+                        [(ngModel)]="contraceptive.selected" (change)="OnCheckboxSelect(contraceptive, contraceptives_used, $event.checked)" name="contraceptives">{{ contraceptive }}Sex</mat-checkbox>
       </li>
-    
-    <h3><u>Comments</u></h3>
-    <mat-form-field>
-        <textarea matInput id="comment" placeholder="Add your comments.."
-          rows="5" cols="10" [(ngModel)]="comment" name="comment"></textarea>
-    </mat-form-field><br>
-    <button mat-button class="submitbutton" type="submit"
-      onclick="window.location.href = '../sexualhistory/'">Submit</button><br>
-  </form>
-  <br><br>
+
+      <h3><u>Comments</u></h3>
+      <!--
+      <mat-form-field>
+          <textarea matInput id="comment" placeholder="Add your comments.."
+            rows="5" cols="10" [(ngModel)]="comment" name="comment"></textarea>
+      </mat-form-field><br>
+      <button mat-button class="submitbutton" type="submit"
+        onclick="window.location.href = '../sexualhistory/'">Submit</button><br>
+    </form>-->
+      <br><br>
 </div>
