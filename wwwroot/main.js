@@ -305,7 +305,7 @@ module.exports = "\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n  <mat-vertical-stepper linear #stepper>\r\n    <mat-step [stepControl]=\"alertPartnersForm1\" [editable]=\"isEditable\" [completed]=\"false\">\r\n      <form [formGroup]=\"alertPartnersForm1\">\r\n        <ng-template matStepLabel>Choose Diagnosis</ng-template>\r\n        <h4>Diagnosis</h4>\r\n        <mat-form-field>\r\n            <!--wrong way of implementing selection-->\r\n          <mat-select class=\"diagnosis\" formControlName=\"diagnosis\" [(ngModel)]=\"alert.diagnosis\" (selectionChange)=\"getTrace()\" > \r\n              <mat-option *ngFor=\"let disease of diseases\"\r\n              value = {{disease.name}} >{{ disease.name }} <!--> | {{disease.trace}} <-->\r\n              </mat-option > <!--> [class.selected]=\"disease === selectedDisease\"<-->\r\n            </mat-select>\r\n          </mat-form-field>\r\n          <br>\r\n          Tracing period: <br>\r\n          {{v}}\r\n          <br>\r\n          <h4>Date of diagnosis</h4><br>\r\n          <mat-form-field>           \r\n            <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\">\r\n            <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n            <mat-datepicker #picker></mat-datepicker>\r\n          </mat-form-field>\r\n          <h4>Send STI alert to partners?</h4>\r\n          <mat-button-toggle-group>\r\n              <mat-button-toggle (click)=\"isSendMessage = true\">Yes</mat-button-toggle>\r\n              <mat-button-toggle (click)=\"isSendMessage = false\">No</mat-button-toggle>\r\n            </mat-button-toggle-group>\r\n\r\n        <div>\r\n          <br>\r\n          <button mat-button matStepperNext>Next</button>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n    <mat-step [stepControl]=\"alertPartnersForm2\" *ngIf=\"isSendMessage\" [editable]=\"isEditable\" [completed]=\"false\">\r\n      <form [formGroup]=\"alertPartnersForm2\">\r\n        <ng-template matStepLabel>Choose your contacts</ng-template>\r\n          <!-->  <td>\r\n\r\n        <div *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\" class=\"checkbox\">           \r\n            <label formControlName=\"contacts\" >\r\n            <input type=\"checkbox\" [(ngModel)]=\"alert.contacts\">{{person.firstname}}<br>\r\n            </label>\r\n          </div>\r\n          </td><-->\r\n          <mat-checkbox name=\"contacts\" formControlName=\"contacts\" [(ngModel)]=\"alert.contacts\" value=\"0\">\r\n            <label>Select All</label>\r\n          </mat-checkbox><br>\r\n          <mat-checkbox name=\"contacts\" formControlName=\"contacts\" [(ngModel)]=\"alert.contacts\" value=\"1\">\r\n              <label>\r\n              John Cena\r\n              </label>\r\n            </mat-checkbox><br>\r\n            <mat-checkbox name=\"contacts\" formControlName=\"contacts\" [(ngModel)]=\"alert.contacts\" value=\"2\">\r\n             <label> \r\n              Tony Stark\r\n            </label>\r\n            </mat-checkbox><br>\r\n            \r\n            <br><br>\r\n            <mat-radio-group formControlName=\"anonymity\" [(ngModel)]=\"alert.anonymity\">\r\n                <mat-radio-button  value=\"anonymous\" ng-value=\"true\">Send message anonymously</mat-radio-button> <br>\r\n                <mat-radio-button  value=\"identified\">Include your name in message</mat-radio-button>  \r\n            </mat-radio-group>\r\n\r\n            <br><br>Message:<br> You may have contacted<br>{{alert.diagnosis}}, please get tested immediately\r\n        <div>\r\n          <!--><button mat-button matStepperPrevious>Back</button><-->\r\n          <button mat-button (click)=\"stepper.reset()\">Reset</button>\r\n          <button mat-button matStepperNext>Next</button>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n    <mat-step [stepControl]=\"alertPartnersForm2\" [editable]=\"isEditable\" [completed]=\"false\">\r\n      <ng-template matStepLabel>Completed</ng-template>\r\n      Form is completed\r\n      <div>\r\n        <!--><button mat-button matStepperPrevious>Back</button><-->\r\n        <button mat-button (click)=\"stepper.reset()\" (click)=\"resetForm()\">Reset</button>\r\n        <button mat-button matStepperNext>Submit</button>\r\n      </div>\r\n    </mat-step>\r\n    <mat-step [completed]=\"false\">\r\n        <ng-template matStepLabel>Submitted</ng-template>\r\n        Form is submitted\r\n        <div *ngIf=\"isSendMessage\"> Message is sent to selected contacts </div> \r\n        <div *ngIf=\"!isSendMessage\"> No message will be sent to your contacts </div> \r\n        <div>       \r\n        <button mat-button (click)=\"stepper.reset()\" (click)=\"resetForm()\">Reset</button>\r\n      </div>\r\n    </mat-step>\r\n  </mat-vertical-stepper>\r\n  \r\n\r\n"
+module.exports = "\r\n  <mat-vertical-stepper linear #stepper>\r\n    <mat-step [stepControl]=\"alertPartnersForm1\" [editable]=\"isEditable\" [completed]=\"false\">\r\n      <form [formGroup]=\"alertPartnersForm1\">\r\n          {{alertPartnersForm1.value | json}}\r\n          {{isSendMessage}}\r\n        <ng-template matStepLabel>Choose Diagnosis</ng-template>\r\n        <h4>Diagnosis</h4>\r\n        <mat-form-field>\r\n            <!--wrong way of implementing selection-->\r\n          <mat-select class=\"diagnosis\" formControlName=\"diagnosis\" [(ngModel)]=\"alert.diagnosis\" (selectionChange)=\"getTrace()\" > \r\n              <mat-option *ngFor=\"let disease of diseases\"\r\n              value = {{disease.name}} >{{ disease.name }} <!--> | {{disease.trace}} <-->\r\n              </mat-option > <!--> [class.selected]=\"disease === selectedDisease\"<-->\r\n            </mat-select>\r\n          </mat-form-field>\r\n          <br>\r\n          Tracing period: <br>\r\n          {{v}}\r\n          <br>\r\n          <h4>Date of diagnosis</h4><br>\r\n          <mat-form-field>           \r\n            <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\">\r\n            <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n            <mat-datepicker #picker></mat-datepicker>\r\n          </mat-form-field>\r\n          <h4>Send STI alert to partners?</h4>\r\n          <mat-button-toggle-group>\r\n              <mat-button-toggle (click)=\"isSendMessage = true\">Yes</mat-button-toggle>\r\n              <mat-button-toggle (click)=\"isSendMessage = false\">No</mat-button-toggle>\r\n            </mat-button-toggle-group>\r\n\r\n        <div>\r\n          <br>\r\n          <button mat-button matStepperNext>Next</button>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n    <mat-step [stepControl]=\"alertPartnersForm2\" *ngIf=\"isSendMessage\" [editable]=\"isEditable\" [completed]=\"false\">\r\n      <form [formGroup]=\"alertPartnersForm2\">\r\n        <ng-template matStepLabel>Choose your contacts</ng-template>\r\n          <!-->  <td>\r\n\r\n        <div *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\" class=\"checkbox\">           \r\n            <label formControlName=\"contacts\" >\r\n            <input type=\"checkbox\" [(ngModel)]=\"alert.contacts\">{{person.firstname}}<br>\r\n            </label>\r\n          </div>\r\n          </td><-->\r\n          <mat-checkbox name=\"contacts\" formControlName=\"contacts\" [(ngModel)]=\"alert.contacts\" value=\"0\">\r\n            <label>Select All</label>\r\n          </mat-checkbox><br>\r\n          <mat-checkbox name=\"contacts\" formControlName=\"contacts\" [(ngModel)]=\"alert.contacts\" value=\"1\">\r\n              <label>\r\n              John Cena\r\n              </label>\r\n            </mat-checkbox><br>\r\n            <mat-checkbox name=\"contacts\" formControlName=\"contacts\" [(ngModel)]=\"alert.contacts\" value=\"2\">\r\n             <label> \r\n              Tony Stark\r\n            </label>\r\n            </mat-checkbox><br>\r\n            \r\n            <br><br>\r\n            <mat-radio-group formControlName=\"anonymity\" [(ngModel)]=\"alert.anonymity\">\r\n                <mat-radio-button  value=\"anonymous\" ng-value=\"true\">Send message anonymously</mat-radio-button> <br>\r\n                <mat-radio-button  value=\"identified\">Include your name in message</mat-radio-button>  \r\n            </mat-radio-group>\r\n\r\n            <br><br>Message:<br> You may have contacted<br>{{alert.diagnosis}}, please get tested immediately\r\n        <div>\r\n          <!--><button mat-button matStepperPrevious>Back</button><-->\r\n          <button mat-button (click)=\"stepper.reset()\">Reset</button>\r\n          <button mat-button matStepperNext>Next</button>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n    <mat-step [stepControl]=\"alertPartnersForm2\" [editable]=\"isEditable\" [completed]=\"false\">\r\n      <ng-template matStepLabel>Completed</ng-template>\r\n      Form is completed\r\n      <div>\r\n        <!--><button mat-button matStepperPrevious>Back</button><-->\r\n        <button mat-button (click)=\"stepper.reset()\" (click)=\"resetForm()\">Reset</button>\r\n        <button mat-button matStepperNext>Submit</button>\r\n      </div>\r\n    </mat-step>\r\n    <mat-step [completed]=\"false\">\r\n        <ng-template matStepLabel>Submitted</ng-template>\r\n        Form is submitted\r\n        <div *ngIf=\"isSendMessage\"> Message is sent to selected contacts </div> \r\n        <div *ngIf=\"!isSendMessage\"> No message will be sent to your contacts </div> \r\n        <div>       \r\n        <button mat-button (click)=\"stepper.reset()\" (click)=\"resetForm()\">Reset</button>\r\n      </div>\r\n    </mat-step>\r\n  </mat-vertical-stepper>\r\n  \r\n\r\n"
 
 /***/ }),
 
@@ -355,7 +355,7 @@ var AlertPartnersComponent = /** @class */ (function () {
             'diagnosis': [this.alert.diagnosis, [
                     _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required
                 ]],
-            'message': [this.alert.message, [
+            'message': [this.alert.message = 'bye', [
                 //Validators.required
                 ]],
         });
@@ -457,6 +457,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _calender_calender_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./calender/calender.component */ "./src/app/calender/calender.component.ts");
 /* harmony import */ var _contact_delete_contact_delete_contact_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./contact/delete-contact/delete-contact.component */ "./src/app/contact/delete-contact/delete-contact.component.ts");
 /* harmony import */ var _sexual_history_add_sexual_delete_partner_delete_partner_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./sexual-history/add-sexual/delete-partner/delete-partner.component */ "./src/app/sexual-history/add-sexual/delete-partner/delete-partner.component.ts");
+/* harmony import */ var _calender_add_events_add_events_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./calender/add-events/add-events.component */ "./src/app/calender/add-events/add-events.component.ts");
+
 
 
 
@@ -500,6 +502,7 @@ var routes = [
     { path: 'calender', component: _calender_calender_component__WEBPACK_IMPORTED_MODULE_19__["CalenderComponent"] },
     { path: 'deletecontact', component: _contact_delete_contact_delete_contact_component__WEBPACK_IMPORTED_MODULE_20__["DeleteContactComponent"] },
     { path: 'deletepartner', component: _sexual_history_add_sexual_delete_partner_delete_partner_component__WEBPACK_IMPORTED_MODULE_21__["DeletePartnerComponent"] },
+    { path: 'add-events', component: _calender_add_events_add_events_component__WEBPACK_IMPORTED_MODULE_22__["AddEventsComponent"] }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -524,7 +527,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".titlecontainer{\r\n    text-align: center;\r\n    margin-left: 28%;\r\n    /*margin: 0 auto;*/\r\n    margin-top: 1.5%;\r\n}\r\n\r\n.ui.inverted.vertical{\r\n    background: rgba(219, 69, 55, 0.884);\r\n    color: rgba(255, 255, 255, 0.9);\r\n}\r\n\r\na {\r\n    color:#ffffff;\r\n}\r\n\r\n.ui.top.attached.demo.menu{\r\n    background: #DB4437;\r\n    color: #ffffff;\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n    \r\n}\r\n\r\n.sidebar.icon{\r\n    color: #ffffff;\r\n}\r\n\r\n.pushable {\r\n  min-height: 100vh;\r\n\r\n}\r\n\r\n.ui.wide.left.sidebar, .ui.wide.right.sidebar {\r\n  height: 100vh;\r\n  position: fixed !important;\r\n  bottom: 0px !important;\r\n  top: 0px !important;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxrQkFBa0I7SUFDbEIsZ0JBQWdCO0lBQ2hCLGtCQUFrQjtJQUNsQixnQkFBZ0I7QUFDcEI7O0FBRUE7SUFDSSxvQ0FBb0M7SUFDcEMsK0JBQStCO0FBQ25DOztBQUVBO0lBQ0ksYUFBYTtBQUNqQjs7QUFHQTtJQUNJLG1CQUFtQjtJQUNuQixjQUFjO0lBQ2QsZ0JBQWdCO0lBQ2hCLG1CQUFtQjs7QUFFdkI7O0FBR0E7SUFDSSxjQUFjO0FBQ2xCOztBQUlBO0VBQ0UsaUJBQWlCOztBQUVuQjs7QUFFQTtFQUNFLGFBQWE7RUFDYiwwQkFBMEI7RUFDMUIsc0JBQXNCO0VBQ3RCLG1CQUFtQjtBQUNyQiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRpdGxlY29udGFpbmVye1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgbWFyZ2luLWxlZnQ6IDI4JTtcclxuICAgIC8qbWFyZ2luOiAwIGF1dG87Ki9cclxuICAgIG1hcmdpbi10b3A6IDEuNSU7XHJcbn1cclxuXHJcbi51aS5pbnZlcnRlZC52ZXJ0aWNhbHtcclxuICAgIGJhY2tncm91bmQ6IHJnYmEoMjE5LCA2OSwgNTUsIDAuODg0KTtcclxuICAgIGNvbG9yOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuOSk7XHJcbn1cclxuXHJcbmEge1xyXG4gICAgY29sb3I6I2ZmZmZmZjtcclxufVxyXG5cclxuXHJcbi51aS50b3AuYXR0YWNoZWQuZGVtby5tZW51e1xyXG4gICAgYmFja2dyb3VuZDogI0RCNDQzNztcclxuICAgIGNvbG9yOiAjZmZmZmZmO1xyXG4gICAgcGFkZGluZy10b3A6IDVweDtcclxuICAgIHBhZGRpbmctYm90dG9tOiA1cHg7XHJcbiAgICBcclxufVxyXG5cclxuXHJcbi5zaWRlYmFyLmljb257XHJcbiAgICBjb2xvcjogI2ZmZmZmZjtcclxufVxyXG5cclxuXHJcblxyXG4ucHVzaGFibGUge1xyXG4gIG1pbi1oZWlnaHQ6IDEwMHZoO1xyXG5cclxufVxyXG5cclxuLnVpLndpZGUubGVmdC5zaWRlYmFyLCAudWkud2lkZS5yaWdodC5zaWRlYmFyIHtcclxuICBoZWlnaHQ6IDEwMHZoO1xyXG4gIHBvc2l0aW9uOiBmaXhlZCAhaW1wb3J0YW50O1xyXG4gIGJvdHRvbTogMHB4ICFpbXBvcnRhbnQ7XHJcbiAgdG9wOiAwcHggIWltcG9ydGFudDtcclxufVxyXG4iXX0= */"
+module.exports = ".titlecontainer{\r\n    text-align: center;\r\n    margin-top: 5px;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    width: 100%;\r\n}\r\n\r\n.alignmentadj{\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n}\r\n\r\n.ui.inverted.vertical{\r\n    background: rgba(219, 69, 55, 0.884);\r\n    color: rgba(255, 255, 255, 0.9);\r\n}\r\n\r\na {\r\n    color:#ffffff;\r\n}\r\n\r\n.ui.top.attached.demo.menu{\r\n    background: #DB4437;\r\n    color: #ffffff;\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: flex-start;\r\n    \r\n}\r\n\r\n.sidebar.icon{\r\n    color: #ffffff;\r\n}\r\n\r\n.pushable {\r\n  min-height: 100vh;\r\n}\r\n\r\n.ui.wide.left.sidebar, .ui.wide.right.sidebar {\r\n  height: 100vh;\r\n  position: fixed !important;\r\n  bottom: 0px !important;\r\n  top: 0px !important;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxrQkFBa0I7SUFDbEIsZUFBZTtJQUNmLGFBQWE7SUFDYixtQkFBbUI7SUFDbkIsOEJBQThCO0lBQzlCLFdBQVc7QUFDZjs7QUFFQTtJQUNJLFdBQVc7SUFDWCxhQUFhO0lBQ2IsbUJBQW1CO0lBQ25CLHVCQUF1QjtBQUMzQjs7QUFHQTtJQUNJLG9DQUFvQztJQUNwQywrQkFBK0I7QUFDbkM7O0FBRUE7SUFDSSxhQUFhO0FBQ2pCOztBQUdBO0lBQ0ksbUJBQW1CO0lBQ25CLGNBQWM7SUFDZCxnQkFBZ0I7SUFDaEIsbUJBQW1CO0lBQ25CLGFBQWE7SUFDYixtQkFBbUI7SUFDbkIsMkJBQTJCOztBQUUvQjs7QUFHQTtJQUNJLGNBQWM7QUFDbEI7O0FBSUE7RUFDRSxpQkFBaUI7QUFDbkI7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsMEJBQTBCO0VBQzFCLHNCQUFzQjtFQUN0QixtQkFBbUI7QUFDckIiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi50aXRsZWNvbnRhaW5lcntcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIG1hcmdpbi10b3A6IDVweDtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbi5hbGlnbm1lbnRhZGp7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbn1cclxuXHJcblxyXG4udWkuaW52ZXJ0ZWQudmVydGljYWx7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2JhKDIxOSwgNjksIDU1LCAwLjg4NCk7XHJcbiAgICBjb2xvcjogcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjkpO1xyXG59XHJcblxyXG5hIHtcclxuICAgIGNvbG9yOiNmZmZmZmY7XHJcbn1cclxuXHJcblxyXG4udWkudG9wLmF0dGFjaGVkLmRlbW8ubWVudXtcclxuICAgIGJhY2tncm91bmQ6ICNEQjQ0Mzc7XHJcbiAgICBjb2xvcjogI2ZmZmZmZjtcclxuICAgIHBhZGRpbmctdG9wOiA1cHg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogNXB4O1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGZsZXgtc3RhcnQ7XHJcbiAgICBcclxufVxyXG5cclxuXHJcbi5zaWRlYmFyLmljb257XHJcbiAgICBjb2xvcjogI2ZmZmZmZjtcclxufVxyXG5cclxuXHJcblxyXG4ucHVzaGFibGUge1xyXG4gIG1pbi1oZWlnaHQ6IDEwMHZoO1xyXG59XHJcblxyXG4udWkud2lkZS5sZWZ0LnNpZGViYXIsIC51aS53aWRlLnJpZ2h0LnNpZGViYXIge1xyXG4gIGhlaWdodDogMTAwdmg7XHJcbiAgcG9zaXRpb246IGZpeGVkICFpbXBvcnRhbnQ7XHJcbiAgYm90dG9tOiAwcHggIWltcG9ydGFudDtcclxuICB0b3A6IDBweCAhaW1wb3J0YW50O1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -535,7 +538,7 @@ module.exports = ".titlecontainer{\r\n    text-align: center;\r\n    margin-left
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n\r\n\r\n <div class=\"ui top attached demo menu\">\r\n   \r\n    <a class=\"item\" (click)=\"sidebar.toggle()\">\r\n        <i class=\"sidebar icon\"></i>\r\n    </a>\r\n    <div class=\"titlecontainer\">\r\n        <h2>{{title}}</h2>\r\n    </div>\r\n</div>\r\n\r\n\r\n<sui-sidebar-container class=\"ui attached segment pushable\"> <!-->Removed bottom <-->\r\n    <sui-sidebar class=\"inverted vertical\" #sidebar>\r\n        <br><br>\r\n        <ul>\r\n            <li> <a routerLink=\"/home\" (click)=\"sidebar.toggle()\">Home</a></li><br>\r\n            <li> <a routerLink=\"/profile\" (click)=\"sidebar.toggle()\">Profile</a></li><br>\r\n            <!--<li> <a routerLink=\"/register\">Register</a></li><br>-->\r\n            <!--<li> <a routerLink=\"/login\">Login</a></li><br>-->\r\n            <li> <a routerLink=\"/contact\" (click)=\"sidebar.toggle()\">Contact</a></li><br>\r\n            <li> <a routerLink=\"/calender\" (click)=\"sidebar.toggle()\">Calendar</a></li><br>\r\n            <li> <a routerLink=\"/alertpartners\" (click)=\"sidebar.toggle()\">Alert Partner</a></li><br>\r\n            <li> <a routerLink=\"/sexualhistory\" (click)=\"sidebar.toggle()\">Sexual Activity</a></li><br>\r\n            <li> <a routerLink=\"/diagnosishistory\" (click)=\"sidebar.toggle()\">Diagnosis History</a></li><br>\r\n            <li> <a routerLink=\"/about\" (click)=\"sidebar.toggle()\">About Us</a></li><br>\r\n        </ul>\r\n      \r\n    </sui-sidebar>\r\n    <sui-sidebar-sibling [isDimmedWhenVisible]=\"true\">\r\n        <div class=\"rendercontainer\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n    </sui-sidebar-sibling>\r\n</sui-sidebar-container>\r\n\r\n\r\n\r\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n\r\n\r\n<div class=\"ui top attached demo menu\">\r\n    <div>\r\n         <a class=\"item\" (click)=\"sidebar.toggle()\">\r\n             <i class=\"sidebar icon\"></i>\r\n         </a>\r\n    </div>\r\n     <div class=\"titlecontainer alignmentadj\">\r\n         <h2>{{title}}</h2>\r\n     </div>\r\n </div>\r\n \r\n \r\n <sui-sidebar-container class=\"ui attached segment pushable\"> <!--Removed bottom <-->\r\n     <sui-sidebar class=\"inverted vertical\" #sidebar>\r\n         <br><br>\r\n         <ul>\r\n             <li> <a routerLink=\"/home\" (click)=\"sidebar.toggle()\">Home</a></li><br>\r\n             <li> <a routerLink=\"/profile\" (click)=\"sidebar.toggle()\">Profile</a></li><br>\r\n             <!--<li> <a routerLink=\"/register\">Register</a></li><br>-->\r\n             <!--<li> <a routerLink=\"/login\">Login</a></li><br>-->\r\n             <li> <a routerLink=\"/contact\" (click)=\"sidebar.toggle()\">Contact</a></li><br>\r\n             <li> <a routerLink=\"/calender\" (click)=\"sidebar.toggle()\">Calendar</a></li><br>\r\n             <li> <a routerLink=\"/alertpartners\" (click)=\"sidebar.toggle()\">Alert Partner</a></li><br>\r\n             <li> <a routerLink=\"/sexualhistory\" (click)=\"sidebar.toggle()\">Sexual Activity</a></li><br>\r\n             <li> <a routerLink=\"/diagnosishistory\" (click)=\"sidebar.toggle()\">Diagnosis History</a></li><br>\r\n             <li> <a routerLink=\"/about\" (click)=\"sidebar.toggle()\">About Us</a></li><br>\r\n         </ul>\r\n       \r\n     </sui-sidebar>\r\n     <sui-sidebar-sibling [isDimmedWhenVisible]=\"true\">\r\n         <div class=\"rendercontainer\">\r\n             <router-outlet></router-outlet>\r\n         </div>\r\n     </sui-sidebar-sibling>\r\n </sui-sidebar-container>\r\n \r\n \r\n \r\n "
 
 /***/ }),
 
@@ -622,6 +625,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm5/icon.es5.js");
 /* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm5/datepicker.es5.js");
 /* harmony import */ var _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @angular/material/button-toggle */ "./node_modules/@angular/material/esm5/button-toggle.es5.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _calender_add_events_add_events_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./calender/add-events/add-events.component */ "./src/app/calender/add-events/add-events.component.ts");
+/* harmony import */ var _angular_material_divider__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @angular/material/divider */ "./node_modules/@angular/material/esm5/divider.es5.js");
 
 
 
@@ -662,6 +668,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -690,6 +699,7 @@ var AppModule = /** @class */ (function () {
                 _calender_calender_component__WEBPACK_IMPORTED_MODULE_27__["CalenderComponent"],
                 _contact_delete_contact_delete_contact_component__WEBPACK_IMPORTED_MODULE_30__["DeleteContactComponent"],
                 _sexual_history_add_sexual_delete_partner_delete_partner_component__WEBPACK_IMPORTED_MODULE_31__["DeletePartnerComponent"],
+                _calender_add_events_add_events_component__WEBPACK_IMPORTED_MODULE_38__["AddEventsComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -711,16 +721,73 @@ var AppModule = /** @class */ (function () {
                 _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_35__["MatDatepickerModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatNativeDateModule"],
                 _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_36__["MatButtonToggleModule"],
+                _angular_material_divider__WEBPACK_IMPORTED_MODULE_39__["MatDividerModule"],
                 angular_calendar__WEBPACK_IMPORTED_MODULE_32__["CalendarModule"].forRoot({
                     provide: angular_calendar__WEBPACK_IMPORTED_MODULE_32__["DateAdapter"],
                     useFactory: angular_calendar_date_adapters_date_fns__WEBPACK_IMPORTED_MODULE_33__["adapterFactory"]
                 })
             ],
-            providers: [_services_contact_service__WEBPACK_IMPORTED_MODULE_14__["ContactService"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_35__["MatDatepickerModule"]],
+            providers: [{ provide: _angular_common__WEBPACK_IMPORTED_MODULE_37__["APP_BASE_HREF"], useValue: '/' }, _services_contact_service__WEBPACK_IMPORTED_MODULE_14__["ContactService"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_35__["MatDatepickerModule"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]],
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/calender/add-events/add-events.component.css":
+/*!**************************************************************!*\
+  !*** ./src/app/calender/add-events/add-events.component.css ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".events-container {\r\n    display: flex;\r\n    flex-direction: column;\r\n  }\r\n  \r\n  .title-container > * {\r\n    width: 100%;\r\n  }\r\n  \r\n  .buttons {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n  \r\n  form {\r\npadding-left: 3%;\r\npadding-right: 3%;\r\n}\r\n  \r\n  .title {\r\npadding-left: 3%;\r\npadding-right: 3%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FsZW5kZXIvYWRkLWV2ZW50cy9hZGQtZXZlbnRzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0lBQ2Isc0JBQXNCO0VBQ3hCOztFQUVBO0lBQ0UsV0FBVztFQUNiOztFQUVBO0lBQ0UsYUFBYTtJQUNiLHVCQUF1QjtBQUMzQjs7RUFFQTtBQUNBLGdCQUFnQjtBQUNoQixpQkFBaUI7QUFDakI7O0VBRUE7QUFDQSxnQkFBZ0I7QUFDaEIsaUJBQWlCO0FBQ2pCIiwiZmlsZSI6InNyYy9hcHAvY2FsZW5kZXIvYWRkLWV2ZW50cy9hZGQtZXZlbnRzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZXZlbnRzLWNvbnRhaW5lciB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICB9XHJcbiAgXHJcbiAgLnRpdGxlLWNvbnRhaW5lciA+ICoge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgfVxyXG5cclxuICAuYnV0dG9ucyB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbn1cclxuXHJcbmZvcm0ge1xyXG5wYWRkaW5nLWxlZnQ6IDMlO1xyXG5wYWRkaW5nLXJpZ2h0OiAzJTtcclxufVxyXG5cclxuLnRpdGxlIHtcclxucGFkZGluZy1sZWZ0OiAzJTtcclxucGFkZGluZy1yaWdodDogMyU7XHJcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/calender/add-events/add-events.component.html":
+/*!***************************************************************!*\
+  !*** ./src/app/calender/add-events/add-events.component.html ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!DOCTYPE html>\r\n<html>\r\n\r\n<div class=\"title\">\r\n  <h2>New event</h2>\r\n</div>\r\n\r\n<form>\r\n\r\n  <div class=\"title-container\">\r\n    <mat-form-field>\r\n      <input matInput placeholder=\"Enter title\">\r\n    </mat-form-field>\r\n  </div>\r\n\r\n  <mat-divider></mat-divider>\r\n\r\n  <div class=\"date-container\">\r\n    <h3>Date:</h3>\r\n    <mat-form-field>\r\n      <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\">\r\n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n      <mat-datepicker #picker></mat-datepicker>\r\n    </mat-form-field>\r\n    <mat-divider></mat-divider>\r\n\r\n    <div class=\"clock\">\r\n      <h3>Time:</h3>\r\n      <mat-form-field>\r\n        <input matInput placeholder=\"Hour\">\r\n      </mat-form-field>\r\n      <br>\r\n      <mat-form-field>\r\n        <input matInput placeholder=\"Minute\">\r\n      </mat-form-field>\r\n      <br>\r\n    </div>\r\n\r\n    <mat-radio-group aria-label=\"Select an option\">\r\n      <mat-radio-button value=\"AM\">AM</mat-radio-button><br><br>\r\n      <mat-radio-button value=\"PM\">PM</mat-radio-button>\r\n    </mat-radio-group>\r\n  </div>\r\n  <br>\r\n  <mat-divider></mat-divider>\r\n\r\n  <div class=\"alert-container\">\r\n    <h3>Select Alert:</h3>\r\n    <mat-form-field>\r\n      <mat-select placeholder=\"Alert\">\r\n        <mat-option value=\"None\">None</mat-option>\r\n        <mat-option value=\"On time\">On time</mat-option>\r\n        <mat-option value=\"5\">5 mins before</mat-option>\r\n        <mat-option value=\"15\">15 mins before</mat-option>\r\n        <mat-option value=\"30\">30 mins before</mat-option>\r\n        <mat-option value=\"1hr\">1 hour before</mat-option>\r\n        <mat-option value=\"1d\">1 day before</mat-option>\r\n      </mat-select>\r\n    </mat-form-field>\r\n  </div>\r\n  <mat-divider></mat-divider>\r\n\r\n  <div class=\"repeat-container\">\r\n    <h3>Select Repeat:</h3>\r\n    <mat-form-field>\r\n      <mat-select placeholder=\"Repeat\">\r\n        <mat-option value=\"never\">Never</mat-option>\r\n        <mat-option value=\"daily\">Daily</mat-option>\r\n        <mat-option value=\"weekly\">Weekly</mat-option>\r\n        <mat-option value=\"monthly\">Monthly</mat-option>\r\n        <mat-option value=\"yearly\">Yearly</mat-option>\r\n      </mat-select>\r\n    </mat-form-field>\r\n  </div>\r\n  <mat-divider></mat-divider>\r\n\r\n  <div class=\"events-container\">\r\n    <mat-form-field class=\"note\">\r\n      <textarea matInput placeholder=\"Note\"></textarea>\r\n    </mat-form-field>\r\n\r\n\r\n  </div>\r\n\r\n  <div class=\"buttons\">\r\n    <button mat-flat-button color=\"primary\">Save</button>\r\n  </div>\r\n\r\n</form>\r\n\r\n</html>"
+
+/***/ }),
+
+/***/ "./src/app/calender/add-events/add-events.component.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/calender/add-events/add-events.component.ts ***!
+  \*************************************************************/
+/*! exports provided: AddEventsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddEventsComponent", function() { return AddEventsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var AddEventsComponent = /** @class */ (function () {
+    function AddEventsComponent() {
+    }
+    AddEventsComponent.prototype.ngOnInit = function () {
+    };
+    AddEventsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-add-events',
+            template: __webpack_require__(/*! ./add-events.component.html */ "./src/app/calender/add-events/add-events.component.html"),
+            styles: [__webpack_require__(/*! ./add-events.component.css */ "./src/app/calender/add-events/add-events.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], AddEventsComponent);
+    return AddEventsComponent;
 }());
 
 
@@ -745,7 +812,7 @@ module.exports = "\r\n\r\nh3 {\r\n    margin: 0 0 10px;\r\n  }\r\n  \r\n  pre {\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\r\n<html>\r\n\r\n<!--<div class =\"defaultContainer\">\r\n    <full-calendar defaultView=\"dayGridMonth\" [plugins]=\"calendarPlugins\"></full-calendar>\r\n</div>-->\r\n\r\n<div class=\"todaydate\">\r\n    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>\r\n  </div>\r\n\r\n<div [ngSwitch]=\"view\">\r\n    <mwl-calendar-month-view *ngSwitchCase=\"CalendarView.Month\" [viewDate]=\"viewDate\" [events]=\"events\"\r\n      [refresh]=\"refresh\" [activeDayIsOpen]=\"activeDayIsOpen\" (dayClicked)=\"dayClicked($event.day)\"\r\n      (eventClicked)=\"handleEvent('Clicked', $event.event)\" (eventTimesChanged)=\"eventTimesChanged($event)\">\r\n    </mwl-calendar-month-view>\r\n    <mwl-calendar-week-view *ngSwitchCase=\"CalendarView.Week\" [viewDate]=\"viewDate\" [events]=\"events\" [refresh]=\"refresh\"\r\n      (eventClicked)=\"handleEvent('Clicked', $event.event)\" (eventTimesChanged)=\"eventTimesChanged($event)\">\r\n    </mwl-calendar-week-view>\r\n    <mwl-calendar-day-view *ngSwitchCase=\"CalendarView.Day\" [viewDate]=\"viewDate\" [events]=\"events\" [refresh]=\"refresh\"\r\n      (eventClicked)=\"handleEvent('Clicked', $event.event)\" (eventTimesChanged)=\"eventTimesChanged($event)\">\r\n    </mwl-calendar-day-view>\r\n\r\n\r\n\r\n\r\n  \r\n    <table>\r\n      <tr>\r\n      <td><div class=\"btn btn-primary\" mwlCalendarPreviousView [view]=\"view\" [(viewDate)]=\"viewDate\"\r\n        (viewDateChange)=\"closeOpenMonthViewDay()\">\r\n        <button mat-button>Previous</button>\r\n      </div></td>\r\n\r\n      <td><div class=\"btn btn-outline-secondary\" mwlCalendarToday [(viewDate)]=\"viewDate\">\r\n        <button mat-button>Today</button>\r\n      </div></td>\r\n\r\n      <td><div class=\"btn btn-primary\" mwlCalendarNextView [view]=\"view\" [(viewDate)]=\"viewDate\"\r\n        (viewDateChange)=\"closeOpenMonthViewDay()\">\r\n        <button mat-button>Next</button>\r\n      </div></td>\r\n    </tr>\r\n    \r\n   \r\n    <!--<tr>\r\n      <td><div class=\"btn btn-primary\" (click)=\"setView(CalendarView.Month)\" [class.active]=\"view === CalendarView.Month\">\r\n        <button mat-button>Month</button>\r\n      </div></td>\r\n      <td><div class=\"btn btn-primary\" (click)=\"setView(CalendarView.Week)\" [class.active]=\"view === CalendarView.Week\">\r\n        <button mat-button>Week</button>\r\n      </div></td>\r\n      <td><div class=\"btn btn-primary\" (click)=\"setView(CalendarView.Day)\" [class.active]=\"view === CalendarView.Day\">\r\n        <button mat-button>Day</button>\r\n      </div></td>\r\n    </tr>-->\r\n  \r\n</table>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n  <br><br>\r\n\r\n  <!-- Everything you see below is just for the demo, you don't need to include it in your app -->\r\n\r\n\r\n  <h3>\r\n    Edit events\r\n    <button mat-button (click)=\"addEvent()\">\r\n      add\r\n    </button>\r\n    <div class=\"clearfix\"></div>\r\n  </h3>\r\n  \r\n  <div class=\"table-responsive\">\r\n    <table class=\"table table-bordered\">\r\n  \r\n      <tbody>\r\n        <tr *ngFor=\"let event of events\">\r\n          <td>\r\n            <input type=\"text\" class=\"form-control\" [(ngModel)]=\"event.title\" (keyup)=\"refresh.next()\" />\r\n          </td>\r\n  \r\n  \r\n          <td>\r\n            <input class=\"form-control\" type=\"text\" mwlFlatpickr [(ngModel)]=\"event.start\"\r\n              (ngModelChange)=\"refresh.next()\" dateFormat=\"Y-m-dTH:i\" altFormat=\"F j, Y H:i\" placeholder=\"Not set\" />\r\n          </td>\r\n  \r\n          <td>\r\n            <button class=\"remove\" mat-button (click)=\"deleteEvent(event)\">\r\n              remove\r\n            </button>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n    <br><br><br><br>\r\n  </div>\r\n\r\n\r\n\r\n\r\n</div>\r\n\r\n\r\n\r\n</html>"
+module.exports = "<!DOCTYPE html>\r\n<html>\r\n\r\n<div class=\"todaydate\">\r\n    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>\r\n</div>\r\n\r\n<div [ngSwitch]=\"view\">\r\n\r\n    <mwl-calendar-month-view *ngSwitchCase=\"CalendarView.Month\" [viewDate]=\"viewDate\" [events]=\"events\"\r\n      [refresh]=\"refresh\" [activeDayIsOpen]=\"activeDayIsOpen\" (dayClicked)=\"dayClicked($event.day)\"\r\n      (eventClicked)=\"handleEvent('Clicked', $event.event)\" (eventTimesChanged)=\"eventTimesChanged($event)\">\r\n    </mwl-calendar-month-view>\r\n    <mwl-calendar-week-view *ngSwitchCase=\"CalendarView.Week\" [viewDate]=\"viewDate\" [events]=\"events\" [refresh]=\"refresh\"\r\n      (eventClicked)=\"handleEvent('Clicked', $event.event)\" (eventTimesChanged)=\"eventTimesChanged($event)\">\r\n    </mwl-calendar-week-view>\r\n    <mwl-calendar-day-view *ngSwitchCase=\"CalendarView.Day\" [viewDate]=\"viewDate\" [events]=\"events\" [refresh]=\"refresh\"\r\n      (eventClicked)=\"handleEvent('Clicked', $event.event)\" (eventTimesChanged)=\"eventTimesChanged($event)\">\r\n    </mwl-calendar-day-view>\r\n\r\n<!-- Code for Next Today previous button -->\r\n    <table>\r\n      <tr>\r\n      <td><div class=\"btn btn-primary\" mwlCalendarPreviousView [view]=\"view\" [(viewDate)]=\"viewDate\"\r\n        (viewDateChange)=\"closeOpenMonthViewDay()\">\r\n        <button mat-flat-button color=\"primary\">Previous</button>\r\n      </div></td>\r\n\r\n      <td>\r\n        <button mat-flat-button color=\"primary\"><a href= \"../add-events\">Add new Event</a></button>\r\n      </td>\r\n\r\n      <td><div class=\"btn btn-primary\" mwlCalendarNextView [view]=\"view\" [(viewDate)]=\"viewDate\"\r\n        (viewDateChange)=\"closeOpenMonthViewDay()\">\r\n        <button mat-flat-button color=\"primary\">Next</button>\r\n      </div></td>\r\n    </tr>\r\n    \r\n   \r\n    <!--<tr>\r\n      <td><div class=\"btn btn-primary\" (click)=\"setView(CalendarView.Month)\" [class.active]=\"view === CalendarView.Month\">\r\n        <button mat-button>Month</button>\r\n      </div></td>\r\n      <td><div class=\"btn btn-primary\" (click)=\"setView(CalendarView.Week)\" [class.active]=\"view === CalendarView.Week\">\r\n        <button mat-button>Week</button>\r\n      </div></td>\r\n      <td><div class=\"btn btn-primary\" (click)=\"setView(CalendarView.Day)\" [class.active]=\"view === CalendarView.Day\">\r\n        <button mat-button>Day</button>\r\n      </div></td>\r\n    </tr>-->\r\n  \r\n    </table>\r\n</div>\r\n\r\n\r\n\r\n</html>"
 
 /***/ }),
 
@@ -917,7 +984,7 @@ module.exports = ".submitbutton {\r\n    margin: auto;\r\n    display: block;\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"defaultContainer\">\r\n  <h2>Add a Contact</h2>\r\n  <form>\r\n      <div class=\"form-container\">\r\n          Contact Details: <br>\r\n          <mat-form-field>\r\n              <input matInput id=\"firstname\" placeholder=\"First name..\" required>\r\n              <mat-icon matSuffix></mat-icon>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <input matInput id=\"lastname\" placeholder=\"Last name..\" required>\r\n              <mat-icon matSuffix></mat-icon>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <input matInput id=\"phone\" placeholder=\"Phone number..\">\r\n              <mat-icon matSuffix>phone</mat-icon>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <input matInput id=\"email\" placeholder=\"Email..\" [formControl]=\"email\">\r\n              <mat-icon matSuffix>email</mat-icon>\r\n              <mat-error *ngIf=\"email.invalid\">{{getErrorMessage()}}</mat-error>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <!--\r\n        <input matInput id=\"age\" placeholder=\"Age..\">\r\n        <mat-icon matSuffix></mat-icon>\r\n        -->\r\n              <mat-label>Age.. </mat-label>\r\n              <mat-select>\r\n                  <mat-option *ngFor=\"let age of ages\" [value]=\"age.value\">\r\n                      {{age.viewValue}}\r\n                  </mat-option>\r\n              </mat-select>\r\n          </mat-form-field><br>\r\n          <br>\r\n\r\n          <mat-radio-group aria-label=\"Select a Gender\">\r\n              Gender*:<br>\r\n              <mat-radio-button value=\"m\">Male</mat-radio-button><br>\r\n              <mat-radio-button value=\"f\">Female</mat-radio-button><br>\r\n              <mat-radio-button value=\"o\">Other</mat-radio-button><br>\r\n          </mat-radio-group><br><br>\r\n\r\n          Comments: <br>\r\n          <mat-form-field>\r\n              <textarea matInput id=\"comment\" formControlName=\"comment\" placeholder=\"Add your comments..\"\r\n                        rows=\"5\" cols=\"10\"></textarea>\r\n          </mat-form-field>\r\n          <br><br>\r\n\r\n          Add New User Social Media Screenshot: <br><br>\r\n          <button mat-stroked-button>Browse..</button> <!--(click)=\"fileInput.click()\"-->\r\n          onFileSelected function has not been created yet.\r\n          <!--<input hidden (change)=\"onFileSelected()\" #fileInput type=\"file\" id=\"file\">-->\r\n          <br><br><br>\r\n\r\n          <button mat-button class=\"submitbutton\" type=\"submit\" onclick=\"window.location.href = '../contact/'\">Submit</button><br>\r\n          <br><br>\r\n      </div>\r\n  </form>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"defaultContainer\">\r\n  <h2>Add a Contact</h2> {{ diagnostic }}\r\n  <form (ngSubmit)=\"onSubmit()\" #contactForm=\"ngForm\">\r\n      <div class=\"form-container\">\r\n          Contact Details: <br>\r\n          <mat-form-field>\r\n              <input matInput id=\"firstname\" placeholder=\"First name..\" [(ngModel)]=\"contact.firstname\" name=\"firstname\" required>\r\n              <mat-icon matSuffix></mat-icon>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <input matInput id=\"lastname\" placeholder=\"Last name..\" [(ngModel)]=\"contact.lastname\" name=\"lastname\" required>\r\n              <mat-icon matSuffix></mat-icon>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <input matInput id=\"phone\" placeholder=\"Phone number..\" [(ngModel)]=\"contact.phone\" name=\"phone\">\r\n              <mat-icon matSuffix>phone</mat-icon>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <input matInput id=\"email\" placeholder=\"Email..\" [formControl]=\"email\" [(ngModel)]=\"contact.email\" name=\"email\">\r\n              <mat-icon matSuffix>email</mat-icon>\r\n              <mat-error *ngIf=\"email.invalid\">{{getErrorMessage()}}</mat-error>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <!--\r\n        <input matInput id=\"age\" placeholder=\"Age..\">\r\n        <mat-icon matSuffix></mat-icon>\r\n        -->\r\n              <mat-label>Age.. </mat-label>\r\n              <mat-select [(ngModel)]=\"contact.age\" name=\"age\">\r\n                  <mat-option *ngFor=\"let age of ages\" [value]=\"age.value\">\r\n                      {{age.viewValue}}\r\n                  </mat-option>\r\n              </mat-select>\r\n          </mat-form-field><br>\r\n          <br>\r\n\r\n          <mat-radio-group aria-label=\"Select a Gender\" [(ngModel)]=\"contact.gender\" name=\"gender\">\r\n              Gender*:<br>\r\n              <mat-radio-button value=\"m\">Male</mat-radio-button><br>\r\n              <mat-radio-button value=\"f\">Female</mat-radio-button><br>\r\n              <mat-radio-button value=\"o\">Other</mat-radio-button><br>\r\n          </mat-radio-group><br><br>\r\n\r\n          Comments: <br>\r\n          <mat-form-field>\r\n              <textarea matInput id=\"comment\" placeholder=\"Add your comments..\"\r\n                        rows=\"5\" cols=\"10\" [(ngModel)]=\"contact.comment\" name=\"comment\"></textarea>\r\n          </mat-form-field>\r\n          <br><br>\r\n\r\n          Add New User Social Media Screenshot: <br><br>\r\n          <button mat-stroked-button>Browse..</button> <!--(click)=\"fileInput.click()\"-->\r\n          onFileSelected function has not been created yet.\r\n          <!--<input hidden (change)=\"onFileSelected()\" #fileInput type=\"file\" id=\"file\">-->\r\n          <br><br><br>\r\n\r\n          <button mat-button class=\"submitbutton\" type=\"submit\" [disabled]=\"!contactForm.form.valid\"\r\n            onclick=\"window.location.href = '../contact/'\">Submit</button><br>\r\n          <br><br>\r\n      </div>\r\n  </form>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -933,13 +1000,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContactFormComponent", function() { return ContactFormComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _models_person__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/person */ "./src/app/models/person.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
 
 
 
 var ContactFormComponent = /** @class */ (function () {
     function ContactFormComponent() {
-        this.email = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email]);
+        this.contact = new _models_person__WEBPACK_IMPORTED_MODULE_2__["Person"]();
+        this.email = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].email]);
         this.ages = [
             { value: 18, viewValue: 18 },
             { value: 19, viewValue: 19 },
@@ -986,6 +1056,13 @@ var ContactFormComponent = /** @class */ (function () {
             { value: 70, viewValue: 70 }
         ];
     }
+    Object.defineProperty(ContactFormComponent.prototype, "diagnostic", {
+        // TODO: Remove this after completion
+        get: function () { return JSON.stringify(this.contact); },
+        enumerable: true,
+        configurable: true
+    });
+    ContactFormComponent.prototype.onSubmit = function () { };
     ContactFormComponent.prototype.getErrorMessage = function () {
         return this.email.hasError('required') ? 'You must enter a value' :
             this.email.hasError('email') ? 'Not a valid email' :
@@ -1097,7 +1174,7 @@ module.exports = "li{\r\n    font-size: 18px;\r\n    margin: 15px 0;\r\n    list
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"defaultContainer\">\r\n  <h2>Contacts</h2>\r\n  <div class=\"search\">\r\n    <input id=\"search\" class=\"autosearch\" [(ngModel)]=\"query\" type=\"text\" placeholder=\"Search a name..\"><br>\r\n  </div>\r\n\r\n  <div class=\"contact_list\">\r\n    <form>\r\n      <ul class=\"contacts\">\r\n          <li *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\"\r\n            [class.selected]=\"person === selectedPerson\"\r\n            (click)=\"onSelect(person)\">\r\n            <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n              height=\"18\" width=\"18\">&nbsp;&nbsp;\r\n            <mat-checkbox name=\"contact\" value=\"\">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>\r\n        </li>\r\n      </ul>\r\n      <button mat-button name=\"delete\" onclick=\"window.location.href = '../contact/'\">Delete</button><br>\r\n    </form>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"defaultContainer\">\r\n  <h2>Contacts</h2> {{ diagnostic }}\r\n  <div class=\"search\">\r\n    <input id=\"search\" class=\"autosearch\" [(ngModel)]=\"query\" type=\"text\" placeholder=\"Search a name..\"><br>\r\n  </div>\r\n\r\n  <div class=\"contact_list\">\r\n    <form>\r\n      <ul class=\"contacts\">\r\n         <!-- <li *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\"\r\n            [class.selected]=\"person === selectedPerson\"\r\n            (click)=\"onSelect(person)\">  -->\r\n          <li *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\">\r\n            <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n              height=\"18\" width=\"18\">&nbsp;&nbsp;\r\n            <!--\r\n            <mat-checkbox value=\"{{person.id}}\"\r\n            [(ngModel)]=\"persons.contact\" name=\"{{person.firstname}}\">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>\r\n            -->\r\n            <mat-checkbox [value]=\"delete_persons\"\r\n            [(ngModel)]=\"person.selected\" (change)=\"OnCheckboxSelect(person, $event.checked)\" name=\"persons\">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>\r\n\r\n          </li>\r\n      </ul>\r\n      <button mat-button name=\"delete\" onclick=\"window.location.href = '../contact/'\">Delete</button><br>\r\n    </form>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1125,6 +1202,25 @@ var DeleteContactComponent = /** @class */ (function () {
         this.persons = [];
     }
     ;
+    DeleteContactComponent.prototype.OnCheckboxSelect = function (person, status) {
+        if (this.persons.indexOf(person) === -1 && status) {
+            this.persons.push(person);
+        }
+        else if (!status) {
+            var index = this.persons.indexOf(person);
+            this.persons.splice(index, 1);
+        }
+        //console.log(this.persons);
+    };
+    DeleteContactComponent.prototype.OnSubmit = function () {
+        // Submit every person where person.selected == true
+        // Delete those from the database
+    };
+    Object.defineProperty(DeleteContactComponent.prototype, "diagnostic", {
+        get: function () { return JSON.stringify(this.persons); },
+        enumerable: true,
+        configurable: true
+    });
     DeleteContactComponent.prototype.ngOnInit = function () {
         this.persons = this._contactService.filterBy();
     };
@@ -1284,7 +1380,7 @@ var EditprofileComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n.set_flex_column{\r\n    display: flex;\r\n    flex-direction: column;\r\n\r\n}\r\n\r\n.set_flex_column .set_center{\r\n    text-align: center;\r\n}\r\n\r\n.set_flex_row{\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUNBO0lBQ0ksYUFBYTtJQUNiLHNCQUFzQjs7QUFFMUI7O0FBRUE7SUFDSSxrQkFBa0I7QUFDdEI7O0FBRUE7SUFDSSxhQUFhO0lBQ2IsbUJBQW1CO0lBQ25CLDhCQUE4QjtBQUNsQyIsImZpbGUiOiJzcmMvYXBwL2hvbWUvaG9tZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXHJcbi5zZXRfZmxleF9jb2x1bW57XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuXHJcbn1cclxuXHJcbi5zZXRfZmxleF9jb2x1bW4gLnNldF9jZW50ZXJ7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5zZXRfZmxleF9yb3d7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxufSJdfQ== */"
+module.exports = "\r\n.set_flex_column{\r\n    display: flex;\r\n    flex-direction: column;\r\n\r\n}\r\n\r\n.set_flex_column .set_center{\r\n    text-align: center;\r\n}\r\n\r\n.set_flex_row{\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n}\r\n\r\n.headhm {\r\n    display:flex;\r\n    justify-content: center;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUNBO0lBQ0ksYUFBYTtJQUNiLHNCQUFzQjs7QUFFMUI7O0FBRUE7SUFDSSxrQkFBa0I7QUFDdEI7O0FBRUE7SUFDSSxhQUFhO0lBQ2IsbUJBQW1CO0lBQ25CLDhCQUE4QjtBQUNsQzs7QUFFQTtJQUNJLFlBQVk7SUFDWix1QkFBdUI7QUFDM0IiLCJmaWxlIjoic3JjL2FwcC9ob21lL2hvbWUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIlxyXG4uc2V0X2ZsZXhfY29sdW1ue1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcblxyXG59XHJcblxyXG4uc2V0X2ZsZXhfY29sdW1uIC5zZXRfY2VudGVye1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4uc2V0X2ZsZXhfcm93e1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XHJcbn1cclxuXHJcbi5oZWFkaG0ge1xyXG4gICAgZGlzcGxheTpmbGV4O1xyXG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1295,7 +1391,7 @@ module.exports = "\r\n.set_flex_column{\r\n    display: flex;\r\n    flex-direct
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<html>\r\n\r\n<body>\r\n  <!-->If Alert Partner is used. Uses longest remaining abstinence<-->\r\n  <div class=\"abstinence\">\r\n    \r\n    <h3><img src=\"../../assets/danger.png\" alt=\"User Image\"\r\n      height=\"18\" width=\"18\"> Abstinence: 8 days left</h3>\r\n  </div>\r\n\r\n\r\n  <div class=\"defaultContainer\">\r\n    <h2>Upcoming</h2>\r\n\r\n    <div class=\"pill\">\r\n      <div class=\"ui card pill\">\r\n        <div class=\"content set_flex_column\">\r\n          <div class=\"header set_center\">Reminder</div>\r\n          <div class=\"set_flex_row\">\r\n            <div>\r\n              <h4>Take Medication</h4>\r\n            </div>\r\n            <div>\r\n              <p>\r\n                10am<br>\r\n                Paracetemol<br>\r\n              </p>\r\n            </div>\r\n          </div>\r\n\r\n\r\n        </div>\r\n        <button class=\"ui button\">Done</button>\r\n      </div>\r\n    </div>\r\n\r\n    <h2>Next Appointment</h2>\r\n\r\n    <div class=\"appointment\">\r\n      <div class=\"ui card appointment\">\r\n        <div class=\"content set_flex_column\">\r\n          <div class=\"header\">Appointment</div>\r\n          <div class=\"set_flex_row\">\r\n            <div><h4>Next Appointmennt</h4></div>\r\n          <div>\r\n            <p><br>\r\n              <a routerlink=\"/calender\">26 December 2019</a><br>\r\n              10am<br>\r\n              Roma Street Hospital<br>\r\n            </p>\r\n          </div>\r\n        </div>\r\n        </div>\r\n        <button class=\"ui button\">Done</button>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"fact\">\r\n      <div class=\"ui card fact\">\r\n        <div class=\"content\">\r\n          <h4>\r\n            Did you know?\r\n          </h4>\r\n          <p>\r\n            {{v}}\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</body>\r\n\r\n<base href=\"/\">\r\n\r\n</html>"
+module.exports = "\r\n  <!--If Alert Partner is used. Uses longest remaining abstinence-->\r\n  <div class=\"abstinence\">\r\n    \r\n    <h3><img src=\"../../assets/danger.png\" alt=\"User Image\"\r\n      height=\"18\" width=\"18\"> Abstinence: 8 days left</h3>\r\n  </div>\r\n\r\n\r\n  <div class=\"defaultContainer\">\r\n\r\n    <div class=\"headhm\">\r\n    <h2>Upcoming</h2>\r\n    </div>\r\n\r\n    <div class=\"pill\">\r\n      <div class=\"ui card pill\">\r\n        <div class=\"content set_flex_column\">\r\n          <div class=\"header set_center\">Reminder</div>\r\n          <div class=\"set_flex_row\">\r\n            <div>\r\n              <h4>Take Medication</h4>\r\n            </div>\r\n            <div>\r\n              <p>\r\n                10am<br>\r\n                Paracetemol<br>\r\n              </p>\r\n            </div>\r\n          </div>\r\n\r\n\r\n        </div>\r\n        <button class=\"ui button\">Done</button>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"headhm\">\r\n    <h2>Next Appointment</h2>\r\n  </div>\r\n\r\n    <div class=\"appointment\">\r\n      <div class=\"ui card appointment\">\r\n        <div class=\"content set_flex_column\">\r\n          <div class=\"header\">Appointment</div>\r\n          <div class=\"set_flex_row\">\r\n            <div><h4>Next Appointmennt</h4></div>\r\n          <div>\r\n            <p><br>\r\n              <a routerlink=\"/calender\">26 December 2019</a><br>\r\n              10am<br>\r\n              Roma Street Hospital<br>\r\n            </p>\r\n          </div>\r\n        </div>\r\n        </div>\r\n        <button class=\"ui button\">Done</button>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"fact\">\r\n      <div class=\"ui card fact\">\r\n        <div class=\"content\">\r\n          <h4>\r\n            Did you know?\r\n          </h4>\r\n          <p>\r\n            {{v}}\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n\r\n\r\n<base href=\"/\">\r\n"
 
 /***/ }),
 
@@ -1545,15 +1641,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PERSONS", function() { return PERSONS; });
 var PERSONS = [
     { id: 11, firstname: "John", lastname: "Smith", phone: "04 *** ***",
-        email: "example@example.com", age: 20, gender: "male", rating: 5 },
+        email: "example@example.com", age: 20, gender: "male", comment: "comment", rating: 5 },
     { id: 12, firstname: "Albert", lastname: "Jones", phone: "04 *** ***",
-        email: "example@example.com", age: 19, gender: "male", rating: 5 },
+        email: "example@example.com", age: 19, gender: "male", comment: "comment", rating: 5 },
     { id: 13, firstname: "Bailey", lastname: "Johnson", phone: "04 *** ***",
-        email: "example@example.com", age: 24, gender: "male", rating: 3 },
+        email: "example@example.com", age: 24, gender: "male", comment: "comment", rating: 3 },
     { id: 14, firstname: "Chloe", lastname: "Miller", phone: "04 *** ***",
-        email: "example@example.com", age: 33, gender: "female", rating: 5 },
+        email: "example@example.com", age: 33, gender: "female", comment: "comment", rating: 5 },
     { id: 15, firstname: "Calvin", lastname: "Brown", phone: "04 *** ***",
-        email: "example@example.com", age: 32, gender: "male", rating: 5 }
+        email: "example@example.com", age: 32, gender: "male", comment: "comment", rating: 5 }
 ];
 
 
@@ -1930,7 +2026,7 @@ module.exports = ".addpartnercontainer{\r\n    width: 80%;\r\n    margin-left: 1
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"addpartnercontainer\">\r\n  <h2>Select Contacts</h2>\r\n  <div class=\"search\">\r\n    <input id=\"search\" class=\"autosearch\" [(ngModel)]=\"query\" type=\"text\" placeholder=\"Search a name..\"><br>\r\n  </div>\r\n\r\n  <form> \r\n    <div class=\"contact_list\">\r\n      <ul class=\"contacts\">\r\n        <li *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\">\r\n            <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n            height=\"18\" width=\"18\">&nbsp;&nbsp;\r\n            <mat-checkbox name=\"partner\" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n\r\n    <button mat-button type=\"submit\" onclick=\"window.location.href = '../addactivity/'\">Add</button><br>\r\n  </form>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"addpartnercontainer\">\r\n  <h2>Select Contacts</h2>\r\n  <div class=\"search\">\r\n    <input id=\"search\" class=\"autosearch\" [(ngModel)]=\"query\" type=\"text\" placeholder=\"Search a name..\"><br>\r\n  </div>\r\n\r\n  <form> \r\n    <div class=\"contact_list\">\r\n      <ul class=\"contacts\">\r\n        <li *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\">\r\n            <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n            height=\"18\" width=\"18\">&nbsp;&nbsp;\r\n            <!--<mat-checkbox name=\"partner\" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>-->\r\n            <mat-checkbox [value]=\"add_persons\"\r\n            [(ngModel)]=\"person.selected\" (change)=\"OnCheckboxSelect(person, $event.checked)\" name=\"persons\">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n\r\n    <button mat-button type=\"submit\" onclick=\"window.location.href = '../addactivity/'\">Add</button><br>\r\n  </form>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -1958,6 +2054,20 @@ var AddPartnerComponent = /** @class */ (function () {
         this.persons = [];
     }
     ;
+    AddPartnerComponent.prototype.OnCheckboxSelect = function (person, status) {
+        if (this.persons.indexOf(person) === -1 && status) {
+            this.persons.push(person);
+        }
+        else if (!status) {
+            var index = this.persons.indexOf(person);
+            this.persons.splice(index, 1);
+        }
+        console.log(this.persons);
+    };
+    AddPartnerComponent.prototype.OnSubmit = function () {
+        // Submit every person where person.selected == true
+        // Delete those from the database
+    };
     AddPartnerComponent.prototype.ngOnInit = function () {
         this.persons = this._contactService.filterBy();
     };
@@ -2001,7 +2111,7 @@ module.exports = ".addsexualcontainer{\r\n    width: 80%;\r\n    margin-left: 15
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"addsexualcontainer\">\r\n  <h2>Add Sexual Activity</h2>\r\n  <h3><u>Participants </u>&nbsp;&nbsp;&nbsp;&nbsp;\r\n    <button mat-stroked-button onclick=\"window.location.href = '../addpartner/'\">Add</button>&nbsp;\r\n    <button mat-stroked-button onclick=\"window.location.href = '../deletepartner/'\">Delete</button><br>\r\n  </h3>\r\n\r\n  <form name=\"partnerlist\">\r\n    <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n      height=\"15\" width=\"15\">&nbsp;&nbsp;\r\n    Contact 1<br>\r\n    <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n      height=\"15\" width=\"15\">&nbsp;&nbsp;\r\n      Contact 2<br>\r\n    <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n      height=\"15\" width=\"15\">&nbsp;&nbsp;Placeholder Contacts..<br><br>\r\n  </form>\r\n\r\n  <form>\r\n    <h3><u>Activities Performed</u></h3>\r\n      <mat-checkbox name=\"activity\" value=\"vaginal\" formControlName=\"activity\"> Vaginal Sex</mat-checkbox><br>\r\n      <mat-checkbox name=\"activity\" value=\"anal\" formControlName=\"activity\"> Anal Sex</mat-checkbox><br>\r\n      <mat-checkbox name=\"activity\" value=\"oral\" formControlName=\"activity\"> Oral Sex</mat-checkbox><br>\r\n      <mat-checkbox name=\"activity\" value=\"other\" formControlName=\"activity\"> Other</mat-checkbox><br>\r\n    <h3><u>Contraceptives Used</u></h3>\r\n      <mat-checkbox name=\"contraceptive\" value=\"condoms\" formControlName=\"contraceptive\"> Condoms</mat-checkbox><br>\r\n      <mat-checkbox name=\"contraceptive\" value=\"pill\" formControlName=\"contraceptive\"> Pill</mat-checkbox><br>\r\n      \r\n    <h3><u>Comments</u></h3>\r\n    <mat-form-field>\r\n      <textarea matInput id=\"comment\" formControlName=\"comment\" placeholder=\"Add your comments..\"\r\n        rows=\"5\" cols=\"10\"></textarea>\r\n    </mat-form-field><br>\r\n    <button class=\"submitbutton\" mat-button type=\"submit\" onclick=\"window.location.href = '../sexualhistory/'\">Add</button><br>\r\n  </form>\r\n  <br><br>\r\n</div>\r\n"
+module.exports = "<div class=\"addsexualcontainer\">\r\n  <h2>Add Sexual Activity</h2>\r\n  <h3><u>Participants </u>&nbsp;&nbsp;&nbsp;&nbsp;\r\n    <button mat-stroked-button onclick=\"window.location.href = '../addpartner/'\">Add</button>&nbsp;\r\n    <button mat-stroked-button onclick=\"window.location.href = '../deletepartner/'\">Delete</button><br>\r\n  </h3>\r\n\r\n  <form name=\"partnerlist\">\r\n    <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n      height=\"15\" width=\"15\">&nbsp;&nbsp;\r\n    Contact 1<br>\r\n    <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n      height=\"15\" width=\"15\">&nbsp;&nbsp;\r\n      Contact 2<br>\r\n    <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n      height=\"15\" width=\"15\">&nbsp;&nbsp;Placeholder Contacts..<br><br>\r\n  </form>\r\n\r\n  <form>\r\n      <!--\r\n    <h3><u>Activities Performed</u></h3>\r\n      <mat-checkbox name=\"activity\" value=\"vaginal\" formControlName=\"activity\"> Vaginal Sex</mat-checkbox><br>\r\n      <mat-checkbox name=\"activity\" value=\"anal\" formControlName=\"activity\"> Anal Sex</mat-checkbox><br>\r\n      <mat-checkbox name=\"activity\" value=\"oral\" formControlName=\"activity\"> Oral Sex</mat-checkbox><br>\r\n      <mat-checkbox name=\"activity\" value=\"other\" formControlName=\"activity\"> Other</mat-checkbox><br>\r\n    <h3><u>Contraceptives Used</u></h3>\r\n      <mat-checkbox name=\"contraceptive\" value=\"condoms\" formControlName=\"contraceptive\"> Condoms</mat-checkbox><br>\r\n      <mat-checkbox name=\"contraceptive\" value=\"pill\" formControlName=\"contraceptive\"> Pill</mat-checkbox><br>\r\n    -->\r\n      <h3><u>Activities Performed</u></h3>\r\n      <li *ngFor=\"let activity of sexualactivity_list\">\r\n          <mat-checkbox [value]=\"sexual_activities\"\r\n                        [(ngModel)]=\"activity.selected\" (change)=\"OnCheckboxSelect(activity, activities_performed, $event.checked)\" name=\"activities\">{{ activity }}Sex</mat-checkbox>\r\n      </li>\r\n      <h3><u>Contraceptives Used</u></h3>\r\n      <li *ngFor=\"let contraceptive of contraceptive_list\">\r\n          <mat-checkbox [value]=\"contraceptives_\"\r\n                        [(ngModel)]=\"contraceptive.selected\" (change)=\"OnCheckboxSelect(contraceptive, contraceptives_used, $event.checked)\" name=\"contraceptives\">{{ contraceptive }}Sex</mat-checkbox>\r\n      </li>\r\n\r\n      <h3><u>Comments</u></h3>\r\n      <!--\r\n    <mat-form-field>\r\n        <textarea matInput id=\"comment\" placeholder=\"Add your comments..\"\r\n          rows=\"5\" cols=\"10\" [(ngModel)]=\"comment\" name=\"comment\"></textarea>\r\n    </mat-form-field><br>\r\n    <button mat-button class=\"submitbutton\" type=\"submit\"\r\n      onclick=\"window.location.href = '../sexualhistory/'\">Submit</button><br>-->\r\n  </form>\r\n      <br><br>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -2021,7 +2131,47 @@ __webpack_require__.r(__webpack_exports__);
 
 var AddSexualComponent = /** @class */ (function () {
     function AddSexualComponent() {
+        this.sexualactivity_list = ["Vaginal", "Anal", "Oral", "Other"];
+        this.contraceptive_list = ["Pill", "Condom"];
+        this.activities_performed = [];
+        this.contraceptives_used = [];
     }
+    AddSexualComponent.prototype.OnCheckboxSelect = function (item, array, status) {
+        if (array.indexOf(item) === -1 && status) {
+            array.push(item);
+        }
+        else if (!status) {
+            var index = array.indexOf(item);
+            array.splice(index, 1);
+        }
+        console.log(array);
+    };
+    /*
+    OnActivityCheckboxSelect(activity, status:boolean) {
+      if (this.activities_performed.indexOf(activity) === -1 && status) {
+        this.activities_performed.push(activity);
+      }
+      else if(!status) {
+        let index = this.activities_performed.indexOf(activity);
+        this.activities_performed.splice(index, 1);
+      }
+      console.log(this.activities_performed);
+    }
+    OnContraceptiveCheckboxSelect(contraceptive, status:boolean) {
+      if (this.contraceptives_used.indexOf(contraceptive) === -1 && status) {
+        this.contraceptives_used.push(contraceptive);
+      }
+      else if(!status) {
+        let index = this.contraceptives_used.indexOf(contraceptive);
+        this.contraceptives_used.splice(index, 1);
+      }
+      console.log(this.contraceptives_used);
+    }
+    */
+    AddSexualComponent.prototype.OnSubmit = function () {
+        // Submit every person where person.selected == true
+        // Delete those from the database
+    };
     AddSexualComponent.prototype.ngOnInit = function () {
     };
     AddSexualComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2057,7 +2207,7 @@ module.exports = ".deletepartnercontainer{\r\n    width: 80%;\r\n    margin-left
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"deletepartnercontainer\">\r\n    <h2>Select Contacts</h2>\r\n    <div class=\"search\">\r\n      <input id=\"search\" class=\"autosearch\" [(ngModel)]=\"query\" type=\"text\" placeholder=\"Search a name..\"><br>\r\n    </div>\r\n  \r\n    <form> \r\n      <div class=\"contact_list\">\r\n        <ul class=\"contacts\">\r\n          <li *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\">\r\n              <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n              height=\"18\" width=\"18\">&nbsp;&nbsp;\r\n              <mat-checkbox name=\"partner\" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n  \r\n      <button mat-button type=\"submit\" onclick=\"window.location.href = '../addactivity/'\">Delete</button><br>\r\n    </form>\r\n  </div>\r\n  \r\n  "
+module.exports = "<div class=\"deletepartnercontainer\">\r\n    <h2>Select Contacts</h2>\r\n    <div class=\"search\">\r\n      <input id=\"search\" class=\"autosearch\" [(ngModel)]=\"query\" type=\"text\" placeholder=\"Search a name..\"><br>\r\n    </div>\r\n  \r\n    <form> \r\n      <div class=\"contact_list\">\r\n        <ul class=\"contacts\">\r\n          <li *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\">\r\n              <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n              height=\"18\" width=\"18\">&nbsp;&nbsp;\r\n              <!--<mat-checkbox name=\"partner\" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>-->\r\n              <mat-checkbox [value]=\"delete_persons\"\r\n              [(ngModel)]=\"person.selected\" (change)=\"OnCheckboxSelect(person, $event.checked)\" name=\"persons\">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>  \r\n          </li>\r\n        </ul>\r\n      </div>\r\n  \r\n      <button mat-button type=\"submit\" onclick=\"window.location.href = '../addactivity/'\">Delete</button><br>\r\n    </form>\r\n  </div>\r\n  \r\n  "
 
 /***/ }),
 
@@ -2085,6 +2235,20 @@ var DeletePartnerComponent = /** @class */ (function () {
         this.persons = [];
     }
     ;
+    DeletePartnerComponent.prototype.OnCheckboxSelect = function (person, status) {
+        if (this.persons.indexOf(person) === -1 && status) {
+            this.persons.push(person);
+        }
+        else if (!status) {
+            var index = this.persons.indexOf(person);
+            this.persons.splice(index, 1);
+        }
+        console.log(this.persons);
+    };
+    DeletePartnerComponent.prototype.OnSubmit = function () {
+        // Submit every person where person.selected == true
+        // Delete those from the database
+    };
     DeletePartnerComponent.prototype.ngOnInit = function () {
         this.persons = this._contactService.filterBy();
     };

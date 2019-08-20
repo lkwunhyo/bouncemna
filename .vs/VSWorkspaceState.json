@@ -3,9 +3,9 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\contact",
-    "\\src\\app\\services"
+    "\\src\\app\\sexual-history",
+    "\\src\\app\\sexual-history\\add-sexual"
   ],
-  "SelectedNode": "\\src\\app\\services\\contact.service.ts",
+  "SelectedNode": "\\src\\app\\sexual-history\\add-sexual\\add-sexual.component.html",
   "PreviewInSolutionExplorer": false
 }
