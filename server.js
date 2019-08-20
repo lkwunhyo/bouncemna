@@ -26,9 +26,11 @@ db.end(function(err) {
   }
   console.log('Close the database connection.');
 });
+global.db = db;
 //end of connection stuff
 
-global.db = db;
+
+*/
 // Serve only the static files form the dist directory
 // Replace the '/dist/<to_your_project_name>' -------------- src is the app name
 app.use(express.static(__dirname + '/dist/bounce'));
@@ -40,5 +42,5 @@ app.get('*', function (req, res) {
 });
 
 
-// Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080);*/
+//Start the app by listening on the default Heroku port
+app.listen(process.env.PORT || 8080);

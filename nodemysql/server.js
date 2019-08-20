@@ -1,5 +1,5 @@
 // server.js
-
+/*
 const mysql = require('mysql');
 const con = mysql.createConnection({
     host: "localhost",
@@ -17,4 +17,4 @@ con.end(function(err) {
     return console.log('error:' + err.message);
   }
   console.log('Close the database connection.');
-});
+});*/
