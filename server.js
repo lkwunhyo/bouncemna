@@ -12,9 +12,7 @@ const db = mysql.createConnection({
     password: "tryl",
 	database: "Bounce"
 });
-port = process.env.PORT || 3000;
 module.exports = db;
-app.listen(port);
 
 db.connect(function (err) {
     if (err) throw err;
