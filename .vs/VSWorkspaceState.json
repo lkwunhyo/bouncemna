@@ -1,11 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src",
+    "\\dist\\bounce",
     "\\src\\app",
-    "\\src\\app\\sexual-history",
-    "\\src\\app\\sexual-history\\add-sexual"
+    "\\src\\app\\services"
   ],
-  "SelectedNode": "\\src\\app\\sexual-history\\add-sexual\\add-sexual.component.html",
+  "SelectedNode": "\\package.json",
   "PreviewInSolutionExplorer": false
 }

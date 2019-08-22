@@ -42,7 +42,8 @@ import {MatNativeDateModule} from '@angular/material';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { APP_BASE_HREF } from '@angular/common';
 import { AddEventsComponent } from './calender/add-events/add-events.component';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -93,10 +94,10 @@ import {MatDividerModule} from '@angular/material/divider';
     MatDividerModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
-      useFactory: adapterFactory
+        useFactory: adapterFactory,
     })
   ],
-    providers: [{ provide: APP_BASE_HREF, useValue: '/' }, ContactService,MatDatepickerModule],
+    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{ provide: APP_BASE_HREF, useValue: '/'}, ContactService,MatDatepickerModule],
   bootstrap: [AppComponent],
   
 })

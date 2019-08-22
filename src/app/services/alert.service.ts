@@ -7,6 +7,9 @@ export class AlertService {
 private subject = new Subject<any>();
 private keepAfterNavigationChange = false;
 
+
+    _url = 'http://localhost:8080/alertpartners';
+
 constructor(private router: Router) {
         // clear alert message on route change
         router.events.subscribe(event => {
@@ -21,6 +24,11 @@ constructor(private router: Router) {
             }
         });
     }
+
+    /*alertpartners(alert: alert-partners) {
+    return this._http.post<any>(this._url,)
+}*/
+
 
     success(message: string, keepAfterNavigationChange = false) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;

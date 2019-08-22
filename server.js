@@ -4,6 +4,16 @@ const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
+const cors = require('cors');
+
+//middleware stuff?
+app.use(bodyParser.json());
+app.use(cors());
+
+/*
+app.get('/', function (req, res) {
+    res.send('hi fuckerss');
+})*/
 
 //connection stuff-----------------
 /*
@@ -40,6 +50,11 @@ app.get('*', function (req, res) {
     // Replace the '/dist/<to_your_project_name>/index.html'
     res.sendFile(path.join(__dirname + 'dist/bounce/index.html'));
 });
+
+app.post('/src/app/alert-partners', function (req, res){
+    console.log(req.body);
+    res.status(200).send({ "message": "data received" });
+})
 
 
 //Start the app by listening on the default Heroku port
