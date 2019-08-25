@@ -70,7 +70,8 @@ export class AlertPartnersComponent implements OnInit {
     /*
     alert('You may have been infected with ' + this.alert.diagnosis  + ', please get tested as soon as possible' + ' '
   + this.alert.anonymity + ' ' +  this.alert.contacts);*/
-        console.log("data!: " + this.alert.diagnosis);
+        console.log("data form 1: " + JSON.stringify(this.alertPartnersForm1.value));
+        console.log("data form 2: " + JSON.stringify(this.alertPartnersForm2.value));
         //console.log(this.alert.date);
         this._alertService.alertpartners(this.alert).subscribe(
             data => console.log('Success!', data),

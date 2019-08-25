@@ -5,18 +5,23 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const cors = require('cors');
-
+const port = 8080;
 //middleware stuff?
 app.use(bodyParser.json());
 app.use(cors());
 
-/*
+
 app.get('/', function (req, res) {
-    res.send('hi fuckerss');
-})*/
+    res.send('hello from server');
+})
+
+app.post('/alertpartners', function (req, res) {
+    console.log(req.body);
+    res.status(200).send({ "message": "Data received." });
+})
 
 //connection stuff-----------------
-/*
+
 const db = mysql.createConnection({
     host: "localhost",
     user: "tryl",
@@ -40,7 +45,7 @@ global.db = db;
 //end of connection stuff
 
 
-*/
+
 // Serve only the static files form the dist directory
 // Replace the '/dist/<to_your_project_name>' -------------- src is the app name
 app.use(express.static(__dirname + '/dist/bounce'));
@@ -59,3 +64,10 @@ app.post('/src/app/alert-partners', function (req, res){
 
 //Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
+
+/**Api to create article */
+app.post('alertpartners', (req, res) => {
+    articleService.createArticle(req.body, (data) => {
+        res.send(data);
+    });
+});
