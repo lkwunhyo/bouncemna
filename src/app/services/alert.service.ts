@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
+import { alertPartnersModel } from '../models/alert-partners.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
@@ -10,7 +12,7 @@ private keepAfterNavigationChange = false;
 
     _url = 'http://localhost:8080/alertpartners';
 
-constructor(private router: Router) {
+constructor(private router: Router, private _http: HttpClient) {
         // clear alert message on route change
         router.events.subscribe(event => {
             if (event instanceof NavigationStart) {
@@ -25,9 +27,9 @@ constructor(private router: Router) {
         });
     }
 
-    /*alertpartners(alert: alert-partners) {
-    return this._http.post<any>(this._url,)
-}*/
+    alertpartners(alert: alertPartnersModel) {
+    return this._http.post<any>(this._url, alert);
+}
 
 
     success(message: string, keepAfterNavigationChange = false) {

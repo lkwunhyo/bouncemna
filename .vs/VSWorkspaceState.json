@@ -1,10 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\dist\\bounce",
+    "\\dist",
+    "\\src",
     "\\src\\app",
+    "\\src\\app\\alert-partners",
+    "\\src\\app\\models",
     "\\src\\app\\services"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\src\\app\\services\\alert.service.ts",
   "PreviewInSolutionExplorer": false
 }

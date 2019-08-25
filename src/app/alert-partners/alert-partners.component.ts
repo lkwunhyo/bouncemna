@@ -9,6 +9,7 @@ import { ContactService } from '../services/contact.service';
 import { DiseaseService} from '../services/disease.service';
 import { Disease } from '../models/disease.model';
 import { DISEASES } from '../models/disease_mock';
+import { AlertService } from '../services/alert.service';
 
 //Should I put combine both forms into one? is data binded for submission?
 @Component({
@@ -27,7 +28,7 @@ export class AlertPartnersComponent implements OnInit {
   incomplete = "incomplete";
 
   constructor(private formBuilder: FormBuilder, private _contactService: ContactService,
-      private _diseaseService: DiseaseService, private datePipe: DatePipe) {
+      private _diseaseService: DiseaseService, private datePipe: DatePipe, private _alertService: AlertService) {
       this.alertPartnersForm1 = this.formBuilder.group({
       });
       this.alertPartnersForm2 = this.formBuilder.group({
@@ -69,9 +70,14 @@ export class AlertPartnersComponent implements OnInit {
     /*
     alert('You may have been infected with ' + this.alert.diagnosis  + ', please get tested as soon as possible' + ' '
   + this.alert.anonymity + ' ' +  this.alert.contacts);*/
-        console.log(this.alert);
-        console.log(this.alert.date);
-  } //
+        console.log("data!: " + this.alert.diagnosis);
+        //console.log(this.alert.date);
+        this._alertService.alertpartners(this.alert).subscribe(
+            data => console.log('Success!', data),
+            error => console.error('Error!', error)
+        );
+    } //
+
   onSelect(person: Person): void {
     this.selectedPerson = person;
   }

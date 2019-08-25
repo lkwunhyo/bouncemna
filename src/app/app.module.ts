@@ -44,6 +44,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AddEventsComponent } from './calender/add-events/add-events.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MAT_DATE_LOCALE } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     MatNativeDateModule,
     MatButtonToggleModule,
     MatDividerModule,
+    HttpClientModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
         useFactory: adapterFactory,

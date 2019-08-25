@@ -71,7 +71,7 @@
             <br><br>Message:<br> You may have contacted<br>{{alert.diagnosis}}, please get tested immediately
         <div>
           <!--><button mat-button matStepperPrevious>Back</button><-->
-          <button mat-button (click)="stepper.reset()">Reset</button>
+          <button mat-button type="submit" (click)="stepper.reset(); onSubmit()">Reset</button>
           <button mat-button matStepperNext>Next</button>
         </div>
       </form>
@@ -81,7 +81,7 @@
       Form is completed
       <div>
         <!--><button mat-button matStepperPrevious>Back</button><-->
-        <button mat-button (click)="stepper.reset()" (click)="resetForm()">Reset</button>
+        <button mat-button (click)="stepper.reset();resetForm()">Reset</button>
         <button mat-button matStepperNext (click) = "onSubmit()">Submit</button>
       </div>
     </mat-step>
@@ -91,7 +91,7 @@
         <div *ngIf="isSendMessage"> Message is sent to selected contacts </div> 
         <div *ngIf="!isSendMessage"> No message will be sent to your contacts </div> 
         <div>       
-        <button mat-button (click)="stepper.reset()" (click)="resetForm()">Reset</button>
+        <button mat-button (click)="stepper.reset(); resetForm()">Reset</button>
       </div>
     </mat-step>
   </mat-vertical-stepper>
