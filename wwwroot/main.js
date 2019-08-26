@@ -305,7 +305,7 @@ module.exports = "\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n  <mat-vertical-stepper linear #stepper>\r\n    <mat-step [stepControl]=\"alertPartnersForm1\" [editable]=\"isEditable\" [completed]=\"false\">\r\n      <form [formGroup]=\"alertPartnersForm1\">\r\n          {{alertPartnersForm1.value | json}}\r\n          {{isSendMessage}}\r\n        <ng-template matStepLabel>Choose Diagnosis</ng-template>\r\n        <h4>Diagnosis</h4>\r\n        <mat-form-field>\r\n            <!--wrong way of implementing selection-->\r\n          <mat-select class=\"diagnosis\" formControlName=\"diagnosis\" [(ngModel)]=\"alert.diagnosis\" (selectionChange)=\"getTrace()\" > \r\n              <mat-option *ngFor=\"let disease of diseases\"\r\n              value = {{disease.name}} >{{ disease.name }} <!--> | {{disease.trace}} <-->\r\n              </mat-option > <!--> [class.selected]=\"disease === selectedDisease\"<-->\r\n            </mat-select>\r\n          </mat-form-field>\r\n          <br>\r\n          Tracing period: <br>\r\n          {{v}}\r\n          <br>\r\n          <h4>Date of diagnosis</h4><br>\r\n          <mat-form-field>           \r\n            <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\">\r\n            <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n            <mat-datepicker #picker></mat-datepicker>\r\n          </mat-form-field>\r\n          <h4>Send STI alert to partners?</h4>\r\n          <mat-button-toggle-group>\r\n              <mat-button-toggle (click)=\"isSendMessage = true\">Yes</mat-button-toggle>\r\n              <mat-button-toggle (click)=\"isSendMessage = false\">No</mat-button-toggle>\r\n            </mat-button-toggle-group>\r\n\r\n        <div>\r\n          <br>\r\n          <button mat-button matStepperNext>Next</button>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n    <mat-step [stepControl]=\"alertPartnersForm2\" *ngIf=\"isSendMessage\" [editable]=\"isEditable\" [completed]=\"false\">\r\n      <form [formGroup]=\"alertPartnersForm2\">\r\n        <ng-template matStepLabel>Choose your contacts</ng-template>\r\n          <!-->  <td>\r\n\r\n        <div *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\" class=\"checkbox\">           \r\n            <label formControlName=\"contacts\" >\r\n            <input type=\"checkbox\" [(ngModel)]=\"alert.contacts\">{{person.firstname}}<br>\r\n            </label>\r\n          </div>\r\n          </td><-->\r\n          <mat-checkbox name=\"contacts\" formControlName=\"contacts\" [(ngModel)]=\"alert.contacts\" value=\"0\">\r\n            <label>Select All</label>\r\n          </mat-checkbox><br>\r\n          <mat-checkbox name=\"contacts\" formControlName=\"contacts\" [(ngModel)]=\"alert.contacts\" value=\"1\">\r\n              <label>\r\n              John Cena\r\n              </label>\r\n            </mat-checkbox><br>\r\n            <mat-checkbox name=\"contacts\" formControlName=\"contacts\" [(ngModel)]=\"alert.contacts\" value=\"2\">\r\n             <label> \r\n              Tony Stark\r\n            </label>\r\n            </mat-checkbox><br>\r\n            \r\n            <br><br>\r\n            <mat-radio-group formControlName=\"anonymity\" [(ngModel)]=\"alert.anonymity\">\r\n                <mat-radio-button  value=\"anonymous\" ng-value=\"true\">Send message anonymously</mat-radio-button> <br>\r\n                <mat-radio-button  value=\"identified\">Include your name in message</mat-radio-button>  \r\n            </mat-radio-group>\r\n\r\n            <br><br>Message:<br> You may have contacted<br>{{alert.diagnosis}}, please get tested immediately\r\n        <div>\r\n          <!--><button mat-button matStepperPrevious>Back</button><-->\r\n          <button mat-button (click)=\"stepper.reset()\">Reset</button>\r\n          <button mat-button matStepperNext>Next</button>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n    <mat-step [stepControl]=\"alertPartnersForm2\" [editable]=\"isEditable\" [completed]=\"false\">\r\n      <ng-template matStepLabel>Completed</ng-template>\r\n      Form is completed\r\n      <div>\r\n        <!--><button mat-button matStepperPrevious>Back</button><-->\r\n        <button mat-button (click)=\"stepper.reset()\" (click)=\"resetForm()\">Reset</button>\r\n        <button mat-button matStepperNext>Submit</button>\r\n      </div>\r\n    </mat-step>\r\n    <mat-step [completed]=\"false\">\r\n        <ng-template matStepLabel>Submitted</ng-template>\r\n        Form is submitted\r\n        <div *ngIf=\"isSendMessage\"> Message is sent to selected contacts </div> \r\n        <div *ngIf=\"!isSendMessage\"> No message will be sent to your contacts </div> \r\n        <div>       \r\n        <button mat-button (click)=\"stepper.reset()\" (click)=\"resetForm()\">Reset</button>\r\n      </div>\r\n    </mat-step>\r\n  </mat-vertical-stepper>\r\n  \r\n\r\n"
+module.exports = "\r\n  <mat-vertical-stepper linear #stepper>\r\n    <mat-step [stepControl]=\"alertPartnersForm1\" [editable]=\"isEditable\" [completed]=\"false\">\r\n        {{alertPartnersForm1.value.date}}\r\n        <form [formGroup]=\"alertPartnersForm1\">\r\n            <ng-template matStepLabel>Choose Diagnosis</ng-template>\r\n            <h4>Diagnosis</h4>\r\n            <mat-form-field>\r\n                <!--wrong way of implementing selection-->\r\n                <mat-select class=\"diagnosis\" formControlName=\"diagnosis\" [(ngModel)]=\"alert.diagnosis\" (selectionChange)=\"getTrace()\">\r\n                    <mat-option *ngFor=\"let disease of diseases\"\r\n                                value={{disease.name}}>\r\n                        {{ disease.name }} <!--> | {{disease.trace}} <-->\r\n                    </mat-option> <!--> [class.selected]=\"disease === selectedDisease\"<-->\r\n                </mat-select>\r\n            </mat-form-field>\r\n            <br>\r\n            Tracing period: <br>\r\n            {{v}}\r\n            <br>\r\n            <h4>Date of diagnosis</h4><br>\r\n            <mat-form-field>\r\n                <input matInput [matDatepicker]=\"picker\"  (ngModelChange)=\"formatDate()\"  formControlName=\"date\" placeholder=\"Choose a date\" [(ngModel)]=\"date\">\r\n                <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                <mat-datepicker #picker></mat-datepicker>\r\n            </mat-form-field>\r\n            <h4>Send STI alert to partners?</h4>\r\n            <mat-button-toggle-group>\r\n                <mat-button-toggle (click)=\"isSendMessage = true; sendMessage()\">Yes</mat-button-toggle>\r\n                <mat-button-toggle (click)=\"isSendMessage = false; sendMessage()\">No</mat-button-toggle>\r\n            </mat-button-toggle-group>\r\n\r\n            <div>\r\n                <br>\r\n                <button mat-button matStepperNext>Next</button>\r\n            </div>\r\n        </form>\r\n    </mat-step>\r\n    <mat-step [stepControl]=\"alertPartnersForm2\" *ngIf=\"isSendMessage\" [editable]=\"isEditable\" [completed]=\"false\">\r\n        {{alertPartnersForm2.value | json}}\r\n      <form [formGroup]=\"alertPartnersForm2\">\r\n        <ng-template matStepLabel>Choose your contacts</ng-template>\r\n          <!-->  <td>\r\n\r\n        <div *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\" class=\"checkbox\">           \r\n            <label formControlName=\"contacts\" >\r\n            <input type=\"checkbox\" [(ngModel)]=\"alert.contacts\">{{person.firstname}}<br>\r\n            </label>\r\n          </div>\r\n          </td><-->\r\n          <mat-checkbox name=\"contacts\" formControlName=\"contacts\" [(ngModel)]=\"alert.contacts\" value=\"0\">\r\n            <label>Select All</label>\r\n          </mat-checkbox><br>\r\n          <mat-checkbox name=\"contacts\" formControlName=\"contacts\" [(ngModel)]=\"alert.contacts\" value=\"1\">\r\n              <label>\r\n              John Cena\r\n              </label>\r\n            </mat-checkbox><br>\r\n            <mat-checkbox name=\"contacts\" formControlName=\"contacts\" [(ngModel)]=\"alert.contacts\" value=\"2\">\r\n             <label> \r\n              Tony Stark\r\n            </label>\r\n            </mat-checkbox><br>\r\n            \r\n            <br><br>\r\n            <mat-radio-group formControlName=\"anonymity\" [(ngModel)]=\"alert.anonymity\">\r\n                <mat-radio-button  value=\"anonymous\" ng-value=\"true\">Send message anonymously</mat-radio-button> <br>\r\n                <mat-radio-button  value=\"identified\">Include your name in message</mat-radio-button>  \r\n            </mat-radio-group>\r\n\r\n            <br><br>Message:<br> You may have contacted<br>{{alert.diagnosis}}, please get tested immediately\r\n        <div>\r\n          <!--><button mat-button matStepperPrevious>Back</button><-->\r\n          <button mat-button type=\"submit\" (click)=\"stepper.reset(); onSubmit()\">Reset</button>\r\n          <button mat-button matStepperNext>Next</button>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n    <mat-step [stepControl]=\"alertPartnersForm2\" [editable]=\"isEditable\" [completed]=\"false\">\r\n      <ng-template matStepLabel>Completed</ng-template>\r\n      Form is completed\r\n      <div>\r\n        <!--><button mat-button matStepperPrevious>Back</button><-->\r\n        <button mat-button (click)=\"stepper.reset();resetForm()\">Reset</button>\r\n        <button mat-button matStepperNext (click) = \"onSubmit()\">Submit</button>\r\n      </div>\r\n    </mat-step>\r\n    <mat-step [completed]=\"false\">\r\n        <ng-template matStepLabel>Submitted</ng-template>\r\n        Form is submitted\r\n        <div *ngIf=\"isSendMessage\"> Message is sent to selected contacts </div> \r\n        <div *ngIf=\"!isSendMessage\"> No message will be sent to your contacts </div> \r\n        <div>       \r\n        <button mat-button (click)=\"stepper.reset(); resetForm()\">Reset</button>\r\n      </div>\r\n    </mat-step>\r\n  </mat-vertical-stepper>\r\n  \r\n\r\n"
 
 /***/ }),
 
@@ -323,8 +323,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _models_alert_partners_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/alert-partners.model */ "./src/app/models/alert-partners.model.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _services_contact_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/contact.service */ "./src/app/services/contact.service.ts");
-/* harmony import */ var _services_disease_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/disease.service */ "./src/app/services/disease.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _services_contact_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/contact.service */ "./src/app/services/contact.service.ts");
+/* harmony import */ var _services_disease_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/disease.service */ "./src/app/services/disease.service.ts");
+/* harmony import */ var _services_alert_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/alert.service */ "./src/app/services/alert.service.ts");
+
+
 
 
 
@@ -333,10 +337,12 @@ __webpack_require__.r(__webpack_exports__);
 
 //Should I put combine both forms into one? is data binded for submission?
 var AlertPartnersComponent = /** @class */ (function () {
-    function AlertPartnersComponent(formBuilder, _contactService, _diseaseService) {
+    function AlertPartnersComponent(formBuilder, _contactService, _diseaseService, datePipe, _alertService) {
         this.formBuilder = formBuilder;
         this._contactService = _contactService;
         this._diseaseService = _diseaseService;
+        this.datePipe = datePipe;
+        this._alertService = _alertService;
         this.alert = new _models_alert_partners_model__WEBPACK_IMPORTED_MODULE_2__["alertPartnersModel"]();
         this.hide = true;
         this.isSendMessage = true;
@@ -355,9 +361,10 @@ var AlertPartnersComponent = /** @class */ (function () {
             'diagnosis': [this.alert.diagnosis, [
                     _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required
                 ]],
-            'message': [this.alert.message = 'bye', [
+            'message': [this.alert.message = String(this.isSendMessage), [
                 //Validators.required
                 ]],
+            'date': [this.alert.date, []],
         });
         this.alertPartnersForm2 = this.formBuilder.group({
             'contacts': [this.alert.contacts, [
@@ -369,8 +376,13 @@ var AlertPartnersComponent = /** @class */ (function () {
         });
     };
     AlertPartnersComponent.prototype.onSubmit = function () {
-        alert('You may have been infected with ' + this.alert.diagnosis + ', please get tested as soon as possible' + ' '
-            + this.alert.anonymity + ' ' + this.alert.contacts);
+        /*
+        alert('You may have been infected with ' + this.alert.diagnosis  + ', please get tested as soon as possible' + ' '
+      + this.alert.anonymity + ' ' +  this.alert.contacts);*/
+        console.log("data form 1: " + JSON.stringify(this.alertPartnersForm1.value));
+        console.log("data form 2: " + JSON.stringify(this.alertPartnersForm2.value));
+        //console.log(this.alert.date);
+        this._alertService.alertpartners(this.alert).subscribe(function (data) { return console.log('Success!', data); }, function (error) { return console.error('Error!', error); });
     }; //
     AlertPartnersComponent.prototype.onSelect = function (person) {
         this.selectedPerson = person;
@@ -379,7 +391,7 @@ var AlertPartnersComponent = /** @class */ (function () {
         try {
             for (var _i = 0, _a = this.diseases; _i < _a.length; _i++) {
                 var dis = _a[_i];
-                console.log(this.alert.diagnosis === dis.name);
+                //console.log(this.alert.diagnosis === dis.name);
                 if (this.alert.diagnosis === dis.name) {
                     this.v = dis.trace;
                 }
@@ -395,6 +407,14 @@ var AlertPartnersComponent = /** @class */ (function () {
             .setValue(event.target.checked);
         this.alertPartnersForm2.get(event.target.attributes.formcontrolname.value)
             .setValue(event.target.checked);
+    };
+    AlertPartnersComponent.prototype.sendMessage = function () {
+        this.alertPartnersForm1.patchValue({ 'message': String(this.isSendMessage) });
+    };
+    AlertPartnersComponent.prototype.formatDate = function () {
+        //not working
+        this.alert.date = this.datePipe.transform(this.alert.date, 'MM-dd-yyyy');
+        console.log(this.alert.date);
     };
     AlertPartnersComponent.prototype.checkPartTwo = function () {
         console.log("checking");
@@ -413,10 +433,11 @@ var AlertPartnersComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-alert-partners',
             template: __webpack_require__(/*! ./alert-partners.component.html */ "./src/app/alert-partners/alert-partners.component.html"),
+            providers: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["DatePipe"]],
             styles: [__webpack_require__(/*! ./alert-partners.component.css */ "./src/app/alert-partners/alert-partners.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"], _services_contact_service__WEBPACK_IMPORTED_MODULE_4__["ContactService"],
-            _services_disease_service__WEBPACK_IMPORTED_MODULE_5__["DiseaseService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"], _services_contact_service__WEBPACK_IMPORTED_MODULE_5__["ContactService"],
+            _services_disease_service__WEBPACK_IMPORTED_MODULE_6__["DiseaseService"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["DatePipe"], _services_alert_service__WEBPACK_IMPORTED_MODULE_7__["AlertService"]])
     ], AlertPartnersComponent);
     return AlertPartnersComponent;
 }());
@@ -590,44 +611,62 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _nav_nav_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nav/nav.component */ "./src/app/nav/nav.component.ts");
-/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
-/* harmony import */ var _contact_contact_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./contact/contact.component */ "./src/app/contact/contact.component.ts");
-/* harmony import */ var _contact_form_contact_form_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./contact-form/contact-form.component */ "./src/app/contact-form/contact-form.component.ts");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
-/* harmony import */ var _services_contact_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/contact.service */ "./src/app/services/contact.service.ts");
-/* harmony import */ var _pipes_search_pipe__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./pipes/search.pipe */ "./src/app/pipes/search.pipe.ts");
-/* harmony import */ var _sexual_history_add_sexual_add_sexual_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./sexual-history/add-sexual/add-sexual.component */ "./src/app/sexual-history/add-sexual/add-sexual.component.ts");
-/* harmony import */ var _sexual_history_add_sexual_add_partner_add_partner_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./sexual-history/add-sexual/add-partner/add-partner.component */ "./src/app/sexual-history/add-sexual/add-partner/add-partner.component.ts");
-/* harmony import */ var _alert_partners_alert_partners_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./alert-partners/alert-partners.component */ "./src/app/alert-partners/alert-partners.component.ts");
-/* harmony import */ var ng2_semantic_ui__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ng2-semantic-ui */ "./node_modules/ng2-semantic-ui/dist/public.js");
-/* harmony import */ var _sexual_history_sexual_history_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./sexual-history/sexual-history.component */ "./src/app/sexual-history/sexual-history.component.ts");
-/* harmony import */ var _editprofile_editprofile_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./editprofile/editprofile.component */ "./src/app/editprofile/editprofile.component.ts");
-/* harmony import */ var _about_about_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./about/about.component */ "./src/app/about/about.component.ts");
-/* harmony import */ var _about_clinic_location_clinic_location_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./about/clinic-location/clinic-location.component */ "./src/app/about/clinic-location/clinic-location.component.ts");
-/* harmony import */ var _about_clinic_location_map_map_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./about/clinic-location/map/map.component */ "./src/app/about/clinic-location/map/map.component.ts");
-/* harmony import */ var _diagnosis_history_diagnosis_history_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./diagnosis-history/diagnosis-history.component */ "./src/app/diagnosis-history/diagnosis-history.component.ts");
-/* harmony import */ var _about_clinic_location_map_here_map_here_map_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./about/clinic-location/map/here-map/here-map.component */ "./src/app/about/clinic-location/map/here-map/here-map.component.ts");
-/* harmony import */ var _calender_calender_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./calender/calender.component */ "./src/app/calender/calender.component.ts");
-/* harmony import */ var _fullcalendar_angular__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @fullcalendar/angular */ "./node_modules/@fullcalendar/angular/fesm5/fullcalendar-angular.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _contact_delete_contact_delete_contact_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./contact/delete-contact/delete-contact.component */ "./src/app/contact/delete-contact/delete-contact.component.ts");
-/* harmony import */ var _sexual_history_add_sexual_delete_partner_delete_partner_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./sexual-history/add-sexual/delete-partner/delete-partner.component */ "./src/app/sexual-history/add-sexual/delete-partner/delete-partner.component.ts");
-/* harmony import */ var angular_calendar__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! angular-calendar */ "./node_modules/angular-calendar/fesm5/angular-calendar.js");
-/* harmony import */ var angular_calendar_date_adapters_date_fns__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! angular-calendar/date-adapters/date-fns */ "./node_modules/angular-calendar/date-adapters/date-fns/index.js");
-/* harmony import */ var angular_calendar_date_adapters_date_fns__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(angular_calendar_date_adapters_date_fns__WEBPACK_IMPORTED_MODULE_33__);
-/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm5/icon.es5.js");
-/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm5/datepicker.es5.js");
-/* harmony import */ var _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @angular/material/button-toggle */ "./node_modules/@angular/material/esm5/button-toggle.es5.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _calender_add_events_add_events_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./calender/add-events/add-events.component */ "./src/app/calender/add-events/add-events.component.ts");
-/* harmony import */ var _angular_material_divider__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @angular/material/divider */ "./node_modules/@angular/material/esm5/divider.es5.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm5/icon.es5.js");
+/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm5/datepicker.es5.js");
+/* harmony import */ var _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/button-toggle */ "./node_modules/@angular/material/esm5/button-toggle.es5.js");
+/* harmony import */ var _angular_material_divider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/divider */ "./node_modules/@angular/material/esm5/divider.es5.js");
+/* harmony import */ var _angular_material_card__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/card */ "./node_modules/@angular/material/esm5/card.es5.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _nav_nav_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./nav/nav.component */ "./src/app/nav/nav.component.ts");
+/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
+/* harmony import */ var _contact_contact_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./contact/contact.component */ "./src/app/contact/contact.component.ts");
+/* harmony import */ var _contact_form_contact_form_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./contact-form/contact-form.component */ "./src/app/contact-form/contact-form.component.ts");
+/* harmony import */ var _about_clinic_location_map_map_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./about/clinic-location/map/map.component */ "./src/app/about/clinic-location/map/map.component.ts");
+/* harmony import */ var _diagnosis_history_diagnosis_history_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./diagnosis-history/diagnosis-history.component */ "./src/app/diagnosis-history/diagnosis-history.component.ts");
+/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
+/* harmony import */ var _sexual_history_add_sexual_add_sexual_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./sexual-history/add-sexual/add-sexual.component */ "./src/app/sexual-history/add-sexual/add-sexual.component.ts");
+/* harmony import */ var _sexual_history_add_sexual_add_partner_add_partner_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./sexual-history/add-sexual/add-partner/add-partner.component */ "./src/app/sexual-history/add-sexual/add-partner/add-partner.component.ts");
+/* harmony import */ var _alert_partners_alert_partners_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./alert-partners/alert-partners.component */ "./src/app/alert-partners/alert-partners.component.ts");
+/* harmony import */ var _sexual_history_sexual_history_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./sexual-history/sexual-history.component */ "./src/app/sexual-history/sexual-history.component.ts");
+/* harmony import */ var _editprofile_editprofile_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./editprofile/editprofile.component */ "./src/app/editprofile/editprofile.component.ts");
+/* harmony import */ var _about_about_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./about/about.component */ "./src/app/about/about.component.ts");
+/* harmony import */ var _about_clinic_location_clinic_location_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./about/clinic-location/clinic-location.component */ "./src/app/about/clinic-location/clinic-location.component.ts");
+/* harmony import */ var _contact_delete_contact_delete_contact_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./contact/delete-contact/delete-contact.component */ "./src/app/contact/delete-contact/delete-contact.component.ts");
+/* harmony import */ var _sexual_history_add_sexual_delete_partner_delete_partner_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./sexual-history/add-sexual/delete-partner/delete-partner.component */ "./src/app/sexual-history/add-sexual/delete-partner/delete-partner.component.ts");
+/* harmony import */ var _calender_add_events_add_events_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./calender/add-events/add-events.component */ "./src/app/calender/add-events/add-events.component.ts");
+/* harmony import */ var _calender_calender_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./calender/calender.component */ "./src/app/calender/calender.component.ts");
+/* harmony import */ var _services_contact_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./services/contact.service */ "./src/app/services/contact.service.ts");
+/* harmony import */ var _pipes_search_pipe__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./pipes/search.pipe */ "./src/app/pipes/search.pipe.ts");
+/* harmony import */ var ng2_semantic_ui__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ng2-semantic-ui */ "./node_modules/ng2-semantic-ui/dist/public.js");
+/* harmony import */ var _about_clinic_location_map_here_map_here_map_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./about/clinic-location/map/here-map/here-map.component */ "./src/app/about/clinic-location/map/here-map/here-map.component.ts");
+/* harmony import */ var _fullcalendar_angular__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @fullcalendar/angular */ "./node_modules/@fullcalendar/angular/fesm5/fullcalendar-angular.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var angular_calendar__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! angular-calendar */ "./node_modules/angular-calendar/fesm5/angular-calendar.js");
+/* harmony import */ var angular_calendar_date_adapters_date_fns__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! angular-calendar/date-adapters/date-fns */ "./node_modules/angular-calendar/date-adapters/date-fns/index.js");
+/* harmony import */ var angular_calendar_date_adapters_date_fns__WEBPACK_IMPORTED_MODULE_39___default = /*#__PURE__*/__webpack_require__.n(angular_calendar_date_adapters_date_fns__WEBPACK_IMPORTED_MODULE_39__);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+
+
+// --------------------------------All Angular Material component------------------------------------------------
+
+
+
+
+
+
+
+
+// ---------------------------------All page component----------------------------------------------------------
 
 
 
@@ -649,22 +688,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
+// ---------------------------------------Other components-------------------------------------------------
 
 
 
 
  // for FullCalendar!
-
-
-
-
-
-
-
 
 
 
@@ -677,58 +706,60 @@ var AppModule = /** @class */ (function () {
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-                _home_home_component__WEBPACK_IMPORTED_MODULE_5__["HomeComponent"],
-                _login_login_component__WEBPACK_IMPORTED_MODULE_6__["LoginComponent"],
-                _nav_nav_component__WEBPACK_IMPORTED_MODULE_7__["NavComponent"],
-                _register_register_component__WEBPACK_IMPORTED_MODULE_8__["RegisterComponent"],
-                _profile_profile_component__WEBPACK_IMPORTED_MODULE_13__["ProfileComponent"],
-                _contact_contact_component__WEBPACK_IMPORTED_MODULE_9__["ContactComponent"],
-                _contact_form_contact_form_component__WEBPACK_IMPORTED_MODULE_10__["ContactFormComponent"],
-                _pipes_search_pipe__WEBPACK_IMPORTED_MODULE_15__["SearchPipe"],
-                _sexual_history_add_sexual_add_sexual_component__WEBPACK_IMPORTED_MODULE_16__["AddSexualComponent"],
-                _sexual_history_add_sexual_add_partner_add_partner_component__WEBPACK_IMPORTED_MODULE_17__["AddPartnerComponent"],
-                _alert_partners_alert_partners_component__WEBPACK_IMPORTED_MODULE_18__["AlertPartnersComponent"],
-                _sexual_history_sexual_history_component__WEBPACK_IMPORTED_MODULE_20__["SexualHistoryComponent"],
-                _editprofile_editprofile_component__WEBPACK_IMPORTED_MODULE_21__["EditprofileComponent"],
-                _about_about_component__WEBPACK_IMPORTED_MODULE_22__["AboutComponent"],
-                _about_clinic_location_clinic_location_component__WEBPACK_IMPORTED_MODULE_23__["ClinicLocationComponent"],
-                _about_clinic_location_map_map_component__WEBPACK_IMPORTED_MODULE_24__["MapComponent"],
-                _diagnosis_history_diagnosis_history_component__WEBPACK_IMPORTED_MODULE_25__["DiagnosisHistoryComponent"],
-                _about_clinic_location_map_here_map_here_map_component__WEBPACK_IMPORTED_MODULE_26__["HereMapComponent"],
-                _calender_calender_component__WEBPACK_IMPORTED_MODULE_27__["CalenderComponent"],
-                _contact_delete_contact_delete_contact_component__WEBPACK_IMPORTED_MODULE_30__["DeleteContactComponent"],
-                _sexual_history_add_sexual_delete_partner_delete_partner_component__WEBPACK_IMPORTED_MODULE_31__["DeletePartnerComponent"],
-                _calender_add_events_add_events_component__WEBPACK_IMPORTED_MODULE_38__["AddEventsComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"],
+                _home_home_component__WEBPACK_IMPORTED_MODULE_12__["HomeComponent"],
+                _login_login_component__WEBPACK_IMPORTED_MODULE_13__["LoginComponent"],
+                _nav_nav_component__WEBPACK_IMPORTED_MODULE_14__["NavComponent"],
+                _register_register_component__WEBPACK_IMPORTED_MODULE_15__["RegisterComponent"],
+                _profile_profile_component__WEBPACK_IMPORTED_MODULE_20__["ProfileComponent"],
+                _contact_contact_component__WEBPACK_IMPORTED_MODULE_16__["ContactComponent"],
+                _contact_form_contact_form_component__WEBPACK_IMPORTED_MODULE_17__["ContactFormComponent"],
+                _pipes_search_pipe__WEBPACK_IMPORTED_MODULE_33__["SearchPipe"],
+                _sexual_history_add_sexual_add_sexual_component__WEBPACK_IMPORTED_MODULE_21__["AddSexualComponent"],
+                _sexual_history_add_sexual_add_partner_add_partner_component__WEBPACK_IMPORTED_MODULE_22__["AddPartnerComponent"],
+                _alert_partners_alert_partners_component__WEBPACK_IMPORTED_MODULE_23__["AlertPartnersComponent"],
+                _sexual_history_sexual_history_component__WEBPACK_IMPORTED_MODULE_24__["SexualHistoryComponent"],
+                _editprofile_editprofile_component__WEBPACK_IMPORTED_MODULE_25__["EditprofileComponent"],
+                _about_about_component__WEBPACK_IMPORTED_MODULE_26__["AboutComponent"],
+                _about_clinic_location_clinic_location_component__WEBPACK_IMPORTED_MODULE_27__["ClinicLocationComponent"],
+                _about_clinic_location_map_map_component__WEBPACK_IMPORTED_MODULE_18__["MapComponent"],
+                _diagnosis_history_diagnosis_history_component__WEBPACK_IMPORTED_MODULE_19__["DiagnosisHistoryComponent"],
+                _about_clinic_location_map_here_map_here_map_component__WEBPACK_IMPORTED_MODULE_35__["HereMapComponent"],
+                _calender_calender_component__WEBPACK_IMPORTED_MODULE_31__["CalenderComponent"],
+                _contact_delete_contact_delete_contact_component__WEBPACK_IMPORTED_MODULE_28__["DeleteContactComponent"],
+                _sexual_history_add_sexual_delete_partner_delete_partner_component__WEBPACK_IMPORTED_MODULE_29__["DeletePartnerComponent"],
+                _calender_add_events_add_events_component__WEBPACK_IMPORTED_MODULE_30__["AddEventsComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormsModule"], ng2_semantic_ui__WEBPACK_IMPORTED_MODULE_19__["SuiModule"],
-                _fullcalendar_angular__WEBPACK_IMPORTED_MODULE_28__["FullCalendarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatStepperModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatButtonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatAutocompleteModule"],
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_29__["BrowserAnimationsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatRadioModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatCheckboxModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"],
-                _angular_material_icon__WEBPACK_IMPORTED_MODULE_34__["MatIconModule"],
-                _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_35__["MatDatepickerModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatNativeDateModule"],
-                _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_36__["MatButtonToggleModule"],
-                _angular_material_divider__WEBPACK_IMPORTED_MODULE_39__["MatDividerModule"],
-                angular_calendar__WEBPACK_IMPORTED_MODULE_32__["CalendarModule"].forRoot({
-                    provide: angular_calendar__WEBPACK_IMPORTED_MODULE_32__["DateAdapter"],
-                    useFactory: angular_calendar_date_adapters_date_fns__WEBPACK_IMPORTED_MODULE_33__["adapterFactory"]
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_3__["AppRoutingModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], ng2_semantic_ui__WEBPACK_IMPORTED_MODULE_34__["SuiModule"],
+                _fullcalendar_angular__WEBPACK_IMPORTED_MODULE_36__["FullCalendarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatStepperModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatAutocompleteModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_37__["BrowserAnimationsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatFormFieldModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatRadioModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableModule"],
+                _angular_material_icon__WEBPACK_IMPORTED_MODULE_6__["MatIconModule"],
+                _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_7__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatNativeDateModule"],
+                _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_8__["MatButtonToggleModule"],
+                _angular_material_divider__WEBPACK_IMPORTED_MODULE_9__["MatDividerModule"],
+                _angular_material_card__WEBPACK_IMPORTED_MODULE_10__["MatCardModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_41__["HttpClientModule"],
+                angular_calendar__WEBPACK_IMPORTED_MODULE_38__["CalendarModule"].forRoot({
+                    provide: angular_calendar__WEBPACK_IMPORTED_MODULE_38__["DateAdapter"],
+                    useFactory: angular_calendar_date_adapters_date_fns__WEBPACK_IMPORTED_MODULE_39__["adapterFactory"],
                 })
             ],
-            providers: [{ provide: _angular_common__WEBPACK_IMPORTED_MODULE_37__["APP_BASE_HREF"], useValue: '/' }, _services_contact_service__WEBPACK_IMPORTED_MODULE_14__["ContactService"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_35__["MatDatepickerModule"]],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]],
+            providers: [{ provide: _angular_material__WEBPACK_IMPORTED_MODULE_5__["MAT_DATE_LOCALE"], useValue: 'en-GB' }, { provide: _angular_common__WEBPACK_IMPORTED_MODULE_40__["APP_BASE_HREF"], useValue: '/' }, _services_contact_service__WEBPACK_IMPORTED_MODULE_32__["ContactService"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_7__["MatDatepickerModule"]],
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"]],
         })
     ], AppModule);
     return AppModule;
@@ -756,7 +787,7 @@ module.exports = ".events-container {\r\n    display: flex;\r\n    flex-directio
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\r\n<html>\r\n\r\n<div class=\"title\">\r\n  <h2>New event</h2>\r\n</div>\r\n\r\n<form>\r\n\r\n  <div class=\"title-container\">\r\n    <mat-form-field>\r\n      <input matInput placeholder=\"Enter title\">\r\n    </mat-form-field>\r\n  </div>\r\n\r\n  <mat-divider></mat-divider>\r\n\r\n  <div class=\"date-container\">\r\n    <h3>Date:</h3>\r\n    <mat-form-field>\r\n      <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\">\r\n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n      <mat-datepicker #picker></mat-datepicker>\r\n    </mat-form-field>\r\n    <mat-divider></mat-divider>\r\n\r\n    <div class=\"clock\">\r\n      <h3>Time:</h3>\r\n      <mat-form-field>\r\n        <input matInput placeholder=\"Hour\">\r\n      </mat-form-field>\r\n      <br>\r\n      <mat-form-field>\r\n        <input matInput placeholder=\"Minute\">\r\n      </mat-form-field>\r\n      <br>\r\n    </div>\r\n\r\n    <mat-radio-group aria-label=\"Select an option\">\r\n      <mat-radio-button value=\"AM\">AM</mat-radio-button><br><br>\r\n      <mat-radio-button value=\"PM\">PM</mat-radio-button>\r\n    </mat-radio-group>\r\n  </div>\r\n  <br>\r\n  <mat-divider></mat-divider>\r\n\r\n  <div class=\"alert-container\">\r\n    <h3>Select Alert:</h3>\r\n    <mat-form-field>\r\n      <mat-select placeholder=\"Alert\">\r\n        <mat-option value=\"None\">None</mat-option>\r\n        <mat-option value=\"On time\">On time</mat-option>\r\n        <mat-option value=\"5\">5 mins before</mat-option>\r\n        <mat-option value=\"15\">15 mins before</mat-option>\r\n        <mat-option value=\"30\">30 mins before</mat-option>\r\n        <mat-option value=\"1hr\">1 hour before</mat-option>\r\n        <mat-option value=\"1d\">1 day before</mat-option>\r\n      </mat-select>\r\n    </mat-form-field>\r\n  </div>\r\n  <mat-divider></mat-divider>\r\n\r\n  <div class=\"repeat-container\">\r\n    <h3>Select Repeat:</h3>\r\n    <mat-form-field>\r\n      <mat-select placeholder=\"Repeat\">\r\n        <mat-option value=\"never\">Never</mat-option>\r\n        <mat-option value=\"daily\">Daily</mat-option>\r\n        <mat-option value=\"weekly\">Weekly</mat-option>\r\n        <mat-option value=\"monthly\">Monthly</mat-option>\r\n        <mat-option value=\"yearly\">Yearly</mat-option>\r\n      </mat-select>\r\n    </mat-form-field>\r\n  </div>\r\n  <mat-divider></mat-divider>\r\n\r\n  <div class=\"events-container\">\r\n    <mat-form-field class=\"note\">\r\n      <textarea matInput placeholder=\"Note\"></textarea>\r\n    </mat-form-field>\r\n\r\n\r\n  </div>\r\n\r\n  <div class=\"buttons\">\r\n    <button mat-flat-button color=\"primary\">Save</button>\r\n  </div>\r\n\r\n</form>\r\n\r\n</html>"
+module.exports = "<!DOCTYPE html>\r\n<html>\r\n\r\n<div class=\"title\">\r\n  <h2>New event</h2>\r\n</div>\r\n\r\n<form [formGroup] = \"calForm\">\r\n\r\n  Value: {{calForm.value | json }}\r\n\r\n  <div class=\"title-container\">\r\n    <mat-form-field>\r\n      <input matInput placeholder=\"Enter title\" formControlName=\"title\">\r\n    </mat-form-field>\r\n  </div>\r\n\r\n  <mat-divider></mat-divider>\r\n\r\n  <div class=\"date-container\">\r\n    <h3>Date:</h3>\r\n    <mat-form-field>\r\n      <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" formControlName=\"date\">\r\n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n      <mat-datepicker #picker></mat-datepicker>\r\n    </mat-form-field>\r\n    <mat-hint align =\"end\">mm/dd/yyyy</mat-hint>\r\n    <mat-divider></mat-divider>\r\n\r\n    <div class=\"clock\">\r\n      <h3>Choose a time:</h3>\r\n      <p>Start</p>\r\n      <mat-form-field >\r\n          <input class=\"col-md-5 end\" matInput name=\"start\" type=\"time\" formControlName=\"timestart\">\r\n      </mat-form-field>\r\n      <mat-hint align =\"end\">HH:MM:AM</mat-hint>\r\n      <br>\r\n      <p>End</p>\r\n      <mat-form-field >\r\n          <input class=\"col-md-5 end\" matInput name=\"end\" type=\"time\" formControlName=\"timeend\">\r\n      </mat-form-field>\r\n      <mat-hint align =\"end\">HH:MM:PM</mat-hint>\r\n    </div>\r\n  </div>\r\n\r\n  <br>\r\n\r\n  <mat-divider></mat-divider>\r\n\r\n  <div class=\"alert-container\">\r\n    <h3>Select Alert:</h3>\r\n    <mat-form-field>\r\n      <mat-select placeholder=\"Alert\"  formControlName=\"alert\">\r\n        <mat-option value=\"None\">None</mat-option>\r\n        <mat-option value=\"On time\">On time</mat-option>\r\n        <mat-option value=\"5\">5 mins before</mat-option>\r\n        <mat-option value=\"15\">15 mins before</mat-option>\r\n        <mat-option value=\"30\">30 mins before</mat-option>\r\n        <mat-option value=\"1hr\">1 hour before</mat-option>\r\n        <mat-option value=\"1d\">1 day before</mat-option>\r\n      </mat-select>\r\n    </mat-form-field>\r\n  </div>\r\n  <mat-divider></mat-divider>\r\n\r\n  <div class=\"repeat-container\">\r\n    <h3>Select Repeat:</h3>\r\n    <mat-form-field>\r\n      <mat-select placeholder=\"Repeat\"  formControlName=\"repeat\">\r\n        <mat-option value=\"never\">Never</mat-option>\r\n        <mat-option value=\"daily\">Daily</mat-option>\r\n        <mat-option value=\"weekly\">Weekly</mat-option>\r\n        <mat-option value=\"monthly\">Monthly</mat-option>\r\n        <mat-option value=\"yearly\">Yearly</mat-option>\r\n      </mat-select>\r\n    </mat-form-field>\r\n  </div>\r\n  <mat-divider></mat-divider>\r\n\r\n  <div class=\"events-container\">\r\n    <mat-form-field class=\"note\">\r\n      <textarea matInput placeholder=\"Note\"  formControlName=\"note\"></textarea>\r\n    </mat-form-field>\r\n\r\n\r\n  </div>\r\n\r\n  <div class=\"buttons\">\r\n    <button mat-flat-button color=\"primary\">Save</button>\r\n  </div>\r\n\r\n</form>\r\n\r\n</html>"
 
 /***/ }),
 
@@ -772,12 +803,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddEventsComponent", function() { return AddEventsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
 
 
 var AddEventsComponent = /** @class */ (function () {
-    function AddEventsComponent() {
+    function AddEventsComponent(fb, httpClient) {
+        this.fb = fb;
+        this.httpClient = httpClient;
+        this.SERVER_URL = "http://localhost:300/add-events";
+        //Form state
+        this.loading = false;
+        this.success = false;
     }
     AddEventsComponent.prototype.ngOnInit = function () {
+        this.calForm = this.fb.group({
+            title: '',
+            date: '',
+            timestart: '',
+            timeend: '',
+            alert: '',
+            repeat: '',
+            note: ''
+        });
+        this.calForm.valueChanges.subscribe(console.log);
     };
     AddEventsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -785,7 +836,7 @@ var AddEventsComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./add-events.component.html */ "./src/app/calender/add-events/add-events.component.html"),
             styles: [__webpack_require__(/*! ./add-events.component.css */ "./src/app/calender/add-events/add-events.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
     ], AddEventsComponent);
     return AddEventsComponent;
 }());
@@ -984,7 +1035,7 @@ module.exports = ".submitbutton {\r\n    margin: auto;\r\n    display: block;\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"defaultContainer\">\r\n  <h2>Add a Contact</h2> {{ diagnostic }}\r\n  <form (ngSubmit)=\"onSubmit()\" #contactForm=\"ngForm\">\r\n      <div class=\"form-container\">\r\n          Contact Details: <br>\r\n          <mat-form-field>\r\n              <input matInput id=\"firstname\" placeholder=\"First name..\" [(ngModel)]=\"contact.firstname\" name=\"firstname\" required>\r\n              <mat-icon matSuffix></mat-icon>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <input matInput id=\"lastname\" placeholder=\"Last name..\" [(ngModel)]=\"contact.lastname\" name=\"lastname\" required>\r\n              <mat-icon matSuffix></mat-icon>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <input matInput id=\"phone\" placeholder=\"Phone number..\" [(ngModel)]=\"contact.phone\" name=\"phone\">\r\n              <mat-icon matSuffix>phone</mat-icon>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <input matInput id=\"email\" placeholder=\"Email..\" [formControl]=\"email\" [(ngModel)]=\"contact.email\" name=\"email\">\r\n              <mat-icon matSuffix>email</mat-icon>\r\n              <mat-error *ngIf=\"email.invalid\">{{getErrorMessage()}}</mat-error>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <!--\r\n        <input matInput id=\"age\" placeholder=\"Age..\">\r\n        <mat-icon matSuffix></mat-icon>\r\n        -->\r\n              <mat-label>Age.. </mat-label>\r\n              <mat-select [(ngModel)]=\"contact.age\" name=\"age\">\r\n                  <mat-option *ngFor=\"let age of ages\" [value]=\"age.value\">\r\n                      {{age.viewValue}}\r\n                  </mat-option>\r\n              </mat-select>\r\n          </mat-form-field><br>\r\n          <br>\r\n\r\n          <mat-radio-group aria-label=\"Select a Gender\" [(ngModel)]=\"contact.gender\" name=\"gender\">\r\n              Gender*:<br>\r\n              <mat-radio-button value=\"m\">Male</mat-radio-button><br>\r\n              <mat-radio-button value=\"f\">Female</mat-radio-button><br>\r\n              <mat-radio-button value=\"o\">Other</mat-radio-button><br>\r\n          </mat-radio-group><br><br>\r\n\r\n          Comments: <br>\r\n          <mat-form-field>\r\n              <textarea matInput id=\"comment\" placeholder=\"Add your comments..\"\r\n                        rows=\"5\" cols=\"10\" [(ngModel)]=\"contact.comment\" name=\"comment\"></textarea>\r\n          </mat-form-field>\r\n          <br><br>\r\n\r\n          Add New User Social Media Screenshot: <br><br>\r\n          <button mat-stroked-button>Browse..</button> <!--(click)=\"fileInput.click()\"-->\r\n          onFileSelected function has not been created yet.\r\n          <!--<input hidden (change)=\"onFileSelected()\" #fileInput type=\"file\" id=\"file\">-->\r\n          <br><br><br>\r\n\r\n          <button mat-button class=\"submitbutton\" type=\"submit\" [disabled]=\"!contactForm.form.valid\"\r\n            onclick=\"window.location.href = '../contact/'\">Submit</button><br>\r\n          <br><br>\r\n      </div>\r\n  </form>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"defaultContainer\">\r\n  <h2>Add a Contact</h2>\r\n  <form (ngSubmit)=\"onSubmit()\" #contactForm=\"ngForm\">\r\n      <div class=\"form-container\">\r\n          Contact Details: <br>\r\n          <mat-form-field>\r\n              <input matInput id=\"firstname\" placeholder=\"First name..\" [(ngModel)]=\"contact.firstname\" name=\"firstname\" required>\r\n              <mat-icon matSuffix></mat-icon>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <input matInput id=\"lastname\" placeholder=\"Last name..\" [(ngModel)]=\"contact.lastname\" name=\"lastname\" required>\r\n              <mat-icon matSuffix></mat-icon>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <input matInput id=\"phone\" placeholder=\"Phone number..\" [(ngModel)]=\"contact.phone\" name=\"phone\">\r\n              <mat-icon matSuffix>phone</mat-icon>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <input matInput id=\"email\" placeholder=\"Email..\" [formControl]=\"email\" [(ngModel)]=\"contact.email\" name=\"email\">\r\n              <mat-icon matSuffix>email</mat-icon>\r\n              <mat-error *ngIf=\"email.invalid\">{{getErrorMessage()}}</mat-error>\r\n          </mat-form-field><br>\r\n          <mat-form-field>\r\n              <!--\r\n        <input matInput id=\"age\" placeholder=\"Age..\">\r\n        <mat-icon matSuffix></mat-icon>\r\n        -->\r\n              <mat-label>Age.. </mat-label>\r\n              <mat-select [(ngModel)]=\"contact.age\" name=\"age\">\r\n                  <mat-option *ngFor=\"let age of ages\" [value]=\"age.value\">\r\n                      {{age.viewValue}}\r\n                  </mat-option>\r\n              </mat-select>\r\n          </mat-form-field><br>\r\n          <br>\r\n\r\n          <mat-radio-group aria-label=\"Select a Gender\" [(ngModel)]=\"contact.gender\" name=\"gender\">\r\n              Gender*:<br>\r\n              <mat-radio-button value=\"m\">Male</mat-radio-button><br>\r\n              <mat-radio-button value=\"f\">Female</mat-radio-button><br>\r\n              <mat-radio-button value=\"o\">Other</mat-radio-button><br>\r\n          </mat-radio-group><br><br>\r\n\r\n          Comments: <br>\r\n          <mat-form-field>\r\n              <textarea matInput id=\"comment\" placeholder=\"Add your comments..\"\r\n                        rows=\"5\" cols=\"10\" [(ngModel)]=\"contact.comment\" name=\"comment\"></textarea>\r\n          </mat-form-field>\r\n          <br><br>\r\n\r\n          Add New User Social Media Screenshot: <br><br>\r\n          <button mat-stroked-button>Browse..</button> <!--(click)=\"fileInput.click()\"-->\r\n          onFileSelected function has not been created yet.\r\n          <!--<input hidden (change)=\"onFileSelected()\" #fileInput type=\"file\" id=\"file\">-->\r\n          <br><br><br>\r\n\r\n          <button mat-button class=\"submitbutton\" type=\"submit\" [disabled]=\"!contactForm.form.valid\"\r\n            onclick=\"window.location.href = '../contact/'\">Submit</button><br>\r\n          <br><br>\r\n      </div>\r\n  </form>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -1056,12 +1107,6 @@ var ContactFormComponent = /** @class */ (function () {
             { value: 70, viewValue: 70 }
         ];
     }
-    Object.defineProperty(ContactFormComponent.prototype, "diagnostic", {
-        // TODO: Remove this after completion
-        get: function () { return JSON.stringify(this.contact); },
-        enumerable: true,
-        configurable: true
-    });
     ContactFormComponent.prototype.onSubmit = function () { };
     ContactFormComponent.prototype.getErrorMessage = function () {
         return this.email.hasError('required') ? 'You must enter a value' :
@@ -1200,27 +1245,23 @@ var DeleteContactComponent = /** @class */ (function () {
     function DeleteContactComponent(_contactService) {
         this._contactService = _contactService;
         this.persons = [];
+        this.selected_persons = [];
     }
     ;
     DeleteContactComponent.prototype.OnCheckboxSelect = function (person, status) {
-        if (this.persons.indexOf(person) === -1 && status) {
-            this.persons.push(person);
+        if (this.selected_persons.indexOf(person) === -1 && status) {
+            this.selected_persons.push(person);
         }
         else if (!status) {
-            var index = this.persons.indexOf(person);
-            this.persons.splice(index, 1);
+            var index = this.selected_persons.indexOf(person);
+            this.selected_persons.splice(index, 1);
         }
-        //console.log(this.persons);
+        console.log(this.selected_persons);
     };
     DeleteContactComponent.prototype.OnSubmit = function () {
         // Submit every person where person.selected == true
         // Delete those from the database
     };
-    Object.defineProperty(DeleteContactComponent.prototype, "diagnostic", {
-        get: function () { return JSON.stringify(this.persons); },
-        enumerable: true,
-        configurable: true
-    });
     DeleteContactComponent.prototype.ngOnInit = function () {
         this.persons = this._contactService.filterBy();
     };
@@ -1321,7 +1362,7 @@ var DIAGNOSIS_DATA = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".profileimg{\r\n    border-radius: 100px;\r\n    width: 110px;\r\n    height: 100px;\r\n    margin-left: 30%;\r\n    \r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZWRpdHByb2ZpbGUvZWRpdHByb2ZpbGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLG9CQUFvQjtJQUNwQixZQUFZO0lBQ1osYUFBYTtJQUNiLGdCQUFnQjs7QUFFcEIiLCJmaWxlIjoic3JjL2FwcC9lZGl0cHJvZmlsZS9lZGl0cHJvZmlsZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnByb2ZpbGVpbWd7XHJcbiAgICBib3JkZXItcmFkaXVzOiAxMDBweDtcclxuICAgIHdpZHRoOiAxMTBweDtcclxuICAgIGhlaWdodDogMTAwcHg7XHJcbiAgICBtYXJnaW4tbGVmdDogMzAlO1xyXG4gICAgXHJcbn0iXX0= */"
+module.exports = ".profileimg{\r\n    /* border-radius: 100px; */\r\n    width: 100%;\r\n    height: 100%;\r\n    /* margin-left: 30%; */\r\n}\r\n\r\n.cardcontainer{\r\n    padding-bottom: 5%;\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.biocontainer{\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.style{\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZWRpdHByb2ZpbGUvZWRpdHByb2ZpbGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLDBCQUEwQjtJQUMxQixXQUFXO0lBQ1gsWUFBWTtJQUNaLHNCQUFzQjtBQUMxQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixhQUFhO0lBQ2Isc0JBQXNCO0FBQzFCOztBQUdBO0lBQ0ksYUFBYTtJQUNiLHNCQUFzQjtBQUMxQjs7QUFFQTtJQUNJLGFBQWE7SUFDYixzQkFBc0I7QUFDMUIiLCJmaWxlIjoic3JjL2FwcC9lZGl0cHJvZmlsZS9lZGl0cHJvZmlsZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnByb2ZpbGVpbWd7XHJcbiAgICAvKiBib3JkZXItcmFkaXVzOiAxMDBweDsgKi9cclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgLyogbWFyZ2luLWxlZnQ6IDMwJTsgKi9cclxufVxyXG5cclxuLmNhcmRjb250YWluZXJ7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogNSU7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxufVxyXG5cclxuXHJcbi5iaW9jb250YWluZXJ7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxufVxyXG5cclxuLnN0eWxle1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1332,7 +1373,7 @@ module.exports = ".profileimg{\r\n    border-radius: 100px;\r\n    width: 110px;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<!DOCTYPE html>\r\n<html>\r\n    \r\n<div class = \"defaultContainer\"> \r\n    <h1>Edit Profile</h1><br><br>\r\n    <img class =\"profileimg\"  src=\"https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg\">\r\n       <form [formGroup]=\"editprofileForm\">\r\n\r\n        <h4>First name:<br>\r\n        <input type=\"text\" name=\"firstname\" value=\"John\">\r\n        </h4>\r\n        \r\n        <h4>Last name:<br>\r\n        <input type=\"text\" name=\"lastname\" value=\"Smith\">\r\n        </h4>\r\n        \r\n        <h4>Phone:<br>\r\n        <input type=\"text\" name=\"Phone\" value=\"0123-456-789\">\r\n        </h4>\r\n        \r\n        <h4>Email:<br>\r\n        <input type=\"text\" name=\"Email\" value=\"JohnSmth89@gamail.com\">\r\n        </h4>\r\n        \r\n        <h4>Sex:<br>\r\n        <input type=\"radio\" name=\"gender\" value=\"male\"> Male<br>\r\n        <input type=\"radio\" name=\"gender\" value=\"female\"> Female<br>\r\n        <input type=\"radio\" name=\"gender\" value=\"other\"> Other<br>\r\n        </h4>\r\n        \r\n        <h4>Bio:<br>\r\n        <textarea rows=\"4\" cols=\"30\">\r\n            My ideal date? I pick you up in my car, and there’s candles gently licking the air on the dashboard ‘Rich, \r\n            there’s candles on the dashboard’, I smile. ‘Yeah, I know.’ We take a drive, go to a restaurant, have a wonderful \r\n            meal and talk about life, goals, and ideals.  As we leave, you notice my car is ablaze. ‘Rich, your car is on fire!’.\r\n            ‘It’s okay – it’s not mine’ – at which point I pull out marshmallows. We cook them & eat them. Then I kiss you passionately. In front of the burning car.\r\n        </textarea></h4>\r\n        <br><br><br>\r\n      </form>\r\n\r\n      <div class= \"btncontainer\">\r\n          <button mat-button><a href= \"../profile\">Save</a></button>\r\n      </div>\r\n\r\n    </div>\r\n    \r\n   \r\n\r\n</html>"
+module.exports = "\r\n<!DOCTYPE html>\r\n<html>\r\n    \r\n<div class = \"defaultContainer\"> \r\n    <div class=\"titlecontainer\">\r\n    <h1>Edit Profile</h1>\r\n</div>\r\n\r\n<div class =\"cardcontainer\">\r\n<mat-card>\r\n    <img class =\"profileimg\"  src=\"https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg\">\r\n    <br>\r\n\r\n    <div class=\"biocontainer\"> \r\n        <mat-form-field>  \r\n            <textarea matInput placeholder=\"Bio\">My ideal date? I pick you up in my car, and there’s candles gently licking the air on the dashboard ‘Rich, there’s candles on the dashboard’, I smile. ‘Yeah, I know.’ We take a drive, go to a restaurant, have a wonderful meal and talk about life, goals, and ideals.  As we leave, you notice my car is ablaze. ‘Rich, your car is on fire!’.‘It’s okay – it’s not mine’ – at which point I pull out marshmallows. We cook them & eat them. Then I kiss you passionately. In front of the burning car.</textarea>\r\n        </mat-form-field>\r\n    </div>\r\n\r\n</mat-card>\r\n</div>\r\n\r\n<div class=\"name\">\r\n    <mat-card>\r\n        \r\n        <form>\r\n        <div class=\"style\">\r\n        <mat-form-field>\r\n                <input matInput placeholder=\"Name\">\r\n        </mat-form-field>\r\n    </div>\r\n     <br>\r\n     <div class=\"style\">\r\n        <mat-form-field>\r\n                <input matInput placeholder=\"Phone number\">\r\n            </mat-form-field> <br>\r\n</div>\r\n<div class=\"style\">\r\n                <mat-form-field>\r\n                <input matInput placeholder=\"Email\"> <br>\r\n            </mat-form-field> </div>\r\n            <br>\r\n\r\n            <div class=\"style\">\r\n            <label>Sex</label><br>\r\n                <mat-radio-group  class=\"sexlabel\">\r\n                        <mat-radio-button value=\"Male\">Male</mat-radio-button> &nbsp;\r\n                        <mat-radio-button value=\"Female\">Female</mat-radio-button> &nbsp;\r\n                </mat-radio-group>\r\n            </div>\r\n            </form>\r\n      \r\n    </mat-card>\r\n\r\n</div>\r\n\r\n    <!--<form [formGroup]=\"editprofileForm\">\r\n\r\n        <h4>First name:<br>\r\n        <input type=\"text\" name=\"firstname\" value=\"John\">\r\n        </h4>\r\n        \r\n        <h4>Last name:<br>\r\n        <input type=\"text\" name=\"lastname\" value=\"Smith\">\r\n        </h4>\r\n        \r\n        <h4>Phone:<br>\r\n        <input type=\"text\" name=\"Phone\" value=\"0123-456-789\">\r\n        </h4>\r\n        \r\n        <h4>Email:<br>\r\n        <input type=\"text\" name=\"Email\" value=\"JohnSmth89@gamail.com\">\r\n        </h4>\r\n        \r\n        <h4>Sex:<br>\r\n        <input type=\"radio\" name=\"gender\" value=\"male\"> Male<br>\r\n        <input type=\"radio\" name=\"gender\" value=\"female\"> Female<br>\r\n        <input type=\"radio\" name=\"gender\" value=\"other\"> Other<br>\r\n        </h4>\r\n        \r\n        <h4>Bio:<br>\r\n        <textarea rows=\"4\" cols=\"30\">\r\n            My ideal date? I pick you up in my car, and there’s candles gently licking the air on the dashboard ‘Rich, \r\n            there’s candles on the dashboard’, I smile. ‘Yeah, I know.’ We take a drive, go to a restaurant, have a wonderful \r\n            meal and talk about life, goals, and ideals.  As we leave, you notice my car is ablaze. ‘Rich, your car is on fire!’.\r\n            ‘It’s okay – it’s not mine’ – at which point I pull out marshmallows. We cook them & eat them. Then I kiss you passionately. In front of the burning car.\r\n        </textarea></h4>\r\n        <br><br><br>\r\n      </form>-->\r\n\r\n\r\n\r\n      <div class= \"btncontainer\">\r\n          <button mat-button><a href= \"../profile\">Save</a></button>\r\n      </div>\r\n\r\n    </div>\r\n    \r\n   \r\n\r\n</html>"
 
 /***/ }),
 
@@ -1910,6 +1951,75 @@ var RegisterComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/alert.service.ts":
+/*!*******************************************!*\
+  !*** ./src/app/services/alert.service.ts ***!
+  \*******************************************/
+/*! exports provided: AlertService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return AlertService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+
+var AlertService = /** @class */ (function () {
+    function AlertService(router, _http) {
+        var _this = this;
+        this.router = router;
+        this._http = _http;
+        this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
+        this.keepAfterNavigationChange = false;
+        this._url = 'http://localhost:8080/alertpartners';
+        // clear alert message on route change
+        router.events.subscribe(function (event) {
+            if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationStart"]) {
+                if (_this.keepAfterNavigationChange) {
+                    // only keep for a single location change
+                    _this.keepAfterNavigationChange = false;
+                }
+                else {
+                    // clear alert
+                    _this.subject.next();
+                }
+            }
+        });
+    }
+    AlertService.prototype.alertpartners = function (alert) {
+        return this._http.post(this._url, alert);
+    };
+    AlertService.prototype.success = function (message, keepAfterNavigationChange) {
+        if (keepAfterNavigationChange === void 0) { keepAfterNavigationChange = false; }
+        this.keepAfterNavigationChange = keepAfterNavigationChange;
+        this.subject.next({ type: 'success', text: message });
+    };
+    AlertService.prototype.error = function (message, keepAfterNavigationChange) {
+        if (keepAfterNavigationChange === void 0) { keepAfterNavigationChange = false; }
+        this.keepAfterNavigationChange = keepAfterNavigationChange;
+        this.subject.next({ type: 'error', text: message });
+    };
+    AlertService.prototype.getMessage = function () {
+        return this.subject.asObservable();
+    };
+    AlertService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({ providedIn: 'root' }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]])
+    ], AlertService);
+    return AlertService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/contact.service.ts":
 /*!*********************************************!*\
   !*** ./src/app/services/contact.service.ts ***!
@@ -2052,17 +2162,18 @@ var AddPartnerComponent = /** @class */ (function () {
     function AddPartnerComponent(_contactService) {
         this._contactService = _contactService;
         this.persons = [];
+        this.selected_persons = [];
     }
     ;
     AddPartnerComponent.prototype.OnCheckboxSelect = function (person, status) {
-        if (this.persons.indexOf(person) === -1 && status) {
-            this.persons.push(person);
+        if (this.selected_persons.indexOf(person) === -1 && status) {
+            this.selected_persons.push(person);
         }
         else if (!status) {
-            var index = this.persons.indexOf(person);
-            this.persons.splice(index, 1);
+            var index = this.selected_persons.indexOf(person);
+            this.selected_persons.splice(index, 1);
         }
-        console.log(this.persons);
+        console.log(this.selected_persons);
     };
     AddPartnerComponent.prototype.OnSubmit = function () {
         // Submit every person where person.selected == true
@@ -2111,7 +2222,7 @@ module.exports = ".addsexualcontainer{\r\n    width: 80%;\r\n    margin-left: 15
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"addsexualcontainer\">\r\n  <h2>Add Sexual Activity</h2>\r\n  <h3><u>Participants </u>&nbsp;&nbsp;&nbsp;&nbsp;\r\n    <button mat-stroked-button onclick=\"window.location.href = '../addpartner/'\">Add</button>&nbsp;\r\n    <button mat-stroked-button onclick=\"window.location.href = '../deletepartner/'\">Delete</button><br>\r\n  </h3>\r\n\r\n  <form name=\"partnerlist\">\r\n    <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n      height=\"15\" width=\"15\">&nbsp;&nbsp;\r\n    Contact 1<br>\r\n    <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n      height=\"15\" width=\"15\">&nbsp;&nbsp;\r\n      Contact 2<br>\r\n    <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n      height=\"15\" width=\"15\">&nbsp;&nbsp;Placeholder Contacts..<br><br>\r\n  </form>\r\n\r\n  <form>\r\n      <!--\r\n    <h3><u>Activities Performed</u></h3>\r\n      <mat-checkbox name=\"activity\" value=\"vaginal\" formControlName=\"activity\"> Vaginal Sex</mat-checkbox><br>\r\n      <mat-checkbox name=\"activity\" value=\"anal\" formControlName=\"activity\"> Anal Sex</mat-checkbox><br>\r\n      <mat-checkbox name=\"activity\" value=\"oral\" formControlName=\"activity\"> Oral Sex</mat-checkbox><br>\r\n      <mat-checkbox name=\"activity\" value=\"other\" formControlName=\"activity\"> Other</mat-checkbox><br>\r\n    <h3><u>Contraceptives Used</u></h3>\r\n      <mat-checkbox name=\"contraceptive\" value=\"condoms\" formControlName=\"contraceptive\"> Condoms</mat-checkbox><br>\r\n      <mat-checkbox name=\"contraceptive\" value=\"pill\" formControlName=\"contraceptive\"> Pill</mat-checkbox><br>\r\n    -->\r\n      <h3><u>Activities Performed</u></h3>\r\n      <li *ngFor=\"let activity of sexualactivity_list\">\r\n          <mat-checkbox [value]=\"sexual_activities\"\r\n                        [(ngModel)]=\"activity.selected\" (change)=\"OnCheckboxSelect(activity, activities_performed, $event.checked)\" name=\"activities\">{{ activity }}Sex</mat-checkbox>\r\n      </li>\r\n      <h3><u>Contraceptives Used</u></h3>\r\n      <li *ngFor=\"let contraceptive of contraceptive_list\">\r\n          <mat-checkbox [value]=\"contraceptives_\"\r\n                        [(ngModel)]=\"contraceptive.selected\" (change)=\"OnCheckboxSelect(contraceptive, contraceptives_used, $event.checked)\" name=\"contraceptives\">{{ contraceptive }}Sex</mat-checkbox>\r\n      </li>\r\n\r\n      <h3><u>Comments</u></h3>\r\n      <!--\r\n    <mat-form-field>\r\n        <textarea matInput id=\"comment\" placeholder=\"Add your comments..\"\r\n          rows=\"5\" cols=\"10\" [(ngModel)]=\"comment\" name=\"comment\"></textarea>\r\n    </mat-form-field><br>\r\n    <button mat-button class=\"submitbutton\" type=\"submit\"\r\n      onclick=\"window.location.href = '../sexualhistory/'\">Submit</button><br>-->\r\n  </form>\r\n      <br><br>\r\n</div>\r\n"
+module.exports = "<div class=\"addsexualcontainer\">\r\n  <h2>Add Sexual Activity</h2>\r\n  <h3><u>Participants </u>&nbsp;&nbsp;&nbsp;&nbsp;\r\n    <button mat-stroked-button onclick=\"window.location.href = '../addpartner/'\">Add</button>&nbsp;\r\n    <button mat-stroked-button onclick=\"window.location.href = '../deletepartner/'\">Delete</button><br>\r\n  </h3>\r\n\r\n  <form name=\"partnerlist\">\r\n    <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n      height=\"15\" width=\"15\">&nbsp;&nbsp;\r\n    Contact 1<br>\r\n    <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n      height=\"15\" width=\"15\">&nbsp;&nbsp;\r\n      Contact 2<br>\r\n    <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n      height=\"15\" width=\"15\">&nbsp;&nbsp;Placeholder Contacts..<br><br>\r\n  </form>\r\n\r\n  <form>\r\n      <!--\r\n    <h3><u>Activities Performed</u></h3>\r\n      <mat-checkbox name=\"activity\" value=\"vaginal\" formControlName=\"activity\"> Vaginal Sex</mat-checkbox><br>\r\n      <mat-checkbox name=\"activity\" value=\"anal\" formControlName=\"activity\"> Anal Sex</mat-checkbox><br>\r\n      <mat-checkbox name=\"activity\" value=\"oral\" formControlName=\"activity\"> Oral Sex</mat-checkbox><br>\r\n      <mat-checkbox name=\"activity\" value=\"other\" formControlName=\"activity\"> Other</mat-checkbox><br>\r\n    <h3><u>Contraceptives Used</u></h3>\r\n      <mat-checkbox name=\"contraceptive\" value=\"condoms\" formControlName=\"contraceptive\"> Condoms</mat-checkbox><br>\r\n      <mat-checkbox name=\"contraceptive\" value=\"pill\" formControlName=\"contraceptive\"> Pill</mat-checkbox><br>\r\n    -->\r\n      <h3><u>Activities Performed</u></h3>\r\n      <li *ngFor=\"let activity of sexualactivity_list\">\r\n          <mat-checkbox [value]=\"sexual_activities\"\r\n                        [(ngModel)]=\"activity.selected\" (change)=\"OnCheckboxSelect(activity, activities_performed, $event.checked)\" name=\"activities\">{{ activity }} Sex</mat-checkbox>\r\n      </li>\r\n      <h3><u>Contraceptives Used</u></h3>\r\n      <li *ngFor=\"let contraceptive of contraceptive_list\">\r\n          <mat-checkbox [value]=\"contraceptives_\"\r\n                        [(ngModel)]=\"contraceptive.selected\" (change)=\"OnCheckboxSelect(contraceptive, contraceptives_used, $event.checked)\" name=\"contraceptives\">{{ contraceptive }}</mat-checkbox>\r\n      </li>\r\n\r\n      <h3><u>Comments</u></h3>\r\n      <!--\r\n    <mat-form-field>\r\n        <textarea matInput id=\"comment\" placeholder=\"Add your comments..\"\r\n          rows=\"5\" cols=\"10\" [(ngModel)]=\"comment\" name=\"comment\"></textarea>\r\n    </mat-form-field><br>\r\n    <button mat-button class=\"submitbutton\" type=\"submit\"\r\n      onclick=\"window.location.href = '../sexualhistory/'\">Submit</button><br>-->\r\n  </form>\r\n      <br><br>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -2146,28 +2257,6 @@ var AddSexualComponent = /** @class */ (function () {
         }
         console.log(array);
     };
-    /*
-    OnActivityCheckboxSelect(activity, status:boolean) {
-      if (this.activities_performed.indexOf(activity) === -1 && status) {
-        this.activities_performed.push(activity);
-      }
-      else if(!status) {
-        let index = this.activities_performed.indexOf(activity);
-        this.activities_performed.splice(index, 1);
-      }
-      console.log(this.activities_performed);
-    }
-    OnContraceptiveCheckboxSelect(contraceptive, status:boolean) {
-      if (this.contraceptives_used.indexOf(contraceptive) === -1 && status) {
-        this.contraceptives_used.push(contraceptive);
-      }
-      else if(!status) {
-        let index = this.contraceptives_used.indexOf(contraceptive);
-        this.contraceptives_used.splice(index, 1);
-      }
-      console.log(this.contraceptives_used);
-    }
-    */
     AddSexualComponent.prototype.OnSubmit = function () {
         // Submit every person where person.selected == true
         // Delete those from the database
@@ -2233,17 +2322,18 @@ var DeletePartnerComponent = /** @class */ (function () {
     function DeletePartnerComponent(_contactService) {
         this._contactService = _contactService;
         this.persons = [];
+        this.selected_persons = [];
     }
     ;
     DeletePartnerComponent.prototype.OnCheckboxSelect = function (person, status) {
-        if (this.persons.indexOf(person) === -1 && status) {
-            this.persons.push(person);
+        if (this.selected_persons.indexOf(person) === -1 && status) {
+            this.selected_persons.push(person);
         }
         else if (!status) {
-            var index = this.persons.indexOf(person);
-            this.persons.splice(index, 1);
+            var index = this.selected_persons.indexOf(person);
+            this.selected_persons.splice(index, 1);
         }
-        console.log(this.persons);
+        console.log(this.selected_persons);
     };
     DeletePartnerComponent.prototype.OnSubmit = function () {
         // Submit every person where person.selected == true

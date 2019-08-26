@@ -65,7 +65,9 @@ export class AlertPartnersComponent implements OnInit {
         //Validators.required
       ]]
     })
-  }
+    }
+
+    //stackoverflow.com/questions/34835516/how-to-submit-form-to-server-in-angular2
     onSubmit() {
     /*
     alert('You may have been infected with ' + this.alert.diagnosis  + ', please get tested as soon as possible' + ' '
@@ -86,7 +88,7 @@ export class AlertPartnersComponent implements OnInit {
   getTrace(){
     try {
       for (let dis of this.diseases){
-        console.log(this.alert.diagnosis === dis.name);
+        //console.log(this.alert.diagnosis === dis.name);
         if (this.alert.diagnosis === dis.name){
           this.v = dis.trace;        
         }

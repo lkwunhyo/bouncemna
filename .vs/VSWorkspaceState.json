@@ -2,12 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\dist",
-    "\\src",
     "\\src\\app",
     "\\src\\app\\alert-partners",
     "\\src\\app\\models",
     "\\src\\app\\services"
   ],
-  "SelectedNode": "\\src\\app\\services\\alert.service.ts",
+  "SelectedNode": "\\alert.js",
   "PreviewInSolutionExplorer": false
 }
