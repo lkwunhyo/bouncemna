@@ -30,12 +30,12 @@
       <h3><u>Activities Performed</u></h3>
       <li *ngFor="let activity of sexualactivity_list">
           <mat-checkbox [value]="sexual_activities"
-                        [(ngModel)]="activity.selected" (change)="OnCheckboxSelect(activity, activities_performed, $event.checked)" name="activities">{{ activity }}Sex</mat-checkbox>
+                        [(ngModel)]="activity.selected" (change)="OnCheckboxSelect(activity, activities_performed, $event.checked)" name="activities">{{ activity }} Sex</mat-checkbox>
       </li>
       <h3><u>Contraceptives Used</u></h3>
       <li *ngFor="let contraceptive of contraceptive_list">
           <mat-checkbox [value]="contraceptives_"
-                        [(ngModel)]="contraceptive.selected" (change)="OnCheckboxSelect(contraceptive, contraceptives_used, $event.checked)" name="contraceptives">{{ contraceptive }}Sex</mat-checkbox>
+                        [(ngModel)]="contraceptive.selected" (change)="OnCheckboxSelect(contraceptive, contraceptives_used, $event.checked)" name="contraceptives">{{ contraceptive }}</mat-checkbox>
       </li>
 
       <h3><u>Comments</u></h3>
