@@ -4,4 +4,5 @@ export class alertPartnersModel {
     contacts: String;
     message: String;
     anonymity: String;
+    date: String;
   }

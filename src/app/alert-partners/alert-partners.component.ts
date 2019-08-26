@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { alertPartnersModel } from '../models/alert-partners.model';
 import { FormBuilder, FormGroup, Validators , FormArray, FormControl} from '@angular/forms';
-
+import { DatePipe } from '@angular/common';
 import { Person } from '../models/person';
 import { PERSONS } from '../models/person_mock';
 import { ContactService } from '../services/contact.service';
@@ -9,12 +9,14 @@ import { ContactService } from '../services/contact.service';
 import { DiseaseService} from '../services/disease.service';
 import { Disease } from '../models/disease.model';
 import { DISEASES } from '../models/disease_mock';
+import { AlertService } from '../services/alert.service';
 
 //Should I put combine both forms into one? is data binded for submission?
 @Component({
   selector: 'app-alert-partners',
   templateUrl: './alert-partners.component.html',
-  styleUrls: ['./alert-partners.component.css']
+    styleUrls: ['./alert-partners.component.css'],
+    providers: [DatePipe]
 })
 export class AlertPartnersComponent implements OnInit {
   alert: alertPartnersModel = new alertPartnersModel();
@@ -26,11 +28,12 @@ export class AlertPartnersComponent implements OnInit {
   incomplete = "incomplete";
 
   constructor(private formBuilder: FormBuilder, private _contactService: ContactService,
-    private _diseaseService: DiseaseService) {
+      private _diseaseService: DiseaseService, private datePipe: DatePipe, private _alertService: AlertService) {
       this.alertPartnersForm1 = this.formBuilder.group({
       });
       this.alertPartnersForm2 = this.formBuilder.group({
       });
+      
      }
   
   v = null;
@@ -46,10 +49,12 @@ export class AlertPartnersComponent implements OnInit {
     this.alertPartnersForm1 = this.formBuilder.group({
       'diagnosis': [this.alert.diagnosis, [
         Validators.required
-      ]],
-      'message': [this.alert.message, [
-        //Validators.required
-      ]],
+        ]],
+        'message': [this.alert.message = String(this.isSendMessage), [
+            //Validators.required
+        ]],
+        'date': [this.alert.date, [
+        ]],
     });
 
     this.alertPartnersForm2 = this.formBuilder.group({
@@ -61,10 +66,19 @@ export class AlertPartnersComponent implements OnInit {
       ]]
     })
   }
-  onSubmit() {
+    onSubmit() {
+    /*
     alert('You may have been infected with ' + this.alert.diagnosis  + ', please get tested as soon as possible' + ' '
-  + this.alert.anonymity + ' ' +  this.alert.contacts);
-  } //
+  + this.alert.anonymity + ' ' +  this.alert.contacts);*/
+        console.log("data form 1: " + JSON.stringify(this.alertPartnersForm1.value));
+        console.log("data form 2: " + JSON.stringify(this.alertPartnersForm2.value));
+        //console.log(this.alert.date);
+        this._alertService.alertpartners(this.alert).subscribe(
+            data => console.log('Success!', data),
+            error => console.error('Error!', error)
+        );
+    } //
+
   onSelect(person: Person): void {
     this.selectedPerson = person;
   }
@@ -88,8 +102,18 @@ export class AlertPartnersComponent implements OnInit {
     this.alertPartnersForm1.get(event.target.attributes.formcontrolname.value)
     .setValue(event.target.checked);
     this.alertPartnersForm2.get(event.target.attributes.formcontrolname.value)
-    .setValue(event.target.checked);
-}
+          .setValue(event.target.checked);
+    }
+
+    sendMessage() {
+        this.alertPartnersForm1.patchValue({ 'message': String(this.isSendMessage) })
+    }
+
+    formatDate() {
+        //not working
+        this.alert.date = this.datePipe.transform(this.alert.date, 'MM-dd-yyyy');
+        console.log(this.alert.date);
+    }
 
 checkPartTwo(){
   console.log("checking")

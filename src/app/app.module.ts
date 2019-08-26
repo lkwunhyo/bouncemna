@@ -49,6 +49,12 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { APP_BASE_HREF } from '@angular/common';
 
+import { AddEventsComponent } from './calender/add-events/add-events.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MAT_DATE_LOCALE } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,12 +103,13 @@ import { APP_BASE_HREF } from '@angular/common';
     MatButtonToggleModule,
     MatDividerModule,
     MatCardModule,
+    HttpClientModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
-      useFactory: adapterFactory
+        useFactory: adapterFactory,
     })
   ],
-    providers: [{ provide: APP_BASE_HREF, useValue: '/' }, ContactService,MatDatepickerModule],
+    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{ provide: APP_BASE_HREF, useValue: '/'}, ContactService,MatDatepickerModule],
   bootstrap: [AppComponent],
   
 })
