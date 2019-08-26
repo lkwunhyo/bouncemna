@@ -5,11 +5,13 @@
   <h2>New event</h2>
 </div>
 
-<form>
+<form [formGroup] = "calForm">
+
+  Value: {{calForm.value | json }}
 
   <div class="title-container">
     <mat-form-field>
-      <input matInput placeholder="Enter title">
+      <input matInput placeholder="Enter title" formControlName="title">
     </mat-form-field>
   </div>
 
@@ -18,36 +20,37 @@
   <div class="date-container">
     <h3>Date:</h3>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+    <mat-hint align ="end">mm/dd/yyyy</mat-hint>
     <mat-divider></mat-divider>
 
     <div class="clock">
-      <h3>Time:</h3>
-      <mat-form-field>
-        <input matInput placeholder="Hour">
+      <h3>Choose a time:</h3>
+      <p>Start</p>
+      <mat-form-field >
+          <input class="col-md-5 end" matInput name="start" type="time" formControlName="timestart">
       </mat-form-field>
+      <mat-hint align ="end">HH:MM:AM</mat-hint>
       <br>
-      <mat-form-field>
-        <input matInput placeholder="Minute">
+      <p>End</p>
+      <mat-form-field >
+          <input class="col-md-5 end" matInput name="end" type="time" formControlName="timeend">
       </mat-form-field>
-      <br>
+      <mat-hint align ="end">HH:MM:PM</mat-hint>
     </div>
-
-    <mat-radio-group aria-label="Select an option">
-      <mat-radio-button value="AM">AM</mat-radio-button><br><br>
-      <mat-radio-button value="PM">PM</mat-radio-button>
-    </mat-radio-group>
   </div>
+
   <br>
+
   <mat-divider></mat-divider>
 
   <div class="alert-container">
     <h3>Select Alert:</h3>
     <mat-form-field>
-      <mat-select placeholder="Alert">
+      <mat-select placeholder="Alert"  formControlName="alert">
         <mat-option value="None">None</mat-option>
         <mat-option value="On time">On time</mat-option>
         <mat-option value="5">5 mins before</mat-option>
@@ -63,7 +66,7 @@
   <div class="repeat-container">
     <h3>Select Repeat:</h3>
     <mat-form-field>
-      <mat-select placeholder="Repeat">
+      <mat-select placeholder="Repeat"  formControlName="repeat">
         <mat-option value="never">Never</mat-option>
         <mat-option value="daily">Daily</mat-option>
         <mat-option value="weekly">Weekly</mat-option>
@@ -76,7 +79,7 @@
 
   <div class="events-container">
     <mat-form-field class="note">
-      <textarea matInput placeholder="Note"></textarea>
+      <textarea matInput placeholder="Note"  formControlName="note"></textarea>
     </mat-form-field>
 
 

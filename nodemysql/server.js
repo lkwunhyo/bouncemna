@@ -1,14 +1,14 @@
 // server.js
 
-const mysql = require('mysql');
+var mysql = require('mysql');
 
-const con = mysql.createConnection({
+var con = mysql.createConnection({
     host: "localhost",
-    user: "tryl",
-    password: "tryl"
+    user: "root",
+    password: "12345678"
 });
 
-con.connect(function (err) {
+con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
-});
+  });

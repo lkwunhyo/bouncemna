@@ -1,7 +1,23 @@
 .profileimg{
-    border-radius: 100px;
-    width: 110px;
-    height: 100px;
-    margin-left: 30%;
-    
+    /* border-radius: 100px; */
+    width: 100%;
+    height: 100%;
+    /* margin-left: 30%; */
+}
+
+.cardcontainer{
+    padding-bottom: 5%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.biocontainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.style{
+    display: flex;
+    flex-direction: column;
 }
