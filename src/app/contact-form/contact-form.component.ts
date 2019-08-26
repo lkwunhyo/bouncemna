@@ -16,9 +16,6 @@ export interface Age {
 export class ContactFormComponent implements OnInit {
   contact = new Person();
 
-  // TODO: Remove this after completion
-  get diagnostic() { return JSON.stringify(this.contact); }
-
   onSubmit() { }
 
   email = new FormControl('', [Validators.required, Validators.email]);
