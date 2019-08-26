@@ -1,20 +1,15 @@
 // server.js
-/*
-const mysql = require('mysql');
-const con = mysql.createConnection({
+
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
     host: "localhost",
-    user: "tryl",
-    password: "tryl"
+    user: "root",
+    password: "12345678"
 });
 
-con.connect(function (err) {
+con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
-});
+  });
 
-con.end(function(err) {
-  if (err) {
-    return console.log('error:' + err.message);
-  }
-  console.log('Close the database connection.');
-});*/

@@ -3,9 +3,59 @@
 <html>
     
 <div class = "defaultContainer"> 
-    <h1>Edit Profile</h1><br><br>
+    <div class="titlecontainer">
+    <h1>Edit Profile</h1>
+</div>
+
+<div class ="cardcontainer">
+<mat-card>
     <img class ="profileimg"  src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg">
-       <form [formGroup]="editprofileForm">
+    <br>
+
+    <div class="biocontainer"> 
+        <mat-form-field>  
+            <textarea matInput placeholder="Bio">My ideal date? I pick you up in my car, and there’s candles gently licking the air on the dashboard ‘Rich, there’s candles on the dashboard’, I smile. ‘Yeah, I know.’ We take a drive, go to a restaurant, have a wonderful meal and talk about life, goals, and ideals.  As we leave, you notice my car is ablaze. ‘Rich, your car is on fire!’.‘It’s okay – it’s not mine’ – at which point I pull out marshmallows. We cook them & eat them. Then I kiss you passionately. In front of the burning car.</textarea>
+        </mat-form-field>
+    </div>
+
+</mat-card>
+</div>
+
+<div class="name">
+    <mat-card>
+        
+        <form>
+        <div class="style">
+        <mat-form-field>
+                <input matInput placeholder="Name">
+        </mat-form-field>
+    </div>
+     <br>
+     <div class="style">
+        <mat-form-field>
+                <input matInput placeholder="Phone number">
+            </mat-form-field> <br>
+</div>
+<div class="style">
+                <mat-form-field>
+                <input matInput placeholder="Email"> <br>
+            </mat-form-field> </div>
+            <br>
+
+            <div class="style">
+            <label>Sex</label><br>
+                <mat-radio-group  class="sexlabel">
+                        <mat-radio-button value="Male">Male</mat-radio-button> &nbsp;
+                        <mat-radio-button value="Female">Female</mat-radio-button> &nbsp;
+                </mat-radio-group>
+            </div>
+            </form>
+      
+    </mat-card>
+
+</div>
+
+    <!--<form [formGroup]="editprofileForm">
 
         <h4>First name:<br>
         <input type="text" name="firstname" value="John">
@@ -37,7 +87,9 @@
             ‘It’s okay – it’s not mine’ – at which point I pull out marshmallows. We cook them & eat them. Then I kiss you passionately. In front of the burning car.
         </textarea></h4>
         <br><br><br>
-      </form>
+      </form>-->
+
+
 
       <div class= "btncontainer">
           <button mat-button><a href= "../profile">Save</a></button>
