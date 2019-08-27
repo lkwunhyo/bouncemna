@@ -46,11 +46,14 @@ app.get('*', function (req, res) {
 app.listen(process.env.PORT || 8080);
 
 //middleware stuff?
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
 
+//app.get('/alertpartners')
+
+//note to self, request is to receive data, response is for pushing data to browser
 app.post('/alertpartners', function (req, res){
 
 
@@ -61,7 +64,9 @@ app.post('/alertpartners', function (req, res){
         anonymity: req.sanitize('anonymity').escape.trim(),
         date: req.sanitize('date').escape.trim(),
     }*/
-    console.log("req.body.diagnosis: " + req.body[0]);
+    //console.log("req.body.diagnosis: " + req.body.get());
+    console.dir(req);
+    //console.log("alertpartners: " +)
     //console.log("req.diagnosis " + req.diagnosis);
     /*connection.query('INSERT INTO alertpartners SET ?', alert, function (err, result) {
 

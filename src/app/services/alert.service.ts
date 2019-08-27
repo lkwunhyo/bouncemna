@@ -28,7 +28,11 @@ constructor(private router: Router, private _http: HttpClient) {
     }
 
     alertpartners(alert: alertPartnersModel) {
-    return this._http.post<any>(this._url, alert);
+        console.dir("called service");
+        //console.dir("json: " + JSON.stringify(alert));
+        console.dir("alert.diagnosis: " + alert.diagnosis);
+
+        return this._http.post<any>(this._url, alert);
 }
 
 
