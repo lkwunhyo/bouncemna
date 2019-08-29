@@ -17,22 +17,25 @@
     <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
       (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-day-view>
-
+<br>
 <!-- Code for Next Today previous button -->
     <table>
       <tr>
       <td><div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()">
-        <button mat-flat-button color="primary">Previous</button>
+        <!--<button mat-flat-button color="primary">Previous</button>-->
+        <button mat-stroked-button>Previous</button>
       </div></td>
 
       <td>
-        <button mat-flat-button color="primary"><a href= "../add-events">Add new Event</a></button>
+        <!--<button mat-flat-button color="primary"><a href= "../add-events">Add new Event</a></button>-->
+        <button mat-stroked-button onclick="window.location.href = '../add-events'">Add New Event</button>
       </td>
 
       <td><div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()">
-        <button mat-flat-button color="primary">Next</button>
+        <!--<button mat-flat-button color="primary">Next</button>-->
+        <button mat-stroked-button>Next</button>
       </div></td>
     </tr>
     

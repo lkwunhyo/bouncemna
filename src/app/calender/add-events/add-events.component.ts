@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms'; 
 
 @Component({
   selector: 'app-add-events',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-events.component.css']
 })
 export class AddEventsComponent implements OnInit {
+
+  date = new FormControl(new Date());
 
   constructor() { }
 
