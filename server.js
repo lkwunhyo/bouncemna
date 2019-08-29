@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const expressSanitizer = require('express-sanitizer');
 const app = express();
+var flash = require('connect-flash');
+var session = require('express-session');
 const cors = require('cors');
 const port = 8080;
 
@@ -51,6 +53,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(expressSanitizer());
+app.use(flash());
+app.use(session({
+    secret: '123456cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }
+}))
+
 
 
 
@@ -68,14 +78,12 @@ app.post('/alertpartners', function (req, res){ //validate then sanitize
         date: req.sanitize(req.body.date),
     }
     //console.log("req.body.diagnosis: " + req.body.get());
-    console.dir(req);
     console.dir("alert:");
     console.dir(alert);
     //console.log("alertpartners: " +)
     //console.log("req.diagnosis " + req.diagnosis);
-    /*connection.query('INSERT INTO alertpartners SET ?', alert, function (err, result) {
 
-        //if(err) throw err
+    connection.query('INSERT INTO bounce.alertpartner SET ?', alert, function (err, result) {
         if (err) {
             req.flash('error', err)
 
@@ -86,10 +94,10 @@ app.post('/alertpartners', function (req, res){ //validate then sanitize
                 //email: user.email
             //})
         } else {
-            console.log(req.body);
+            console.log("db post success");
             res.status(200).send({ "message": "data received" });
         }
-    })*/
+    })
 })
 
 
