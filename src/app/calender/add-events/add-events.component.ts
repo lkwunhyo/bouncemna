@@ -17,7 +17,6 @@ export class AddEventsComponent implements OnInit {
   loading = false;
   success = false;
 
-
   constructor(private fb: FormBuilder, private httpClient: HttpClient) { }
 
   ngOnInit() {
