@@ -119,9 +119,8 @@ export class AlertPartnersComponent implements OnInit {
         //not working
         //this.alert.date = this.datePipe.transform(this.alert.date, 'MM-dd-yyyy');
         let newdateValue = moment(this.alertPartnersForm1.get('date').value).format("DD-MM-YYYY");
-        this.alertPartnersForm1.get('date').setValue(newdateValue);
+        //this.alertPartnersForm1.get('date').setValue(newdateValue);
         this.alert.date = newdateValue;
-        console.log('newdate: ' + newdateValue);
         console.log('alert.date: ' + this.alert.date);
     }
 
