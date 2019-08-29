@@ -10,6 +10,8 @@ import { DiseaseService} from '../services/disease.service';
 import { Disease } from '../models/disease.model';
 import { DISEASES } from '../models/disease_mock';
 import { AlertService } from '../services/alert.service';
+import * as moment from 'moment';
+
 
 //Should I put combine both forms into one? is data binded for submission?
 @Component({
@@ -57,11 +59,11 @@ export class AlertPartnersComponent implements OnInit {
         ]],
     });
 
-    this.alertPartnersForm2 = this.formBuilder.group({
-      'contacts': [this.alert.contacts, [
+      this.alertPartnersForm2 = this.formBuilder.group({
+          'contacts': [this.alert.contacts = 'false', [
         //Validators.requiredTrue
       ]],
-      'anonymity': [this.alert.anonymity, [
+      'anonymity': [this.alert.anonymity = 'anonymous', [
         //Validators.required
       ]]
     })
@@ -115,8 +117,12 @@ export class AlertPartnersComponent implements OnInit {
 
     formatDate() {
         //not working
-        this.alert.date = this.datePipe.transform(this.alert.date, 'MM-dd-yyyy');
-        console.log(this.alert.date);
+        //this.alert.date = this.datePipe.transform(this.alert.date, 'MM-dd-yyyy');
+        let newdateValue = moment(this.alertPartnersForm1.get('date').value).format("DD-MM-YYYY");
+        this.alertPartnersForm1.get('date').setValue(newdateValue);
+        this.alert.date = newdateValue;
+        console.log('newdate: ' + newdateValue);
+        console.log('alert.date: ' + this.alert.date);
     }
 
 checkPartTwo(){

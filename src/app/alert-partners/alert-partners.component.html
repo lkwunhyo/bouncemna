@@ -20,7 +20,7 @@
             <br>
             <h4>Date of diagnosis</h4><br>
             <mat-form-field>
-                <input matInput [matDatepicker]="picker"  (ngModelChange)="formatDate()"  formControlName="date" placeholder="Choose a date" [(ngModel)]="date">
+                <input matInput [matDatepicker]="picker" (onChange)="formatDate()" formControlName="date" placeholder="Choose a date" [(ngModel)]="date">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -71,7 +71,7 @@
             <br><br>Message:<br> You may have contacted<br>{{alert.diagnosis}}, please get tested immediately
         <div>
           <!--><button mat-button matStepperPrevious>Back</button><-->
-          <button mat-button type="submit" (click)="stepper.reset(); onSubmit()">Reset</button>
+          <button mat-button type="submit" (click)="stepper.reset();">Reset</button>
           <button mat-button matStepperNext>Next</button>
         </div>
       </form>
@@ -82,7 +82,7 @@
       <div>
         <!--><button mat-button matStepperPrevious>Back</button><-->
         <button mat-button (click)="stepper.reset();resetForm()">Reset</button>
-        <button mat-button matStepperNext (click) = "onSubmit()">Submit</button>
+        <button mat-button matStepperNext (click) = "onSubmit();">Submit</button>
       </div>
     </mat-step>
     <mat-step [completed]="false">

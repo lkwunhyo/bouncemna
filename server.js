@@ -1,12 +1,13 @@
+//stackoverflow.com/questions/50910305/how-run-in-same-port-angular-and-node-js-express
 //Install express server
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const path = require('path');
+const expressSanitizer = require('express-sanitizer');
 const app = express();
 const cors = require('cors');
 const port = 8080;
-
 
 var connection = mysql.createConnection({
     host: 'localhost',
@@ -49,23 +50,27 @@ app.listen(process.env.PORT || 8080);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(expressSanitizer());
+
 
 
 //app.get('/alertpartners')
 
 //note to self, request is to receive data, response is for pushing data to browser
-app.post('/alertpartners', function (req, res){
+app.post('/alertpartners', function (req, res){ //validate then sanitize
 
 
-    /*var alert = {
-        diagnosis: req.sanitize('diagnosis').escape().trim(),
-        contact: req.sanitize('contacts').escape().trim(),
-        sendmessage: req.sanitize('message').escape.trim(),
-        anonymity: req.sanitize('anonymity').escape.trim(),
-        date: req.sanitize('date').escape.trim(),
-    }*/
+    var alert = {
+        diagnosis: req.sanitize(req.body.diagnosis),
+        contact: req.sanitize(req.body.contacts),
+        sendmessage: req.sanitize(req.body.message),
+        anonymity: req.sanitize(req.body.anonymity),
+        date: req.sanitize(req.body.date),
+    }
     //console.log("req.body.diagnosis: " + req.body.get());
     console.dir(req);
+    console.dir("alert:");
+    console.dir(alert);
     //console.log("alertpartners: " +)
     //console.log("req.diagnosis " + req.diagnosis);
     /*connection.query('INSERT INTO alertpartners SET ?', alert, function (err, result) {
