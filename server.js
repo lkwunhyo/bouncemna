@@ -11,6 +11,10 @@ var session = require('express-session');
 const cors = require('cors');
 const port = 8080;
 
+//register
+var Cryptr = require('cryptr');
+
+
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'tryl',
@@ -94,7 +98,43 @@ app.post('/alertpartners', function (req, res){ //validate then sanitize
                 //email: user.email
             //})
         } else {
-            console.log("db post success");
+            console.log("db post alertpartner success");
+            res.status(200).send({ "message": "data received" });
+        }
+    })
+})
+
+app.post('/register', function (req, res) { //validate then sanitize
+
+    var encryptedString = cryptr.encrypt(req.body.password);
+
+    var registration = {
+        userid: req.sanitize(req.body.username),
+        firstname: req.sanitize(req.body.firstname),
+        lastname: req.sanitize(req.body.lastname),
+        gender: req.sanitize(req.body.gender),
+        email: req.sanitize(req.body.email),
+        password: encryptedString,
+        phone: req.sanitize(req.body.phone)
+    }
+    //console.log("req.body.diagnosis: " + req.body.get());
+    console.dir("rego:");
+    console.dir(registration);
+    //console.log("alertpartners: " +)
+    //console.log("req.diagnosis " + req.diagnosis);
+
+    connection.query('INSERT INTO bounce.account SET ?', registration, function (err, result) {
+        if (err) {
+            req.flash('error', err)
+            console.log(err);
+            // render to views/user/add.ejs
+            //res.render('alert-partners', {
+            //  title: 'Add New Customer',
+            //name: user.name,
+            //email: user.email
+            //})
+        } else {
+            console.log("db post register success");
             res.status(200).send({ "message": "data received" });
         }
     })

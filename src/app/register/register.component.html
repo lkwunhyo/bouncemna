@@ -19,12 +19,17 @@
                  [(ngModel)]="user.lastname"
                  placeholder="Enter your name" /><br><br>      
 
-          Gender:<br>
-                 <input type="radio" name="gender" value="male" formControlName="gender" [(ngModel)]="user.gender"> Male<br>
-                 <input type="radio" name="gender" value="female" formControlName="gender" [(ngModel)]="user.gender"> Female<br>
-                 <input type="radio" name="gender" value="other" formControlName="gender" [(ngModel)]="user.gender"> Other<br><br>
+          Sex:<br>
+                 <input type="radio" name="gender" value="m" formControlName="gender" [(ngModel)]="user.gender"> Male<br>
+                 <input type="radio" name="gender" value="f" formControlName="gender" [(ngModel)]="user.gender"> Female<br>
+                 
+          Phone:<br><input id="phone"
 
-          
+                 formControlName="phone"
+                 [(ngModel)]="user.phone"
+                 placeholder="Enter your phone number"/><br><br>
+
+
           Email:<br>
                  <input id="email"
                  formControlName="email"
@@ -45,6 +50,8 @@
                  [(ngModel)]="user.password"
                  placeholder="Enter your password"
                  [type]="hide ? 'password':'text'" /><br><br>
+
+
 
 
         <button type="submit"

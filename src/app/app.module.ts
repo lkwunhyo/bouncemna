@@ -52,6 +52,10 @@ import { APP_BASE_HREF } from '@angular/common';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 
+import { AuthenticationService } from './authentication.service';
+import { AuthGuardService } from './auth-guard.service';
+import { AppHttpService } from './services/apphttp.service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -102,12 +106,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatDividerModule,
     MatCardModule,
     HttpClientModule,
+    HttpModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
         useFactory: adapterFactory,
     })
   ],
-    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{ provide: APP_BASE_HREF, useValue: '/'}, ContactService,MatDatepickerModule],
+    providers: [AppHttpService, AuthenticationService, AuthGuardService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{ provide: APP_BASE_HREF, useValue: '/'}, ContactService,MatDatepickerModule],
   bootstrap: [AppComponent],
   
 })

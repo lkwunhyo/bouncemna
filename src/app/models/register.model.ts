@@ -1,11 +1,11 @@
 export class RegisterModel {
-    firstname: String;
-    lastname: String;
-    username: String;
-    email: String;
-    password: String;
-    gender: String;
-    phone: String;
-    dob: String;
+    firstname: string;
+    lastname: string;
+    username: string;
+    email: string;
+    password: string;
+    gender: string;
+    phone: string;
+    dob: string;
 
 }

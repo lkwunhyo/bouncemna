@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterModel } from '../models/register.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService, TokenPayload } from '../authentication.service'
+import { AppHttpService } from '../services/apphttp.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -10,9 +13,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
 user: RegisterModel = new RegisterModel();
 registerForm: FormGroup;
-hide = true;
-
-constructor(private formBuilder: FormBuilder) { }
+    hide = true;
+    credentials: TokenPayload;
+    _url = '//localhost:8080/register'
+    constructor(private formBuilder: FormBuilder, private _apphttpService: AppHttpService,
+    private router: Router) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -36,12 +41,30 @@ constructor(private formBuilder: FormBuilder) { }
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(30)
+      ]],
+        'phone': [this.user.phone, [
+          Validators.required
       ]]
     });
   }
 
-  onRegisterSubmit() {
-    alert(this.user.firstname + ' ' + this.user.email + ' ' + this.user.password + '' + this.user.gender);
+    onRegisterSubmit() {
+        this.credentials = {
+            first_name: this.user.firstname,
+            last_name: this.user.lastname,
+            email: this.user.email,
+            gender: this.user.gender,
+        };
+        
+        this._apphttpService.post(this._url, this.user).subscribe(
+            registration => console.log('Success!', registration),
+            error => console.error('Error!', error),
+            () => {
+                alert("Registration successful");
+                this.router.navigateByUrl("/login");
+            },
+        );
+
   }
 
 }
