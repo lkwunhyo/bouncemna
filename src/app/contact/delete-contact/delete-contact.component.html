@@ -5,7 +5,7 @@
   </div>
 
   <div class="contact_list">
-    <form>
+    <form [formGroup]="deleteContactForm" (ngSubmit)="onSubmit()">
       <ul class="contacts">
          <!-- <li *ngFor="let person of persons | search:'lastname,firstname,rating':query"
             [class.selected]="person === selectedPerson"
@@ -17,12 +17,13 @@
             <mat-checkbox value="{{person.id}}"
             [(ngModel)]="persons.contact" name="{{person.firstname}}">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>
             -->
-            <mat-checkbox [value]="delete_persons"
+            <mat-checkbox formControlName="deleteContact" [value]="delete_persons"
             [(ngModel)]="person.selected" (change)="OnCheckboxSelect(person, $event.checked)" name="persons">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>
 
           </li>
       </ul>
-      <button mat-button name="delete" onclick="window.location.href = '../contact/'">Delete</button><br>
+      <!--<button mat-button name="delete" onclick="window.location.href = '../contact/'">Delete</button><br>-->
+      <button mat-button name="delete" >Delete</button><br>
     </form>
   </div>
 </div>
