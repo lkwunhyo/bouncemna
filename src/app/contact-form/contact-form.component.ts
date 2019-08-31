@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Person } from '../models/person';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ContactFormService } from '../services/contact-form.service';
 
 export interface Age {
   value: number;
@@ -15,8 +16,37 @@ export interface Age {
 
 export class ContactFormComponent implements OnInit {
   contact = new Person();
+  contactForm: FormGroup;
+  
+  constructor(private formBuilder: FormBuilder, private _contactFormService: ContactFormService) { 
+    this.contactForm = this.formBuilder.group({
+    });
 
-  onSubmit() { }
+  }
+  
+  ngOnInit() {
+    
+  }
+
+  onSubmit() {
+    this.contactForm = this.formBuilder.group({
+      //'id': this.contact.id,
+      'firstname': this.contact.firstname,
+      'lastname': this.contact.lastname,
+      'phone': this.contact.phone,
+      'email': this.contact.email,
+      'age': this.contact.age,
+      'gender': this.contact.gender,
+      'comment': this.contact.comment,
+      'rating': this.contact.rating
+    });
+
+    console.log("Contact Form: " + JSON.stringify(this.contactForm.value));
+    this._contactFormService.addcontact(this.contact).subscribe(
+      data => console.log('Success!', data),
+      error => console.error('Error!', error)
+    );
+  }
 
   email = new FormControl('', [Validators.required, Validators.email]);
 
@@ -71,12 +101,5 @@ export class ContactFormComponent implements OnInit {
     {value: 69, viewValue: 69},
     {value: 70, viewValue: 70}     
   ];
-
-  contactForm: FormGroup;
-  
-  constructor() { }
-
-  ngOnInit() {
-  }
 
 }
