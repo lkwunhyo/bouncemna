@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
 import { Person } from '../../models/person';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-delete-contact',
@@ -8,17 +9,18 @@ import { Person } from '../../models/person';
   styleUrls: ['./delete-contact.component.css']
 })
 export class DeleteContactComponent implements OnInit {
-/*
-  constructor(priva) { }
-
-  ngOnInit() {
-  }*/
-    @Input() query: Person;
-  constructor(private _contactService: ContactService) { };
+  @Input() query: Person;
 
   persons = [];
   selected_persons = [];
+  deleteContactForm: FormGroup;
 
+  constructor(private formBuilder: FormBuilder, private _contactService: ContactService) { 
+    this.deleteContactForm = this.formBuilder.group({
+      deleteContact: new FormControl([])
+    });
+
+  }
   
   OnCheckboxSelect(person, status:boolean) {
     if (this.selected_persons.indexOf(person) === -1 && status) {
@@ -32,7 +34,13 @@ export class DeleteContactComponent implements OnInit {
   }
   
 
-  OnSubmit() {
+  onSubmit() {
+    this.deleteContactForm = this.formBuilder.group({
+      deleteContact: new FormControl(
+        this.selected_persons
+      )
+    });
+    console.log(this.deleteContactForm);
     // Submit every person where person.selected == true
     // Delete those from the database
   }
