@@ -47,6 +47,6 @@ constructor(private router: Router, private _http: HttpClient) {
     }
 
     getMessage(): Observable<any> {
-        return this.subject.asObservable();
+        return this._http.get('…', { observe: 'response' });
     }
 }
