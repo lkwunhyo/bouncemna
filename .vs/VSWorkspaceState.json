@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\dist",
+    "\\dist\\bounce",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\login",
+    "\\src\\app\\models",
+    "\\wwwroot"
+  ],
+  "SelectedNode": "\\src\\app\\login\\login.component.ts",
+  "PreviewInSolutionExplorer": false
+}
