@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginModel } from '../models/login.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AppHttpService } from '../services/apphttp.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -11,9 +13,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 user: LoginModel = new LoginModel();
 loginForm: FormGroup;
-hide = true;
+    hide = true;
+    _url = '//localhost:8080/login'
 
-constructor(private formBuilder: FormBuilder) { }
+    constructor(private formBuilder: FormBuilder, private _apphttpService: AppHttpService,
+    private router: Router) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -29,7 +33,14 @@ constructor(private formBuilder: FormBuilder) { }
   }
 
   onRegisterSubmit() {
-    alert(this.user.name + ' ' + this.user.password);
+      this._apphttpService.post(this._url, this.user).subscribe(
+          registration => console.log('Success!', registration),
+          error => console.error('Error!', error),
+          () => {
+              alert("Login post successful");
+              this.router.navigateByUrl("/login");
+          },
+      );
   }
 
 }
