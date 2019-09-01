@@ -38,7 +38,7 @@ loginForm: FormGroup;
           error => console.error('Error!', error),
           () => {
               alert("Login post successful");
-              this.router.navigateByUrl("/login");
+              this.router.navigateByUrl("/home");
           },
       );
   }

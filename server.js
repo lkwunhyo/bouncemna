@@ -11,12 +11,48 @@ var session = require('express-session');
 const cors = require('cors');
 const port = 8080;
 
+//---auth
+//const expressJwt = require('express-jwt');
+//const config = { secret: 'bouncemna' }
+
+//user service
+/*
+const jwt = require('jsonwebtoken');
+
+async function authenticate({ username, password }) {
+    const user = users.find(u => u.username === username && u.password === password);
+    if (user) {
+        const token = jwt.sign({ sub: user.id }, config.secret);
+        const { password, ...userWithoutPassword } = user;
+        return {
+            ...userWithoutPassword,
+            token
+        };
+    }
+}
+
+function jwt() {
+    const { secret } = config;
+    return expressJwt({ secret }).unless({
+        path: [
+            // public routes that don't require authentication
+            '/users/authenticate'
+        ]
+    });
+}
+*/
+
 //------------------security----------------------------
+const bcrypt = require('bcrypt');
+
+/* prolly not needed
 const crypto = require('crypto');
 const algorithm = 'aes-256-cbc';
 const key = crypto.randomBytes(32);
 const iv = crypto.randomBytes(16);
+*/
 
+/* prolly not needed
 function encrypt(text) {
     let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
     let encrypted = cipher.update(text);
@@ -31,7 +67,12 @@ function decrypt(text) {
     let decrypted = decipher.update(encryptedText);
     decrypted = Buffer.concat([decrypted, decipher.final()]);
     return decrypted.toString();
-}
+}*/
+
+
+
+
+
 //------------------- end of security -------------------------
 
 
@@ -83,8 +124,8 @@ app.use(cors());
 app.use(expressSanitizer());
 app.use(flash());
 app.use(session({
-    secret: '123456cat',
-    resave: false,
+	secret: 'secret',
+	resave: true,
     saveUninitialized: true,
     cookie: { maxAge: 60000 }
 }))
@@ -129,11 +170,8 @@ app.post('/alertpartners', function (req, res){ //validate then sanitize
 })
 
 app.post('/register', function (req, res) { //validate then sanitize
-
-    //console.log(req.body.password)
-    var encryptedString = encrypt(req.sanitize(req.body.password));
-    var encryptedData = encryptedString.encryptedData.toString();
-    //console.log(decrypt(encryptedString));
+    //if (user) return res.status(400).send("User already registered.");
+    let hash = bcrypt.hashSync(req.sanitize(req.body.password), 10);
 
     var registration = {
         userid: req.sanitize(req.body.username),
@@ -141,14 +179,12 @@ app.post('/register', function (req, res) { //validate then sanitize
         lastname: req.sanitize(req.body.lastname),
         gender: req.sanitize(req.body.gender),
         email: req.sanitize(req.body.email),
-        password: encryptedData,
-        phone: req.sanitize(req.body.phone)
+        phone: req.sanitize(req.body.phone),
+        hash: hash
     }
 
     console.dir("rego:");
     console.dir(registration);
-    //console.log("alertpartners: " +)
-    //console.log("req.diagnosis " + req.diagnosis);
 
     connection.query('INSERT INTO bounce.account SET ?', registration, function (err, result) {
         if (err) {
@@ -168,22 +204,10 @@ app.post('/register', function (req, res) { //validate then sanitize
 })
 
 
-
-/**Api to create article */
-/*app.post('alertpartners', (req, res) => {
-    articleService.createArticle(req.body, (data) => {
-        res.send(data);
-    });
-});*/
-
 module.exports = app;
 /end of connection stuff*/
 
 app.post('/login', function (req, res) { //validate then sanitize
-
-    //console.log(req.body.password)
-    //var decryptedString = decrypt(req.sanitize(req.body.password)).toString();
-    //console.log(decrypt(encryptedString));
 
     var userid = req.sanitize(req.body.name);
     var password = req.sanitize(req.body.password);
@@ -196,13 +220,14 @@ app.post('/login', function (req, res) { //validate then sanitize
                 message: 'there are some error with query'
             })
         }
-        console.dir("result[0] = " + results[0].password);
-        console.dir("decrypt = " + decrypt(results[0].password)); // NEED THE IV
-        /* else {
+
+        else {
             
             if (results.length > 0) {
-                decryptedString = decrypt(results[0].password).toString();
-                if (password == decryptedString) {
+
+                if (bcrypt.compareSync(password, results[0].hash)) {
+                    req.session.loggedin = true;
+                    req.session.userid = userid;                  
                     res.json({
                         status: true,
                         message: 'successfully authenticated'
@@ -221,6 +246,6 @@ app.post('/login', function (req, res) { //validate then sanitize
                     message: "userid does not exist"
                 });
             }
-        } */
+        }
     });
 })
