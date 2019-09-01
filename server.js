@@ -1,5 +1,4 @@
 //stackoverflow.com/questions/50910305/how-run-in-same-port-angular-and-node-js-express
-//codeforgeek.com/manage-session-using-node-js-express-4/ <-------------------
 //Install express server
 const express = require('express');
 const mysql = require('mysql');
@@ -250,12 +249,3 @@ app.post('/login', function (req, res) { //validate then sanitize
         }
     });
 })
-
-app.get('/home', function (request, response) {
-    if (request.session.loggedin) {
-        response.write('Welcome back, ' + request.session.username + '!');
-    } else {
-        response.send('Please login to view this page!');
-    }
-    response.end();
-});

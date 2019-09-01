@@ -1,29 +1,29 @@
 <div class="defaultContainer">
-    <h2>Contacts</h2> <!--{{ diagnostic }}-->
-    <div class="search">
-        <input id="search" class="autosearch" [(ngModel)]="query" type="text" placeholder="Search a name.."><br>
-    </div>
+  <h2>Contacts</h2> {{ diagnostic }}
+  <div class="search">
+    <input id="search" class="autosearch" [(ngModel)]="query" type="text" placeholder="Search a name.."><br>
+  </div>
 
-    <div class="contact_list">
-        <form [formGroup]="deleteContactForm" (ngSubmit)="onSubmit()">
-            <ul class="contacts">
-                <!-- <li *ngFor="let person of persons | search:'lastname,firstname,rating':query"
-                   [class.selected]="person === selectedPerson"
-                   (click)="onSelect(person)">  -->
-                <li *ngFor="let person of persons | search:'lastname,firstname,rating':query">
-                    <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
-                         height="18" width="18">&nbsp;&nbsp;
-                    <!--
-                    <mat-checkbox value="{{person.id}}"
-                    [(ngModel)]="persons.contact" name="{{person.firstname}}">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>
-                    -->
-                    <mat-checkbox formControlName="deleteContact" [value]="delete_persons"
-                                  [(ngModel)]="person.selected" (change)="OnCheckboxSelect(person, $event.checked)" name="persons">{{ person.firstname }}{{ person.lastname}}{{ person.rating }}</mat-checkbox>
+  <div class="contact_list">
+    <form [formGroup]="deleteContactForm" (ngSubmit)="onSubmit()">
+      <ul class="contacts">
+         <!-- <li *ngFor="let person of persons | search:'lastname,firstname,rating':query"
+            [class.selected]="person === selectedPerson"
+            (click)="onSelect(person)">  -->
+          <li *ngFor="let person of persons | search:'lastname,firstname,rating':query">
+            <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
+              height="18" width="18">&nbsp;&nbsp;
+            <!--
+            <mat-checkbox value="{{person.id}}"
+            [(ngModel)]="persons.contact" name="{{person.firstname}}">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>
+            -->
+            <mat-checkbox formControlName="deleteContact" [value]="delete_persons"
+            [(ngModel)]="person.selected" (change)="OnCheckboxSelect(person, $event.checked)" name="persons">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>
 
-                </li>
-            </ul>
-            <!--<button mat-button name="delete" onclick="window.location.href = '../contact/'">Delete</button><br>-->
-            <button mat-button name="delete">Delete</button><br>
-        </form>
-    </div>
+          </li>
+      </ul>
+      <!--<button mat-button name="delete" onclick="window.location.href = '../contact/'">Delete</button><br>-->
+      <button mat-button name="delete" >Delete</button><br>
+    </form>
+  </div>
 </div>

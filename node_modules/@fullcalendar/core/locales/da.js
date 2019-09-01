@@ -13,7 +13,7 @@
         buttonText: {
             prev: "Forrige",
             next: "Næste",
-            today: "I dag",
+            today: "Idag",
             month: "Måned",
             week: "Uge",
             day: "Dag",

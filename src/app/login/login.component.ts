@@ -32,7 +32,7 @@ loginForm: FormGroup;
     });
   }
 
-  onRegisterSubmit() { //sign in
+  onRegisterSubmit() {
       this._apphttpService.post(this._url, this.user).subscribe(
           registration => console.log('Success!', registration),
           error => console.error('Error!', error),

@@ -1,5 +1,5 @@
 // server.js
-/*
+
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
@@ -13,4 +13,3 @@ con.connect(function(err) {
     console.log("Connected!");
   });
 
-*/
