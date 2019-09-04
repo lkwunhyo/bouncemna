@@ -79,13 +79,21 @@ function decrypt(text) {
 //register
 var cryptr = require('cryptr');
 
-
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'tryl',
     password: 'tryl',
     database: 'Bounce'
 });
+/*
+var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'admin',
+    database: 'Bounce'
+});
+*/
+
 connection.connect(function (error) {
     if (!!error) {
         console.log(error);
@@ -203,9 +211,35 @@ app.post('/register', function (req, res) { //validate then sanitize
     })
 })
 
+// Add Contact Form
+app.post('/contactform', function (req, res) { //validate then sanitize
+    var contact = {
+        firstName: req.sanitize(req.body.firstname),
+        lastName: req.sanitize(req.body.lastname),
+        gender: req.sanitize(req.body.gender),
+        phoneNumber: req.sanitize(req.body.phone),
+        emailAddress: req.sanitize(req.body.email),
+        notes: req.sanitize(req.body.comment),
+        rating: req.sanitize(req.body.rating)
+    }
+
+    console.dir("contact:");
+    console.dir(contact);
+
+    connection.query('INSERT INTO bounce.contacts SET ?', contact, function (err, result) {
+        if (err) {
+            req.flash('error', err)
+            console.log(err);
+
+        } else {
+            console.log("db post register success");
+            res.status(200).send({ "message": "data received" });
+        }
+    })
+})
 
 module.exports = app;
-/end of connection stuff*/
+/*end of connection stuff*/
 
 app.post('/login', function (req, res) { //validate then sanitize
 
