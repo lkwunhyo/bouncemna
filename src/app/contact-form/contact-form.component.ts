@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Person } from '../models/person';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ContactFormService } from '../services/contact-form.service';
+import { Router, NavigationStart } from '@angular/router';
 
 export interface Age {
   value: number;
@@ -18,7 +19,7 @@ export class ContactFormComponent implements OnInit {
   contact = new Person();
   contactForm: FormGroup;
   
-  constructor(private formBuilder: FormBuilder, private _contactFormService: ContactFormService) { 
+  constructor(private router: Router, private formBuilder: FormBuilder, private _contactFormService: ContactFormService) { 
     this.contactForm = this.formBuilder.group({
     });
 
@@ -47,6 +48,7 @@ export class ContactFormComponent implements OnInit {
       data => console.log('Success!', data),
       error => console.error('Error!', error)
     );
+    this.router.navigate(['/contact']);
   }
 
   email = new FormControl('', [Validators.required, Validators.email]);

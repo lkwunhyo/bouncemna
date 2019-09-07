@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
+import { DeleteContactService } from '../../services/delete-contact.service';
 import { Person } from '../../models/person';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-delete-contact',
@@ -15,7 +17,7 @@ export class DeleteContactComponent implements OnInit {
   selected_persons = [];
   deleteContactForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private _contactService: ContactService) { 
+  constructor(private router: Router, private formBuilder: FormBuilder, private _contactService: ContactService, private _deleteContactService: DeleteContactService) { 
     this.deleteContactForm = this.formBuilder.group({
       deleteContact: new FormControl([])
     });
@@ -43,6 +45,15 @@ export class DeleteContactComponent implements OnInit {
     console.log(this.deleteContactForm);
     // Submit every person where person.selected == true
     // Delete those from the database
+    //var selectedIds = this.selected_persons.map(({ contactID }) => contactID);
+
+    console.log("Delete Contact Form: " + JSON.stringify(this.deleteContactForm.value));
+    //console.log(this.selected_persons.map(contact => contact.id));
+    this._deleteContactService.deletecontacts(this.selected_persons.map(contact => contact.id)).subscribe(
+      data => console.log('Success!', data),
+      error => console.error('Error!', error)
+    );
+    this.router.navigate(['/contact']);
   }
 
 
