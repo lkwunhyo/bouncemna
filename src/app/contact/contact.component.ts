@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
+    public contactlist;
     @Input() query: Person;
   constructor(private _contactService: ContactService) { };
 
@@ -17,7 +18,9 @@ export class ContactComponent implements OnInit {
   selectedPerson: Person;
 
   ngOnInit() {
-    this.persons = this._contactService.filterBy();
+      this.persons = this._contactService.filterBy();
+      this._contactService.getContactList()
+          .subscribe(data => this.contactlist = data);
   }
 
   onSelect(person: Person): void {

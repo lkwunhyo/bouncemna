@@ -1,16 +1,21 @@
 //stackoverflow.com/questions/50910305/how-run-in-same-port-angular-and-node-js-express
 //Install express server
 const express = require('express');
+const cors = require('cors');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const path = require('path');
 const expressSanitizer = require('express-sanitizer');
 const app = express();
+app.use(cors(/*{
+    origin: [
+        "http://localhost:4200"
+    ], credentials: true
+}*/));
 var flash = require('connect-flash');
 var session = require('express-session');
-const cors = require('cors');
 const port = 8080;
-
+var sess;
 //---auth
 //const expressJwt = require('express-jwt');
 //const config = { secret: 'bouncemna' }
@@ -128,18 +133,51 @@ app.listen(process.env.PORT || 8080);
 //middleware stuff?
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
 app.use(expressSanitizer());
 app.use(flash());
 app.use(session({
 	secret: 'secret',
 	resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 }
+    cookie: {
+        maxAge: 60000,
+        secure: false,
+    }
 }))
 
 
+app.post('/home', function (req, res) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+    var userid = req.session.userid;
+    console.dir("session userid:");
+    console.dir(req.session.userid);
+    connection.query('SELECT * FROM bounce.account WHERE userid = ?', [userid], function (error, results, fields) {
+        if (error) {
+            res.json({
+                status: false,
+                message: 'there are some error with query'
+            })
+        }
 
+        else {
+            res.json({
+                status: true,
+                message: 'fetched contacts'
+            })
+        }
+    });
+    /*
+    if (req.session.page_views) {
+        req.session.page_views++;
+        res.send("You visited this page " + req.session.page_views + " times");
+    } else {
+        req.session.page_views = 1;
+        res.send("Welcome to this page for the first time!");
+    }*/
+})
 
 //app.get('/alertpartners')
 
@@ -175,6 +213,22 @@ app.post('/alertpartners', function (req, res){ //validate then sanitize
             res.status(200).send({ "message": "data received" });
         }
     })
+})
+
+app.get('/alertpartners', function (req, res) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+
+    /*
+    if (req.session.page_views) {
+        req.session.page_views++;
+        res.send("You visited this page " + req.session.page_views + " times");
+    } else {
+        req.session.page_views = 1;
+        res.send("Welcome to this page for the first time!");
+    }*/
 })
 
 app.post('/register', function (req, res) { //validate then sanitize
@@ -220,11 +274,12 @@ app.post('/contactform', function (req, res) { //validate then sanitize
         phoneNumber: req.sanitize(req.body.phone),
         emailAddress: req.sanitize(req.body.email),
         notes: req.sanitize(req.body.comment),
-        rating: req.sanitize(req.body.rating)
+        rating: req.sanitize(req.body.rating),
+        userid: sess.userid
     }
 
-    console.dir("contact:");
-    console.dir(contact);
+    console.dir("session userid:");
+    console.dir(sess.userid);
 
     connection.query('INSERT INTO bounce.contacts SET ?', contact, function (err, result) {
         if (err) {
@@ -260,12 +315,17 @@ app.post('/login', function (req, res) { //validate then sanitize
             if (results.length > 0) {
 
                 if (bcrypt.compareSync(password, results[0].hash)) {
-                    req.session.loggedin = true;
-                    req.session.userid = userid;                  
+                    sess = req.session;
+                    sess.loggedin = true;
+                    sess.userid = userid; 
+                    req.session.save();
+                    console.dir("session.save userid:" + req.session.userid);
+                    res.send();
+                    /*
                     res.json({
                         status: true,
                         message: 'successfully authenticated'
-                    })
+                    })*/
                 } else {
                     res.json({
                         status: false,
