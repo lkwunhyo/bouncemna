@@ -31,14 +31,15 @@ export class ContactFormComponent implements OnInit {
   onSubmit() {
     this.contactForm = this.formBuilder.group({
       //'id': this.contact.id,
-      'firstname': this.contact.firstname,
-      'lastname': this.contact.lastname,
-      'phone': this.contact.phone,
-      'email': this.contact.email,
-      'age': this.contact.age,
-      'gender': this.contact.gender,
-      'comment': this.contact.comment,
-      'rating': this.contact.rating
+      firstname: this.contact.firstname,
+      lastname: this.contact.lastname,
+      phone: this.contact.phone,
+      email: this.contact.email,
+      age: this.contact.age,
+      gender: this.contact.gender,
+      comment: this.contact.comment,
+      rating: this.contact.rating
+      // some other stuff
     });
 
     console.log("Contact Form: " + JSON.stringify(this.contactForm.value));

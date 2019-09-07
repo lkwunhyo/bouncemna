@@ -10,7 +10,7 @@ import { Person } from '../models/person';
 export class ContactFormService {
   private subject = new Subject<any>();
   private keepAfterNavigationChange = false;
-  _url = 'http://localhost:4200/contactform';
+  _url = 'http://localhost:8080/contactform';
 
   constructor(private router: Router, private _http: HttpClient) { 
     // clear alert message on route change
