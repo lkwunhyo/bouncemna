@@ -85,6 +85,7 @@ var connection = mysql.createConnection({
     password: 'tryl',
     database: 'Bounce'
 });
+
 /*
 var connection = mysql.createConnection({
     host: 'localhost',
@@ -227,6 +228,23 @@ app.post('/contactform', function (req, res) { //validate then sanitize
     console.dir(contact);
 
     connection.query('INSERT INTO bounce.contacts SET ?', contact, function (err, result) {
+        if (err) {
+            req.flash('error', err)
+            console.log(err);
+
+        } else {
+            console.log("db post register success");
+            res.status(200).send({ "message": "data received" });
+        }
+    })
+})
+// Delete Contact Form
+app.post('/deletecontact', function (req, res) { //validate then sanitize
+    var deleteID_list = req.body;
+    console.dir("delete contact:");
+    console.dir(deleteID_list);
+
+    connection.query('DELETE FROM bounce.contacts WHERE (contactID) IN (?)', [deleteID_list], function (err, result) {
         if (err) {
             req.flash('error', err)
             console.log(err);
