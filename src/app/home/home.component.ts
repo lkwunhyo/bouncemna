@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HEALTHINFO } from '../models/health-info_mock'
-import {HealthInfo} from '../models/health-info.model'
+import { HealthInfo } from '../models/health-info.model'
+import { AppHttpService } from '../services/apphttp.service'
+
+
 
 
 @Component({
@@ -10,8 +13,8 @@ import {HealthInfo} from '../models/health-info.model'
 })
 export class HomeComponent implements OnInit {
   counter = 0;
-  v = HEALTHINFO[0].info
-  constructor() { }
+    v = HEALTHINFO[0].info
+    constructor(private http: AppHttpService) { }
 
   ngOnInit() {
     setInterval(() => {
@@ -22,7 +25,7 @@ export class HomeComponent implements OnInit {
       }
   }, 5000); //slightly less than 5 seconds
     
-  }
+    }
 
 
 }
