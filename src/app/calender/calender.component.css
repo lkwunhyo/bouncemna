@@ -1,6 +1,6 @@
 
 
-h3 {
+/* h3 {
     margin: 0 0 10px;
   }
   
@@ -13,7 +13,7 @@ h3 {
     /*
     background-color: #58a6ff;
     color: #f5f5f5;
-    */
+    
     
   }
 
@@ -35,7 +35,40 @@ h3 {
    height: 30px;
    font-size: 15px;
    
- }
+ } */
 
- 
- 
+/* --------------------------------------------------- */
+ /*
+  Limited in width,
+  useful with grow mode proportional
+  or grow mode mixed
+*/
+
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.col{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.pre{
+  display: flex;
+  justify-content: left;
+  float: left;
+}
+
+.nxt {
+  display: flex;
+  justify-content: right;
+  float: right;
+}
+
+.todaydate{
+  display: flex;
+  justify-content: center;
+}
