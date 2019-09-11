@@ -6,14 +6,15 @@
   </h3>
 
   <form name="partnerlist">
-    <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
-      height="15" width="15">&nbsp;&nbsp;
-    Contact 1<br>
-    <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
-      height="15" width="15">&nbsp;&nbsp;
-      Contact 2<br>
-    <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
-      height="15" width="15">&nbsp;&nbsp;Placeholder Contacts..<br><br>
+    <div class="contact_list">
+      <ul class="contacts">
+        <li *ngFor="let person of sexualpartners">
+            <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
+            height="15" width="15">&nbsp;&nbsp;
+            {{ person.firstname }} {{ person.lastname}}<br>
+        </li>
+      </ul>
+    </div>
   </form>
 
   <form>
