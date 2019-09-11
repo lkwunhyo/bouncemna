@@ -83,22 +83,22 @@ function decrypt(text) {
 
 //register
 var cryptr = require('cryptr');
-
+/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'tryl',
     password: 'tryl',
     database: 'Bounce'
 });
+*/
 
-/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'admin',
     database: 'Bounce'
 });
-*/
+
 
 connection.connect(function (error) {
     if (!!error) {
@@ -300,6 +300,31 @@ app.post('/deletecontact', function (req, res) { //validate then sanitize
     console.dir(deleteID_list);
 
     connection.query('DELETE FROM bounce.contacts WHERE (contactID) IN (?)', [deleteID_list], function (err, result) {
+        if (err) {
+            req.flash('error', err)
+            console.log(err);
+
+        } else {
+            console.log("db post register success");
+            res.status(200).send({ "message": "data received" });
+        }
+    })
+})
+
+// Add Activity Form
+app.post('/addactivity', function (req, res) { //validate then sanitize
+    var activity = {
+        userID: req.sanitize(req.body.userid),
+        actID: req.sanitize(req.body.actid),
+        protectionID: req.sanitize(req.body.protid),
+        datePerformed: req.sanitize(req.body.date),
+        notes: req.sanitize(req.body.comment),
+    }
+
+    console.dir("activity:");
+    console.dir(activity);
+
+    connection.query('INSERT INTO bounce.activity SET ?', activity, function (err, result) {
         if (err) {
             req.flash('error', err)
             console.log(err);
