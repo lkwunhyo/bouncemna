@@ -6,7 +6,7 @@
 
   <div class="contact_list">
     <ul class="contacts">
-        <li *ngFor="let person of persons | search:'lastname,firstname,rating':query"
+        <li *ngFor="let person of contactlist | search:'lastname,firstname,rating':query"
           [class.selected]="person === selectedPerson"
           (click)="onSelect(person)">
           <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"

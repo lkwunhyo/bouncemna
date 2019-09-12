@@ -1,14 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\dist",
-    "\\dist\\bounce",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\login",
-    "\\src\\app\\models",
-    "\\wwwroot"
+    "\\src\\app\\about",
+    "\\src\\app\\about\\clinic-location",
+    "\\src\\app\\about\\clinic-location\\map",
+    "\\src\\app\\about\\clinic-location\\map\\here-map",
+    "\\src\\app\\alert-partners",
+    "\\src\\app\\contact-form",
+    "\\src\\app\\services"
   ],
-  "SelectedNode": "\\src\\app\\login\\login.component.ts",
+  "SelectedNode": "\\src\\app\\services\\alert.service.ts",
   "PreviewInSolutionExplorer": false
 }
