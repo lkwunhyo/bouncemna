@@ -7,6 +7,20 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const expressSanitizer = require('express-sanitizer');
 const app = express();
+var loggedIn = false;
+
+function logIn() {
+    loggedIn = true;
+}
+
+function logOut() {
+    loggedIn = false;
+}
+
+function isLoggedIn() {
+    return loggedIn;
+}
+
 app.use(cors(/*{
     origin: [
         "http://localhost:4200"
@@ -16,6 +30,7 @@ var flash = require('connect-flash');
 var session = require('express-session');
 const port = 8080;
 var sess;
+
 //---auth
 //const expressJwt = require('express-jwt');
 //const config = { secret: 'bouncemna' }
@@ -147,37 +162,43 @@ app.use(session({
 }))
 
 
-app.post('/home', function (req, res) {
+app.post('/contact', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-    var userid = req.session.userid;
-    console.dir("session userid:");
-    console.dir(req.session.userid);
-    connection.query('SELECT * FROM bounce.account WHERE userid = ?', [userid], function (error, results, fields) {
-        if (error) {
-            res.json({
-                status: false,
-                message: 'there are some error with query'
-            })
-        }
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    //next();
 
-        else {
-            res.json({
-                status: true,
-                message: 'fetched contacts'
-            })
-        }
-    });
-    /*
-    if (req.session.page_views) {
-        req.session.page_views++;
-        res.send("You visited this page " + req.session.page_views + " times");
+    console.dir("calling contact");
+    if (isLoggedIn()) {
+        var userid = sess.userid;
+        connection.query('SELECT * FROM bounce.contacts WHERE userid = ?', [userid], function (error, results, fields) {
+            if (error) {
+                console.dir("query error");
+                res.json({
+                    status: false,
+                    message: 'there are some error with query'
+                })
+            }
+
+            else {
+                var objs = [];
+                for (var i = 0; i < results.length; i++) {
+                    objs.push({
+                        firstname: results[i].firstname,
+                        lastname: results[i].lastname
+                    });
+                }
+                if (results.length > 0) {
+                    res.send(JSON.stringify(objs));
+                } else {
+                    res.end();
+                }
+            }
+        });
     } else {
-        req.session.page_views = 1;
-        res.send("Welcome to this page for the first time!");
-    }*/
+        res.redirect('/login')
+    }
+
 })
 
 //app.get('/alertpartners')
@@ -362,6 +383,7 @@ app.post('/login', function (req, res) { //validate then sanitize
                     sess.loggedin = true;
                     sess.userid = userid; 
                     req.session.save();
+                    logIn();
                     console.dir("session.save userid:" + req.session.userid);
                     res.send();
                     /*
@@ -379,8 +401,9 @@ app.post('/login', function (req, res) { //validate then sanitize
             }
             else {
                 res.json({
-                    status: false,
-                    message: "userid does not exist"
+                    status: "loggedout",
+                    message: "userid does not exist",
+                    redirect: '/login'
                 });
             }
         }
