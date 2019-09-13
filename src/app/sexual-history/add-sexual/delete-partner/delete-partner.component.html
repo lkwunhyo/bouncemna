@@ -4,7 +4,7 @@
       <input id="search" class="autosearch" [(ngModel)]="query" type="text" placeholder="Search a name.."><br>
     </div>
   
-    <form> 
+    <form (ngSubmit)="OnSubmit()"> 
       <div class="contact_list">
         <ul class="contacts">
           <li *ngFor="let person of persons | search:'lastname,firstname,rating':query">
@@ -17,7 +17,7 @@
         </ul>
       </div>
   
-      <button mat-button type="submit" onclick="window.location.href = '../addactivity/'">Delete</button><br>
+      <button mat-button type="submit" onclick="window.location.href = '../addactivity/'">Delete</button><br><!---->
     </form>
   </div>
   

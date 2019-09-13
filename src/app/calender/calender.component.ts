@@ -5,6 +5,9 @@ import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView} from 'angular-calendar';
 
+
+import { setHours, setMinutes } from 'date-fns';
+
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -22,8 +25,6 @@ const colors: any = {
 
 
 
-
-
 @Component({
   selector: 'app-calender',
   templateUrl: './calender.component.html',
@@ -32,64 +33,32 @@ const colors: any = {
 })
 
 
-
-
 export class CalenderComponent implements OnInit {
-
-  
 
   ngOnInit() {
   }
 
-  //calendarPlugins = [dayGridPlugin]; // important!
-
-  @ViewChild('modalContent') modalContent: TemplateRef<any>;
-
-  view: CalendarView = CalendarView.Month;
-
+  view: CalendarView = CalendarView.Day;
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
 
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
 
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }
-  ];
-
-  refresh: Subject<any> = new Subject();
-
+  // ------------------------TO SET EVENTS OR EVENTS ARRAY LIST-------------------------
   events: CalendarEvent[] = [
     {
-      start: startOfDay(new Date()),
-      title: 'Reminder: Take pills',
-      color: colors.yellow,
-      actions: this.actions
+      title: 'No event end date',
+      start: setHours(setMinutes(new Date(), 0), 3),
+      color: colors.blue
     },
     {
-      start: startOfDay(new Date()),
-      title: 'Doctors appointment',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    
-   
+      title: 'No event end date',
+      start: setHours(setMinutes(new Date(), 0), 5),
+      color: colors.yellow
+    }
   ];
+  
+
+// ----------------------------To check active day for viewing---------------------------
 
   activeDayIsOpen: boolean = true;
 
@@ -109,50 +78,7 @@ export class CalenderComponent implements OnInit {
     }
   }
 
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd
-  }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map(iEvent => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd
-        };
-      }
-      return iEvent;
-    });
-    this.handleEvent('Dropped or resized', event);
-  }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
-  }
-
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true
-        }
-      }
-    ];
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter(event => event !== eventToDelete);
-  }
-
+ 
   setView(view: CalendarView) {
     this.view = view;
   }
@@ -160,7 +86,6 @@ export class CalenderComponent implements OnInit {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
-  
 
 }
 
