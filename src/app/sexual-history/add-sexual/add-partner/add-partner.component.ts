@@ -33,7 +33,7 @@ export class AddPartnerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.persons = this._contactService.filterBy();
+    //this.persons = this._contactService.filterBy();
   }
 
   onSelect(person: Person): void {

@@ -46,7 +46,7 @@ export class AlertPartnersComponent implements OnInit {
 
   ngOnInit() {
     
-    this.persons = this._contactService.filterBy();
+    //this.persons = this._contactService.filterBy();
     this.diseases = this._diseaseService.filterBy();
     this.alertPartnersForm1 = this.formBuilder.group({
       'diagnosis': [this.alert.diagnosis, [

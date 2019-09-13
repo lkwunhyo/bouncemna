@@ -19,8 +19,8 @@ export class ContactService {
     return PERSONS;
   }
 
-  filterBy() {
-    var values = this.getContacts();
+  filterBy(persons: Person[]) {
+    var values = persons;
     function orderByName(a, b) {
       if ( a.firstname < b.firstname ){
         return -1;
@@ -34,7 +34,7 @@ export class ContactService {
     return values;
     }
 
-  /** GET heroes from the server */
+  /** GET contacts from the server */
     getContactList(): Observable<Person[]> {
         console.dir("calling POST service");
         return this.http.post<any>(this.url_contact,"BODY 2ND PARAM");

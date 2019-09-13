@@ -112,8 +112,13 @@ var connection = mysql.createConnection({
     user: 'root',
     password: 'admin',
     database: 'Bounce'
+<<<<<<< Updated upstream
 });
 */
+=======
+});*/
+
+>>>>>>> Stashed changes
 
 connection.connect(function (error) {
     if (!!error) {
@@ -196,7 +201,10 @@ app.post('/contact', function (req, res, next) {
             }
         });
     } else {
-        res.redirect('/login')
+        res.json({
+            status: false,
+            message: 'not logged in'
+        })
     }
 
 })
