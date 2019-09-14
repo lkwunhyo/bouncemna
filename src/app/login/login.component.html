@@ -1,23 +1,34 @@
-
-
-<form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onRegisterSubmit()" novalidate>
+<!DOCTYPE html>
+<html>
   <div class="defaultContainer">
-      <h2>Login</h2>
-      Name:<br><input id="name"
+    <div class ="title">
+    <h1>
+      BOUNCE
+    </h1>
+  </div>
+<form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onRegisterSubmit()" novalidate>
+  
+  <div class="login">
+      
+    <mat-form-field>
+      <input matInput id="name"
              formControlName="name"
              [(ngModel)]="user.name"
-             placeholder="Enter your name" /><br><br>
+             placeholder="Username" /></mat-form-field><br><br>
              
-      Password:<br><input id="password"
+             <mat-form-field><input matInput id="password"
 
              formControlName="password"
              [(ngModel)]="user.password"
-             placeholder="Enter your password"
-             [type]="hide ? 'password':'text'" /><br><br>
+             placeholder="Password"
+             [type]="hide ? 'password':'text'" /></mat-form-field><br><br>
 
-
-    <button type="submit"
+<div class ="btncontainer">
+    <button mat-flat-button color="primary" type="submit"
             [disabled]="!loginForm.valid">Login</button>
-    <button button routerLink="/register">Register</button>
+    <button mat-flat-button color="primary" routerLink="/register">Register</button>
+  </div>
   </div>
 </form>
+</div>
+</html>
