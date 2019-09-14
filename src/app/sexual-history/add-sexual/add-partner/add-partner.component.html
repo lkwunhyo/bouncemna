@@ -1,23 +1,28 @@
+<!DOCTYPE html>
+<html>
 <div class="addpartnercontainer">
   <h2>Select Contacts</h2>
   <div class="search">
     <input id="search" class="autosearch" [(ngModel)]="query" type="text" placeholder="Search a name.."><br>
   </div>
 
-  <form (ngSubmit)="OnSubmit()"> 
+  <form (ngSubmit)="OnSubmit()">
     <div class="contact_list">
       <ul class="contacts">
         <li *ngFor="let person of persons | search:'lastname,firstname,rating':query">
-            <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
-            height="18" width="18">&nbsp;&nbsp;
-            <!--<mat-checkbox name="partner" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>-->
-            <mat-checkbox [value]="add_persons"
-            [(ngModel)]="person.selected" (change)="OnCheckboxSelect(person, $event.checked)" name="persons">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>
+          <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image" height="18"
+            width="18">&nbsp;&nbsp;
+          <!--<mat-checkbox name="partner" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>-->
+          <mat-checkbox [value]="add_persons" [(ngModel)]="person.selected"
+            (change)="OnCheckboxSelect(person, $event.checked)" name="persons">{{ person.firstname }}
+            {{ person.lastname}} {{ person.rating }}</mat-checkbox>
         </li>
       </ul>
     </div>
 
-    <button mat-button type="submit" onclick="window.location.href = '../addactivity/'">Add</button><br> <!---->
+    <button mat-button type="submit" onclick="window.location.href = '../addactivity/'">Add</button><br>
+    <!---->
   </form>
 </div>
 
+</html>
