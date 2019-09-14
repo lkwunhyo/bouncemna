@@ -1,65 +1,73 @@
+<!DOCTYPE html>
+<html>
 <div class="defaultContainer">
-  <h2>Add a Contact</h2>
-  <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
-      <div class="form-container">
-          Contact Details: <br>
-          <mat-form-field>
-              <input matInput id="firstname" placeholder="First name.." [(ngModel)]="contact.firstname" name="firstname" required>
-              <mat-icon matSuffix></mat-icon>
-          </mat-form-field><br>
-          <mat-form-field>
-              <input matInput id="lastname" placeholder="Last name.." [(ngModel)]="contact.lastname" name="lastname" required>
-              <mat-icon matSuffix></mat-icon>
-          </mat-form-field><br>
-          <mat-form-field>
-              <input matInput id="phone" placeholder="Phone number.." [(ngModel)]="contact.phone" name="phone">
-              <mat-icon matSuffix>phone</mat-icon>
-          </mat-form-field><br>
-          <mat-form-field>
-              <input matInput id="email" placeholder="Email.." [formControl]="email" [(ngModel)]="contact.email" name="email">
-              <mat-icon matSuffix>email</mat-icon>
-              <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-          </mat-form-field><br>
-          <mat-form-field>
-              <!--
+    <h2>Add a Contact</h2>
+    <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+        <div class="form-container">
+            Contact Details: <br>
+            <mat-form-field>
+                <input matInput id="firstname" placeholder="First name.." [(ngModel)]="contact.firstname"
+                    name="firstname" required>
+                <mat-icon matSuffix></mat-icon>
+            </mat-form-field><br>
+            <mat-form-field>
+                <input matInput id="lastname" placeholder="Last name.." [(ngModel)]="contact.lastname" name="lastname"
+                    required>
+                <mat-icon matSuffix></mat-icon>
+            </mat-form-field><br>
+            <mat-form-field>
+                <input matInput id="phone" placeholder="Phone number.." [(ngModel)]="contact.phone" name="phone">
+                <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field><br>
+            <mat-form-field>
+                <input matInput id="email" placeholder="Email.." [formControl]="email" [(ngModel)]="contact.email"
+                    name="email">
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field><br>
+            <mat-form-field>
+                <!--
         <input matInput id="age" placeholder="Age..">
         <mat-icon matSuffix></mat-icon>
         -->
-              <mat-label>Age.. </mat-label>
-              <mat-select [(ngModel)]="contact.age" name="age">
-                  <mat-option *ngFor="let age of ages" [value]="age.value">
-                      {{age.viewValue}}
-                  </mat-option>
-              </mat-select>
-          </mat-form-field><br>
-          <br>
+                <mat-label>Age.. </mat-label>
+                <mat-select [(ngModel)]="contact.age" name="age">
+                    <mat-option *ngFor="let age of ages" [value]="age.value">
+                        {{age.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field><br>
+            <br>
 
-          <mat-radio-group aria-label="Select a Gender" [(ngModel)]="contact.gender" name="gender">
-              Gender*:<br>
-              <mat-radio-button value="m">Male</mat-radio-button><br>
-              <mat-radio-button value="f">Female</mat-radio-button><br>
-              <mat-radio-button value="o">Other</mat-radio-button><br>
-          </mat-radio-group><br><br>
+            <mat-radio-group aria-label="Select a Gender" [(ngModel)]="contact.gender" name="gender">
+                Gender*:<br>
+                <mat-radio-button value="m">Male</mat-radio-button><br>
+                <mat-radio-button value="f">Female</mat-radio-button><br>
+                <mat-radio-button value="o">Other</mat-radio-button><br>
+            </mat-radio-group><br><br>
 
-          Comments: <br>
-          <mat-form-field>
-              <textarea matInput id="comment" placeholder="Add your comments.."
-                        rows="5" cols="10" [(ngModel)]="contact.comment" name="comment"></textarea>
-          </mat-form-field>
-          <br><br>
+            Comments: <br>
+            <mat-form-field>
+                <textarea matInput id="comment" placeholder="Add your comments.." rows="5" cols="10"
+                    [(ngModel)]="contact.comment" name="comment"></textarea>
+            </mat-form-field>
+            <br><br>
 
-          Add New User Social Media Screenshot: <br><br>
-          <button mat-stroked-button>Browse..</button> <!--(click)="fileInput.click()"-->
-          onFileSelected function has not been created yet.
-          <!--<input hidden (change)="onFileSelected()" #fileInput type="file" id="file">-->
-          <br><br><br>
-        
-          <!--
+            Add New User Social Media Screenshot: <br><br>
+            <button mat-stroked-button>Browse..</button>
+            <!--(click)="fileInput.click()"-->
+            onFileSelected function has not been created yet.
+            <!--<input hidden (change)="onFileSelected()" #fileInput type="file" id="file">-->
+            <br><br><br>
+
+            <!--
           <button mat-button class="submitbutton" type="submit" [disabled]="!contactForm.form.valid"
             onclick="window.location.href = '../contact/'">Submit</button><br>-->
-          <button mat-button class="submitbutton" type="submit" [disabled]="!contactForm.form.valid" >Submit</button><br>
-          <br><br>
-      </div>
-  </form>
+            <button mat-button class="submitbutton" type="submit"
+                [disabled]="!contactForm.form.valid">Submit</button><br>
+            <br><br>
+        </div>
+    </form>
 </div>
 
+</html>

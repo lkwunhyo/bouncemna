@@ -1,64 +1,52 @@
-
+<!DOCTYPE html>
+<html>
 
 
 <div class="defaultContainer">
 
-    <h2>Registration</h2>
+       <h2>Registration</h2>
 
-    <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && onRegisterSubmit()" novalidate>
-      <div class="form-container">
-          First Name:<br>
-                 <input id="firstname"
-                 formControlName="firstname"
-                 [(ngModel)]="user.firstname"
-                 placeholder="Enter your name" /><br><br>
+       <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && onRegisterSubmit()" novalidate>
+              <div class="form-container">
+                     First Name:<br>
+                     <input id="firstname" formControlName="firstname" [(ngModel)]="user.firstname"
+                            placeholder="Enter your name" /><br><br>
 
-          Last Name:<br>
-                 <input id="lastname"
-                 formControlName="lastname"
-                 [(ngModel)]="user.lastname"
-                 placeholder="Enter your name" /><br><br>      
+                     Last Name:<br>
+                     <input id="lastname" formControlName="lastname" [(ngModel)]="user.lastname"
+                            placeholder="Enter your name" /><br><br>
 
-          Sex:<br>
-                 <input type="radio" name="gender" value="m" formControlName="gender" [(ngModel)]="user.gender"> Male<br>
-                 <input type="radio" name="gender" value="f" formControlName="gender" [(ngModel)]="user.gender"> Female<br>
-                 
-          Phone:<br><input id="phone"
+                     Sex:<br>
+                     <input type="radio" name="gender" value="m" formControlName="gender" [(ngModel)]="user.gender">
+                     Male<br>
+                     <input type="radio" name="gender" value="f" formControlName="gender" [(ngModel)]="user.gender">
+                     Female<br>
 
-                 formControlName="phone"
-                 [(ngModel)]="user.phone"
-                 placeholder="Enter your phone number"/><br><br>
+                     Phone:<br><input id="phone" formControlName="phone" [(ngModel)]="user.phone"
+                            placeholder="Enter your phone number" /><br><br>
 
 
-          Email:<br>
-                 <input id="email"
-                 formControlName="email"
-                 [(ngModel)]="user.email"
-                 placeholder="Enter your email" /><br><br>
-          
-          Username<br>
-                 <input id="username"
-                 formControlName="username"
-                 [(ngModel)]="user.username"
-                 placeholder="Enter your name" /><br><br>
+                     Email:<br>
+                     <input id="email" formControlName="email" [(ngModel)]="user.email"
+                            placeholder="Enter your email" /><br><br>
 
-          
+                     Username<br>
+                     <input id="username" formControlName="username" [(ngModel)]="user.username"
+                            placeholder="Enter your name" /><br><br>
 
-          Password:<br><input id="password"
 
-                 formControlName="password"
-                 [(ngModel)]="user.password"
-                 placeholder="Enter your password"
-                 [type]="hide ? 'password':'text'" /><br><br>
+
+                     Password:<br><input id="password" formControlName="password" [(ngModel)]="user.password"
+                            placeholder="Enter your password" [type]="hide ? 'password':'text'" /><br><br>
 
 
 
 
-        <button type="submit"
-                [disabled]="!registerForm.valid">Register</button>
-        <button button routerLink="/login">Login</button>
-      </div>
-    </form>
+                     <button type="submit" [disabled]="!registerForm.valid">Register</button>
+                     <button button routerLink="/login">Login</button>
+              </div>
+       </form>
 
-    </div>
+</div>
 
+</html>
