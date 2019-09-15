@@ -14,7 +14,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 export class AddPartnerComponent implements OnInit {
     @Input() query: Person;
   constructor(private _contactService: ContactService, @Inject(SESSION_STORAGE) private storage: WebStorageService) { };
-
+  public contactlist = [];
   persons = [];
   selected_persons = [];
   selectedPerson: Person;
@@ -40,8 +40,14 @@ export class AddPartnerComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.persons = this._contactService.filterBy();
+    ngOnInit() {
+        this._contactService.getContactList()
+            .subscribe((res: any[]) => {
+                console.log(res);
+                //this.persons = res;
+                this.persons = this._contactService.filterBy(res);
+            });
+        console.dir(this.persons);
   }
 
   onSelect(person: Person): void {

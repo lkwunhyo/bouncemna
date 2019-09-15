@@ -19,8 +19,7 @@ export class ContactService {
     return PERSONS;
   }
 
-  filterBy() {
-    var values = this.getContacts();
+  filterBy(values: Person[]) {
     function orderByName(a, b) {
       if ( a.firstname < b.firstname ){
         return -1;

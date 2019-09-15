@@ -98,22 +98,22 @@ function decrypt(text) {
 
 //register
 var cryptr = require('cryptr');
-/*
+
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'tryl',
     password: 'tryl',
     database: 'Bounce'
 });
-*/
 
+/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'admin',
     database: 'Bounce'
 });
-
+*/
 
 connection.connect(function (error) {
     if (!!error) {
@@ -171,7 +171,7 @@ app.post('/contact', function (req, res, next) {
     console.dir("calling contact");
     if (isLoggedIn()) {
         var userid = sess.userid;
-        connection.query('SELECT * FROM bounce.contacts WHERE userid = ?', [userid], function (error, results, fields) {
+        connection.query('SELECT * FROM bouncemna.contact WHERE userid = ?', [userid], function (error, results, fields) {
             if (error) {
                 console.dir("query error");
                 res.json({
@@ -183,9 +183,16 @@ app.post('/contact', function (req, res, next) {
             else {
                 var objs = [];
                 for (var i = 0; i < results.length; i++) {
+                    console.dir(results[i].firstName);
                     objs.push({
-                        firstname: results[i].firstname,
-                        lastname: results[i].lastname
+                        firstname: results[i].firstName,
+                        lastname: results[i].lastName,
+                        contactID: results[i].contactID,
+                        gender: results[i].gender,
+                        phone: results[i].phone,
+                        email: results[i].email,
+                        notes: results[i].notes,
+                        rating: results[i].rating
                     });
                 }
                 if (results.length > 0) {
@@ -209,10 +216,13 @@ app.post('/alertpartners', function (req, res){ //validate then sanitize
 
     var alert = {
         diagnosis: req.sanitize(req.body.diagnosis),
-        contact: req.sanitize(req.body.contacts),
         sendmessage: req.sanitize(req.body.message),
         anonymity: req.sanitize(req.body.anonymity),
         date: req.sanitize(req.body.date),
+    }
+
+    var alertedPartners = {
+        //contactid alertid
     }
     //console.log("req.body.diagnosis: " + req.body.get());
     console.dir("alert:");
@@ -220,7 +230,7 @@ app.post('/alertpartners', function (req, res){ //validate then sanitize
     //console.log("alertpartners: " +)
     //console.log("req.diagnosis " + req.diagnosis);
 
-    connection.query('INSERT INTO bounce.alertpartner SET ?', alert, function (err, result) {
+    connection.query('INSERT INTO bouncemna.alert SET ?', alert, function (err, result) {
         if (err) {
             req.flash('error', err)
 
@@ -258,7 +268,7 @@ app.post('/register', function (req, res) { //validate then sanitize
     let hash = bcrypt.hashSync(req.sanitize(req.body.password), 10);
 
     var registration = {
-        userid: req.sanitize(req.body.username),
+        userID: req.sanitize(req.body.username),
         firstname: req.sanitize(req.body.firstname),
         lastname: req.sanitize(req.body.lastname),
         gender: req.sanitize(req.body.gender),
@@ -270,7 +280,7 @@ app.post('/register', function (req, res) { //validate then sanitize
     console.dir("rego:");
     console.dir(registration);
 
-    connection.query('INSERT INTO bounce.account SET ?', registration, function (err, result) {
+    connection.query('INSERT INTO bouncemna.account SET ?', registration, function (err, result) {
         if (err) {
             req.flash('error', err)
             console.log(err);
@@ -293,8 +303,8 @@ app.post('/contactform', function (req, res) { //validate then sanitize
         firstName: req.sanitize(req.body.firstname),
         lastName: req.sanitize(req.body.lastname),
         gender: req.sanitize(req.body.gender),
-        phoneNumber: req.sanitize(req.body.phone),
-        emailAddress: req.sanitize(req.body.email),
+        phone: req.sanitize(req.body.phone),
+        email: req.sanitize(req.body.email),
         notes: req.sanitize(req.body.comment),
         rating: req.sanitize(req.body.rating),
         userid: sess.userid
@@ -303,7 +313,7 @@ app.post('/contactform', function (req, res) { //validate then sanitize
     console.dir("session userid:");
     console.dir(sess.userid);
 
-    connection.query('INSERT INTO bounce.contacts SET ?', contact, function (err, result) {
+    connection.query('INSERT INTO bouncemna.contact SET ?', contact, function (err, result) {
         if (err) {
             req.flash('error', err)
             console.log(err);
@@ -320,7 +330,7 @@ app.post('/deletecontact', function (req, res) { //validate then sanitize
     console.dir("delete contact:");
     console.dir(deleteID_list);
 
-    connection.query('DELETE FROM bounce.contacts WHERE (contactID) IN (?)', [deleteID_list], function (err, result) {
+    connection.query('DELETE FROM bouncemna.contact WHERE (contactID) IN (?)', [deleteID_list], function (err, result) {
         if (err) {
             req.flash('error', err)
             console.log(err);
@@ -364,9 +374,9 @@ app.post('/login', function (req, res) { //validate then sanitize
 
     var userid = req.sanitize(req.body.name);
     var password = req.sanitize(req.body.password);
-    console.dir("userid: " + userid + "password: " + password);
+    //console.dir("userid: " + userid + "password: " + password);
 
-    connection.query('SELECT * FROM bounce.account WHERE userid = ?', [userid], function (error, results, fields) {
+    connection.query('SELECT * FROM bouncemna.account WHERE userid = ?', [userid], function (error, results, fields) {
         if (error) {
             res.json({
                 status: false,
@@ -384,16 +394,15 @@ app.post('/login', function (req, res) { //validate then sanitize
                     sess.userid = userid; 
                     req.session.save();
                     logIn();
-                    console.dir("session.save userid:" + req.session.userid);
-                    res.send();
-                    /*
+                    console.dir("session.save userid:" + req.session.userid);                                       
                     res.json({
                         status: true,
                         message: 'successfully authenticated'
-                    })*/
+                    })
+                    res.send();
                 } else {
                     res.json({
-                        status: false,
+                        status: 401,
                         message: "userid and password does not match"
                     });
                 }
@@ -401,11 +410,48 @@ app.post('/login', function (req, res) { //validate then sanitize
             }
             else {
                 res.json({
-                    status: "loggedout",
-                    message: "userid does not exist",
+                    status: 401,
+                    message: "userid and password does not match",
                     redirect: '/login'
                 });
             }
         }
     });
 })
+app.post('/addpartner', function (req, res) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    //next();
+
+    console.dir("calling contact");
+    if (isLoggedIn()) {
+        var userid = sess.userid;
+        connection.query('SELECT * FROM bouncemna.contact WHERE userid = ?', [userid], function (error, results, fields) {
+            if (error) {
+                console.dir("query error");
+                res.json({
+                    status: false,
+                    message: 'there are some error with query'
+                })
+            }
+
+            else {
+                var objs = [];
+                for (var i = 0; i < results.length; i++) {
+                    console.dir(results[i].firstName);
+                    objs.push({
+                        firstname: results[i].firstName,
+                        lastname: results[i].lastName
+                    });
+                }
+                if (results.length > 0) {
+                    res.send(JSON.stringify(objs));
+                } else {
+                    res.end();
+                }
+            }
+        });
+    }
+})
+    

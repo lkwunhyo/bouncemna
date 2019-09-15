@@ -15,6 +15,7 @@ user: LoginModel = new LoginModel();
 loginForm: FormGroup;
     hide = true;
     _url = '//localhost:8080/login'
+    reg;
 
     constructor(private formBuilder: FormBuilder, private _apphttpService: AppHttpService,
     private router: Router) { }
@@ -32,13 +33,18 @@ loginForm: FormGroup;
     });
   }
 
-  onRegisterSubmit() {
-      this._apphttpService.post(this._url, this.user).subscribe(
-          registration => console.log('Success!', registration),
+    onRegisterSubmit() {
+        this._apphttpService.post(this._url, this.user).subscribe(
+            registration => {console.log('Success!', registration); this.reg = registration;
+    },
           error => console.error('Error!', error),
           () => {
-              alert("Login post successful");
-              this.router.navigateByUrl("/home");
+              if (this.reg.status == true) {
+                  alert("Login post successful");
+                  this.router.navigateByUrl("/home");
+              } else {
+                  alert(this.reg.message);
+              }
           },
       );
   }
