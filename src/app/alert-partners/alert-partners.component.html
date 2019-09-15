@@ -38,43 +38,47 @@
     </mat-step>
     <mat-step [stepControl]="alertPartnersForm2" *ngIf="isSendMessage" [editable]="isEditable" [completed]="false">
         {{alertPartnersForm2.value | json}}
-      <form [formGroup]="alertPartnersForm2">
-        <ng-template matStepLabel>Choose your contacts</ng-template>
-          <!-->  <td>
+        <form [formGroup]="alertPartnersForm2">
+            <ng-template matStepLabel>Choose your contacts</ng-template>
+            <!-->  <td>
 
-        <div *ngFor="let person of persons | search:'lastname,firstname,rating':query" class="checkbox">           
-            <label formControlName="contacts" >
-            <input type="checkbox" [(ngModel)]="alert.contacts">{{person.firstname}}<br>
-            </label>
-          </div>
-          </td><-->
-          <mat-checkbox name="contacts" formControlName="contacts" [(ngModel)]="alert.contacts" value="0">
-            <label>Select All</label>
-          </mat-checkbox><br>
-          <mat-checkbox name="contacts" formControlName="contacts" [(ngModel)]="alert.contacts" value="1">
-              <label>
-              John Cena
-              </label>
-            </mat-checkbox><br>
-            <mat-checkbox name="contacts" formControlName="contacts" [(ngModel)]="alert.contacts" value="2">
-             <label> 
-              Tony Stark
-            </label>
-            </mat-checkbox><br>
-            
+    <div *ngFor="let person of persons | search:'lastname,firstname,rating':query" class="checkbox">
+        <label formControlName="contacts" >
+        <input type="checkbox" [(ngModel)]="alert.contacts">{{person.firstname}}<br>
+        </label>
+      </div>
+      </td><-->
+            <!-- <mat-checkbox name="contacts" formControlName="contacts" [(ngModel)]="alert.contacts" value="0">-->
+            <div class="contact_list">
+                <ul class="contacts">
+                    <li *ngFor="let person of persons | search:'lastname,firstname,rating':query">
+                        <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image" height="18"
+                             width="18">&nbsp;&nbsp;
+                        <!--<mat-checkbox name="partner" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>-->
+                        <mat-checkbox [value]="add_persons" formControlName="contacts" [(ngModel)]="person.selected"
+                                      (change)="OnCheckboxSelect(person, $event.checked)" name="persons">
+                            {{ person.firstname }}
+                            {{ person.lastname}} {{ person.rating }}
+                        </mat-checkbox>
+                    </li>
+                </ul>
+            </div>
+            <!-- </mat-checkbox><br>-->
+
             <br><br>
             <mat-radio-group formControlName="anonymity" [(ngModel)]="alert.anonymity">
-                <mat-radio-button  value="anonymous" ng-value="true">Send message anonymously</mat-radio-button> <br>
-                <mat-radio-button  value="identified">Include your name in message</mat-radio-button>  
+                <mat-radio-button value="anonymous" ng-value="true">Send message anonymously</mat-radio-button> <br>
+                <mat-radio-button value="identified">Include your name in message</mat-radio-button>
             </mat-radio-group>
 
             <br><br>Message:<br> You may have contacted<br>{{alert.diagnosis}}, please get tested immediately
-        <div>
-          <!--><button mat-button matStepperPrevious>Back</button><-->
-          <button mat-button type="submit" (click)="stepper.reset();">Reset</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
+            <div>
+                <!-->
+            <button mat-button matStepperPrevious>Back</button><-->
+                <button mat-button type="submit" (click)="stepper.reset();">Reset</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form>
     </mat-step>
     <mat-step [stepControl]="alertPartnersForm2" [editable]="isEditable" [completed]="false">
       <ng-template matStepLabel>Completed</ng-template>
