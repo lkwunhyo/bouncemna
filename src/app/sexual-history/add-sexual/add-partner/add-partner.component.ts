@@ -33,17 +33,21 @@ export class AddPartnerComponent implements OnInit {
 
   OnSubmit() {
     // Submit every person where person.selected == true
-    for(let i = 0; i < this.selected_persons.length; i++) {
-      this.storage.set(this.selected_persons[i].id, this.selected_persons[i]);
+      console.log("length of selected: " + this.selected_persons.length);
+      for (let i = 0; i < this.selected_persons.length; i++) {
+        //storage already checks if object is not in storage, then add. Thus no duplicate
+          console.log("selected person contactID/KEY " + this.selected_persons[i].contactID);
+          this.storage.set(this.selected_persons[i].contactID, this.selected_persons[i]);
+          console.log("storage get value from key:" + this.storage.get(this.selected_persons[i].contactID).firstname);
     }
-    console.log(this.storage);
+    //storage keeps item in "key,value(object)" pair
 
   }
 
     ngOnInit() {
         this._contactService.getContactList()
             .subscribe((res: any[]) => {
-                console.log(res);
+                console.log("res: " + res);
                 //this.persons = res;
                 this.persons = this._contactService.filterBy(res);
             });

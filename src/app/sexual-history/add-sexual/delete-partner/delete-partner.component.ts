@@ -42,7 +42,12 @@ export class DeletePartnerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.persons = this._contactService.filterBy();
+      this._contactService.getContactList()
+          .subscribe((res: any[]) => {
+              console.log(res);
+              this.persons = this._contactService.filterBy(res);
+          });
+      //this.persons = this._contactService.filterBy();
   }
 
   onSelect(person: Person): void {

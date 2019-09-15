@@ -60,7 +60,13 @@ export class DeleteContactComponent implements OnInit {
   selectedPerson: Person;
 
   ngOnInit() {
-    this.persons = this._contactService.filterBy();
+    //this.persons = this._contactService.filterBy();
+      this._contactService.getContactList()
+          .subscribe((res: any[]) => {
+              console.log(res);
+              //this.persons = res;
+              this.persons = this._contactService.filterBy(res);
+          });
   }
 
   onSelect(person: Person): void {
