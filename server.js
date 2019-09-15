@@ -211,57 +211,83 @@ app.post('/contact', function (req, res, next) {
 //app.get('/alertpartners')
 
 //note to self, request is to receive data, response is for pushing data to browser
-app.post('/alertpartners', function (req, res){ //validate then sanitize
+app.post('/alertpartners', function (req, res) { //validate then sanitize
 
 
     var alert = {
         diagnosis: req.sanitize(req.body.diagnosis),
-        sendmessage: req.sanitize(req.body.message),
+        sendMessage: req.sanitize(req.body.message),
         anonymity: req.sanitize(req.body.anonymity),
-        date: req.sanitize(req.body.date),
+        dateDiagnosed: req.sanitize(req.body.date),
+        userID: sess.userid
     }
 
-    var alertedPartners = {
-        //contactid alertid
-    }
-    //console.log("req.body.diagnosis: " + req.body.get());
+
+    console.dir("alert contacts: " + req.body.contacts);
+    contacts = req.body.contacts;
     console.dir("alert:");
     console.dir(alert);
-    //console.log("alertpartners: " +)
-    //console.log("req.diagnosis " + req.diagnosis);
 
-    connection.query('INSERT INTO bouncemna.alert SET ?', alert, function (err, result) {
+    connection.beginTransaction(function (err) {
         if (err) {
             req.flash('error', err)
-
-            // render to views/user/add.ejs
-            //res.render('alert-partners', {
-              //  title: 'Add New Customer',
-                //name: user.name,
-                //email: user.email
-            //})
-        } else {
-            console.log("db post alertpartner success");
-            res.status(200).send({ "message": "data received" });
+            console.dir(err);
+            connection.rollback(function () {
+                throw err;
+            });
         }
+
+        connection.query('INSERT INTO bouncemna.alert SET ?', alert, function (err, result) {
+            if (err) {
+                connection.rollback(function () {
+                    throw err;
+                });
+            } else {
+                //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
+
+                alertid = result.insertId; //needed for all queries in this transaction
+                //-------alertedpartners---------------               
+                console.dir("doing alertedpartners");
+                var alertedPartners;
+                for (var i = 0; i < contacts.length; i++) {
+
+                    alertedPartners = {
+                        alertID: alertid,
+                        contactID: contacts[i].contactID
+                    }
+                    console.dir("alertedPartners:");
+                    console.dir(alertedPartners);
+                    connection.query(
+                        'INSERT INTO bouncemna.alertedpartners SET ?', alertedPartners, function (err, result) {
+                            if (err) {
+                                connection.rollback(function () {
+                                    throw err;
+                                });
+                            }
+                        }
+                    )
+                }
+            }
+        });
+
+
+
+
+        connection.commit(function (err) {
+            if (err) {
+                connection.rollback(function () {
+                    throw err;
+                });
+            }
+        })
+
+
+        console.log("db post register success");
+        res.status(200).send({ "message": "data received" });
     })
+
 })
 
-app.get('/alertpartners', function (req, res) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-
-    /*
-    if (req.session.page_views) {
-        req.session.page_views++;
-        res.send("You visited this page " + req.session.page_views + " times");
-    } else {
-        req.session.page_views = 1;
-        res.send("Welcome to this page for the first time!");
-    }*/
-})
 
 app.post('/register', function (req, res) { //validate then sanitize
     //if (user) return res.status(400).send("User already registered.");

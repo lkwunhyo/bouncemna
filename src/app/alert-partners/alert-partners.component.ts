@@ -12,6 +12,8 @@ import { DISEASES } from '../models/disease_mock';
 import { AlertService } from '../services/alert.service';
 import * as moment from 'moment';
 
+import { LOCAL_STORAGE, SESSION_STORAGE, WebStorageService } from 'angular-webstorage-service';
+import { Inject } from '@angular/core';  
 
 //Should I put combine both forms into one? is data binded for submission?
 @Component({
@@ -30,23 +32,40 @@ export class AlertPartnersComponent implements OnInit {
   incomplete = "incomplete";
 
   constructor(private formBuilder: FormBuilder, private _contactService: ContactService,
-      private _diseaseService: DiseaseService, private datePipe: DatePipe, private _alertService: AlertService) {
+      private _diseaseService: DiseaseService, private datePipe: DatePipe, private _alertService: AlertService,
+      @Inject(SESSION_STORAGE) private storage: WebStorageService) {
       this.alertPartnersForm1 = this.formBuilder.group({
       });
       this.alertPartnersForm2 = this.formBuilder.group({
       });
-      
-     }
+    }
+
+  persons = [];
+  selected_persons = [];
+  selectedPerson: Person;
+
+  OnCheckboxSelect(person, status:boolean) {
+    if (this.selected_persons.indexOf(person) === -1 && status) {
+      this.selected_persons.push(person);
+    }
+    else if(!status) {
+      let index = this.selected_persons.indexOf(person);
+      this.selected_persons.splice(index, 1);
+    }
+    console.log(this.selected_persons);
+    
+  }
   
   v = null;
   diseases = [];
   selectedDisease: Disease;
-  persons = [];
-  selectedPerson: Person;
 
   ngOnInit() {
-    
-    this.persons = this._contactService.filterBy();
+      this._contactService.getContactList()
+          .subscribe((res: any[]) => {
+              //console.log(res);
+              this.persons = this._contactService.filterBy(res);
+          });
     this.diseases = this._diseaseService.filterBy();
     this.alertPartnersForm1 = this.formBuilder.group({
       'diagnosis': [this.alert.diagnosis, [
@@ -60,7 +79,7 @@ export class AlertPartnersComponent implements OnInit {
     });
 
       this.alertPartnersForm2 = this.formBuilder.group({
-          'contacts': [this.alert.contacts = 'false', [
+          'contacts': [this.alert.contacts = this.selected_persons, [
         //Validators.requiredTrue
       ]],
       'anonymity': [this.alert.anonymity = 'anonymous', [
@@ -71,6 +90,17 @@ export class AlertPartnersComponent implements OnInit {
 
     //stackoverflow.com/questions/34835516/how-to-submit-form-to-server-in-angular2
     onSubmit() {
+        var contactid = [];
+        for (var i = 0; i < this.selected_persons.length; i++) {
+            contactid.push(this.selected_persons[i].contactID);
+        }
+        this.alertPartnersForm2.patchValue({ 'contacts': contactid });
+        console.log("selected: ")
+        console.log(this.selected_persons);
+        console.log("form2 contacts: ");
+        console.log(this.alertPartnersForm2.get('contacts').value);
+        console.log("alert contact: ");
+        console.log(this.alert.contacts);
     /*
     alert('You may have been infected with ' + this.alert.diagnosis  + ', please get tested as soon as possible' + ' '
   + this.alert.anonymity + ' ' +  this.alert.contacts);*/
@@ -112,7 +142,8 @@ export class AlertPartnersComponent implements OnInit {
     }
 
     sendMessage() {
-        this.alertPartnersForm1.patchValue({ 'message': String(this.isSendMessage) })
+        this.alertPartnersForm1.patchValue({ 'message': String(this.isSendMessage) });
+
     }
 
     formatDate() {
