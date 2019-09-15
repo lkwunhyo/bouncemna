@@ -22,7 +22,7 @@ export class ContactComponent implements OnInit {
       this._contactService.getContactList()
           .subscribe((res: any[]) => {
               console.log(res);
-              this.contactlist = res;
+              this.contactlist = this._contactService.filterBy(res);
           });
   }
 
