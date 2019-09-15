@@ -183,11 +183,11 @@ app.post('/contact', function (req, res, next) {
             else {
                 var objs = [];
                 for (var i = 0; i < results.length; i++) {
-                    console.dir(results[i].firstName);
+                    console.dir("/contact firstname" + results[i].firstName);
                     objs.push({
-                        firstname: results[i].firstName,
-                        lastname: results[i].lastName,
                         contactID: results[i].contactID,
+                        firstname: results[i].firstName,
+                        lastname: results[i].lastName,                        
                         gender: results[i].gender,
                         phone: results[i].phone,
                         email: results[i].email,
@@ -344,26 +344,125 @@ app.post('/deletecontact', function (req, res) { //validate then sanitize
 
 // Add Activity Form
 app.post('/addactivity', function (req, res) { //validate then sanitize
-    var activity = {
-        userID: req.sanitize(req.body.userid),
-        actID: req.sanitize(req.body.actid),
-        protectionID: req.sanitize(req.body.protid),
-        datePerformed: req.sanitize(req.body.date),
+    console.dir("contacts: " + req.body.contactid);
+    var encounter = {
+        userID: sess.userid,
+        dateEncounter: req.sanitize(req.body.date),
         notes: req.sanitize(req.body.comment),
+        /*
+        contactid: req.sanitize(req.body.contactid),      
+        actID: req.sanitize(req.body.actid),
+        protectionID: req.sanitize(req.body.protid),*/
+
     }
 
-    console.dir("activity:");
-    console.dir(activity);
+    //Acquires array values by not sanitizing it
+    contactid = req.body.contactid;
+    actid = req.body.actid;
+    protectionid = req.body.protid;
 
-    connection.query('INSERT INTO bounce.activity SET ?', activity, function (err, result) {
+    console.dir("encounter:");
+    console.dir(encounter);
+    var encounterid;
+    connection.beginTransaction(function (err) {
         if (err) {
             req.flash('error', err)
-            console.log(err);
-
-        } else {
-            console.log("db post register success");
-            res.status(200).send({ "message": "data received" });
+            console.dir(err);
+            connection.rollback(function () {
+                throw err;
+            });
         }
+
+        connection.query('INSERT INTO bouncemna.encounter SET ?', encounter, function (err, result) {
+            if (err) {
+                connection.rollback(function () {
+                    throw err;
+                });
+            } else {
+                //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
+
+                encounterid = result.insertId; //needed for all queries in this transaction
+                //-------encounterpartners---------------               
+                console.dir("doing encounterpartners");
+                var encounterpartners;
+                for (var i = 0; i < contactid.length; i++) {
+
+                    encounterpartners = {
+                        encounterID: encounterid,
+                        contactID: contactid[i]
+                    }
+                    console.dir("encounterpartners:");
+                    console.dir(encounterpartners);
+                    connection.query(
+                        'INSERT INTO bouncemna.encounterpartners SET ?', encounterpartners, function (err, result) {
+                            if (err) {
+                                connection.rollback(function () {
+                                    throw err;
+                                });
+                            }
+                        }
+                    )
+                }
+
+                //-----encounterProtection-----------
+                console.dir("doing encounterprotection");
+                var encounterprotection;
+                for (var i = 0; i < protectionid.length; i++) {
+                    encounterprotection = {
+                        encounterID: encounterid,
+                        protectionID: protectionid[i][0]
+                    }
+                    console.dir("encounterprotection:");
+                    console.dir(encounterprotection);
+                    connection.query(
+                        'INSERT INTO bouncemna.encounterprotection SET ?', encounterprotection, function (err, result) {
+                            if (err) {
+                                connection.rollback(function () {
+                                    throw err;
+                                });
+                            }
+                        }
+                    )
+                }
+
+                //-----encounterActs----------------
+                console.dir("doing encounterprotection");
+                var encounteract;
+                for (var i = 0; i < actid.length; i++) {
+                    encounteract = {
+                        encounterID: encounterid,
+                        actID: actid[i][0]
+                    }
+                    console.dir("encounteract:");
+                    console.dir(encounteract);
+                    connection.query(
+                        'INSERT INTO bouncemna.encounteracts SET ?', encounteract, function (err, result) {
+                            if (err) {
+                                connection.rollback(function () {
+                                    throw err;
+                                });
+                            }
+                        }
+                    )
+                }
+
+            }
+        });
+
+
+        
+
+        connection.commit(function (err) {
+            if (err) {
+                connection.rollback(function () {
+                    throw err;
+                });
+            }
+        })
+
+
+        console.log("db post register success");
+        res.status(200).send({ "message": "data received" });
     })
 })
 
