@@ -3,7 +3,38 @@
 }
 
 .title{
+    position: relative;
+    text-align: center;
+    padding-bottom: 10%;
+    padding-top: 10%;
+    margin-top: auto;
+}
+
+.bounce {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 125%;
+}
+
+.title img {
+    max-width: 70%;
+    height: auto;
+    width: auto\9;
+    opacity: 0.75;
+}
+
+/*
+.title{
     text-align: center;
     padding-bottom: 30%;
     padding-top: 30%;
+    background-image:url("../../assets/Logo_1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
+*/
+
+
