@@ -58,6 +58,10 @@ import { AuthGuardService } from './auth-guard.service';
 import { AppHttpService } from './services/apphttp.service';
 import { HttpModule } from '@angular/http';
 
+// -----------------------------------------QRcode------------------------------------------------------------
+import { QRCodeModule } from 'angularx-qrcode';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,7 +116,9 @@ import { HttpModule } from '@angular/http';
       provide: DateAdapter,
         useFactory: adapterFactory,
     }),
-    StorageServiceModule
+    StorageServiceModule,
+	QRCodeModule,
+	ZXingScannerModule
   ],
     providers: [AppHttpService, AuthenticationService, AuthGuardService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{ provide: APP_BASE_HREF, useValue: '/'}, ContactService,MatDatepickerModule],
   bootstrap: [AppComponent],

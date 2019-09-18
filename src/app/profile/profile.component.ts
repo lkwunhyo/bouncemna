@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
-  constructor() { }
+	public QrCodeData: string = null;
+	
+  constructor() { 
+	this.QrCodeData = 'This is data that represents profile information, it would be about this long, maybe even more';
+  }
 
   ngOnInit() {
   }

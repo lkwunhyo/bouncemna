@@ -29,6 +29,10 @@ export class ContactFormComponent implements OnInit {
     
   }
 
+  openScanner() {
+	  
+  }
+  
   onSubmit() {
     this.contactForm = this.formBuilder.group({
       //'id': this.contact.id,

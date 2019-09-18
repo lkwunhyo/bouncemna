@@ -21,3 +21,13 @@
 table{
     width: 100%;
 }
+
+.container{
+	 margin: 0 auto;
+     width: 140px;
+	 padding: 10px;
+}
+
+.btncontainer{
+	padding: 10px;
+}
