@@ -3,6 +3,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { alertPartnersModel } from '../models/alert-partners.model';
 import { HttpClient } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class AddEventsService {
@@ -27,24 +28,14 @@ constructor(private router: Router, private _http: HttpClient) {
         });
     }
 
-    alertpartners(alert: alertPartnersModel) {
+    addEvents(calForm: FormBuilder) {
         console.dir("called service");
         //console.dir("json: " + JSON.stringify(alert));
-        console.dir("alert.diagnosis: " + alert.diagnosis);
+        console.dir("calForm.diagnosis: " + calForm);
 
         return this._http.post<any>(this._url, alert);
 }
 
-
-    success(message: string, keepAfterNavigationChange = false) {
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'success', text: message });
-    }
-
-    error(message: string, keepAfterNavigationChange = false) {
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'error', text: message });
-    }
 
     getMessage(): Observable<any> {
         return this.subject.asObservable();

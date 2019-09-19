@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarMomentDateFormatter } from 'angular-calendar';
 import {FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import {AddEventsService} from '../services/add-events.service';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-add-events',

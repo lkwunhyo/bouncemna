@@ -57,6 +57,7 @@ import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
 import { AppHttpService } from './services/apphttp.service';
 import { HttpModule } from '@angular/http';
+import {AddEventsService} from './services/add-events.service';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,7 @@ import { HttpModule } from '@angular/http';
     }),
     StorageServiceModule
   ],
-    providers: [AppHttpService, AuthenticationService, AuthGuardService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{ provide: APP_BASE_HREF, useValue: '/'}, ContactService,MatDatepickerModule],
+    providers: [AppHttpService, AuthenticationService, AuthGuardService, AddEventsService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{ provide: APP_BASE_HREF, useValue: '/'}, ContactService,MatDatepickerModule],
   bootstrap: [AppComponent],
   
 })

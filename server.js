@@ -614,3 +614,38 @@ app.post('/addpartner', function (req, res) {
     }
 })
     
+
+
+app.post('/addevents', function (req, res) { //validate then sanitize
+    //if (user) return res.status(400).send("User already registered.");
+    
+
+    var registration = {
+        userID: req.sanitize(req.body.username),
+        firstname: req.sanitize(req.body.firstname),
+        lastname: req.sanitize(req.body.lastname),
+        gender: req.sanitize(req.body.gender),
+        email: req.sanitize(req.body.email),
+        phone: req.sanitize(req.body.phone),
+        hash: hash
+    }
+
+    console.dir("rego:");
+    console.dir(registration);
+
+    connection.query('INSERT INTO bouncemna.account SET ?', registration, function (err, result) {
+        if (err) {
+            req.flash('error', err)
+            console.log(err);
+            // render to views/user/add.ejs
+            //res.render('alert-partners', {
+            //  title: 'Add New Customer',
+            //name: user.name,
+            //email: user.email
+            //})
+        } else {
+            console.log("db post register success");
+            res.status(200).send({ "message": "data received" });
+        }
+    })
+})
