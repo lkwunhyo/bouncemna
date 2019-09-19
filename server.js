@@ -7,6 +7,18 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const expressSanitizer = require('express-sanitizer');
 const app = express();
+
+/*----------NODEMAILER--------*/
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'bouncemna@gmail.com',
+        pass: 'tryl1234'
+    }
+});
+
+
 var loggedIn = false;
 
 function logIn() {
@@ -266,6 +278,28 @@ app.post('/alertpartners', function (req, res) { //validate then sanitize
                             }
                         }
                     )
+                    var text = 'You may have contracted ' + alert.diagnosis + ', please get tested immediately!'
+
+                    if (alert.anonymity == "identified") {
+                        text = text + '<br>  \n Sent by '  + sess.userid;
+                    }
+
+                    console.dir(text);
+                    
+                    var mailOptions = {
+                        from: 'bouncemna@gmail.com',
+                        to: contacts[i].email,
+                        subject: 'Bounce Alert',
+                        text: text
+                    }
+
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    }); 
                 }
             }
         });
