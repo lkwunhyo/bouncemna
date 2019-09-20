@@ -33,7 +33,7 @@ export class DeletePartnerComponent implements OnInit {
   OnSubmit() {
     // Submit every person where person.selected == true
     var values = Object.values(this.storage);
-    var keys = this.selected_persons.map(person => person.id);
+    var keys = this.selected_persons.map(person => person.contactID);
 
     for(let key of keys) {
       this.storage.remove(key);

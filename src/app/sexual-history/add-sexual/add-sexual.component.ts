@@ -4,6 +4,7 @@ import { Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AddSexualService } from '../../services/add-sexual.service';
 import { Router, NavigationStart } from '@angular/router';
+import { ContactService } from '../../services/contact.service';
 
 @Component({
   selector: 'app-add-sexual',
@@ -14,10 +15,12 @@ export class AddSexualComponent implements OnInit {
 
   sexualActivityForm: FormGroup;
 
-    sexualactivity_list = [[1,"Vaginal"], [2,"Anal"], [3,"Oral"], [4,"Other"]]; //Should we use db or just store it here as a variable? db seems to be a hassle
-    sexualactivity_value_list = [1, 2, 3, 4];
-    contraceptive_list = [[1,"PrEP"], [2,"Condom"]];
-    contraceptive_value_list = [1, 2];
+  sexualactivity_list = [[1,"Vaginal"], [2,"Anal"], [3,"Oral"], [4,"Other"]]; //Should we use db or just store it here as a variable? db seems to be a hassle
+  sexualactivity_value_list = [1, 2, 3, 4];
+  contraceptive_list = [[1,"PrEP"], [2,"Condom"]];
+  contraceptive_value_list = [1, 2];
+
+  public contactlist = [];
 
   activities_performed = [];
   contraceptives_used = [];
@@ -62,12 +65,19 @@ export class AddSexualComponent implements OnInit {
       data => console.log('Success!', data),
       error => console.error('Error!', error)
     );
+
+    // Clearing session storage so next submission has a empty form
+    for(var contact of this.contactlist) {
+      this.storage.remove(contact.contactID);
+    }
+
     //this.router.navigate(['/sexualhistory']);
     
   }
 
   constructor(@Inject(SESSION_STORAGE) private storage: WebStorageService, private router: Router,
-    private formBuilder: FormBuilder, private _addSexualService: AddSexualService) {
+    private formBuilder: FormBuilder, private _addSexualService: AddSexualService, 
+    private _contactService: ContactService) {
     this.sexualActivityForm = this.formBuilder.group({
     });
   }
@@ -88,6 +98,12 @@ export class AddSexualComponent implements OnInit {
 
   ngOnInit() {
     this.getFromSession();
+
+    this._contactService.getContactList()
+          .subscribe((res: any[]) => {
+              console.log(res);
+              this.contactlist = this._contactService.filterBy(res);
+          });
   }
 
 }
