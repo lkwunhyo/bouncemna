@@ -9,6 +9,7 @@ import { SexualHistoryService } from '../services/sexual-history.service';
 export class SexualHistoryComponent implements OnInit {
 
   public activitylist = [];
+  public partnerslist = [];
   
   constructor(private _sexualHistoryService: SexualHistoryService) { }
 
@@ -23,6 +24,7 @@ export class SexualHistoryComponent implements OnInit {
               console.log(res);
               this.activitylist = res;
           });
+    
   }
 
 }

@@ -1,6 +1,10 @@
-li{
-    font-size: 18px;
-    margin: 15px 0;
-    list-style-position: inside;
-    padding: 0px;
-}
+.mat-expansion-panel:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+    border-radius: 0px;
+    border-bottom: 0.75px solid gainsboro;
+
+  }
+/*
+.user {
+    font-size: 120%;
+}*/
