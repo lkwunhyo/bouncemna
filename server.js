@@ -110,22 +110,22 @@ function decrypt(text) {
 
 //register
 var cryptr = require('cryptr');
-
+/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'tryl',
     password: 'tryl',
     database: 'Bounce'
 });
+*/
 
-/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'admin',
-    database: 'Bounce'
+    database: 'bouncemna'
 });
-*/
+
 
 connection.connect(function (error) {
     if (!!error) {
@@ -205,6 +205,48 @@ app.post('/contact', function (req, res, next) {
                         email: results[i].email,
                         notes: results[i].notes,
                         rating: results[i].rating
+                    });
+                }
+                if (results.length > 0) {
+                    res.send(JSON.stringify(objs));
+                } else {
+                    res.end();
+                }
+            }
+        });
+    } else {
+        res.redirect('/login')
+    }
+
+})
+
+// Sexual Hisory Page
+app.post('/sexualhistory', function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
+    console.dir("calling sexual history");
+    if (isLoggedIn()) {
+        var userid = sess.userid;
+        connection.query('SELECT * FROM bouncemna.encounter WHERE userid = ?', [userid], function (error, results, fields) {
+            if (error) {
+                console.dir("query error");
+                res.json({
+                    status: false,
+                    message: 'there are some error with query'
+                })
+            }
+
+            else {
+                var objs = [];
+                for (var i = 0; i < results.length; i++) {
+                    console.dir("/sexualhistory userid" + results[i].userID);
+                    objs.push({
+                        encounterID: results[i].encounterID,
+                        userID: results[i].userID,
+                        dateEncounter: results[i].dateEncounter,                        
+                        notes: results[i].notes
                     });
                 }
                 if (results.length > 0) {

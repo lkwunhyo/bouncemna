@@ -2,6 +2,18 @@
 <html>
 <div class="defaultContainer">
   <h2>Sexual Activity</h2>
+
+  <div class="activity_list">
+    <ul class="activity">
+        <li *ngFor="let encounter of activitylist">
+            <img src="../../assets/book.png" alt="Record Icon" height="18"
+            width="18">&nbsp;&nbsp;
+          <a href="../sexualhistory/"><b>{{ encounter.encounterID }}</b>&nbsp;&nbsp;&nbsp;&nbsp;{{ convertDate(encounter.dateEncounter) }} </a>
+      </li>
+    </ul>
+    <br>
+  </div>
+<!--
   <h3 id="date"><u>Saturday, 16th March 2019</u></h3>
   <ul>
     <li>
@@ -29,7 +41,7 @@
         width="18">&nbsp;&nbsp;
       Placeholder Contacts
     </li>
-  </ul>
+  </ul>-->
   <br>
   <div class = "btncontainer">
   <button mat-stroked-button onclick="window.location.href = '../addactivity/'">Add</button>
