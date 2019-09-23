@@ -57,7 +57,7 @@ import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
 import { AppHttpService } from './services/apphttp.service';
 import { HttpModule } from '@angular/http';
-import {AddEventsService} from './services/add-events.service';
+import { AddEventsService } from './services/add-events.service';
 
 @NgModule({
   declarations: [

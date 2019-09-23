@@ -3,7 +3,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { alertPartnersModel } from '../models/alert-partners.model';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class AddEventsService {
@@ -11,7 +11,7 @@ private subject = new Subject<any>();
 private keepAfterNavigationChange = false;
 
 
-    _url = 'http://localhost:8080/alertpartners';
+    _url = 'http://localhost:8080/addevents';
 
 constructor(private router: Router, private _http: HttpClient) {
         // clear alert message on route change
@@ -28,12 +28,12 @@ constructor(private router: Router, private _http: HttpClient) {
         });
     }
 
-    addEvents(calForm: FormBuilder) {
-        console.dir("called service");
-        //console.dir("json: " + JSON.stringify(alert));
-        console.dir("calForm.diagnosis: " + calForm);
+    addEvents(calForm: any) {
+        console.dir("called addevents service");
+        console.dir("json: " + JSON.stringify(calForm));
+        console.dir("calForm: " + calForm);
 
-        return this._http.post<any>(this._url, alert);
+        return this._http.post<any>(this._url, calForm);
 }
 
 

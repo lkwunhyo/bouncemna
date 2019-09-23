@@ -7,7 +7,7 @@
 
 <form [formGroup] = "calForm">
 
-  Value: {{calForm.value | json }}
+  <!-- Value: {{calForm.value | json }} -->
 
   <div class="title-container">
     <mat-form-field>
@@ -86,7 +86,7 @@
   </div>
 
   <div class="buttons">
-    <button mat-flat-button color="primary">Save</button>
+    <button mat-flat-button color="primary" (click) = "onSubmit()" >Save</button>
   </div>
 
 </form>

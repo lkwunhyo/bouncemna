@@ -111,12 +111,12 @@ function decrypt(text) {
 //register
 var cryptr = require('cryptr');
 
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'tryl',
-    password: 'tryl',
-    database: 'Bounce'
-});
+// var connection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'tryl',
+//     password: 'tryl',
+//     database: 'Bounce'
+// });
 
 /*
 var connection = mysql.createConnection({
@@ -126,6 +126,13 @@ var connection = mysql.createConnection({
     database: 'Bounce'
 });
 */
+
+var connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "12345678"
+});
+
 
 connection.connect(function (error) {
     if (!!error) {
@@ -619,21 +626,24 @@ app.post('/addpartner', function (req, res) {
 app.post('/addevents', function (req, res) { //validate then sanitize
     //if (user) return res.status(400).send("User already registered.");
     
+    console.log("req.body");
+    console.log(req.body);
+    var addevent = {
+        title: req.sanitize(req.body.title),
+      date: req.sanitize(req.body.date),
+      timestart: req.sanitize(req.body.timestart),
+      timeend: req.sanitize(req.body.timeend),
+      alert: req.sanitize(req.body.alert),
+      repeat: req.sanitize(req.body.repeat),
+      note: req.sanitize(req.body.note),
+      userID: sess.userid
 
-    var registration = {
-        userID: req.sanitize(req.body.username),
-        firstname: req.sanitize(req.body.firstname),
-        lastname: req.sanitize(req.body.lastname),
-        gender: req.sanitize(req.body.gender),
-        email: req.sanitize(req.body.email),
-        phone: req.sanitize(req.body.phone),
-        hash: hash
     }
 
-    console.dir("rego:");
-    console.dir(registration);
+    console.dir("addevent:");
+    console.dir(addevent);
 
-    connection.query('INSERT INTO bouncemna.account SET ?', registration, function (err, result) {
+    connection.query('INSERT INTO bouncemna.calendar SET ?', addevent, function (err, result) {
         if (err) {
             req.flash('error', err)
             console.log(err);
