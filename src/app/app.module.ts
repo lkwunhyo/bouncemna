@@ -14,6 +14,7 @@ import {MatNativeDateModule} from '@angular/material';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
+import {MatExpansionModule} from '@angular/material';
 
 // ---------------------------------All page component----------------------------------------------------------
 import { AppComponent } from './app.component';
@@ -113,7 +114,8 @@ import { AddEventsService } from './services/add-events.service';
       provide: DateAdapter,
         useFactory: adapterFactory,
     }),
-    StorageServiceModule
+    StorageServiceModule,
+    MatExpansionModule
   ],
     providers: [AppHttpService, AuthenticationService, AuthGuardService, AddEventsService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{ provide: APP_BASE_HREF, useValue: '/'}, ContactService,MatDatepickerModule],
   bootstrap: [AppComponent],
