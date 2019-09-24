@@ -625,25 +625,26 @@ app.post('/addpartner', function (req, res) {
 
 app.post('/addevents', function (req, res) { //validate then sanitize
     //if (user) return res.status(400).send("User already registered.");
-    
+    //console.dir("addevents: " + req.body.eventid);
     console.log("req.body");
     console.log(req.body);
-    var addevent = {
+    var addevents = {
+        //userID: sess.userid,
         title: req.sanitize(req.body.title),
-      date: req.sanitize(req.body.date),
-      timestart: req.sanitize(req.body.timestart),
-      timeend: req.sanitize(req.body.timeend),
-      alert: req.sanitize(req.body.alert),
-      repeat: req.sanitize(req.body.repeat),
-      note: req.sanitize(req.body.note),
-      userID: sess.userid
+        date: req.sanitize(req.body.date),
+        timestart: req.sanitize(req.body.timestart),
+        timeend: req.sanitize(req.body.timeend),
+        alert: req.sanitize(req.body.alert),
+        repeat: req.sanitize(req.body.repeat),
+        note: req.sanitize(req.body.note),
+        
 
     }
 
-    console.dir("addevent:");
-    console.dir(addevent);
+    console.dir("addevents:");
+    console.dir(addevents);
 
-    connection.query('INSERT INTO bouncemna.calendar SET ?', addevent, function (err, result) {
+    connection.query('INSERT INTO bouncemna.addevents SET ?', addevents, function (err, result) {
         if (err) {
             req.flash('error', err)
             console.log(err);
@@ -659,3 +660,5 @@ app.post('/addevents', function (req, res) { //validate then sanitize
         }
     })
 })
+
+

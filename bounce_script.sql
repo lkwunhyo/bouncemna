@@ -169,6 +169,38 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+CREATE TABLE IF NOT EXISTS `Calendar` (
+  `eventID` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) DEFAULT NULL,
+  `eventName` varchar(255) DEFAULT NULL,
+  `startDate` date DEFAULT NULL,
+  `finishDate` date DEFAULT NULL,
+  PRIMARY KEY (`eventID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `calendar_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `profile` (`userID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE IF NOT EXISTS `addevents` (
+  `eventID` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) DEFAULT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `timestart` varchar(45) DEFAULT NULL,
+  `timeend` varchar(45) DEFAULT NULL,
+  `alert` varchar(45) DEFAULT NULL,
+  `repeat` varchar(45) DEFAULT NULL,
+  `note` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`eventID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+
+
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
