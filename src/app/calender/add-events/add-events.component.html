@@ -20,7 +20,7 @@
   <div class="date-container">
     <h3>Date:</h3>
     <mat-form-field>
-      <input matInput id="date" [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
+      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date" [(ngModel)]="date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>

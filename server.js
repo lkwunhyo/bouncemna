@@ -629,7 +629,7 @@ app.post('/addevents', function (req, res) { //validate then sanitize
     console.log("req.body");
     console.log(req.body);
     var addevents = {
-        //userID: sess.userid,
+        
         title: req.sanitize(req.body.title),
         date: req.sanitize(req.body.date),
         timestart: req.sanitize(req.body.timestart),
@@ -637,7 +637,7 @@ app.post('/addevents', function (req, res) { //validate then sanitize
         alert: req.sanitize(req.body.alert),
         repeat: req.sanitize(req.body.repeat),
         note: req.sanitize(req.body.note),
-        
+        //userID: sess.userid,
 
     }
 
@@ -659,6 +659,49 @@ app.post('/addevents', function (req, res) { //validate then sanitize
             res.status(200).send({ "message": "data received" });
         }
     })
+
+
+    console.dir("calling events");
+    if (isLoggedIn()) {
+        var userid = sess.userid;
+        connection.query('SELECT * FROM bouncemna.addevents WHERE userid = ?', [userid], function (error, results, fields) {
+            if (error) {
+                console.dir("query error");
+                res.json({
+                    status: false,
+                    message: 'there are some error with query'
+                })
+            }
+
+            else {
+                var objs = [];
+                for (var i = 0; i < results.length; i++) {
+                    //console.dir("/events" + results[i].firstName);
+                    objs.push({
+                        title: results[i].title,
+                        date: results[i].date,
+                        timestart: results[i].timestart,
+                        timeend: results[i].timeend,
+                        alert: results[i].alert,
+                        repeat: results[i].repeat,
+                        note: results[i].note,
+                    });
+                }
+                if (results.length > 0) {
+                    res.send(JSON.stringify(objs));
+                } else {
+                    res.end();
+                }
+            }
+        });
+    } else {
+        res.redirect('/login')
+    }
+
+
+
+
+
 })
 
 

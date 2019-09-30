@@ -4,6 +4,11 @@ import { Observable, Subject } from 'rxjs';
 import { alertPartnersModel } from '../models/alert-partners.model';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AppHttpService } from '../services/apphttp.service'
+import { catchError, map, tap } from 'rxjs/operators';
+import { events } from '../models/events';
+import { PERSONS } from '../models/person_mock';
+
 
 @Injectable({ providedIn: 'root' })
 export class AddEventsService {
@@ -28,6 +33,10 @@ constructor(private router: Router, private _http: HttpClient) {
         });
     }
 
+    getEvents() {
+        return events;
+      }
+
     addEvents(calForm: any) {
         console.dir("called addevents service");
         console.dir("json: " + JSON.stringify(calForm));
@@ -39,5 +48,11 @@ constructor(private router: Router, private _http: HttpClient) {
 
     getMessage(): Observable<any> {
         return this.subject.asObservable();
+    }
+
+    /** GET heroes from the server */
+    getEventsList(): Observable<events[]> {
+        console.dir("calling POST service");
+        return this._http.post<any>(this._url,"BODY 2ND PARAM");
     }
 }

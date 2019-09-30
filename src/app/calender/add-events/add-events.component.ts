@@ -3,7 +3,7 @@ import { CalendarMomentDateFormatter } from 'angular-calendar';
 import {FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AddEventsService } from '../../services/add-events.service';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-events',
@@ -19,6 +19,7 @@ export class AddEventsComponent implements OnInit {
   loading = false;
   success = false;
 
+
   constructor(private fb: FormBuilder, private httpClient: HttpClient, private _addeventsService:AddEventsService) { }
 
   ngOnInit() {
@@ -33,8 +34,12 @@ export class AddEventsComponent implements OnInit {
       note: ''
     });
 
+   
+
     // this.calForm.valueChanges.subscribe(console.log)
   }
+
+ 
 
   onSubmit(){
     console.log("this.calform value");
