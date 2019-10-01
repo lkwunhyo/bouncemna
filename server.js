@@ -385,21 +385,23 @@ app.post('/contactform', function (req, res) { //validate then sanitize
     })
 })
 // Delete Contact Form
-app.post('/deletecontact', function (req, res) { //validate then sanitize
-    var deleteID_list = req.body;
-    console.dir("delete contact:");
-    console.dir(deleteID_list);
+app.post('/deletecontact', function (req, res) { // havent done commit-rollback
+    var delete_contacts = req.body;
+    console.dir(req.body);
+    for (var i = 0; i < delete_contacts.length; i++) {
+        console.dir("delete contact:");
+        console.dir(delete_contacts[i]);
+        
+        connection.query('DELETE FROM bouncemna.contact WHERE contactID = ?', delete_contacts[i].contactID, function (err, result) {
+            if (err) {
+                req.flash('error', err)
+                console.log(err);
 
-    connection.query('DELETE FROM bouncemna.contact WHERE (contactID) IN (?)', [deleteID_list], function (err, result) {
-        if (err) {
-            req.flash('error', err)
-            console.log(err);
-
-        } else {
-            console.log("db post register success");
-            res.status(200).send({ "message": "data received" });
-        }
-    })
+            } 
+        })
+    }
+    console.log("db post delete success");
+    res.status(200).send({ "message": "contact deleted" });
 })
 
 // Add Activity Form
