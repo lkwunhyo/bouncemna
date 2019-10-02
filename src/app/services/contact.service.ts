@@ -13,6 +13,7 @@ import { MessageService } from '../services/message.service';
 export class ContactService {
 
     private url_contact = 'http://localhost:8080/contact';  // URL to web api
+    private url_encounter_contacts = 'http://localhost:8080/encountercontacts';
     constructor(private http: HttpClient, private messageService: MessageService) { }
 
   getContacts() {
@@ -33,10 +34,30 @@ export class ContactService {
     return values;
     }
 
+    filterByDate(values: any[]) {
+        function orderByDate(a, b) {
+            if (a.dateEncounter < b.dateEncounter) {
+                return -1;
+            }
+            if (a.dateEncounter > b.dateEncounter) {
+                return 1;
+            }
+            return 0;
+        }
+        values.sort(orderByDate)
+        return values;
+    }
+
   /** GET heroes from the server */
     getContactList(): Observable<Person[]> {
         console.dir("calling POST service");
         return this.http.post<any>(this.url_contact,"BODY 2ND PARAM");
+    }
+
+    //get contacts that user has encountered
+    getEncounterContacts(): Observable<Person[]> { 
+        console.dir("calling POST service");
+        return this.http.post<any>(this.url_encounter_contacts, "BODY 2ND PARAM");
     }
 }
 

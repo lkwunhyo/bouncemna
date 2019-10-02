@@ -115,7 +115,8 @@ var connection = mysql.createConnection({
     host: 'localhost',
     user: 'tryl',
     password: 'tryl',
-    database: 'Bounce'
+    database: 'Bounce',
+    dateStrings: 'date'
 });
 
 /*
@@ -214,8 +215,55 @@ app.post('/contact', function (req, res, next) {
                 }
             }
         });
-    } else {
-        res.redirect('/login')
+    } 
+
+})
+
+
+
+app.post('/encountercontacts', function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    var attributes = "contact.firstName, contact.lastName, contact.phone, contact.email, encounterpartners.contactID, encounterpartners.encounterID,  dateEncounter, row_number() over(partition by contactID order by dateEncounter desc) as rn";
+    var from = "bouncemna.encounterpartners, bouncemna.encounter, bouncemna.contact";
+    var where = "encounter.encounterID = encounterpartners.encounterID AND encounter.userID = ? AND encounterpartners.contactID = contact.contactID";
+    var query = "select * from (select " + attributes + " from " + from + " where " + where + ") t where t.rn = 1";
+
+    //console.dir(query);
+
+    if (isLoggedIn()) {
+        var userid = sess.userid;
+        connection.query(query, [userid], function (error, results, fields) {
+            if (error) {
+                console.dir("query error");
+                res.json({
+                    status: false,
+                    message: 'there are some error with query'
+                })
+            }
+
+            else {
+                var objs = [];
+                for (var i = 0; i < results.length; i++) {
+                    console.dir("/contact firstname" + results[i].firstName);
+                    objs.push({
+                        encounterID: results[i].encounterID,
+                        dateEncounter: results[i].dateEncounter,
+                        contactID: results[i].contactID,
+                        firstname: results[i].firstName,
+                        lastname: results[i].lastName
+                    });
+                }
+                if (results.length > 0) {
+                    console.dir("obj");
+                    console.dir(objs);
+                    res.send(JSON.stringify(objs));
+                } else {
+                    res.end();
+                }
+            }
+        });
     }
 
 })
@@ -293,6 +341,7 @@ app.post('/alertpartners', function (req, res) { //validate then sanitize
                         text: text
                     }
 
+                    //Problem: Email from non-error queries may be sent even if a rollback occurs
                     transporter.sendMail(mailOptions, function (error, info) {
                         if (error) {
                             console.log(error);

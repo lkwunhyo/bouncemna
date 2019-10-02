@@ -37,7 +37,6 @@
         </form>
     </mat-step>
     <mat-step [stepControl]="alertPartnersForm2" *ngIf="isSendMessage" [editable]="isEditable" [completed]="false">
-        {{alertPartnersForm2.value | json}}
         <form [formGroup]="alertPartnersForm2">
             <ng-template matStepLabel>Choose your contacts</ng-template>
             <!-->  <td>
@@ -51,14 +50,15 @@
             <!-- <mat-checkbox name="contacts" formControlName="contacts" [(ngModel)]="alert.contacts" value="0">-->
             <div class="contact_list">
                 <ul class="contacts">
-                    <li *ngFor="let person of persons | search:'lastname,firstname,rating':query">
+                    <li *ngFor="let person of persons">
+                        <!--| search:'lastname,firstname,rating':query"-->
                         <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image" height="18"
                              width="18">&nbsp;&nbsp;
-                        <!--<mat-checkbox name="partner" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>-->
+                        <!--<mat-checkbox name="partner" > {{ person.firstname }} {{ person.lastname }}</mat-checkbox> <br>-->
                         <mat-checkbox [value]="add_persons" formControlName="contacts" [(ngModel)]="person.selected"
                                       (change)="OnCheckboxSelect(person, $event.checked)" name="persons">
                             {{ person.firstname }}
-                            {{ person.lastname}} {{ person.rating }}
+                            {{ person.lastname}} ({{ person.dateEncounter }})
                         </mat-checkbox>
                     </li>
                 </ul>
@@ -71,7 +71,7 @@
                 <mat-radio-button value="identified">Include your name in message</mat-radio-button>
             </mat-radio-group>
 
-            <br><br>Message:<br> You may have contacted<br>{{alert.diagnosis}}, please get tested immediately
+            <br><br>Message:<br> Your partner may have been exposed to <br>{{alert.diagnosis}}, please get tested immediately
             <div>
                 <!-->
             <button mat-button matStepperPrevious>Back</button><-->

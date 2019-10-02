@@ -61,10 +61,10 @@ export class AlertPartnersComponent implements OnInit {
   selectedDisease: Disease;
 
   ngOnInit() {
-      this._contactService.getContactList()
+      this._contactService.getEncounterContacts()
           .subscribe((res: any[]) => {
               //console.log(res);
-              this.persons = this._contactService.filterBy(res);
+              this.persons = this._contactService.filterByDate(res);
           });
     this.diseases = this._diseaseService.filterBy();
     this.alertPartnersForm1 = this.formBuilder.group({
