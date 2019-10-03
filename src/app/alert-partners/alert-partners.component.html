@@ -1,7 +1,6 @@
 
   <mat-vertical-stepper linear #stepper>
     <mat-step [stepControl]="alertPartnersForm1" [editable]="isEditable" [completed]="false">
-        {{alertPartnersForm1.value.date}}
         <form [formGroup]="alertPartnersForm1">
             <ng-template matStepLabel>Choose Diagnosis</ng-template>
             <h4>Diagnosis</h4>
@@ -20,7 +19,7 @@
             <br>
             <h4>Date of diagnosis</h4><br>
             <mat-form-field>
-                <input matInput [matDatepicker]="picker" (dateChange)="formatDate()" formControlName="date" placeholder="Choose a date" [(ngModel)]="date">
+                <input matInput [matDatepicker]="picker" (dateChange)="formatDate(); getTrace()" formControlName="date" placeholder="Choose a date" [(ngModel)]="date">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -48,6 +47,8 @@
       </div>
       </td><-->
             <!-- <mat-checkbox name="contacts" formControlName="contacts" [(ngModel)]="alert.contacts" value="0">-->
+            <div id="no_recent_contacts" style='visibility: hidden'> None of your contacts are within the tracing period. </div>
+            <div id="recent_contacts" style='visibility: hidden'>These contacts are within the tracing period: </div> 
             <div class="contact_list">
                 <ul class="contacts">
                     <li *ngFor="let person of persons">
@@ -71,11 +72,11 @@
                 <mat-radio-button value="identified">Include your name in message</mat-radio-button>
             </mat-radio-group>
 
-            <br><br>Message:<br> Your partner may have been exposed to <br>{{alert.diagnosis}}, please get tested immediately
+            <br><br>Message:<br> Your partner may have been exposed to <br>{{sti}}, please get tested immediately
             <div>
                 <!-->
-            <button mat-button matStepperPrevious>Back</button><-->
-                <button mat-button type="submit" (click)="stepper.reset();">Reset</button>
+        <button mat-button matStepperPrevious>Back</button><-->
+                <button mat-button type="submit" (click)="resetForm();stepper.reset();">Reset</button>
                 <button mat-button matStepperNext>Next</button>
             </div>
         </form>
@@ -85,7 +86,7 @@
       Form is completed
       <div>
         <!--><button mat-button matStepperPrevious>Back</button><-->
-        <button mat-button (click)="stepper.reset();resetForm()">Reset</button>
+        <button mat-button (click)="resetForm();stepper.reset()">Reset</button>
         <button mat-button matStepperNext (click) = "onSubmit()">Submit</button>
       </div>
     </mat-step>
@@ -95,7 +96,7 @@
         <div *ngIf="isSendMessage"> Message is sent to selected contacts </div> 
         <div *ngIf="!isSendMessage"> No message will be sent to your contacts </div> 
         <div>       
-        <button mat-button (click)="stepper.reset(); resetForm()">Reset</button>
+        <button mat-button (click)=" resetForm();stepper.reset()">Reset</button>
       </div>
     </mat-step>
   </mat-vertical-stepper>

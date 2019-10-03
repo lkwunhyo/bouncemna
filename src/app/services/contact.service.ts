@@ -6,6 +6,9 @@ import { AppHttpService } from '../services/apphttp.service'
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from '../services/message.service';
+import * as moment from 'moment';
+import { and } from '@angular/router/src/utils/collection';
+
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +37,9 @@ export class ContactService {
     return values;
     }
 
-    filterByDate(values: any[]) {
+    filterByDate(values: any[], dateDiagnosed: any, tracingPeriod: any) {
+        var recent_contacts = [];
+
         function orderByDate(a, b) {
             if (a.dateEncounter < b.dateEncounter) {
                 return -1;
@@ -45,7 +50,29 @@ export class ContactService {
             return 0;
         }
         values.sort(orderByDate)
-        return values;
+        if (dateDiagnosed != 0 && tracingPeriod != 0) {
+            console.log("month difference");
+            for (let person of values) {
+                var diff = (moment(dateDiagnosed).diff(moment(person.dateEncounter), 'months'));
+                //should i give a leeway of an extra month?
+                console.log(person.dateEncounter + " - " + dateDiagnosed);
+
+                console.log((diff) + " < " + tracingPeriod);
+                //
+
+                console.log(diff < (tracingPeriod));
+                if (diff < Number(tracingPeriod) && diff >= 0) { //More recent encounters has lesser date difference, future encounters have negative date difference
+                    recent_contacts.push(person);
+                }
+            }
+            console.log("recent contacts");
+            console.log(recent_contacts);
+        } else {
+            return values;
+        }
+
+
+        return recent_contacts;
     }
 
   /** GET heroes from the server */

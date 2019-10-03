@@ -196,7 +196,7 @@ app.post('/contact', function (req, res, next) {
             else {
                 var objs = [];
                 for (var i = 0; i < results.length; i++) {
-                    console.dir("/contact firstname" + results[i].firstName);
+                    //console.dir("/contact firstname" + results[i].firstName);
                     objs.push({
                         contactID: results[i].contactID,
                         firstname: results[i].firstName,
@@ -252,7 +252,8 @@ app.post('/encountercontacts', function (req, res, next) {
                         dateEncounter: results[i].dateEncounter,
                         contactID: results[i].contactID,
                         firstname: results[i].firstName,
-                        lastname: results[i].lastName
+                        lastname: results[i].lastName,
+                        email: results[i].email
                     });
                 }
                 if (results.length > 0) {
@@ -268,107 +269,165 @@ app.post('/encountercontacts', function (req, res, next) {
 
 })
 
-//app.get('/alertpartners')
-
-//note to self, request is to receive data, response is for pushing data to browser
-app.post('/alertpartners', function (req, res) { //validate then sanitize
 
 
-    var alert = {
-        diagnosis: req.sanitize(req.body.diagnosis),
-        sendMessage: req.sanitize(req.body.message),
-        anonymity: req.sanitize(req.body.anonymity),
-        dateDiagnosed: req.sanitize(req.body.date),
-        userID: sess.userid
-    }
+//To get diseases info
+    / app.post('/diseases', function (req, res) {
+    if (isLoggedIn()) {
+        connection.query('SELECT * FROM bouncemna.sti', function (error, results, fields) {
+            if (error) {
+                console.dir("query error");
+                res.json({
+                    status: false,
+                    message: 'there are some error with query'
+                })
+            }
 
-
-    console.dir("alert contacts: " + req.body.contacts);
-    contacts = req.body.contacts;
-    console.dir("alert:");
-    console.dir(alert);
-
-    connection.beginTransaction(function (err) {
-        if (err) {
-            req.flash('error', err)
-            console.dir(err);
-            connection.rollback(function () {
-                throw err;
-            });
-        }
-
-        connection.query('INSERT INTO bouncemna.alert SET ?', alert, function (err, result) {
-            if (err) {
-                connection.rollback(function () {
-                    throw err;
-                });
-            } else {
-                //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
-
-                alertid = result.insertId; //needed for all queries in this transaction
-                //-------alertedpartners---------------               
-                console.dir("doing alertedpartners");
-                var alertedPartners;
-                for (var i = 0; i < contacts.length; i++) {
-
-                    alertedPartners = {
-                        alertID: alertid,
-                        contactID: contacts[i].contactID
-                    }
-                    console.dir("alertedPartners:");
-                    console.dir(alertedPartners);
-                    connection.query(
-                        'INSERT INTO bouncemna.alertedpartners SET ?', alertedPartners, function (err, result) {
-                            if (err) {
-                                connection.rollback(function () {
-                                    throw err;
-                                });
-                            }
-                        }
-                    )
-                    var text = 'You may have contracted ' + alert.diagnosis + ', please get tested immediately!'
-
-                    if (alert.anonymity == "identified") {
-                        text = text + '<br>  \n Sent by '  + sess.userid;
-                    }
-
-                    console.dir(text);
-                    
-                    var mailOptions = {
-                        from: 'bouncemna@gmail.com',
-                        to: contacts[i].email,
-                        subject: 'Bounce Alert',
-                        text: text
-                    }
-
-                    //Problem: Email from non-error queries may be sent even if a rollback occurs
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            console.log(error);
-                        } else {
-                            console.log('Email sent: ' + info.response);
-                        }
-                    }); 
+            else {
+                var objs = [];
+                for (var i = 0; i < results.length; i++) {
+                    console.dir("/sti " + results[i].stiName);
+                    objs.push({
+                        stiID: results[i].stiID,
+                        stiName: results[i].stiName,
+                        tracingPeriod: results[i].tracingPeriod,
+                        numberOfMonths: results[i].numberOfMonths,
+                    });
                 }
+                if (results.length > 0) {
+                    console.dir("obj");
+                    console.dir(objs);
+                    res.send(JSON.stringify(objs));
+                } else {
+                    res.end();
+
+                }
+
             }
         });
 
 
+    }
+    //Eg to do multiple queries
+    /*
+    const [article, recommended] = await Promise.all([
+        query('SELECT * FROM `pages` where slug=?', [slug]),
+        query('SELECT * FROM `pages` ORDER by RAND () LIMIT 2')
+    ]);*/
+})
+
+//note to self, request is to receive data, response is for pushing data to browser
+app.post('/alertpartners', function (req, res) { //validate then sanitize
+
+    if (isLoggedIn()) {
+        var alert = {
+            diagnosis: req.sanitize(req.body.diagnosis),
+            sendMessage: req.sanitize(req.body.message),
+            anonymity: req.sanitize(req.body.anonymity),
+            dateDiagnosed: req.sanitize(req.body.date),
+            userID: sess.userid
+        }
 
 
-        connection.commit(function (err) {
+        console.dir("alert contacts: " + req.body.contacts);
+        contacts = req.body.contacts;
+        console.dir("alert:");
+        //console.dir(alert);
+
+        connection.beginTransaction(function (err) {
             if (err) {
+                req.flash('error', err)
+                console.dir(err);
                 connection.rollback(function () {
                     throw err;
                 });
             }
+
+            connection.query('INSERT INTO bouncemna.alert SET ?', alert, function (err, result) {
+                if (err) {
+                    connection.rollback(function () {
+                        throw err;
+                    });
+                } else {
+                    //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
+
+                    alertid = result.insertId; //needed for all queries in this transaction
+                    //-------alertedpartners---------------               
+                    console.dir("doing alertedpartners");
+                    var alertedPartners;
+                    for (var i = 0; i < contacts.length; i++) {
+
+                        alertedPartners = {
+                            alertID: alertid,
+                            contactID: contacts[i].contactID
+                        }
+                        console.dir("alertedPartners:");
+                        //console.dir(alertedPartners);
+                        connection.query(
+                            'INSERT INTO bouncemna.alertedpartners SET ?', alertedPartners, function (err, result) {
+                                if (err) {
+                                    connection.rollback(function () {
+                                        throw err;
+                                    });
+                                }
+                            }
+                        )
+                        var sti;
+                        if (alert.diagnosis === 'HIV') {
+                            sti = 'a sexually transmitted infection'
+                        } else {
+                            sti = alert.diagnosis;
+                        }
+
+
+                        var text = 'One of your partners may have been exposed to ' + sti + ', please get tested immediately!'
+
+                        if (alert.anonymity == "identified") {
+                            text = text + '<br>  \n Sent by ' + sess.userid;
+                        }
+
+                        console.dir(text);
+
+                        var mailOptions = {
+                            from: 'bouncemna@gmail.com',
+                            to: contacts[i].email,
+                            subject: 'Bounce Alert',
+                            text: text
+                        }
+
+                        //Problem: Email from non-error queries may be sent even if a rollback occurs
+                        if (contacts[i].email != null) {
+                            console.log("email = " + contacts[i].email);
+                            transporter.sendMail(mailOptions, function (error, info) {
+                                if (error) {
+                                    console.log(error);
+                                } else {
+                                    console.log('Email sent: ' + info.response);
+                                }
+                            });
+                        } else {
+                            console.log('null email');
+                        }
+                    }
+                }
+            });
+
+
+
+
+            connection.commit(function (err) {
+                if (err) {
+                    connection.rollback(function () {
+                        throw err;
+                    });
+                }
+            })
+
+
+            console.log("db post register success");
+            res.status(200).send({ "message": "data received" });
         })
-
-
-        console.log("db post register success");
-        res.status(200).send({ "message": "data received" });
-    })
-
+    }
 })
 
 
@@ -649,7 +708,7 @@ app.post('/addpartner', function (req, res) {
             else {
                 var objs = [];
                 for (var i = 0; i < results.length; i++) {
-                    console.dir(results[i].firstName);
+                    //console.dir(results[i].firstName);
                     objs.push({
                         firstname: results[i].firstName,
                         lastname: results[i].lastName
