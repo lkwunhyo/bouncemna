@@ -113,9 +113,9 @@ var cryptr = require('cryptr');
 
 var connection = mysql.createConnection({
     host: 'localhost',
-    user: 'tryl',
-    password: 'tryl',
-    database: 'Bounce',
+    user: 'root',
+    password: 'admin',
+    database: 'bouncemna',
     dateStrings: 'date'
 });
 
