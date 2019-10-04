@@ -58,6 +58,7 @@ import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
 import { AppHttpService } from './services/apphttp.service';
 import { HttpModule } from '@angular/http';
+import { ContactProfileComponent } from './contact/contact-profile/contact-profile.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { HttpModule } from '@angular/http';
     CalenderComponent,
     DeleteContactComponent,
     DeletePartnerComponent,
-    AddEventsComponent
+    AddEventsComponent,
+    ContactProfileComponent
   ],
   imports: [
     BrowserModule,

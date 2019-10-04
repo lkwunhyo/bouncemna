@@ -21,6 +21,7 @@ import { CalenderComponent } from './calender/calender.component';
 import { DeleteContactComponent } from './contact/delete-contact/delete-contact.component';
 import { DeletePartnerComponent } from './sexual-history/add-sexual/delete-partner/delete-partner.component';
 import { AddEventsComponent } from './calender/add-events/add-events.component';
+import { ContactProfileComponent } from './contact/contact-profile/contact-profile.component';
 
 
 
@@ -46,7 +47,9 @@ const routes: Routes = [
 { path: 'calender', component: CalenderComponent },
 { path: 'deletecontact', component: DeleteContactComponent },
 { path: 'deletepartner', component: DeletePartnerComponent }, 
-{ path: 'add-events', component: AddEventsComponent }
+{ path: 'add-events', component: AddEventsComponent },
+{ path: 'contactprofile', component: ContactProfileComponent },
+{ path: 'contactprofile/:id', component: ContactProfileComponent }
 
 ];
 

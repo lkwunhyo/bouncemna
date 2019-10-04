@@ -11,7 +11,9 @@
           (click)="onSelect(person)">
           <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
             height="18" width="18">&nbsp;&nbsp;
-          <a href="../profile/">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</a>
+          <!--<a href="../contactprofile/:person.id">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</a>-->
+          <a [routerLink]="['/contactprofile', person.contactID]">
+            {{ person.firstname }} {{ person.lastname}} {{ person.rating }}</a>
       </li>
     </ul>
     <br>

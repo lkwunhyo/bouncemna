@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+  <div class = "defaultContainer"> 
+      <h1>Profile</h1><br>
+  </div>
+<ng-template #elseBlock>Content to render when condition is false.</ng-template>
+  <div *ngIf="contact; else elseBlock">
+      <img class ="profileimg"  src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg">
+    <h4>First name:</h4>{{ contact.firstname }}<br> 
+    <h4>Last name:</h4>{{ contact.lastname }}<br>
+    <h4>Phone:</h4>{{ contact.phone }}<br>
+    <h4>Email:</h4>{{ contact.email }}<br>
+    <h4>Sex:</h4>{{ contact.gender }}<br><br>
+  </div>
+  <ng-template #elseBlock><p>Contact does not exist! Please go back and try again.</p><br><br></ng-template>
+   
+  <div class= "btncontainer">
+  <!--<button mat-button><a href= "../editprofile">Edit Profile</a></button>-->
+    <button mat-stroked-button onclick="window.location.href = '../contact'">Back</button>
+  </div>
+
+</html>
+
+
+
+    
+       
+
+
+
+
+
+
