@@ -42,18 +42,20 @@ export class DeleteContactComponent implements OnInit {
         this.selected_persons
       )
     });
-    console.log(this.deleteContactForm);
+    //console.log(this.deleteContactForm);
     // Submit every person where person.selected == true
     // Delete those from the database
     //var selectedIds = this.selected_persons.map(({ contactID }) => contactID);
 
-    console.log("Delete Contact Form: " + JSON.stringify(this.deleteContactForm.value));
+    //console.log("Delete Contact Form: " + JSON.stringify(this.deleteContactForm.value));
+    //  console.log("map selected persons");
     //console.log(this.selected_persons.map(contact => contact.id));
-    this._deleteContactService.deletecontacts(this.selected_persons.map(contact => contact.id)).subscribe(
+    this._deleteContactService.deletecontacts(this.selected_persons).subscribe(
       data => console.log('Success!', data),
       error => console.error('Error!', error)
     );
-    this.router.navigate(['/contact']);
+      var url = window.location.origin + "/contact";
+      location.replace(url);
   }
 
 

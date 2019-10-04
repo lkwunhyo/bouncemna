@@ -47,8 +47,14 @@ export class ContactFormComponent implements OnInit {
     this._contactFormService.addcontact(this.contact).subscribe(
       data => console.log('Success!', data),
       error => console.error('Error!', error)
-    );
-    this.router.navigate(['/contact']);
+      );
+      //this.router.navigated = false;
+      //this.router.navigate(['/contact']).then(() => {
+      //    window.location.reload();
+      //});
+      var url = window.location.origin + "/contact";
+      location.replace(url);
+
   }
 
   email = new FormControl('', [Validators.required, Validators.email]);

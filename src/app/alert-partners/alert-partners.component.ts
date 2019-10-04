@@ -30,7 +30,15 @@ export class AlertPartnersComponent implements OnInit {
   isSendMessage = true;
   isEditable = true;
   incomplete = "incomplete";
-
+  diseases_db;
+  persons = [];
+  selected_persons = [];
+  selectedPerson: Person;
+  tracing_period;
+  v = null;
+  diseases = [];
+  selectedDisease: Disease;
+    sti = "sexually transmitted infection";
   constructor(private formBuilder: FormBuilder, private _contactService: ContactService,
       private _diseaseService: DiseaseService, private datePipe: DatePipe, private _alertService: AlertService,
       @Inject(SESSION_STORAGE) private storage: WebStorageService) {
@@ -40,9 +48,7 @@ export class AlertPartnersComponent implements OnInit {
       });
     }
 
-  persons = [];
-  selected_persons = [];
-  selectedPerson: Person;
+
 
   OnCheckboxSelect(person, status:boolean) {
     if (this.selected_persons.indexOf(person) === -1 && status) {
@@ -56,15 +62,20 @@ export class AlertPartnersComponent implements OnInit {
     
   }
   
-  v = null;
-  diseases = [];
-  selectedDisease: Disease;
 
-  ngOnInit() {
-      this._contactService.getContactList()
+
+    ngOnInit() {
+        this._alertService.getDiseases()
+            .subscribe((res: any[]) => {
+                console.log(res);
+                this.diseases_db = res;
+            });
+
+        
+      this._contactService.getEncounterContacts()
           .subscribe((res: any[]) => {
               //console.log(res);
-              this.persons = this._contactService.filterBy(res);
+              this.persons = this._contactService.filterByDate(res,0,0);
           });
     this.diseases = this._diseaseService.filterBy();
     this.alertPartnersForm1 = this.formBuilder.group({
@@ -119,7 +130,41 @@ export class AlertPartnersComponent implements OnInit {
     this.selectedPerson = person;
   }
 
-  getTrace(){
+    getTrace() { //Verifies disease by name, gets tracing period and contacts within it.
+        try {
+            
+            if (this.alert.date != null) {//is this needed? already got "try"
+                try {
+                    for (let d of this.diseases_db) {
+                        if (d.stiName === this.alert.diagnosis) {
+                            this.tracing_period = d.numberOfMonths;
+                            console.log(this.tracing_period);
+                            //Get recent encounter contacts
+                            this._contactService.getEncounterContacts()
+                                .subscribe((res: any[]) => {
+                                    //console.log(res);
+                                    //res is persons
+                                    this.persons = this._contactService.filterByDate(res, this.alert.date, this.tracing_period);
+                                });
+                        }
+                    }
+                } catch {
+                    console.log("no valid diagnosis date");
+                    this._contactService.getEncounterContacts()
+                        .subscribe((res: any[]) => {
+                            //console.log(res);
+                            this.persons = this._contactService.filterByDate(res, 0, 0);
+                        });
+                }
+            }
+        } catch {
+            console.log("no valid diagnosis date");
+            this._contactService.getEncounterContacts()
+                .subscribe((res: any[]) => {
+                    this.persons = this._contactService.filterByDate(res, 0, 0);
+                });
+        }
+
     try {
       for (let dis of this.diseases){
         //console.log(this.alert.diagnosis === dis.name);
@@ -130,7 +175,36 @@ export class AlertPartnersComponent implements OnInit {
     } catch {
       this.v = null;
     }
-    
+
+        if (this.alert.diagnosis === "HIV") {
+            this.sti = "a sexually transmitted infection";
+        } else {
+            this.sti = this.alert.diagnosis;
+        }
+
+        var node;
+        //conditional html
+        try {
+            if (this.alert.date != null) {
+                if (this.persons.length > 0 && this.alert.diagnosis != "HIV") {
+                    node = document.getElementById('recent_contacts');
+                    node.style.visibility = 'visible';
+                } else {
+                    node = document.getElementById('recent_contacts');
+                    node.style.visibility = 'hidden';
+                }
+            }
+            if (this.persons.length < 0) {
+                node = document.getElementById('no_recent_contacts');
+                node.style.visibility = 'visible';
+            } else {
+                node = document.getElementById('no_recent_contacts');
+                node.style.visibility = 'hidden';
+            }
+        } catch {
+            //Can't think of any possible errors to catch
+        }
+
     return this.v;
   }
 
@@ -149,7 +223,7 @@ export class AlertPartnersComponent implements OnInit {
     formatDate() {
         //not working
         //this.alert.date = this.datePipe.transform(this.alert.date, 'MM-dd-yyyy');
-        let newdateValue = moment(this.alertPartnersForm1.get('date').value).format("DD-MM-YYYY");
+        let newdateValue = moment(this.alertPartnersForm1.get('date').value).format("YYYY-MM-DD");
         //this.alertPartnersForm1.get('date').setValue(newdateValue);
         this.alert.date = newdateValue;
         console.log('alert.date: ' + this.alert.date);
@@ -166,7 +240,27 @@ checkPartTwo(){
 }
 
 resetForm(){
-  this.v = null;
+    document.getElementById('no_recent_contacts').style.visibility = 'hidden';
+    document.getElementById('recent_contacts').style.visibility = 'hidden';;
+
+
+    this.v = null;
+    console.log("reset: selected persons");
+    this.alertPartnersForm1.reset();
+    this.alertPartnersForm2.reset();
+    this.alert = new alertPartnersModel();
+    this.hide = true;
+    this.isSendMessage = true;
+    this.isEditable = true;
+    this.incomplete = "incomplete";
+    this.persons = [];
+    this.selected_persons = [];
+    this.selectedPerson = null;
+    this.tracing_period = null;
+    this.diseases = []; //mock
+    this.selectedDisease = null;
+    this.ngOnInit();
+    console.log(this.selected_persons);
 }
 
 

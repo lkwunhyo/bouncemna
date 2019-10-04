@@ -1,0 +1,24 @@
+ALTER TABLE bouncemna.encounterprotection ADD PRIMARY KEY (encounterID, protectionID)
+
+SELECT * FROM bouncemna.encounterpartners, bouncemna.encounter 
+WHERE encounter.encounterID = encounterpartners.encounterID AND dateEncounter BETWEEN "2019-10-01"  AND "2019-10-01" + INTERVAL 61 DAY
+
+SELECT * FROM bouncemna.encounterpartners, bouncemna.encounter 
+WHERE encounter.encounterID = encounterpartners.encounterID AND dateEncounter BETWEEN "2019-10-01" - INTERVAL 61 DAY  AND "2019-10-01" 
+
+
+select * from (
+    select
+    contact.firstName,
+    contact.lastName,
+    contact.phone,
+    contact.email,
+        encounterpartners.contactID,
+        encounterpartners.encounterID,
+        dateEncounter,
+        row_number() over(partition by contactID order by dateEncounter desc) as rn
+    from
+        bouncemna.encounterpartners, bouncemna.encounter, bouncemna.contact
+	WHERE encounter.encounterID = encounterpartners.encounterID AND encounter.userID = "daryl" AND encounterpartners.contactID = contact.contactID 
+) t
+where t.rn = 1

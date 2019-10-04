@@ -11,6 +11,7 @@ private keepAfterNavigationChange = false;
 
 
     _url = 'http://localhost:8080/alertpartners';
+    _url_disease = 'http://localhost:8080/diseases';
 
 constructor(private router: Router, private _http: HttpClient) {
         // clear alert message on route change
@@ -33,7 +34,13 @@ constructor(private router: Router, private _http: HttpClient) {
         console.dir("alert.diagnosis: " + alert.diagnosis);
 
         return this._http.post<any>(this._url, alert);
-}
+    }
+
+
+    getDiseases() {
+        console.dir("called disease service");
+        return this._http.post<any>(this._url_disease, "Empty body");
+    }
 
 
     success(message: string, keepAfterNavigationChange = false) {
