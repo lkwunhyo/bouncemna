@@ -220,6 +220,126 @@ app.post('/contact', function (req, res, next) {
 })
 
 
+/ app.post('/diagnosis', function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    //next();
+
+    console.dir("calling diagnosis");
+    if (isLoggedIn()) {
+        var userid = sess.userid;
+        connection.query('SELECT * FROM bouncemna.alert WHERE userID = ?', [userid], function (error, results, fields) {
+            if (error) {
+                console.dir("query error");
+                res.json({
+                    status: false,
+                    message: 'there are some error with query'
+                })
+                next();
+            }
+
+            else {
+                var objs = [];
+                for (var i = 0; i < results.length; i++) {
+                    //console.dir("/contact firstname" + results[i].firstName);
+                    objs.push({
+                        alertid: results[i].alertID,
+                        diagnosis: results[i].diagnosis,
+                        sendmessage: results[i].sendMessage,                        
+                        anonymity: results[i].anonymity,
+                        datediagnosed: results[i].dateDiagnosed,
+                        datesent: results[i].dateSent,
+                        userid: results[i].userID
+                    });
+                }
+                if (results.length > 0) {
+                    res.send(JSON.stringify(objs));
+                } else {
+                    res.end();
+                }
+                
+            }
+        });
+    } 
+
+})
+
+app.post('/diagnosishistory', function (req, res) { //validate then sanitize
+
+    if (isLoggedIn()) {
+        var userid = sess.userid;
+        var alertId = req.body.alertid;
+
+        connection.beginTransaction(function (err) {
+            if (err) {
+                req.flash('error', err)
+                console.dir(err);
+                connection.rollback(function () {
+                    throw err;
+                });
+            }
+
+            connection.query('SELECT * FROM bouncemna.alert WHERE userID = ?', [userid], function (err, result) {
+                if (err) {
+                    connection.rollback(function () {
+                        throw err;
+                    });
+                } else {
+                    //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
+
+                    //alertid = result.insertId; //needed for all queries in this transaction                    
+                    connection.query(
+                        'DELETE FROM bouncemna.alert WHERE alertID = ?', [alertId], function (err, result) {
+                            if (err) {
+                                connection.rollback(function () {
+                                    throw err;
+                                });
+                            }
+                        }
+                    )
+                        
+                    
+                }
+            });
+
+            connection.commit(function (err) {
+                if (err) {
+                    connection.rollback(function () {
+                        throw err;
+                    });
+                }
+            })
+
+
+            console.log("db post register success");
+            res.status(200).send({ "message": "data received" });
+        })
+    }
+})
+
+// Delete Diagnosis
+/*
+app.post('/diagnosishistory', function (req, res) { // havent done commit-rollback
+    console.dir("deleting diagnosis");
+    var delete_diagnosis = req.body;
+    console.dir(req.body);
+    for (var i = 0; i < delete_diagnosis.length; i++) {
+        console.dir("delete diagnosis:");
+        console.dir(delete_diagnosis[i]);
+        
+        connection.query('DELETE FROM bouncemna.alert WHERE alertID = ?', delete_diagnosis[i].alertid, function (err, result) {
+            if (err) {
+                req.flash('error', err)
+                console.log(err);
+
+            } 
+        })
+    }
+    console.log("db post delete success");
+    res.status(200).send({ "message": "alert deleted" });
+})*/
+
 
 app.post('/encountercontacts', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
