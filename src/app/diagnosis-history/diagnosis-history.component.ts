@@ -22,8 +22,8 @@ export class DiagnosisHistoryComponent implements OnInit {
 
   //dataSource = [];
   dataSource;
-  //displayedColumns = ['Diagnosis', 'Diagnosis Date', 'Date Alerted'];//, 'Anonymity'];
-  displayedColumns = ['diagnosis', 'datediagnosed', 'datesent'];
+  displayedColumns = ['Diagnosis', 'Diagnosis Date', 'Date Alerted'];//, 'Anonymity'];
+  //displayedColumns = ['diagnosis', 'datediagnosed', 'datesent'];
   expandedItem;
   deleteDiagnosisForm: FormGroup;
 
