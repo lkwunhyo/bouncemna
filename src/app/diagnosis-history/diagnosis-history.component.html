@@ -3,38 +3,71 @@
 <div class="defaultContainer">
   <h2>Diagnosis History</h2><br>
 </div>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Diagnosis Date Column -->
-    <ng-container matColumnDef="startdate">
-      <th mat-header-cell *matHeaderCellDef> Diagnosis Date </th>
-      <td mat-cell *matCellDef="let item"> {{item.startdate}} </td>
-    </ng-container>
-
+<form [formGroup]="deleteDiagnosisForm" (ngSubmit)="onSubmit()">
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
     <!-- Diagnosis Column -->
-    <ng-container matColumnDef="diagnosis">
-      <th mat-header-cell *matHeaderCellDef> Diagnosis </th>
-      <td mat-cell *matCellDef="let item"> {{item.diagnosis}} </td>
+    <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumns">
+      <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
+      <td mat-cell *matCellDef="let item"> {{item[column]}} </td>
     </ng-container>
 
-    <!-- End Date Column -->
-    <ng-container matColumnDef="enddate">
-      <th mat-header-cell *matHeaderCellDef> End Date </th>
-      <td mat-cell *matCellDef="let item"> {{item.enddate}} </td>
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let item" [attr.colspan]="displayedColumns.length">
+        <div class="example-element-detail"
+             [@detailExpand]="item == expandedItem ? 'expanded' : 'collapsed'">
+          <div class="message-block">
+            <div class="message">
+              <div *ngIf="item.sendmessage == 'true'; else elseBlock">
+                  <mat-icon class="message-icon" aria-hidden="false" aria-label="Message Icon">mail_outlined</mat-icon>
+                A message was sent {{item.anonymity}}.
+              </div>
+              <ng-template #elseBlock>
+                <mat-icon class="message-icon" aria-hidden="false" aria-label="Message Icon">space_bar</mat-icon>
+                A message was not sent.
+              </ng-template>
+            </div><br>
+            <!--<button mat-icon-button [routerLink]="['/diagnosishistory', item.alertid]" class="delete-button">-->
+            <button mat-icon-button onclick="window.location.href = '../diagnosishistory'" class="delete-button"> <!--</button>(click)="navigateToParam(item.alertid)">-->
+                <mat-icon>delete_outlined</mat-icon>
+            </button>
+          </div><br><br><br><br><br>
+        </div>
+      </td>
     </ng-container>
-
-    <!-- Abstinence End Date Column -->
-    <ng-container matColumnDef="abstinencedate">
-      <th mat-header-cell *matHeaderCellDef> Abstinence End Date </th>
-      <td mat-cell *matCellDef="let item"> {{item.abstinencedate}} </td>
-    </ng-container>
-
+   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let item; columns: displayedColumns;"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedItem === item"
+        (click)="expandedItem = expandedItem === item ? null : item">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
   </table>
-  <br><br>
-  <div class="buttons">
-    <button mat-stroked-button>Add</button>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button mat-stroked-button>Delete</button>
-  </div>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  
+</form>
   <br><br>
   </html>
+     <!-- Diagnosis Date Column -->
+    <!--
+    <ng-container matColumnDef="Diagnosis Date">
+      <th mat-header-cell *matHeaderCellDef> Diagnosis Date </th>
+      <td mat-cell *matCellDef="let item"> {{item.datediagnosed}} </td>
+    </ng-container>
+  -->
+
+    <!-- Date Alerted Column -->
+    <!--
+    <ng-container matColumnDef="Date Alerted">
+      <th mat-header-cell *matHeaderCellDef> Date Alerted </th>
+      <td mat-cell *matCellDef="let item"> {{item.dateSent}} </td>
+    </ng-container>
+  -->
+
+    <!-- Anonymity Column -->
+    <!--
+    <ng-container matColumnDef="Anonymity">
+      <th mat-header-cell *matHeaderCellDef> Anonymity </th>
+      <td mat-cell *matCellDef="let item"> {{item.anonymity}} </td>
+    </ng-container>
+    -->

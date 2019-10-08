@@ -49,8 +49,9 @@ const routes: Routes = [
 { path: 'deletepartner', component: DeletePartnerComponent }, 
 { path: 'add-events', component: AddEventsComponent },
 { path: 'contactprofile', component: ContactProfileComponent },
-{ path: 'contactprofile/:id', component: ContactProfileComponent }
-
+{ path: 'contactprofile/:id', component: ContactProfileComponent },
+//{ path: 'diagnosishistory?alertid:alertid', component: DiagnosisHistoryComponent }
+//{ path: 'diagnosishistory/:alertid', component: DiagnosisHistoryComponent }
 ];
 
 @NgModule({

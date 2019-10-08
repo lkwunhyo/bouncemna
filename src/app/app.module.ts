@@ -15,6 +15,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material';
+import { MatPaginatorModule } from '@angular/material';
 
 // ---------------------------------All page component----------------------------------------------------------
 import { AppComponent } from './app.component';
@@ -116,7 +117,8 @@ import { ContactProfileComponent } from './contact/contact-profile/contact-profi
         useFactory: adapterFactory,
     }),
     StorageServiceModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatPaginatorModule
   ],
     providers: [AppHttpService, AuthenticationService, AuthGuardService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{ provide: APP_BASE_HREF, useValue: '/'}, ContactService,MatDatepickerModule],
   bootstrap: [AppComponent],
