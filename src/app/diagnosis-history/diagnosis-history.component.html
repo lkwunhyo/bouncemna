@@ -19,7 +19,7 @@
             <div class="message">
               <div *ngIf="item.sendmessage == 'true'; else elseBlock">
                   <mat-icon class="message-icon" aria-hidden="false" aria-label="Message Icon">mail_outlined</mat-icon>
-                A message was sent {{item.anonymity}}.
+                An {{item.anonymity}} message was sent.
               </div>
               <ng-template #elseBlock>
                 <mat-icon class="message-icon" aria-hidden="false" aria-label="Message Icon">space_bar</mat-icon>

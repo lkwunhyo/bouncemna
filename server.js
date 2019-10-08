@@ -244,13 +244,21 @@ app.post('/contact', function (req, res, next) {
                 for (var i = 0; i < results.length; i++) {
                     //console.dir("/contact firstname" + results[i].firstName);
                     objs.push({
+                        /*
                         alertid: results[i].alertID,
                         diagnosis: results[i].diagnosis,
                         sendmessage: results[i].sendMessage,                        
                         anonymity: results[i].anonymity,
                         datediagnosed: results[i].dateDiagnosed,
                         datesent: results[i].dateSent,
-                        userid: results[i].userID
+                        userid: results[i].userID    */
+                        alertid: results[i].alertID,
+                        "Diagnosis": results[i].diagnosis,
+                        sendmessage: results[i].sendMessage,                        
+                        anonymity: results[i].anonymity,
+                        "Diagnosis Date": results[i].dateDiagnosed,
+                        "Date Alerted": results[i].dateSent,
+                        userid: results[i].userID                   
                     });
                 }
                 if (results.length > 0) {
