@@ -2,24 +2,48 @@
 <!DOCTYPE html>
 <html>
   <div class = "defaultContainer"> 
-      <h1>Profile</h1><br>
-  </div>
-<ng-template #elseBlock>Content to render when condition is false.</ng-template>
+      <h1>Contact Profile</h1><br>
+  
   <div *ngIf="contact; else elseBlock">
-      <img class ="profileimg"  src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg">
-    <h4>First name:</h4>{{ contact.firstname }}<br> 
-    <h4>Last name:</h4>{{ contact.lastname }}<br>
-    <h4>Phone:</h4>{{ contact.phone }}<br>
-    <h4>Email:</h4>{{ contact.email }}<br>
-    <h4>Sex:</h4>{{ contact.gender }}<br><br>
+    <!--<img class ="profileimg"  src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg">-->
+    <img class ="profileimg"  src="../../../assets/contact-profile.png" alt="Contact Image">
+    <br><br>
+    <table>
+      <tr>
+        <td><h4>First name:</h4></td>
+        <td><h4>Last name:</h4></td>
+      </tr>
+      <tr>
+          <td><p>&nbsp;{{ contact.firstname }}</p></td>
+          <td><p>&nbsp;{{ contact.lastname }}</p></td>
+      </tr>
+    </table>
+
+    <h4>Phone:</h4>
+    <div *ngIf="contact.gender == 'm';else noPhone">&nbsp;{{ contact.phone }}</div>
+    <ng-template #noPhone><p style="color:#C8C8C8;">&nbsp;Phone number unavailable...</p></ng-template>
+    <!--&nbsp;{{ contact.phone }}<br>-->
+    <h4>Email:</h4>&nbsp;{{ contact.email }}<br>
+
+    <ng-container *ngIf="contact.gender == 'm';else elseIfBlock"><h4>Sex: </h4>&nbsp;Male</ng-container>
+    <ng-template #elseIfBlock>
+        <ng-container *ngIf="contact.gender == 'f';else elseBlock"><h4>Sex: </h4>&nbsp;Female</ng-container>
+    </ng-template>
+    <ng-template #elseBlock><h4>Sex: </h4>&nbsp;Other</ng-template><br>
+
+    <h4>Comments:</h4>
+    <div *ngIf="contact.notes; else noComment">&nbsp;{{ contact.notes }}</div>
+    <ng-template #noComment><p style="color:#C8C8C8;">&nbsp;There are no comments...</p></ng-template>
+    <br><br>
+
   </div>
   <ng-template #elseBlock><p>Contact does not exist! Please go back and try again.</p><br><br></ng-template>
    
   <div class= "btncontainer">
   <!--<button mat-button><a href= "../editprofile">Edit Profile</a></button>-->
     <button mat-stroked-button onclick="window.location.href = '../contact'">Back</button>
-  </div>
-
+  </div><br><br>
+</div>
 </html>
 
 

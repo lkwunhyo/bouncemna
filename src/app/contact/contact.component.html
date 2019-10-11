@@ -9,7 +9,7 @@
         <li *ngFor="let person of contactlist | search:'lastname,firstname,rating':query"
           [class.selected]="person === selectedPerson"
           (click)="onSelect(person)">
-          <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
+          <img src="../../assets/contact.png" alt="User Image"
             height="18" width="18">&nbsp;&nbsp;
           <!--<a href="../contactprofile/:person.id">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</a>-->
           <a [routerLink]="['/contactprofile', person.contactID]">

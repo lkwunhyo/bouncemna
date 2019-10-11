@@ -21,7 +21,7 @@ import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 export class DiagnosisHistoryComponent implements OnInit {
 
   //dataSource = [];
-  dataSource;
+  dataSource = new MatTableDataSource<any>([]);
   displayedColumns = ['Diagnosis', 'Diagnosis Date', 'Date Alerted'];//, 'Anonymity'];
   //displayedColumns = ['diagnosis', 'datediagnosed', 'datesent'];
   expandedItem;
@@ -44,8 +44,9 @@ export class DiagnosisHistoryComponent implements OnInit {
     this._diagnosisHistoryService.getDiagnosis()
           .subscribe((res: any[]) => {
               console.log("Diagnosis: " + res);
-              //this.dataSource = res;
-              this.dataSource = new MatTableDataSource<any>(res);
+              if (res != null) {  // If the database is empty
+                this.dataSource = new MatTableDataSource<any>(res);
+              }
               setTimeout(() => this.dataSource.paginator = this.paginator);
           });
   }

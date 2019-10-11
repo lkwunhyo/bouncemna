@@ -26,10 +26,17 @@ export class ContactProfileComponent implements OnInit {
     private _contactService: ContactService
     ) { }
 
-    getContact(id: string): Observable<Person>{
-      return this._contactService.getContactList().pipe(
-          map(contactList => contactList.find(contact => contact.id === parseInt(id)))
-      );
+  getContact(id: string): Observable<Person>{
+    return this._contactService.getContactList().pipe(
+        map(contactList => contactList.find(contact => contact.id === parseInt(id)))
+    );
+  }
+
+  spaceNumber(phone: number) {
+    return String(phone).replace(
+      /(?!^)(?=(?:\d{3})+$)/g,
+      ' '
+    );
   }
 
   ngOnInit() {
