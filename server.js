@@ -892,4 +892,34 @@ app.post('/profile', function (req, res, next) {
         })
     }
 })
-    
+
+app.post('/editprofile', function (req, res) {
+    if (isLoggedIn()) {
+
+        var editProfile = {
+            bio: req.sanitize(req.body.bio),
+            firstname: req.sanitize(req.body.firstname),
+            lastname: req.sanitize(req.body.lastname),
+            gender: req.sanitize(req.body.gender),
+            email: req.sanitize(req.body.email),
+            phone: req.sanitize(req.body.phone),
+        }
+           // ('INSERT INTO bouncemna.account SET ?', registration, function (err, result)
+
+        var sql = "UPDATE bouncemna.account SET ? WHERE userID = '" + sess.userid + "'";
+        connection.query(sql, editProfile , function (err, result) {
+            if (err) {
+                throw err;
+            } else {
+                console.log(result.affectedRows + " record(s) updated");
+                res.json({
+                    status: true,
+                    message: 'successfully authenticated'
+                })
+                res.send();
+            }
+           
+           
+        });
+    }
+})

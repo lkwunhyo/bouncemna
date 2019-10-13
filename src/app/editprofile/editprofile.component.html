@@ -14,7 +14,7 @@
 
     <div class="biocontainer"> 
         <mat-form-field>  
-            <textarea matInput placeholder="Bio" value="{{profile?.bio}}"></textarea>
+            <textarea matInput placeholder="Bio" name="bio" [(ngModel)]="editprofile.bio"></textarea>
         </mat-form-field>
     </div>
 
@@ -27,31 +27,31 @@
         <form>
             <div class="style">
                 <mat-form-field>
-                    <input matInput placeholder="First Name" value="{{profile?.firstname}}">
+                    <input matInput placeholder="First Name" name="firstname" [(ngModel)]="editprofile.firstname" value="{{profile?.firstname}}">
                 </mat-form-field>
             </div>
             <br>
             <div class="style">
                 <mat-form-field>
-                    <input matInput placeholder="Last Name" value="{{profile?.lastname}}">
+                    <input matInput placeholder="Last Name" name="lastname" [(ngModel)]="editprofile.lastname" value="{{profile?.lastname}}">
                 </mat-form-field>
             </div>
             <br>
             <div class="style">
                 <mat-form-field>
-                    <input matInput placeholder="Phone number" value="{{profile?.phone}}">
+                    <input matInput placeholder="Phone number" name="phone" [(ngModel)]="editprofile.phone" value="{{profile?.phone}}">
                 </mat-form-field> <br>
             </div>
             <div class="style">
                 <mat-form-field>
-                    <input matInput placeholder="Email" value="{{profile?.email}}"> <br>
+                    <input matInput placeholder="Email" name="email" [(ngModel)]="editprofile.email" value="{{profile?.email}}"> <br>
                 </mat-form-field>
             </div>
             <br>
 
             <div class="style">
                 <label>Sex</label><br>
-                <mat-radio-group class="sexlabel">
+                <mat-radio-group class="sexlabel" name="gender" [(ngModel)]="editprofile.gender">
                     <mat-radio-button value="m" checked="{{isMale}}">Male</mat-radio-button> &nbsp;
                     <mat-radio-button value="f" checked="{{isFemale}}">Female</mat-radio-button> &nbsp;
                 </mat-radio-group>
@@ -99,7 +99,7 @@
 
 
       <div class= "btncontainer">
-          <button mat-button><a href= "../profile">Save</a></button>
+          <button mat-button (click)="onSubmit()">Submit</button>
       </div>
 
     </div>
