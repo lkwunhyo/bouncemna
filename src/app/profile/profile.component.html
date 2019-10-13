@@ -1,46 +1,44 @@
 
 <!DOCTYPE html>
 <html>
-    
-<div class = "defaultContainer"> 
+
+<div class="defaultContainer">
     <h1>Profile</h1><br>
 
-    <img class ="profileimg"  src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg">
-  
-<div>
-    <h4>Bio:</h4> <p>My ideal date? I pick you up in my car, and there’s 
-        candles gently licking the air on the dashboard ‘Rich, 
-        there’s candles on the dashboard’, I smile. </p><br>
+    <img class="profileimg" src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg">
 
-  <table>
-  <tr>
-    <td><h4>First name:</h4></td>
-    <td><h4>Last name:</h4></td>
-  </tr>
-  <tr>
-      <td><p>John</p></td>
-      <td><p>Smith</p></td>
-  </tr>
-</table>
+    <div>
+        <h4>Bio:</h4> <p>{{profile?.bio}} </p><br>
+
+        <table>
+            <tr>
+                <td><h4>First name:</h4></td>
+                <td><h4>Last name:</h4></td>
+            </tr>
+            <tr>
+                <td><p>{{profile?.firstname}} </p></td>
+                <td><p>{{profile?.lastname}} </p></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <h4>Phone:</h4> <p>{{profile?.phone}} </p>
+    <h4>Email:</h4> <p>{{profile?.email}} </p>
+    <h4>Sex:</h4> <p>{{profile?.gender}} </p>
 </div>
-         
-        
-        <h4>Phone:</h4> <p>0123-456-789</p>
-        <h4>Email:</h4> <p>JohnSmth89@gmail.com</p>
-        <h4>Sex:</h4> <p>Male</p>
-  </div>
-   
-  <div class= "btncontainer">
-  <!--<button mat-button><a href= "../editprofile">Edit Profile</a></button>-->
+
+<div class="btncontainer">
+    <!--<button mat-button><a href= "../editprofile">Edit Profile</a></button>-->
     <button mat-stroked-button onclick="window.location.href = '../editprofile'">Edit Profile</button>
-  </div>
+</div>
 
 </html>
 
 
 
-    
-       
+
+
 
 
 

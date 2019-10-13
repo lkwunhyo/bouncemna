@@ -113,8 +113,8 @@ var cryptr = require('cryptr');
 
 var connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'admin',
+    user: 'tryl',
+    password: 'tryl',
     database: 'bouncemna',
     dateStrings: 'date'
 });
@@ -841,6 +841,55 @@ app.post('/addpartner', function (req, res) {
                 }
             }
         });
+    }
+})
+
+app.post('/profile', function (req, res, next) {
+    /*
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    */
+    //next();
+    console.dir("calling profile");
+    if (isLoggedIn()) {
+        var userid = sess.userid;
+        connection.query('SELECT * FROM bouncemna.account WHERE userid = ?', [userid], function (error, results, fields) {
+            if (error) {
+                console.dir("query error");
+                res.json({
+                    status: false,
+                    message: 'there are some error with query'
+                })
+            }
+
+            else {
+                if (results.length > 0) {
+                    var profile = {
+                        firstname: results[0].firstName,
+                        lastname: results[0].lastName,
+                        gender: results[0].gender,
+                        phone: results[0].phone,
+                        email: results[0].email,
+                        bio: results[0].bio,
+                        profilePic: results[0].profilePic
+                    }
+
+                    console.log("profile:");
+                    console.log(profile);
+
+
+                    res.send(JSON.stringify(profile));
+                } else {
+                    res.end();
+                }
+            }
+        });
+    } else {
+        res.json({
+            status: true,
+            message: 'not logged in'
+        })
     }
 })
     
