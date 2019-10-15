@@ -439,12 +439,20 @@ app.post('/encountercontacts', function (req, res, next) {
 //note to self, request is to receive data, response is for pushing data to browser
 app.post('/alertpartners', function (req, res) { //validate then sanitize
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+
     if (isLoggedIn()) {
+        console.dir(req.body.message);
         var alert = {
             diagnosis: req.sanitize(req.body.diagnosis),
             sendMessage: req.sanitize(req.body.message),
             anonymity: req.sanitize(req.body.anonymity),
             dateDiagnosed: req.sanitize(req.body.date),
+            dateSent: req.sanitize(today),
             userID: sess.userid
         }
 

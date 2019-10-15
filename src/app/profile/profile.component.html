@@ -6,9 +6,11 @@
     <h1>Profile</h1><br>
 
     <img class="profileimg" src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg">
-
+    <br>
     <div>
+        <!--
         <h4>Bio:</h4> <p>{{profile?.bio}} </p><br>
+        -->
 
         <table>
             <tr>
@@ -16,16 +18,25 @@
                 <td><h4>Last name:</h4></td>
             </tr>
             <tr>
-                <td><p>{{profile?.firstname}} </p></td>
-                <td><p>{{profile?.lastname}} </p></td>
+                <td><p>&nbsp;{{profile?.firstname}} </p></td>
+                <td><p>&nbsp;{{profile?.lastname}} </p></td>
             </tr>
         </table>
     </div>
 
 
-    <h4>Phone:</h4> <p>{{profile?.phone}} </p>
-    <h4>Email:</h4> <p>{{profile?.email}} </p>
-    <h4>Sex:</h4> <p>{{profile?.gender}} </p>
+    <h4>Phone:</h4>&nbsp;{{profile?.phone}}
+    <h4>Email:</h4>&nbsp;{{profile?.email}}
+    <h4>Sex:</h4>
+    <ng-container *ngIf="profile?.gender == 'm';else elseIfBlock">&nbsp;Male</ng-container>
+    <ng-template #elseIfBlock>
+        <ng-container *ngIf="profile?.gender == 'f';else elseBlock">&nbsp;Female</ng-container>
+    </ng-template>
+    <ng-template #elseBlock>&nbsp;Other</ng-template><br>
+
+    <!--<p>{{profile?.gender}} </p>-->
+
+
     <h4>QR Code:</h4>
     <qrcode [qrdata]="profileQR" [size]="200" [level]="'M'" class="qrcode"></qrcode><br><br>
     </div>
@@ -33,7 +44,7 @@
 <div class="btncontainer">
     <!--<button mat-button><a href= "../editprofile">Edit Profile</a></button>-->
     <button mat-stroked-button onclick="window.location.href = '../editprofile'">Edit Profile</button>
-</div>
+</div><br><br>
 
 </html>
 
