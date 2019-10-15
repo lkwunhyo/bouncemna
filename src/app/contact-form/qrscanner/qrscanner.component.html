@@ -8,6 +8,9 @@
       <mat-icon class="record-icon" aria-hidden="false" aria-label="camera icon" 
         [ngStyle]="{'color':'red'}">fiber_manual_record</mat-icon>
     </div><br>
+    <div *ngIf="errorMessage === null; else showError"></div>
+    <ng-template #showError><p style="color: red;">{{ errorMessage }}</p></ng-template>
+    <br>
     <p>* Aim your camera at the QR Code</p>
     <br>
     <button mat-stroked-button type="button" 

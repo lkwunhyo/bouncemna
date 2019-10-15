@@ -16,6 +16,8 @@ export class QrscannerComponent implements OnInit {
   hasPermission: boolean;
   contact = new Person();
   contactForm: FormGroup;
+  errorMessage: string = null;
+  errorCount: number = 0;
   
   @ViewChild('scanner')
   scanner: QrscannerComponent;
@@ -27,6 +29,7 @@ export class QrscannerComponent implements OnInit {
   }
 
   scanCode(data: any) {
+    try {
     console.log('Result: ', data);
     this.qrData = JSON.parse(data);
     console.log(this.qrData);
@@ -49,13 +52,14 @@ export class QrscannerComponent implements OnInit {
       data => console.log('Success!', data),
       error => console.error('Error!', error)
       );
-      //this.router.navigated = false;
-      //this.router.navigate(['/contact']).then(() => {
-      //    window.location.reload();
-      //});
+
       var url = window.location.origin + "/contact";
       location.replace(url);
-
+    } catch(e) {
+      this.errorCount++;
+      this.errorMessage = `Please scan a valid user QR Code. (${this.errorCount})`;
+    }
+    
   }
 
   ngOnInit() {
