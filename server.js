@@ -1012,9 +1012,32 @@ app.post('/sexualhistory', function (req, res, next) {
         // + encounterID
 
         var query_master = query_ea + query_ep + query_epr;
-        var result_e_json = [];
         var result_master = [];
+ 
+        //encounterID,actName,firstName,lastName,protectionName
+        Promise.map(connection.query(query_e, [userid], function (error, item) {
+            return Promise.all([
+                connection.query(query_master, [item.encounterID, item.encounterID, item.encounterID]).then(function (local) {
+                    item.local = local[0].encounterID; //item.local is a new property
+                }),
+                conexion.query('SELECT username, nombre_eq FROM equipos WHERE id_equipo = ' + item.idvisitante).then(function (visitante) {
+                    item.visitante = visitante[0].username;
+                })
+            ]).then(function () {
+                // make the return value from `Promise.all()` be the item
+                // we were iterating
+                return item;
+            });
+        }).then(function (results) {
+            // array of results here
+            console.log(results);
+        }).catch(function (err) {
+            // error here
+            console.log(err);
+        }));
+ 
 
+        /*
         connection.beginTransaction(function (err) {
             if (err) {
                 req.flash('error', err)
@@ -1023,6 +1046,8 @@ app.post('/sexualhistory', function (req, res, next) {
                     throw err;
                 });
             }
+
+            
             
             connection.query(query_e, [userid], function (err, result_e) { //connection.query(query_master, [userid,userid,userid], function (err, results) {
                 if (err) {
@@ -1036,8 +1061,8 @@ app.post('/sexualhistory', function (req, res, next) {
                         //Here it will be wait query execute. It will work like synchronous
                         connection.query(query_master, [data.encounterID, data.encounterID, data.encounterID], function (error, results) {
                             if (error) throw err;
-                            result_master.push(results); //All 3 queries per encounter
-                            /*
+                            result_master.push(JSON.stringify(results)); //All 3 queries per encounter
+                            
                             console.dir(results[0][0].encounterID); //rowpacketdata, query 1 result array, query 2 result array, query 3 result array.
                             for (var i = 0; i < results[0].length; i++) { //query 1 (encounteract)
                                 console.dir(results[0][i].actName);
@@ -1049,14 +1074,11 @@ app.post('/sexualhistory', function (req, res, next) {
                             for (var i = 0; i < results[2].length; i++) { //query 1 (encounterpartner)
                                 console.dir(results[2][i].protectionName);
                             }
-                            //result_master.push(results[0].encounterID);*/
+                            //result_master.push(results[0].encounterID);
                             callback();
                         });
 
-                    }, function (err, results) {
-                        //console.log(result_master); // Output will the value that you have inserted in array, once for loop completed ex . 1,2,3,4,5,6,7,8,9
-                    });
-
+                    });*/
 
                     //--------------------------------------------------------
                     /*
@@ -1080,48 +1102,12 @@ app.post('/sexualhistory', function (req, res, next) {
                                 //console.dir(results);
                             }
                         });
-                    }*/ //----------------------------------------------------
+                    }* //----------------------------------------------------
                     //console.dir(results); 
                 }
             });
-
-            connection.commit(function (err) {
-                if (err) {
-                    connection.rollback(function () {
-                        throw err;
-                    });
-                }
-            })
-
-
-            //console.log("db post register success");
-            //res.status(200).send({ "message": "data received" });
-
         }) //-----------------------END OF TRANSACTION-----------------
-
-
-        //console.dir(result_master[1]);
-
         /*
-        connection.query(query_e, [userid], function (error, results, fields) {
-            if (error) {
-                console.dir("query error");
-                res.json({
-                    status: false,
-                    message: 'there are some error with query'
-                })
-            }
-
-            else {
-                //console.dir("Fetched " + results.length + " results");
-                var e_result = [];
-                for (var i = 0; i < results.length; i++) {
-                    console.dir("/encounters:" + results[i].encounterID);
-                    e_result.push({
-                        encounterID: results[i].encounterID,
-                        dateEncounter: results[i].dateEncounter,
-                    });
-                }
                 //One array
                 if (results.length > 0) {
                     console.dir("obj");
