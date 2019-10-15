@@ -116,7 +116,8 @@ var connection = mysql.createConnection({
     user: 'tryl',
     password: 'tryl',
     database: 'bouncemna',
-    dateStrings: 'date'
+    dateStrings: 'date',
+    multipleStatements: true
 });
 
 /*
@@ -976,36 +977,102 @@ app.post('/sexualhistory', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-
-    //find all encounters by user
-    //for each encounter retrieved, query act -> sexact, partners, protection
-
-    //Query for encounterID related to user (didnt incl comments)
-    var query_e = "SELECT encounterID, dateEncounter FROM bouncemna.encounter WHERE encounter.userID = " + sess.userID; //GET encounterID
-
-    //Query encounter acts
-    var select_ea = "SELECT e.encounterID, sa.actName ";
-    var from_ea = "FROM bouncemna.encounter e LEFT JOIN bouncemna.encounteracts ea ON e.encounterID = ea.encounterID LEFT JOIN bouncemna.sexualacts sa ON ea.actID = sa.actID ";
-    var where_ea = "WHERE e.encounterID = " // + encounterID
-    var query_ea = select_ea + from_ea + where_ea;
-
-    //Query encounter partners
-    var select_ep = "SELECT e.encounterID, c.firstName, c.lastName ";
-    var from_ep = "FROM bouncemna.encounterpartners ep, bouncemna.encounter e, bouncemna.contact c ";
-    var where_ep = "WHERE e.encounterID = ep.encounterID AND c.contactID = ep.contactID AND e.encounterID = ";
-    // + encounterID
-    var order_by_ep = " ORDER BY e.dateEncounter DESC";
-
-    //Query encounter protection
-    var select_epr = "SELECT e.encounterID, p.protectionName ";
-    var from_epr = "FROM bouncemna.encounter e, bouncemna.encounterprotection epr, bouncemna.protection p ";
-    var where_epr = "WHERE e.encounterID = epr.encounterID AND epr.protectionID = p.protectionID AND e.encounterID = ";
-    // + encounterID
-
     //copy paste PLS CHANGE ACCORDINGLY
     if (isLoggedIn()) {
+
         var userid = sess.userid;
-        connection.query(query, [userid], function (error, results, fields) {
+
+        //find all encounters by user
+        //for each encounter retrieved, query act -> sexact, partners, protection
+
+        var order_by_date = " ORDER BY dateEncounter DESC"; //only for 1st query
+
+        //Query for encounterID related to user (didnt incl comments)
+        var query_e = "SELECT encounterID, dateEncounter FROM bouncemna.encounter WHERE encounter.userID = ? " + order_by_date; //GET encounterID
+
+        //Query encounter acts
+        var select_ea = "SELECT e.encounterID, sa.actName ";
+        var from_ea = "FROM bouncemna.encounter e LEFT JOIN bouncemna.encounteracts ea ON e.encounterID = ea.encounterID LEFT JOIN bouncemna.sexualacts sa ON ea.actID = sa.actID ";
+        var where_ea = "WHERE e.encounterID = ?;" // + encounterID
+        var query_ea = select_ea + from_ea + where_ea;
+
+        //Query encounter partners
+        var select_ep = "SELECT e.encounterID, c.firstName, c.lastName ";
+        var from_ep = "FROM bouncemna.encounterpartners ep, bouncemna.encounter e, bouncemna.contact c ";
+        var where_ep = "WHERE e.encounterID = ep.encounterID AND c.contactID = ep.contactID AND e.encounterID = ?;";
+        var query_ep = select_ep + from_ep + where_ep;
+        // + encounterID
+        
+
+        //Query encounter protection
+        var select_epr = "SELECT e.encounterID, p.protectionName ";
+        var from_epr = "FROM bouncemna.encounter e, bouncemna.encounterprotection epr, bouncemna.protection p ";
+        var where_epr = "WHERE e.encounterID = epr.encounterID AND epr.protectionID = p.protectionID AND e.encounterID = ?";
+        var query_epr = select_epr + from_epr + where_epr;
+        // + encounterID
+
+        var query_master = query_ea + query_ep + query_epr;
+        var encounter_result = [];
+        connection.beginTransaction(function (err) {
+            if (err) {
+                req.flash('error', err)
+                console.dir(err);
+                connection.rollback(function () {
+                    throw err;
+                });
+            }
+            
+            connection.query(query_e, [userid], function (err, result_e) { //connection.query(query_master, [userid,userid,userid], function (err, results) {
+                if (err) {
+                    connection.rollback(function () {
+                        throw err;
+                    });
+                } else {
+                    
+                    //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
+                    for (var i = 0; i < result_e.length; i++) {
+                        
+                        encounter_result.push({
+                            encounterID: result_e[i].encounterID,
+                            dateEncounter: result_e[i].dateEncounter,
+                        });
+
+                        //console.dir(result_e[i].dateEncounter); //CAN READ
+                        connection.query(query_master, [result_e[i].encounterID, result_e[i].encounterID, result_e[i].encounterID], function (err, results) {
+                            if (err) {
+                                connection.rollback(function () {
+                                    throw err;
+                                });
+                            } else {
+                                console.dir(encounter_result[i].dateEncounter); //NEED TO JSON.stringify(objs)
+                                //console.dir(result_e[i].dateEncounter); CANNOT READ
+                                //console.dir(result_e[i]);
+                                //console.dir(e_result[i]);
+
+                                //console.dir(results);
+                            }
+                        });
+                    }
+                    //console.dir(e_result);
+  
+                }
+            });
+
+            connection.commit(function (err) {
+                if (err) {
+                    connection.rollback(function () {
+                        throw err;
+                    });
+                }
+            })
+
+
+            //console.log("db post register success");
+            //res.status(200).send({ "message": "data received" });
+        })
+
+        /*
+        connection.query(query_e, [userid], function (error, results, fields) {
             if (error) {
                 console.dir("query error");
                 res.json({
@@ -1015,18 +1082,16 @@ app.post('/sexualhistory', function (req, res, next) {
             }
 
             else {
-                var objs = [];
+                //console.dir("Fetched " + results.length + " results");
+                var e_result = [];
                 for (var i = 0; i < results.length; i++) {
-                    console.dir("/contact firstname" + results[i].firstName);
-                    objs.push({
+                    console.dir("/encounters:" + results[i].encounterID);
+                    e_result.push({
                         encounterID: results[i].encounterID,
                         dateEncounter: results[i].dateEncounter,
-                        contactID: results[i].contactID,
-                        firstname: results[i].firstName,
-                        lastname: results[i].lastName,
-                        email: results[i].email
                     });
                 }
+                //One array
                 if (results.length > 0) {
                     console.dir("obj");
                     console.dir(objs);
@@ -1035,7 +1100,7 @@ app.post('/sexualhistory', function (req, res, next) {
                     res.end();
                 }
             }
-        });
+        });*/
     }
 
 })
