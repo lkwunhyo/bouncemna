@@ -971,7 +971,7 @@ app.post('/sexualhistory', function (req, res, next) {
 
 })*/
 
-
+var async = require('async');
 
 app.post('/sexualhistory', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -1012,7 +1012,9 @@ app.post('/sexualhistory', function (req, res, next) {
         // + encounterID
 
         var query_master = query_ea + query_ep + query_epr;
-        var encounter_result = [];
+        var result_e_json = [];
+        var result_master = [];
+
         connection.beginTransaction(function (err) {
             if (err) {
                 req.flash('error', err)
@@ -1029,32 +1031,57 @@ app.post('/sexualhistory', function (req, res, next) {
                     });
                 } else {
                     
-                    //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
-                    for (var i = 0; i < result_e.length; i++) {
-                        
-                        encounter_result.push({
-                            encounterID: result_e[i].encounterID,
-                            dateEncounter: result_e[i].dateEncounter,
+                    //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)                  
+                    async.eachSeries(result_e, function (data, callback) { // It will be executed one by one
+                        //Here it will be wait query execute. It will work like synchronous
+                        connection.query(query_master, [data.encounterID, data.encounterID, data.encounterID], function (error, results) {
+                            if (error) throw err;
+                            result_master.push(results); //All 3 queries per encounter
+                            /*
+                            console.dir(results[0][0].encounterID); //rowpacketdata, query 1 result array, query 2 result array, query 3 result array.
+                            for (var i = 0; i < results[0].length; i++) { //query 1 (encounteract)
+                                console.dir(results[0][i].actName);
+                            }
+                            for (var i = 0; i < results[1].length; i++) { //query 1 (encounterpartner)
+                                console.dir(results[1][i].firstName);
+                                console.dir(results[1][i].lastName);
+                            }
+                            for (var i = 0; i < results[2].length; i++) { //query 1 (encounterpartner)
+                                console.dir(results[2][i].protectionName);
+                            }
+                            //result_master.push(results[0].encounterID);*/
+                            callback();
                         });
 
-                        //console.dir(result_e[i].dateEncounter); //CAN READ
-                        connection.query(query_master, [result_e[i].encounterID, result_e[i].encounterID, result_e[i].encounterID], function (err, results) {
+                    }, function (err, results) {
+                        //console.log(result_master); // Output will the value that you have inserted in array, once for loop completed ex . 1,2,3,4,5,6,7,8,9
+                    });
+
+
+                    //--------------------------------------------------------
+                    /*
+                    for (var i = 0; i < result_e_json.length; i++) {
+
+                        console.dir(result_e_json[i].dateEncounter); //CAN READ
+                        
+                        connection.query(query_master, [result_e_json[i].encounterID, result_e_json[i].encounterID, result_e_json[i].encounterID], function (err, results) {
                             if (err) {
                                 connection.rollback(function () {
                                     throw err;
                                 });
                             } else {
-                                console.dir(encounter_result[i].dateEncounter); //NEED TO JSON.stringify(objs)
-                                //console.dir(result_e[i].dateEncounter); CANNOT READ
-                                //console.dir(result_e[i]);
-                                //console.dir(e_result[i]);
-
+                                //console.dir(result_e_json[i].dateEncounter); //NEED TO JSON.stringify(objs)
+                                //I DONT NEED result_e_json
+                                console.dir("inside query")
+                                console.dir(results[0].actName);
+                                result_master.push({
+                                    actName: results[0].actName
+                                })
                                 //console.dir(results);
                             }
                         });
-                    }
-                    //console.dir(e_result);
-  
+                    }*/ //----------------------------------------------------
+                    //console.dir(results); 
                 }
             });
 
@@ -1069,7 +1096,11 @@ app.post('/sexualhistory', function (req, res, next) {
 
             //console.log("db post register success");
             //res.status(200).send({ "message": "data received" });
-        })
+
+        }) //-----------------------END OF TRANSACTION-----------------
+
+
+        //console.dir(result_master[1]);
 
         /*
         connection.query(query_e, [userid], function (error, results, fields) {
