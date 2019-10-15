@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <div class="defaultContainer">
+    <h2>QR Code Scanner</h2><br>
+    <div class="container">
+      <zxing-scanner class="zxingscanner" tart="true" 
+        (scanSuccess)="scanCode($event)"></zxing-scanner><br>
+      <mat-icon class="record-icon" aria-hidden="false" aria-label="camera icon" 
+        [ngStyle]="{'color':'red'}">fiber_manual_record</mat-icon>
+    </div><br>
+    <p>* Aim your camera at the QR Code</p>
+    <br>
+    <button mat-stroked-button type="button" 
+      onclick="window.location.href = '../contactform/'">Back</button>
+
+  </div>
+

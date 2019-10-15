@@ -51,6 +51,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { StorageServiceModule } from 'angular-webstorage-service';
 import { APP_BASE_HREF } from '@angular/common';
+import { QRCodeModule } from 'angularx-qrcode';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
@@ -60,6 +62,7 @@ import { AuthGuardService } from './auth-guard.service';
 import { AppHttpService } from './services/apphttp.service';
 import { HttpModule } from '@angular/http';
 import { ContactProfileComponent } from './contact/contact-profile/contact-profile.component';
+import { QrscannerComponent } from './contact-form/qrscanner/qrscanner.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +89,8 @@ import { ContactProfileComponent } from './contact/contact-profile/contact-profi
     DeleteContactComponent,
     DeletePartnerComponent,
     AddEventsComponent,
-    ContactProfileComponent
+    ContactProfileComponent,
+    QrscannerComponent
   ],
   imports: [
     BrowserModule,
@@ -118,7 +122,9 @@ import { ContactProfileComponent } from './contact/contact-profile/contact-profi
     }),
     StorageServiceModule,
     MatExpansionModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    QRCodeModule,
+    ZXingScannerModule
   ],
     providers: [AppHttpService, AuthenticationService, AuthGuardService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{ provide: APP_BASE_HREF, useValue: '/'}, ContactService,MatDatepickerModule],
   bootstrap: [AppComponent],

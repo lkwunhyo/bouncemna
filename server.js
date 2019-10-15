@@ -110,7 +110,7 @@ function decrypt(text) {
 
 //register
 var cryptr = require('cryptr');
-
+/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'tryl',
@@ -118,15 +118,15 @@ var connection = mysql.createConnection({
     database: 'bouncemna',
     dateStrings: 'date'
 });
+*/
 
-/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'admin',
-    database: 'Bounce'
+    database: 'bouncemna'
 });
-*/
+
 
 connection.connect(function (error) {
     if (!!error) {
@@ -866,6 +866,7 @@ app.post('/profile', function (req, res, next) {
             else {
                 if (results.length > 0) {
                     var profile = {
+                        userid: results[0].userID,
                         firstname: results[0].firstName,
                         lastname: results[0].lastName,
                         gender: results[0].gender,
