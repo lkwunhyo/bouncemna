@@ -24,6 +24,6 @@
   </div>
   <div class ="btncontainer">
   <button mat-stroked-button onclick="window.location.href = '../contactform/'">Add</button>
-  <button mat-stroked-button onclick="window.location.href = '../deletecontact/'">Delete</button>
+  <button mat-stroked-button [disabled]="!contactlist" onclick="window.location.href = '../deletecontact/'">Delete</button>
 </div>
 </div>
