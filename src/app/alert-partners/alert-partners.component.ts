@@ -112,13 +112,15 @@ export class AlertPartnersComponent implements OnInit {
         console.log(this.alertPartnersForm2.get('contacts').value);
         console.log("alert contact: ");
         console.log(this.alert.contacts);
+        console.log("sendMessage: " + this.isSendMessage);
     /*
     alert('You may have been infected with ' + this.alert.diagnosis  + ', please get tested as soon as possible' + ' '
   + this.alert.anonymity + ' ' +  this.alert.contacts);*/
         //console.log("data form 1: " + JSON.stringify(this.alertPartnersForm1.value));
         //console.log("data form 2: " + JSON.stringify(this.alertPartnersForm2.value));
         //console.log(this.alert.date);
-        
+        console.log("alert details: " + this.alert.message);
+        this.alert.message = this.alertPartnersForm1.value.message;
         this._alertService.alertpartners(this.alert).subscribe(
             alert => console.log('Success!', alert),
             error => console.error('Error!', error),
@@ -217,7 +219,8 @@ export class AlertPartnersComponent implements OnInit {
 
     sendMessage() {
         this.alertPartnersForm1.patchValue({ 'message': String(this.isSendMessage) });
-
+        console.log("sendMessage(): " + this.alert.message);
+        console.log("alertPartnersForm1: " + JSON.stringify(this.alertPartnersForm1.value));
     }
 
     formatDate() {
@@ -240,9 +243,13 @@ checkPartTwo(){
 }
 
 resetForm(){
+  //if(document.getElementById('no_recent_contacts')) {
     document.getElementById('no_recent_contacts').style.visibility = 'hidden';
+  //}
+  //if (document.getElementById('recent_contacts')) {
     document.getElementById('recent_contacts').style.visibility = 'hidden';;
-
+  //}
+  
 
     this.v = null;
     console.log("reset: selected persons");
