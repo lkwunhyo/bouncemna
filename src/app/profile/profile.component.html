@@ -26,7 +26,9 @@
     <h4>Phone:</h4> <p>{{profile?.phone}} </p>
     <h4>Email:</h4> <p>{{profile?.email}} </p>
     <h4>Sex:</h4> <p>{{profile?.gender}} </p>
-</div>
+    <h4>QR Code:</h4>
+    <qrcode [qrdata]="profileQR" [size]="256" [level]="'M'" class="qrcode"></qrcode><br><br>
+    </div>
 
 <div class="btncontainer">
     <!--<button mat-button><a href= "../editprofile">Edit Profile</a></button>-->
