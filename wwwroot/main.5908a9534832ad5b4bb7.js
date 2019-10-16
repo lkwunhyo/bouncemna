@@ -1416,7 +1416,7 @@ var AddEventsComponent = /** @class */ (function () {
     function AddEventsComponent(fb, httpClient) {
         this.fb = fb;
         this.httpClient = httpClient;
-        this.SERVER_URL = "http://localhost:300/add-events";
+        this.SERVER_URL = "/add-events";
         //Form state
         this.loading = false;
         this.success = false;
@@ -2903,7 +2903,7 @@ var RegisterComponent = /** @class */ (function () {
         this.router = router;
         this.user = new _models_register_model__WEBPACK_IMPORTED_MODULE_2__["RegisterModel"]();
         this.hide = true;
-        this._url = '//localhost:8080/register';
+        this._url = '/register';
     }
     RegisterComponent.prototype.ngOnInit = function () {
         this.registerForm = this.formBuilder.group({
@@ -3046,7 +3046,7 @@ var AddSexualService = /** @class */ (function () {
         this._http = _http;
         this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
         this.keepAfterNavigationChange = false;
-        this._url = 'http://localhost:8080/addactivity';
+        this._url = '/addactivity';
         // clear alert message on route change
         router.events.subscribe(function (event) {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_3__["NavigationStart"]) {
@@ -3117,8 +3117,8 @@ var AlertService = /** @class */ (function () {
         this._http = _http;
         this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.keepAfterNavigationChange = false;
-        this._url = 'http://localhost:8080/alertpartners';
-        this._url_disease = 'http://localhost:8080/diseases';
+        this._url = '/alertpartners';
+        this._url_disease = '/diseases';
         // clear alert message on route change
         router.events.subscribe(function (event) {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationStart"]) {
@@ -3224,7 +3224,7 @@ var ContactFormService = /** @class */ (function () {
         this._http = _http;
         this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
         this.keepAfterNavigationChange = false;
-        this._url = 'http://localhost:8080/contactform';
+        this._url = '/contactform';
         // clear alert message on route change
         router.events.subscribe(function (event) {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_3__["NavigationStart"]) {
@@ -3295,8 +3295,8 @@ var ContactService = /** @class */ (function () {
     function ContactService(http, messageService) {
         this.http = http;
         this.messageService = messageService;
-        this.url_contact = 'http://localhost:8080/contact'; // URL to web api
-        this.url_encounter_contacts = 'http://localhost:8080/encountercontacts';
+        this.url_contact = '/contact'; // URL to web api
+        this.url_encounter_contacts = '/encountercontacts';
     }
     ContactService.prototype.getContacts = function () {
         return _models_person_mock__WEBPACK_IMPORTED_MODULE_2__["PERSONS"];
@@ -3402,7 +3402,7 @@ var DeleteContactService = /** @class */ (function () {
         this._http = _http;
         this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
         this.keepAfterNavigationChange = false;
-        this._url = 'http://localhost:8080/deletecontact';
+        this._url = '/deletecontact';
         // clear alert message on route change
         router.events.subscribe(function (event) {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_3__["NavigationStart"]) {
@@ -3462,11 +3462,11 @@ var DiagnosisHistoryService = /** @class */ (function () {
         this.http = http;
         this.router = router;
         /*
-        private url_diagnosis = 'http://localhost:8080/diagnosishistory';  // URL to web api
-        private url_diagnosisparam = 'http://localhost:8080/diagnosishistory/';  // URL to web api
+        private url_diagnosis = '/diagnosishistory';  // URL to web api
+        private url_diagnosisparam = '/diagnosishistory';  // URL to web api
         */
-        this._url = 'http://localhost:8080/diagnosishistory'; // URL to web api
-        this.url_diagnosis = 'http://localhost:8080/diagnosis'; // URL to web api
+        this._url = '/diagnosishistory'; // URL to web api
+        this.url_diagnosis = '/diagnosis'; // URL to web api
         this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
         this.keepAfterNavigationChange = false;
         // clear alert message on route change
@@ -3627,8 +3627,8 @@ __webpack_require__.r(__webpack_exports__);
 var ProfileService = /** @class */ (function () {
     function ProfileService(http) {
         this.http = http;
-        this.url_profile = 'http://localhost:8080/profile'; // URL to web api
-        this.url_editprofile = 'http://localhost:8080/editprofile';
+        this.url_profile = '/profile'; // URL to web api
+        this.url_editprofile = '/editprofile';
     }
     /** get profile from the server */
     ProfileService.prototype.getProfile = function () {
@@ -3674,7 +3674,7 @@ var SexualHistoryService = /** @class */ (function () {
     function SexualHistoryService(http, messageService) {
         this.http = http;
         this.messageService = messageService;
-        this.url_sexualhistory = 'http://localhost:8080/sexualhistory'; // URL to web api
+        this.url_sexualhistory = '/sexualhistory'; // URL to web api
     }
     SexualHistoryService.prototype.getActivity = function () {
         console.dir("calling POST service");
@@ -4181,4 +4181,4 @@ module.exports = __webpack_require__(/*! C:\Users\Daryl\Documents\GitHub\bouncem
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main.8ad5f49e96c52be1535d.js.map
+//# sourceMappingURL=main.5908a9534832ad5b4bb7.js.map

@@ -15,8 +15,8 @@ import { and } from '@angular/router/src/utils/collection';
 })
 export class ContactService {
 
-    private url_contact = 'http://localhost:8080/contact';  // URL to web api
-    private url_encounter_contacts = 'http://localhost:8080/encountercontacts';
+    private url_contact = '/contact';  // URL to web api
+    private url_encounter_contacts = '/encountercontacts';
     constructor(private http: HttpClient, private messageService: MessageService) { }
 
   getContacts() {

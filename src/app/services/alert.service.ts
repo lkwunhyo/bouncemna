@@ -10,8 +10,8 @@ private subject = new Subject<any>();
 private keepAfterNavigationChange = false;
 
 
-    _url = 'http://localhost:8080/alertpartners';
-    _url_disease = 'http://localhost:8080/diseases';
+    _url = '/alertpartners';
+    _url_disease = '/diseases';
 
 constructor(private router: Router, private _http: HttpClient) {
         // clear alert message on route change
