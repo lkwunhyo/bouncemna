@@ -79,18 +79,10 @@ connection.connect(function (error) {
     if (!!error) {
         console.log(error);
     } else {
-        console.log('Connected!:)  port: ' + port);
+        console.log('Connected!:)');
     }
 });
 
-/*app.get('/', function (req, res) {
-    res.send('hello from server');
-})*/
-
-/*app.post('/alertpartners', function (req, res) {
-    console.log(req.body);
-    res.status(200).send({ "message": "Data received." });
-})*/
 
 // Serve only the static files form the dist directory
 // Replace the '/dist/<to_your_project_name>' -------------- src is the app name
@@ -104,7 +96,11 @@ app.get('*', function (req, res) {
 
 
 //Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080);
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${PORT}`);
+});
 
 //middleware stuff?
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 user: LoginModel = new LoginModel();
 loginForm: FormGroup;
     hide = true;
-    _url = '//localhost:8080/login'
+    _url = '/login'
     reg;
 
     constructor(private formBuilder: FormBuilder, private _apphttpService: AppHttpService,
