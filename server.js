@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const expressSanitizer = require('express-sanitizer');
 const app = express();
-var Promise = require('promise');
 
 /*----------NODEMAILER--------*/
 var nodemailer = require('nodemailer');
