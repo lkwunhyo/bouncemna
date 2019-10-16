@@ -39,6 +39,7 @@ import { DeleteContactComponent } from './contact/delete-contact/delete-contact.
 import { DeletePartnerComponent } from './sexual-history/add-sexual/delete-partner/delete-partner.component';
 import { AddEventsComponent } from './calender/add-events/add-events.component';
 import { CalenderComponent } from './calender/calender.component';
+import { RewardsComponent }   from './rewards/rewards.component';
 
 // ---------------------------------------Other components-------------------------------------------------
 import { ContactService } from './services/contact.service';
@@ -63,6 +64,7 @@ import { AppHttpService } from './services/apphttp.service';
 import { HttpModule } from '@angular/http';
 import { ContactProfileComponent } from './contact/contact-profile/contact-profile.component';
 import { QrscannerComponent } from './contact-form/qrscanner/qrscanner.component';
+
 
 @NgModule({
   declarations: [
@@ -90,6 +92,7 @@ import { QrscannerComponent } from './contact-form/qrscanner/qrscanner.component
     DeletePartnerComponent,
     AddEventsComponent,
     ContactProfileComponent,
+    RewardsComponent
     QrscannerComponent
   ],
   imports: [
