@@ -2,64 +2,63 @@
 <html>
 
 <body>
-  <div class="defaultContainer">
-    <h2>Sexual Activity</h2><br>
+    <div class="defaultContainer">
+        <h2>Sexual Activity</h2><br>
 
-  <mat-expansion-panel *ngFor="let encounter of activitylist">
-    <mat-expansion-panel-header>
-        <mat-panel-title>
-            <!--<b>{{ encounter.encounterID }}</b>-->
-      </mat-panel-title>
-      <mat-panel-description>
-        {{ convertDate(encounter.dateEncounter) }}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+        <mat-expansion-panel *ngFor="let encounter of activitylist">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <!-- <b>{{ encounter[0].encounterID }}</b>-->
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{ convertDate(encounter[0].dateEncounter) }}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
 
-    <h3>{{ encounter.encounterID }}&nbsp;&nbsp;&nbsp;&nbsp;{{ encounter.userID }}</h3>
-    <h4>Participants: </h4>
-    <div><!--*ngFor="let partner of partnerlist" //filter through encounter? -->
-            <ul>
-                <li>Partner 1</li>
-                <li>Partner 2</li>
-                <li>Partner...</li>
-            </ul>
-</div>
+            <!--<h3>{{ encounter[0].encounterID }}&nbsp;&nbsp;&nbsp;&nbsp;{{ encounter[0].userID }}</h3>-->
+            <h4>Participants: </h4>
+            <div>
+                <!--*ngFor="let partner of partnerlist" //filter through encounter? -->
+                <ul>
+                    <li>{{ encounter[0].name }}</li>
 
-    <h4>Activities Performed: </h4>
-    <div><!--*ngFor="let activity of activitylist" //filter through encounter? -->
-      <ul>
-        <li>Activity 1</li>
-        <li>Activity 2</li>
-        <li>Activity...</li>
-      </ul>
-    </div>
+                </ul>
+            </div>
 
-    <h4>Contraceptives Used: </h4>
-    <div><!--*ngFor="let contraceptive of contraceptivelist" //filter through encounter? -->
-      <ul>
-        <li>Contraceptive 1</li>
-        <li>Contraceptive 2</li>
-        <li>Contraceptive...</li>
-      </ul>
-    </div>
+            <h4>Activities Performed: </h4>
+            <div>
+                <!--*ngFor="let activity of activitylist" //filter through encounter? -->
+                <ul>
+                    <li>{{ encounter[0].actName }}</li>
+                </ul>
+            </div>
 
-    <h4>Comments: </h4>{{ encounter.notes }}<br><br>
+            <h4>Contraceptives Used: </h4>
+            <div>
+                <!--*ngFor="let contraceptive of contraceptivelist" //filter through encounter? -->
+                <ul>
+                    <li>{{ encounter[0].protection }}</li>
 
-  </mat-expansion-panel>
+                </ul>
+            </div>
 
-    <!--
+            <h4>Comments: </h4>{{ encounter[0].notes }}<br><br>
+
+        </mat-expansion-panel>
+
+        <!--
     <div class="activity_list">
       <ul class="activity">
           <li *ngFor="let encounter of activitylist">
               <img src="../../assets/book.png" alt="Record Icon" height="18"
               width="18">&nbsp;&nbsp;
-            <a href="../sexualhistory/"><b>{{ encounter.encounterID }}</b>&nbsp;&nbsp;&nbsp;&nbsp;{{ convertDate(encounter.dateEncounter) }} </a>
+            <a href="../sexualhistory/"><b>{{ encounter[0].encounterID }}</b>&nbsp;&nbsp;&nbsp;&nbsp;{{ convertDate(encounter[0].dateEncounter) }} </a>
         </li>
       </ul>
       <br>
     </div>
     -->
-  <!--
+        <!--
     <h3 id="date"><u>Saturday, 16th March 2019</u></h3>
     <ul>
       <li>
@@ -88,17 +87,16 @@
         Placeholder Contacts
       </li>
     </ul>-->
+        <!--
 
-<!--
+        <br>
 
-    <br>
-
-    <div class = "btncontainer">
-    <button mat-stroked-button onclick="window.location.href = '../addactivity/'">Add</button>
-  </div>
-  </div>
--->
-  </div>
+        <div class = "btncontainer">
+        <button mat-stroked-button onclick="window.location.href = '../addactivity/'">Add</button>
+      </div>
+      </div>
+    -->
+    </div>
 
 </body>
 </html>
