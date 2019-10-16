@@ -14,7 +14,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema bouncemna
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `bouncemna` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+CREATE SCHEMA IF NOT EXISTS `bouncemna` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `bouncemna` ;
 
 -- -----------------------------------------------------
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`account` (
   PRIMARY KEY (`userID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
@@ -51,8 +51,8 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`alert` (
   PRIMARY KEY (`alertID`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 46
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`alertedpartners` (
   `contactID` VARCHAR(45) NULL DEFAULT NULL,
   `alertID` VARCHAR(45) NOT NULL)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
@@ -82,8 +82,8 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`contact` (
   PRIMARY KEY (`contactID`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 29
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
@@ -97,8 +97,8 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`encounter` (
   PRIMARY KEY (`encounterID`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 36
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
@@ -108,8 +108,8 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`encounteracts` (
   `encounterID` INT(11) NULL DEFAULT NULL,
   `actID` INT(11) NULL DEFAULT NULL)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
@@ -120,8 +120,8 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`encounterpartners` (
   `contactID` INT(11) NOT NULL,
   PRIMARY KEY (`encounterID`, `contactID`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
@@ -132,8 +132,8 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`encounterprotection` (
   `protectionID` INT(11) NOT NULL,
   PRIMARY KEY (`encounterID`, `protectionID`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
@@ -144,8 +144,8 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`protection` (
   `protectionName` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`protectionID`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
@@ -156,8 +156,8 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`sexualacts` (
   `actName` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`actID`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
@@ -170,8 +170,8 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`sti` (
   `numberOfMonths` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`stiID`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 
 INSERT INTO `sti` VALUES (1,'Chlamydia','6 months',6),(2,'Gonorrhea','2 months',2),(3,'HIV','Onset of risk behaviour or latest negative HIV test',0),(4,'Mycoplasma genitalium','6 months or guided by sexual history',6),(5,'Primary Syphilis','3 months before symptoms',3),(6,'Secondary Syphilis','6 months before symptoms',6),(7,'Early Latent Syphilis','12 months before symptoms',12);
 
