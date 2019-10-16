@@ -111,23 +111,23 @@ function decrypt(text) {
 
 //register
 var cryptr = require('cryptr');
-/*
+
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'tryl',
     password: 'tryl',
     database: 'bouncemna',
     dateStrings: 'date',
-    multipleStatements: true
+    multipleStatements: true //!!!!! REQUIRED
 });
-*/
 
+/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'admin',
     database: 'bouncemna'
-});
+});*/
 
 
 connection.connect(function (error) {
@@ -998,7 +998,7 @@ app.post('/sexualhistory', function (req, res, next) {
         var order_by_date = " ORDER BY dateEncounter DESC"; //only for 1st query
 
         //Query for encounterID related to user (didnt incl comments)
-        var query_e = "SELECT encounterID, dateEncounter FROM bouncemna.encounter WHERE encounter.userID = ? " + order_by_date; //GET encounterID
+        var query_e = "SELECT encounterID, dateEncounter, notes FROM bouncemna.encounter WHERE encounter.userID = ? " + order_by_date; //GET encounterID
 
         //Query encounter acts
         var select_ea = "SELECT e.encounterID, sa.actName ";
@@ -1123,7 +1123,8 @@ app.post('/sexualhistory', function (req, res, next) {
                                     dateEncounter: data.dateEncounter,
                                     actName: single_encounter_acts,
                                     name: single_encounter_names,
-                                    protection: single_encounter_protection
+                                    protection: single_encounter_protection,
+                                    notes: data.notes
                                 });
                                 //console.dir(single_encounter_result);
                                 result_master.push(single_encounter_result);
