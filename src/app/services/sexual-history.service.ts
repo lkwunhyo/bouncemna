@@ -9,7 +9,7 @@ import { MessageService } from '../services/message.service';
 })
 export class SexualHistoryService {
 
-  private url_sexualhistory = 'http://localhost:8080/sexualhistory';  // URL to web api
+  private url_sexualhistory = '/sexualhistory';  // URL to web api
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
   getActivity(): Observable<Person[]> {

@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class AddEventsComponent implements OnInit {
 
   calForm: FormGroup;
-  SERVER_URL = "http://localhost:300/add-events";
+  SERVER_URL = "/add-events";
 
   //Form state
   loading = false;

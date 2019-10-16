@@ -15,7 +15,7 @@ user: RegisterModel = new RegisterModel();
 registerForm: FormGroup;
     hide = true;
     credentials: TokenPayload;
-    _url = '//localhost:8080/register'
+    _url = '/register'
     constructor(private formBuilder: FormBuilder, private _apphttpService: AppHttpService,
     private router: Router) { }
 

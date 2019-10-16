@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProfileService {
 
-    private url_profile = 'http://localhost:8080/profile';  // URL to web api
-    private url_editprofile = 'http://localhost:8080/editprofile';
+    private url_profile = '/profile';  // URL to web api
+    private url_editprofile = '/editprofile';
     constructor(private http: HttpClient) { }
 
 

@@ -9,12 +9,12 @@ import { HttpClient } from '@angular/common/http';
 export class DiagnosisHistoryService {
 
   /*
-  private url_diagnosis = 'http://localhost:8080/diagnosishistory';  // URL to web api
-  private url_diagnosisparam = 'http://localhost:8080/diagnosishistory/';  // URL to web api
+  private url_diagnosis = '/diagnosishistory';  // URL to web api
+  private url_diagnosisparam = '/diagnosishistory';  // URL to web api
   */
 
-  private _url = 'http://localhost:8080/diagnosishistory';  // URL to web api
-  private url_diagnosis = 'http://localhost:8080/diagnosis';  // URL to web api
+  private _url = '/diagnosishistory';  // URL to web api
+  private url_diagnosis = '/diagnosis';  // URL to web api
 
   private subject = new Subject<any>();
   private keepAfterNavigationChange = false;
