@@ -83,10 +83,6 @@ connection.connect(function (error) {
     }
 });
 
-setInterval(function () {
-    connection.query('SELECT 1');
-}, 5000);
-
 
 // Serve only the static files form the dist directory
 // Replace the '/dist/<to_your_project_name>' -------------- src is the app name
