@@ -9,8 +9,6 @@ const expressSanitizer = require('express-sanitizer');
 const app = express();
 var Promise = require('promise');
 
-var db_name = 'heroku_d8b3eb522e9de9a' //Previous name was bouncemna
-
 /*----------NODEMAILER--------*/
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
@@ -112,8 +110,8 @@ function decrypt(text) {
 
 
 //register
-var cryptr = require('cryptr');
-/*
+//var db_name = 'heroku_d8b3eb522e9de9a' //Previous name was bouncemna
+var db_name = 'bouncemna'
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'tryl',
@@ -122,7 +120,7 @@ var connection = mysql.createConnection({
     dateStrings: 'date',
     multipleStatements: true //!!!!! REQUIRED
 });
-*/
+
 /*
 var connection = mysql.createConnection({
     host: 'localhost',
@@ -132,7 +130,7 @@ var connection = mysql.createConnection({
     dateStrings: 'date',
     multipleStatements: true //!!!!! REQUIRED
 });*/
-
+/*
 var connection = mysql.createConnection({
     host: 'eu-cdbr-west-02.cleardb.net',
     user: 'b6319c551c1252',
@@ -140,8 +138,7 @@ var connection = mysql.createConnection({
     database: 'heroku_d8b3eb522e9de9a',
     dateStrings: 'date',
     multipleStatements: true //!!!!! REQUIRED
-});
-
+});*/
 
 connection.connect(function (error) {
     if (!!error) {
