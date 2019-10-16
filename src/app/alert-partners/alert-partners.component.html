@@ -18,11 +18,11 @@
             {{v}}
             <br>
             <h4>Date of diagnosis</h4><br>
-            <mat-form-field>
+            <!--       <mat-form-field>
                 <input matInput [matDatepicker]="picker" (dateChange)="formatDate(); getTrace()" formControlName="date" placeholder="Choose a date" [(ngModel)]="date">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
+            </mat-form-field>-->
             <h4>Send STI alert to partners?</h4>
             <mat-button-toggle-group>
                 <mat-button-toggle (click)="isSendMessage = true; sendMessage()">Yes</mat-button-toggle>
@@ -36,7 +36,7 @@
         </form>
     </mat-step>
     <mat-step [stepControl]="alertPartnersForm2" *ngIf="isSendMessage" [editable]="isEditable" [completed]="false">
-      <!--  <form [formGroup]="alertPartnersForm2">
+        <form [formGroup]="alertPartnersForm2">
             <ng-template matStepLabel>Choose your contacts</ng-template>
             <div id="no_recent_contacts" style='visibility: hidden'> None of your contacts are within the tracing period. </div>
             <div id="recent_contacts" style='visibility: hidden'>These contacts are within the tracing period: </div> 
@@ -62,13 +62,13 @@
             </mat-radio-group>
 
             <br><br>Message:<br> Your partner may have been exposed to <br>{{sti}}, please get tested immediately
-            <div> -->
+            <div>
                 <!-->
         <button mat-button matStepperPrevious>Back</button><-->
                 <button mat-button type="submit" (click)="resetForm();stepper.reset();">Reset</button>
                 <button mat-button matStepperNext>Next</button>
             </div>
-        </form>/
+        </form>
     </mat-step>
     <mat-step [stepControl]="alertPartnersForm2" [editable]="isEditable" [completed]="false">
       <ng-template matStepLabel>Completed</ng-template>
