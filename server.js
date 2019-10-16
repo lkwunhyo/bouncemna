@@ -298,7 +298,7 @@ app.post('/encountercontacts', function (req, res, next) {
     var from = db_name + '.encounterpartners, ' + db_name +'.encounter, ' + db_name +'.contact';
     var where = 'encounter.encounterID = encounterpartners.encounterID AND encounter.userID = ? AND encounterpartners.contactID = contact.contactID';
     //var query = 'select * from (select ' + attributes + ' from ' + from + ' where ' + where + ') t'; //where t.rn = 1';
-    var query = 'select * from (select ' + attributes + ' from ' + from + ' GROUP BY dateEncounter ORDER BY dateEncounter DESC) data ORDER BY dateEncounter ASC' ;
+    var query = 'select * from (select ' + attributes + ' from ' + from + ' GROUP BY contactID ORDER BY dateEncounter DESC) data ORDER BY dateEncounter ASC' ;
     //console.dir(query);
 
     if (isLoggedIn()) {
