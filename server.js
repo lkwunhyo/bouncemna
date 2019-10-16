@@ -998,7 +998,7 @@ app.post('/sexualhistory', function (req, res, next) {
             console.log(err);
         }));*/
  
-
+        var async = require("async");
         
         connection.beginTransaction(function (err) {
             if (err) {
