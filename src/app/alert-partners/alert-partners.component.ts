@@ -126,6 +126,9 @@ export class AlertPartnersComponent implements OnInit {
             error => console.error('Error!', error),
             () => console.log("onsubmit"),
         );
+
+        var url = window.location.origin + "/diagnosishistory";
+        location.replace(url);
     } //
 
   onSelect(person: Person): void {

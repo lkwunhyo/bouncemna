@@ -70,7 +70,8 @@ export class AddSexualComponent implements OnInit {
     for(var contact of this.contactlist) {
       this.storage.remove(contact.contactID);
     }
-
+    var url = window.location.origin + "/sexualhistory";
+    location.replace(url);
     //this.router.navigate(['/sexualhistory']);
     
   }
