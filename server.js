@@ -111,7 +111,7 @@ function decrypt(text) {
 
 //register
 var cryptr = require('cryptr');
-
+/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'tryl',
@@ -120,14 +120,16 @@ var connection = mysql.createConnection({
     dateStrings: 'date',
     multipleStatements: true //!!!!! REQUIRED
 });
+*/
 
-/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'admin',
-    database: 'bouncemna'
-});*/
+    database: 'bouncemna',
+    dateStrings: 'date',
+    multipleStatements: true //!!!!! REQUIRED
+});
 
 
 connection.connect(function (error) {
