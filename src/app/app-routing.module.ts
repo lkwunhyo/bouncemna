@@ -23,6 +23,7 @@ import { DeletePartnerComponent } from './sexual-history/add-sexual/delete-partn
 import { AddEventsComponent } from './calender/add-events/add-events.component';
 import { ContactProfileComponent } from './contact/contact-profile/contact-profile.component';
 import { RewardsComponent }   from './rewards/rewards.component';
+import { QrscannerComponent } from './contact-form/qrscanner/qrscanner.component'
 
 
 
@@ -52,7 +53,7 @@ const routes: Routes = [
 { path: 'contactprofile', component: ContactProfileComponent },
 { path: 'contactprofile/:id', component: ContactProfileComponent },
 { path: 'rewards', component: RewardsComponent },
-
+{ path: 'qrscanner', component: QrscannerComponent },
 //{ path: 'diagnosishistory?alertid:alertid', component: DiagnosisHistoryComponent }
 //{ path: 'diagnosishistory/:alertid', component: DiagnosisHistoryComponent }
 ];

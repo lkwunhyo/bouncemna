@@ -1,0 +1,17 @@
+.container {
+    border: 6px solid lightgray;
+    width: 80%;
+    margin: auto;
+    padding: 2%;
+}
+
+.zxingscanner {
+    height: 100%;
+}
+
+.record-icon {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    transform: scale(2);
+}

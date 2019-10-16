@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class ProfileService {
 
     private url_profile = 'http://localhost:8080/profile';  // URL to web api
-    private url_encounter_contacts = 'http://localhost:8080/encountercontacts';
+    private url_editprofile = 'http://localhost:8080/editprofile';
     constructor(private http: HttpClient) { }
 
 
@@ -18,9 +18,9 @@ export class ProfileService {
         return this.http.post<any>(this.url_profile, "BODY 2ND PARAM");
     }
 
-    editProfile(edit:any): Observable<any> {
+    editProfile(edit:any) {
         console.dir("calling POST service");
-        return this.http.post<any>(this.url_profile, edit);
+        return this.http.post<any>(this.url_editprofile, edit);
     }
 
 }

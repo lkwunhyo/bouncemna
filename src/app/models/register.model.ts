@@ -1,4 +1,5 @@
 export class RegisterModel {
+    bio: string;
     firstname: string;
     lastname: string;
     username: string;

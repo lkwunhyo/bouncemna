@@ -110,7 +110,7 @@ function decrypt(text) {
 
 //register
 var cryptr = require('cryptr');
-
+/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'tryl',
@@ -118,15 +118,15 @@ var connection = mysql.createConnection({
     database: 'bouncemna',
     dateStrings: 'date'
 });
+*/
 
-/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'admin',
-    database: 'Bounce'
+    database: 'bouncemna'
 });
-*/
+
 
 connection.connect(function (error) {
     if (!!error) {
@@ -439,12 +439,20 @@ app.post('/encountercontacts', function (req, res, next) {
 //note to self, request is to receive data, response is for pushing data to browser
 app.post('/alertpartners', function (req, res) { //validate then sanitize
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+
     if (isLoggedIn()) {
+        console.dir(req.body.message);
         var alert = {
             diagnosis: req.sanitize(req.body.diagnosis),
             sendMessage: req.sanitize(req.body.message),
             anonymity: req.sanitize(req.body.anonymity),
             dateDiagnosed: req.sanitize(req.body.date),
+            dateSent: req.sanitize(today),
             userID: sess.userid
         }
 
@@ -866,6 +874,7 @@ app.post('/profile', function (req, res, next) {
             else {
                 if (results.length > 0) {
                     var profile = {
+                        userid: results[0].userID,
                         firstname: results[0].firstName,
                         lastname: results[0].lastName,
                         gender: results[0].gender,
@@ -892,4 +901,76 @@ app.post('/profile', function (req, res, next) {
         })
     }
 })
-    
+
+app.post('/editprofile', function (req, res) {
+    if (isLoggedIn()) {
+
+        var editProfile = {
+            bio: req.sanitize(req.body.bio),
+            firstname: req.sanitize(req.body.firstname),
+            lastname: req.sanitize(req.body.lastname),
+            gender: req.sanitize(req.body.gender),
+            email: req.sanitize(req.body.email),
+            phone: req.sanitize(req.body.phone),
+        }
+           // ('INSERT INTO bouncemna.account SET ?', registration, function (err, result)
+
+        var sql = "UPDATE bouncemna.account SET ? WHERE userID = '" + sess.userid + "'";
+        connection.query(sql, editProfile , function (err, result) {
+            if (err) {
+                throw err;
+            } else {
+                console.log(result.affectedRows + " record(s) updated");
+                res.json({
+                    status: true,
+                    message: 'successfully authenticated'
+                })
+                res.send();
+            }
+           
+           
+        });
+    }
+})
+
+// Sexual Hisory Page
+app.post('/sexualhistory', function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
+    console.dir("calling sexual history");
+    if (isLoggedIn()) {
+        var userid = sess.userid;
+        connection.query('SELECT * FROM bouncemna.encounter WHERE userid = ?', [userid], function (error, results, fields) {
+            if (error) {
+                console.dir("query error");
+                res.json({
+                    status: false,
+                    message: 'there are some error with query'
+                })
+            }
+
+            else {
+                var objs = [];
+                for (var i = 0; i < results.length; i++) {
+                    console.dir("/sexualhistory userid" + results[i].userID);
+                    objs.push({
+                        encounterID: results[i].encounterID,
+                        userID: results[i].userID,
+                        dateEncounter: results[i].dateEncounter,
+                        notes: results[i].notes
+                    });
+                }
+                if (results.length > 0) {
+                    res.send(JSON.stringify(objs));
+                } else {
+                    res.end();
+                }
+            }
+        });
+    } else {
+        res.redirect('/login')
+    }
+
+})

@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <div class="defaultContainer">
-    <h2>Add a Contact</h2>
+    <div class="container">
+        <h2>Add a Contact</h2>
+        <button mat-stroked-button class="qrbutton" type="button" 
+            onclick="window.location.href = '../qrscanner/'">QR Scanner</button>
+    </div>
     <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
         <div class="form-container">
             Contact Details: <br>

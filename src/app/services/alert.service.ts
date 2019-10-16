@@ -42,17 +42,6 @@ constructor(private router: Router, private _http: HttpClient) {
         return this._http.post<any>(this._url_disease, "Empty body");
     }
 
-
-    success(message: string, keepAfterNavigationChange = false) {
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'success', text: message });
-    }
-
-    error(message: string, keepAfterNavigationChange = false) {
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'error', text: message });
-    }
-
     getMessage(): Observable<any> {
         return this.subject.asObservable();
     }

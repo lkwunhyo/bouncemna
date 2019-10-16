@@ -6,6 +6,7 @@
 
   <div class="contact_list">
     <ul class="contacts">
+      <div *ngIf="contactlist; else noContacts">
         <li *ngFor="let person of contactlist | search:'lastname,firstname,rating':query"
           [class.selected]="person === selectedPerson"
           (click)="onSelect(person)">
@@ -14,12 +15,15 @@
           <!--<a href="../contactprofile/:person.id">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</a>-->
           <a [routerLink]="['/contactprofile', person.contactID]">
             {{ person.firstname }} {{ person.lastname}} {{ person.rating }}</a>
-      </li>
+        </li>
+      </div>
+      <ng-template #noContacts><p style="color: lightgray; font-size: 140%;">You have no contacts...</p>
+        <p style="color: lightgray; font-size: 100%;">&nbsp;&nbsp;&nbsp;&nbsp;Click Add to add your first contact.</p></ng-template>
     </ul>
     <br>
   </div>
   <div class ="btncontainer">
   <button mat-stroked-button onclick="window.location.href = '../contactform/'">Add</button>
-  <button mat-stroked-button onclick="window.location.href = '../deletecontact/'">Delete</button>
+  <button mat-stroked-button [disabled]="!contactlist" onclick="window.location.href = '../deletecontact/'">Delete</button>
 </div>
 </div>

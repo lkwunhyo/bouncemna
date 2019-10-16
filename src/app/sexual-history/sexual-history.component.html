@@ -7,23 +7,23 @@
 
   <mat-expansion-panel *ngFor="let encounter of activitylist">
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        <b>{{ encounter.encounterID }}</b>
+        <mat-panel-title>
+            <!--<b>{{ encounter.encounterID }}</b>-->
       </mat-panel-title>
       <mat-panel-description>
         {{ convertDate(encounter.dateEncounter) }}
       </mat-panel-description>
     </mat-expansion-panel-header>
-    
+
     <h3>{{ encounter.encounterID }}&nbsp;&nbsp;&nbsp;&nbsp;{{ encounter.userID }}</h3>
     <h4>Participants: </h4>
     <div><!--*ngFor="let partner of partnerlist" //filter through encounter? -->
-      <ul>
-        <li>Partner 1</li>
-        <li>Partner 2</li>
-        <li>Partner...</li>
-      </ul>
-    </div>
+            <ul>
+                <li>Partner 1</li>
+                <li>Partner 2</li>
+                <li>Partner...</li>
+            </ul>
+</div>
 
     <h4>Activities Performed: </h4>
     <div><!--*ngFor="let activity of activitylist" //filter through encounter? -->

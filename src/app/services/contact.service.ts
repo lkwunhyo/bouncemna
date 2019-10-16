@@ -33,9 +33,11 @@ export class ContactService {
       }
       return 0;
     }
-    values.sort(orderByName)
-    return values;
+    if (values) {
+      values.sort(orderByName)
     }
+    return values;
+  }
 
     filterByDate(values: any[], dateDiagnosed: any, tracingPeriod: any) {
         var recent_contacts = [];
@@ -49,7 +51,9 @@ export class ContactService {
             }
             return 0;
         }
-        values.sort(orderByDate)
+        //if(values) {
+          values.sort(orderByDate)
+        //}
         if (dateDiagnosed != 0 && tracingPeriod != 0) {
             console.log("month difference");
             for (let person of values) {
