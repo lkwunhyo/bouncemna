@@ -121,11 +121,20 @@ var connection = mysql.createConnection({
     multipleStatements: true //!!!!! REQUIRED
 });
 */
-
+/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'admin',
+    database: 'bouncemna',
+    dateStrings: 'date',
+    multipleStatements: true //!!!!! REQUIRED
+});*/
+
+var connection = mysql.createConnection({
+    host: 'eu-cdbr-west-02.cleardb.net',
+    user: 'b6319c551c1252',
+    password: 'f2c8a865',
     database: 'bouncemna',
     dateStrings: 'date',
     multipleStatements: true //!!!!! REQUIRED
