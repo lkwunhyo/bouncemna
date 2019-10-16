@@ -714,6 +714,8 @@ var AlertPartnersComponent = /** @class */ (function () {
         console.log("alert details: " + this.alert.message);
         this.alert.message = this.alertPartnersForm1.value.message;
         this._alertService.alertpartners(this.alert).subscribe(function (alert) { return console.log('Success!', alert); }, function (error) { return console.error('Error!', error); }, function () { return console.log("onsubmit"); });
+        var url = window.location.origin + "/diagnosishistory";
+        location.replace(url);
     }; //
     AlertPartnersComponent.prototype.onSelect = function (person) {
         this.selectedPerson = person;
@@ -3898,6 +3900,8 @@ var AddSexualComponent = /** @class */ (function () {
             var contact = _a[_i];
             this.storage.remove(contact.contactID);
         }
+        var url = window.location.origin + "/sexualhistory";
+        location.replace(url);
         //this.router.navigate(['/sexualhistory']);
     };
     AddSexualComponent.prototype.getFromSession = function () {
@@ -4181,4 +4185,4 @@ module.exports = __webpack_require__(/*! C:\Users\Daryl\Documents\GitHub\bouncem
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main.5908a9534832ad5b4bb7.js.map
+//# sourceMappingURL=main.4f9b9a77718b7641c0e6.js.map
