@@ -51,9 +51,9 @@ export class ContactService {
             }
             return 0;
         }
-        //if(values) {
+        if(values) {
           values.sort(orderByDate)
-        //}
+        }
         if (dateDiagnosed != 0 && tracingPeriod != 0) {
             console.log("month difference");
             for (let person of values) {

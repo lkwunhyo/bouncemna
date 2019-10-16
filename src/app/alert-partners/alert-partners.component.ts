@@ -243,12 +243,12 @@ checkPartTwo(){
 }
 
 resetForm(){
-  //if(document.getElementById('no_recent_contacts')) {
+  if(document.getElementById('no_recent_contacts')) {
     document.getElementById('no_recent_contacts').style.visibility = 'hidden';
-  //}
-  //if (document.getElementById('recent_contacts')) {
+  }
+  if (document.getElementById('recent_contacts')) {
     document.getElementById('recent_contacts').style.visibility = 'hidden';;
-  //}
+  }
   
 
     this.v = null;
