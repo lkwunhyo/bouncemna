@@ -3,7 +3,11 @@
 
 <body>
     <div class="defaultContainer">
-        <h2>Sexual Activity</h2><br>
+        <h2>Sexual Activity</h2>
+
+        <div class="btncontainer">
+            <button mat-stroked-button onclick="window.location.href = '../addactivity/'">Add Activity</button>
+        </div>
 
         <mat-expansion-panel *ngFor="let encounter of activitylist">
             <mat-expansion-panel-header>
@@ -11,6 +15,7 @@
                     <!-- <b>{{ encounter[0].encounterID }}</b>-->
                 </mat-panel-title>
                 <mat-panel-description>
+
                     {{ convertDate(encounter[0].dateEncounter) }}
                 </mat-panel-description>
             </mat-expansion-panel-header>
@@ -18,6 +23,7 @@
             <!--<h3>{{ encounter[0].encounterID }}&nbsp;&nbsp;&nbsp;&nbsp;{{ encounter[0].userID }}</h3>-->
             <h4>Participants: </h4>
             <div>
+
                 <!--*ngFor="let partner of partnerlist" //filter through encounter? -->
                 <ul>
                     <li>{{ encounter[0].name }}</li>
@@ -87,15 +93,9 @@
         Placeholder Contacts
       </li>
     </ul>-->
-        <!--
 
-        <br>
-
-        <div class = "btncontainer">
-        <button mat-stroked-button onclick="window.location.href = '../addactivity/'">Add</button>
-      </div>
-      </div>
-    -->
+        <!--    </div>
+      -->
     </div>
 
 </body>

@@ -92,7 +92,7 @@ import { QrscannerComponent } from './contact-form/qrscanner/qrscanner.component
     DeletePartnerComponent,
     AddEventsComponent,
     ContactProfileComponent,
-    RewardsComponent
+    RewardsComponent,
     QrscannerComponent
   ],
   imports: [
