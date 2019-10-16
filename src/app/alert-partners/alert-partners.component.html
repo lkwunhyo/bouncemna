@@ -38,24 +38,14 @@
     <mat-step [stepControl]="alertPartnersForm2" *ngIf="isSendMessage" [editable]="isEditable" [completed]="false">
         <form [formGroup]="alertPartnersForm2">
             <ng-template matStepLabel>Choose your contacts</ng-template>
-            <!-->  <td>
-
-    <div *ngFor="let person of persons | search:'lastname,firstname,rating':query" class="checkbox">
-        <label formControlName="contacts" >
-        <input type="checkbox" [(ngModel)]="alert.contacts">{{person.firstname}}<br>
-        </label>
-      </div>
-      </td><-->
-            <!-- <mat-checkbox name="contacts" formControlName="contacts" [(ngModel)]="alert.contacts" value="0">-->
             <div id="no_recent_contacts" style='visibility: hidden'> None of your contacts are within the tracing period. </div>
             <div id="recent_contacts" style='visibility: hidden'>These contacts are within the tracing period: </div> 
             <div class="contact_list">
                 <ul class="contacts">
                     <li *ngFor="let person of persons">
-                        <!--| search:'lastname,firstname,rating':query"-->
+
                         <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image" height="18"
                              width="18">&nbsp;&nbsp;
-                        <!--<mat-checkbox name="partner" > {{ person.firstname }} {{ person.lastname }}</mat-checkbox> <br>-->
                         <mat-checkbox [value]="add_persons" formControlName="contacts" [(ngModel)]="person.selected"
                                       (change)="OnCheckboxSelect(person, $event.checked)" name="persons">
                             {{ person.firstname }}
@@ -64,7 +54,6 @@
                     </li>
                 </ul>
             </div>
-            <!-- </mat-checkbox><br>-->
 
             <br><br>
             <mat-radio-group formControlName="anonymity" [(ngModel)]="alert.anonymity">

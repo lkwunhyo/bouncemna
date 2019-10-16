@@ -44,71 +44,6 @@ var session = require('express-session');
 const port = 8080;
 var sess;
 
-//---auth
-//const expressJwt = require('express-jwt');
-//const config = { secret: 'bouncemna' }
-
-//user service
-/*
-const jwt = require('jsonwebtoken');
-
-async function authenticate({ username, password }) {
-    const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
-        const token = jwt.sign({ sub: user.id }, config.secret);
-        const { password, ...userWithoutPassword } = user;
-        return {
-            ...userWithoutPassword,
-            token
-        };
-    }
-}
-
-function jwt() {
-    const { secret } = config;
-    return expressJwt({ secret }).unless({
-        path: [
-            // public routes that don't require authentication
-            '/users/authenticate'
-        ]
-    });
-}
-*/
-
-//------------------security----------------------------
-//const bcrypt = require('bcrypt');
-
-/* prolly not needed
-const crypto = require('crypto');
-const algorithm = 'aes-256-cbc';
-const key = crypto.randomBytes(32);
-const iv = crypto.randomBytes(16);
-*/
-
-/* prolly not needed
-function encrypt(text) {
-    let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
-    let encrypted = cipher.update(text);
-    encrypted = Buffer.concat([encrypted, cipher.final()]);
-    return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-}
-
-function decrypt(text) {
-    let iv = Buffer.from(text.iv, 'hex');
-    let encryptedText = Buffer.from(text.encryptedData, 'hex');
-    let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
-    let decrypted = decipher.update(encryptedText);
-    decrypted = Buffer.concat([decrypted, decipher.final()]);
-    return decrypted.toString();
-}*/
-
-
-
-
-
-//------------------- end of security -------------------------
-
-
 //register
 var db_name = 'heroku_d8b3eb522e9de9a' //Previous name was bouncemna
 //var db_name = 'bouncemna'
@@ -132,7 +67,7 @@ var connection = mysql.createConnection({
     multipleStatements: true //!!!!! REQUIRED
 });*/
 
-var connection = mysql.createConnection({
+var connection = mysql.createConnection({ //Check db_name!!!!
     host: 'eu-cdbr-west-02.cleardb.net',
     user: 'b6319c551c1252',
     password: 'f2c8a865',
@@ -355,21 +290,23 @@ app.post('/diagnosishistory', function (req, res) { // havent done commit-rollba
 
 
 app.post('/encountercontacts', function (req, res, next) {
+    /*
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    var attributes = "contact.firstName, contact.lastName, contact.phone, contact.email, encounterpartners.contactID, encounterpartners.encounterID,  dateEncounter, row_number() over(partition by contactID order by dateEncounter desc) as rn";
-    var from = db_name + ".encounterpartners, " + db_name +".encounter, " + db_name +".contact";
-    var where = "encounter.encounterID = encounterpartners.encounterID AND encounter.userID = ? AND encounterpartners.contactID = contact.contactID";
-    var query = "select * from (select " + attributes + " from " + from + " where " + where + ") t where t.rn = 1";
-
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');*/
+    var attributes = 'contact.firstName, contact.lastName, contact.phone, contact.email, encounterpartners.contactID, encounterpartners.encounterID,  dateEncounter';//, row_number() over(partition by contactID order by dateEncounter desc) as rn';
+    var from = db_name + '.encounterpartners, ' + db_name +'.encounter, ' + db_name +'.contact';
+    var where = 'encounter.encounterID = encounterpartners.encounterID AND encounter.userID = ? AND encounterpartners.contactID = contact.contactID';
+    //var query = 'select * from (select ' + attributes + ' from ' + from + ' where ' + where + ') t'; //where t.rn = 1';
+    var query = 'select * from (select ' + attributes + ' from ' + from + ' GROUP BY dateEncounter ORDER BY dateEncounter DESC) data ORDER BY dateEncounter ASC' ;
     //console.dir(query);
 
     if (isLoggedIn()) {
         var userid = sess.userid;
         connection.query(query, [userid], function (error, results, fields) {
             if (error) {
-                console.dir("query error");
+                console.dir("query error /encountercontacts");
+                console.dir(error);
                 res.json({
                     status: false,
                     message: 'there are some error with query'
@@ -394,7 +331,7 @@ app.post('/encountercontacts', function (req, res, next) {
                     console.dir(objs);
                     res.send(JSON.stringify(objs));
                 } else {
-                    res.end();
+                    res.send();
                 }
             }
         });
