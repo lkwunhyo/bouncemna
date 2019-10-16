@@ -22,6 +22,7 @@ import { DeleteContactComponent } from './contact/delete-contact/delete-contact.
 import { DeletePartnerComponent } from './sexual-history/add-sexual/delete-partner/delete-partner.component';
 import { AddEventsComponent } from './calender/add-events/add-events.component';
 import { ContactProfileComponent } from './contact/contact-profile/contact-profile.component';
+import { RewardsComponent }   from './rewards/rewards.component';
 
 
 
@@ -50,6 +51,8 @@ const routes: Routes = [
 { path: 'add-events', component: AddEventsComponent },
 { path: 'contactprofile', component: ContactProfileComponent },
 { path: 'contactprofile/:id', component: ContactProfileComponent },
+{ path: 'rewards', component: RewardsComponent },
+
 //{ path: 'diagnosishistory?alertid:alertid', component: DiagnosisHistoryComponent }
 //{ path: 'diagnosishistory/:alertid', component: DiagnosisHistoryComponent }
 ];
