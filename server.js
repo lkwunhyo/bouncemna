@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const expressSanitizer = require('express-sanitizer');
 const app = express();
+var Promise = require('promise');
 
 /*----------NODEMAILER--------*/
 var nodemailer = require('nodemailer');
@@ -1013,31 +1014,40 @@ app.post('/sexualhistory', function (req, res, next) {
 
         var query_master = query_ea + query_ep + query_epr;
         var result_master = [];
- 
+
+        //Function is called at the end of the multiple queries
+        function finish(query_result) {
+            try {
+                res.send(JSON.stringify(result_master));
+            } catch {
+                res.json({
+                    status: false,
+                    message: "query failed",
+                });
+            }
+        }
         //encounterID,actName,firstName,lastName,protectionName
+
+        /*
         Promise.map(connection.query(query_e, [userid], function (error, item) {
             return Promise.all([
                 connection.query(query_master, [item.encounterID, item.encounterID, item.encounterID]).then(function (local) {
-                    item.local = local[0].encounterID; //item.local is a new property
+                    //rowpacketdata -> local has 3 arrays
+                    console.dir( local[0][0]); //item.local is a new property
+                    console.dir( local[0][1]);
+                    console.dir( local[0][2]);
                 }),
-                conexion.query('SELECT username, nombre_eq FROM equipos WHERE id_equipo = ' + item.idvisitante).then(function (visitante) {
-                    item.visitante = visitante[0].username;
-                })
-            ]).then(function () {
-                // make the return value from `Promise.all()` be the item
-                // we were iterating
-                return item;
-            });
+            ])
         }).then(function (results) {
             // array of results here
             console.log(results);
         }).catch(function (err) {
             // error here
             console.log(err);
-        }));
+        }));*/
  
 
-        /*
+        
         connection.beginTransaction(function (err) {
             if (err) {
                 req.flash('error', err)
@@ -1045,11 +1055,9 @@ app.post('/sexualhistory', function (req, res, next) {
                 connection.rollback(function () {
                     throw err;
                 });
-            }
-
-            
-            
+            }          
             connection.query(query_e, [userid], function (err, result_e) { //connection.query(query_master, [userid,userid,userid], function (err, results) {
+                var counter = 0;
                 if (err) {
                     connection.rollback(function () {
                         throw err;
@@ -1061,24 +1069,66 @@ app.post('/sexualhistory', function (req, res, next) {
                         //Here it will be wait query execute. It will work like synchronous
                         connection.query(query_master, [data.encounterID, data.encounterID, data.encounterID], function (error, results) {
                             if (error) throw err;
-                            result_master.push(JSON.stringify(results)); //All 3 queries per encounter
+                            var single_encounter_result = []
+                            var single_encounter_names;
+                            var single_encounter_acts;
+                            var single_encounter_protection;
+                            //result_master.push(results); //All 3 queries per encounter
+                            var internal_counter = 0;
+                            //console.dir(results[0][0].encounterID); //rowpacketdata, query 1 result array, query 2 result array, query 3 result array.
                             
-                            console.dir(results[0][0].encounterID); //rowpacketdata, query 1 result array, query 2 result array, query 3 result array.
                             for (var i = 0; i < results[0].length; i++) { //query 1 (encounteract)
-                                console.dir(results[0][i].actName);
+                                //console.dir(results[0][i].actName);
+                                if (i == 0) {
+                                    single_encounter_acts = results[0][i].actName;
+                                } else {
+                                    single_encounter_acts += "," + results[0][i].actName;
+                                }
+                                internal_counter += 1;
                             }
+                            
                             for (var i = 0; i < results[1].length; i++) { //query 1 (encounterpartner)
-                                console.dir(results[1][i].firstName);
-                                console.dir(results[1][i].lastName);
+                                //console.dir(results[1][i].firstName);
+                                //console.dir(results[1][i].lastName);
+                                if (i == 0) {
+                                    single_encounter_names = results[1][i].firstName + " " + results[1][i].lastName;
+                                } else {
+                                    single_encounter_names += "," + results[1][i].firstName + " " + results[1][i].lastName;
+                                }
+                                internal_counter += 1;
                             }
-                            for (var i = 0; i < results[2].length; i++) { //query 1 (encounterpartner)
-                                console.dir(results[2][i].protectionName);
+                            for (var i = 0; i < results[2].length; i++) { //query 1 (encounterprotection)
+                                //console.dir(results[2][i].protectionName);
+                                if (i == 0) {
+                                    single_encounter_protection = results[2][i].protectionName;
+                                } else {
+                                    single_encounter_protection += "," + results[2][i].protectionName;
+                                }
+                                internal_counter += 1;
                             }
-                            //result_master.push(results[0].encounterID);
-                            callback();
+
+                            //Push single encounter
+                            if (internal_counter == results[0].length + results[1].length + results[2].length) {
+                                single_encounter_result.push({
+                                    encounterID: data.encounterID,
+                                    dateEncounter: data.dateEncounter,
+                                    actName: single_encounter_acts,
+                                    name: single_encounter_names,
+                                    protection: single_encounter_protection
+                                });
+                                //console.dir(single_encounter_result);
+                                result_master.push(single_encounter_result);
+                                counter += 1;
+                            }
+                           
+                            //End of query (async)
+                            if (counter == result_e.length) {
+                                finish(result_master);
+                            }
+                            callback(); //Ensures the async function is called (in parallel?) till it's done
                         });
 
-                    });*/
+                    });
 
                     //--------------------------------------------------------
                     /*
@@ -1102,7 +1152,7 @@ app.post('/sexualhistory', function (req, res, next) {
                                 //console.dir(results);
                             }
                         });
-                    }* //----------------------------------------------------
+                    }*/ //----------------------------------------------------
                     //console.dir(results); 
                 }
             });
