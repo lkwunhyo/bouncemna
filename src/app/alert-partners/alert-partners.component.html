@@ -18,11 +18,11 @@
             {{v}}
             <br>
             <h4>Date of diagnosis</h4><br>
-            <!--       <mat-form-field>
-                <input matInput [matDatepicker]="picker" (dateChange)="formatDate(); getTrace()" formControlName="date" placeholder="Choose a date" [(ngModel)]="date">
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" (dateChange)="formatDate(); getTrace()" formControlName="date" placeholder="Choose a date" [(ngModel)]="alert.date">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>-->
+            </mat-form-field>
             <h4>Send STI alert to partners?</h4>
             <mat-button-toggle-group>
                 <mat-button-toggle (click)="isSendMessage = true; sendMessage()">Yes</mat-button-toggle>
