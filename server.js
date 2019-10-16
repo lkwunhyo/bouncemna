@@ -94,12 +94,12 @@ connection.connect(function (error) {
 
 // Serve only the static files form the dist directory
 // Replace the '/dist/<to_your_project_name>' -------------- src is the app name
-app.use(express.static(__dirname + '/dist/bounce'));
+app.use(express.static(__dirname + '/wwwroot'));
 
 
 app.get('*', function (req, res) {
     // Replace the '/dist/<to_your_project_name>/index.html'
-    res.sendFile(path.join(__dirname + '/dist/bounce/index.html'));
+    res.sendFile(path.join(__dirname + '/wwwroot/index.html'));
 });
 
 
