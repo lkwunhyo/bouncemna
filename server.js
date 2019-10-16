@@ -929,7 +929,6 @@ app.post('/sexualhistory', function (req, res, next) {
 
 })*/
 
-var async = require('async');
 
 app.post('/sexualhistory', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
