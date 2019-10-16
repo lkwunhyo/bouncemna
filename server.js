@@ -9,6 +9,8 @@ const expressSanitizer = require('express-sanitizer');
 const app = express();
 var Promise = require('promise');
 
+var db_name = 'heroku_d8b3eb522e9de9a' //Previous name was bouncemna
+
 /*----------NODEMAILER--------*/
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
@@ -76,7 +78,7 @@ function jwt() {
 */
 
 //------------------security----------------------------
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 
 /* prolly not needed
 const crypto = require('crypto');
@@ -135,7 +137,7 @@ var connection = mysql.createConnection({
     host: 'eu-cdbr-west-02.cleardb.net',
     user: 'b6319c551c1252',
     password: 'f2c8a865',
-    database: 'bouncemna',
+    database: 'heroku_d8b3eb522e9de9a',
     dateStrings: 'date',
     multipleStatements: true //!!!!! REQUIRED
 });
@@ -197,7 +199,7 @@ app.post('/contact', function (req, res, next) {
     console.dir("calling contact");
     if (isLoggedIn()) {
         var userid = sess.userid;
-        connection.query('SELECT * FROM bouncemna.contact WHERE userid = ?', [userid], function (error, results, fields) {
+        connection.query('SELECT * FROM ' + db_name + '.contact WHERE userid = ?', [userid], function (error, results, fields) {
             if (error) {
                 console.dir("query error");
                 res.json({
@@ -242,7 +244,7 @@ app.post('/contact', function (req, res, next) {
     console.dir("calling diagnosis");
     if (isLoggedIn()) {
         var userid = sess.userid;
-        connection.query('SELECT * FROM bouncemna.alert WHERE userID = ?', [userid], function (error, results, fields) {
+        connection.query('SELECT * FROM ' + db_name + '.alert WHERE userID = ?', [userid], function (error, results, fields) {
             if (error) {
                 console.dir("query error");
                 res.json({
@@ -293,7 +295,7 @@ app.post('/diagnosishistory', function (req, res) { //validate then sanitize
                 });
             }
 
-            connection.query('SELECT * FROM bouncemna.alert WHERE userID = ?', [userid], function (err, result) {
+            connection.query('SELECT * FROM ' + db_name + '.alert WHERE userID = ?', [userid], function (err, result) {
                 if (err) {
                     connection.rollback(function () {
                         throw err;
@@ -303,7 +305,7 @@ app.post('/diagnosishistory', function (req, res) { //validate then sanitize
 
                     //alertid = result.insertId; //needed for all queries in this transaction                    
                     connection.query(
-                        'DELETE FROM bouncemna.alert WHERE alertID = ?', [alertId], function (err, result) {
+                        'DELETE FROM ' + db_name + '.alert WHERE alertID = ?', [alertId], function (err, result) {
                             if (err) {
                                 connection.rollback(function () {
                                     throw err;
@@ -359,7 +361,7 @@ app.post('/encountercontacts', function (req, res, next) {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     var attributes = "contact.firstName, contact.lastName, contact.phone, contact.email, encounterpartners.contactID, encounterpartners.encounterID,  dateEncounter, row_number() over(partition by contactID order by dateEncounter desc) as rn";
-    var from = "bouncemna.encounterpartners, bouncemna.encounter, bouncemna.contact";
+    var from = db_name + ".encounterpartners, " + db_name +".encounter, " + db_name +".contact";
     var where = "encounter.encounterID = encounterpartners.encounterID AND encounter.userID = ? AND encounterpartners.contactID = contact.contactID";
     var query = "select * from (select " + attributes + " from " + from + " where " + where + ") t where t.rn = 1";
 
@@ -410,7 +412,7 @@ app.post('/encountercontacts', function (req, res, next) {
 //To get diseases info
     / app.post('/diseases', function (req, res) {
     if (isLoggedIn()) {
-        connection.query('SELECT * FROM bouncemna.sti', function (error, results, fields) {
+        connection.query('SELECT * FROM ' + db_name + '.sti', function (error, results, fields) {
             if (error) {
                 console.dir("query error");
                 res.json({
@@ -487,7 +489,7 @@ app.post('/alertpartners', function (req, res) { //validate then sanitize
                 });
             }
 
-            connection.query('INSERT INTO bouncemna.alert SET ?', alert, function (err, result) {
+            connection.query('INSERT INTO ' + db_name + '.alert SET ?', alert, function (err, result) {
                 if (err) {
                     connection.rollback(function () {
                         throw err;
@@ -508,7 +510,7 @@ app.post('/alertpartners', function (req, res) { //validate then sanitize
                         console.dir("alertedPartners:");
                         //console.dir(alertedPartners);
                         connection.query(
-                            'INSERT INTO bouncemna.alertedpartners SET ?', alertedPartners, function (err, result) {
+                            'INSERT INTO ' + db_name + '.alertedpartners SET ?', alertedPartners, function (err, result) {
                                 if (err) {
                                     connection.rollback(function () {
                                         throw err;
@@ -577,7 +579,7 @@ app.post('/alertpartners', function (req, res) { //validate then sanitize
 
 app.post('/register', function (req, res) { //validate then sanitize
     //if (user) return res.status(400).send("User already registered.");
-    let hash = bcrypt.hashSync(req.sanitize(req.body.password), 10);
+    //let hash = bcrypt.hashSync(req.sanitize(req.body.password), 10);
 
     var registration = {
         userID: req.sanitize(req.body.username),
@@ -586,13 +588,13 @@ app.post('/register', function (req, res) { //validate then sanitize
         gender: req.sanitize(req.body.gender),
         email: req.sanitize(req.body.email),
         phone: req.sanitize(req.body.phone),
-        hash: hash
+        hash: req.sanitize(req.body.password)
     }
 
     console.dir("rego:");
     console.dir(registration);
 
-    connection.query('INSERT INTO bouncemna.account SET ?', registration, function (err, result) {
+    connection.query('INSERT INTO ' + db_name + '.account SET ?', registration, function (err, result) {
         if (err) {
             req.flash('error', err)
             console.log(err);
@@ -625,7 +627,7 @@ app.post('/contactform', function (req, res) { //validate then sanitize
     console.dir("session userid:");
     console.dir(sess.userid);
 
-    connection.query('INSERT INTO bouncemna.contact SET ?', contact, function (err, result) {
+    connection.query('INSERT INTO ' + db_name + '.contact SET ?', contact, function (err, result) {
         if (err) {
             req.flash('error', err)
             console.log(err);
@@ -644,7 +646,7 @@ app.post('/deletecontact', function (req, res) { // havent done commit-rollback
         console.dir("delete contact:");
         console.dir(delete_contacts[i]);
         
-        connection.query('DELETE FROM bouncemna.contact WHERE contactID = ?', delete_contacts[i].contactID, function (err, result) {
+        connection.query('DELETE FROM ' + db_name + '.contact WHERE contactID = ?', delete_contacts[i].contactID, function (err, result) {
             if (err) {
                 req.flash('error', err)
                 console.log(err);
@@ -687,7 +689,7 @@ app.post('/addactivity', function (req, res) { //validate then sanitize
             });
         }
 
-        connection.query('INSERT INTO bouncemna.encounter SET ?', encounter, function (err, result) {
+        connection.query('INSERT INTO ' + db_name + '.encounter SET ?', encounter, function (err, result) {
             if (err) {
                 connection.rollback(function () {
                     throw err;
@@ -708,7 +710,7 @@ app.post('/addactivity', function (req, res) { //validate then sanitize
                     console.dir("encounterpartners:");
                     console.dir(encounterpartners);
                     connection.query(
-                        'INSERT INTO bouncemna.encounterpartners SET ?', encounterpartners, function (err, result) {
+                        'INSERT INTO ' + db_name + '.encounterpartners SET ?', encounterpartners, function (err, result) {
                             if (err) {
                                 connection.rollback(function () {
                                     throw err;
@@ -729,7 +731,7 @@ app.post('/addactivity', function (req, res) { //validate then sanitize
                     console.dir("encounterprotection:");
                     console.dir(encounterprotection);
                     connection.query(
-                        'INSERT INTO bouncemna.encounterprotection SET ?', encounterprotection, function (err, result) {
+                        'INSERT INTO ' + db_name + '.encounterprotection SET ?', encounterprotection, function (err, result) {
                             if (err) {
                                 connection.rollback(function () {
                                     throw err;
@@ -750,7 +752,7 @@ app.post('/addactivity', function (req, res) { //validate then sanitize
                     console.dir("encounteract:");
                     console.dir(encounteract);
                     connection.query(
-                        'INSERT INTO bouncemna.encounteracts SET ?', encounteract, function (err, result) {
+                        'INSERT INTO ' + db_name + '.encounteracts SET ?', encounteract, function (err, result) {
                             if (err) {
                                 connection.rollback(function () {
                                     throw err;
@@ -789,7 +791,7 @@ app.post('/login', function (req, res) { //validate then sanitize
     var password = req.sanitize(req.body.password);
     //console.dir("userid: " + userid + "password: " + password);
 
-    connection.query('SELECT * FROM bouncemna.account WHERE userid = ?', [userid], function (error, results, fields) {
+    connection.query('SELECT * FROM ' + db_name + '.account WHERE userid = ?', [userid], function (error, results, fields) {
         if (error) {
             res.json({
                 status: false,
@@ -801,7 +803,7 @@ app.post('/login', function (req, res) { //validate then sanitize
             
             if (results.length > 0) {
 
-                if (bcrypt.compareSync(password, results[0].hash)) {
+                if (password == results[0].hash) {
                     sess = req.session;
                     sess.loggedin = true;
                     sess.userid = userid; 
@@ -840,7 +842,7 @@ app.post('/addpartner', function (req, res) {
     console.dir("calling contact");
     if (isLoggedIn()) {
         var userid = sess.userid;
-        connection.query('SELECT * FROM bouncemna.contact WHERE userid = ?', [userid], function (error, results, fields) {
+        connection.query('SELECT * FROM ' + db_name + '.contact WHERE userid = ?', [userid], function (error, results, fields) {
             if (error) {
                 console.dir("query error");
                 res.json({
@@ -878,7 +880,7 @@ app.post('/profile', function (req, res, next) {
     console.dir("calling profile");
     if (isLoggedIn()) {
         var userid = sess.userid;
-        connection.query('SELECT * FROM bouncemna.account WHERE userid = ?', [userid], function (error, results, fields) {
+        connection.query('SELECT * FROM ' + db_name + '.account WHERE userid = ?', [userid], function (error, results, fields) {
             if (error) {
                 console.dir("query error");
                 res.json({
@@ -931,7 +933,7 @@ app.post('/editprofile', function (req, res) {
         }
            // ('INSERT INTO bouncemna.account SET ?', registration, function (err, result)
 
-        var sql = "UPDATE bouncemna.account SET ? WHERE userID = '" + sess.userid + "'";
+        var sql = "UPDATE " + db_name + ".account SET ? WHERE userID = '" + sess.userid + "'";
         connection.query(sql, editProfile , function (err, result) {
             if (err) {
                 throw err;
@@ -1009,17 +1011,17 @@ app.post('/sexualhistory', function (req, res, next) {
         var order_by_date = " ORDER BY dateEncounter DESC"; //only for 1st query
 
         //Query for encounterID related to user (didnt incl comments)
-        var query_e = "SELECT encounterID, dateEncounter, notes FROM bouncemna.encounter WHERE encounter.userID = ? " + order_by_date; //GET encounterID
+        var query_e = "SELECT encounterID, dateEncounter, notes FROM " + db_name + ".encounter WHERE encounter.userID = ? " + order_by_date; //GET encounterID
 
         //Query encounter acts
         var select_ea = "SELECT e.encounterID, sa.actName ";
-        var from_ea = "FROM bouncemna.encounter e LEFT JOIN bouncemna.encounteracts ea ON e.encounterID = ea.encounterID LEFT JOIN bouncemna.sexualacts sa ON ea.actID = sa.actID ";
+        var from_ea = "FROM " + db_name + ".encounter e LEFT JOIN " + db_name + ".encounteracts ea ON e.encounterID = ea.encounterID LEFT JOIN " + db_name + ".sexualacts sa ON ea.actID = sa.actID ";
         var where_ea = "WHERE e.encounterID = ?;" // + encounterID
         var query_ea = select_ea + from_ea + where_ea;
 
         //Query encounter partners
         var select_ep = "SELECT e.encounterID, c.firstName, c.lastName ";
-        var from_ep = "FROM bouncemna.encounterpartners ep, bouncemna.encounter e, bouncemna.contact c ";
+        var from_ep = "FROM " + db_name + ".encounterpartners ep, " + db_name + ".encounter e, " + db_name + ".contact c ";
         var where_ep = "WHERE e.encounterID = ep.encounterID AND c.contactID = ep.contactID AND e.encounterID = ?;";
         var query_ep = select_ep + from_ep + where_ep;
         // + encounterID
@@ -1027,7 +1029,7 @@ app.post('/sexualhistory', function (req, res, next) {
 
         //Query encounter protection
         var select_epr = "SELECT e.encounterID, p.protectionName ";
-        var from_epr = "FROM bouncemna.encounter e, bouncemna.encounterprotection epr, bouncemna.protection p ";
+        var from_epr = "FROM " + db_name + ".encounter e, " + db_name + ".encounterprotection epr, " + db_name + ".protection p ";
         var where_epr = "WHERE e.encounterID = epr.encounterID AND epr.protectionID = p.protectionID AND e.encounterID = ?";
         var query_epr = select_epr + from_epr + where_epr;
         // + encounterID
