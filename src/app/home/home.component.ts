@@ -13,8 +13,11 @@ import { AppHttpService } from '../services/apphttp.service'
 })
 export class HomeComponent implements OnInit {
   counter = 0;
-    v = HEALTHINFO[0].info
-    constructor(private http: AppHttpService) { }
+  v = HEALTHINFO[0].info
+
+  userId: string;
+
+  constructor(private http: AppHttpService) { }
 
   ngOnInit() {
     setInterval(() => {
@@ -23,9 +26,15 @@ export class HomeComponent implements OnInit {
       if (this.counter >= HEALTHINFO.length){
         this.counter = 0;
       }
-  }, 5000); //slightly less than 5 seconds
-    
-    }
+    }, 5000); //slightly less than 5 seconds
+    //this.userId = sess.userid;
+    /*
+          .subscribe((res: any[]) => {
+              console.log(res);
+              this.contactlist = this._contactService.filterBy(res);
+          });*/
+    //userId = sess.userid;    
+  }
 
 
 }

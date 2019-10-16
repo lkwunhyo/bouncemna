@@ -16,6 +16,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material';
 import { MatPaginatorModule } from '@angular/material';
+import { MatGridListModule } from '@angular/material';
 
 // ---------------------------------All page component----------------------------------------------------------
 import { AppComponent } from './app.component';
@@ -127,7 +128,8 @@ import { QrscannerComponent } from './contact-form/qrscanner/qrscanner.component
     MatExpansionModule,
     MatPaginatorModule,
     QRCodeModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    MatGridListModule
   ],
     providers: [AppHttpService, AuthenticationService, AuthGuardService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{ provide: APP_BASE_HREF, useValue: '/'}, ContactService,MatDatepickerModule],
   bootstrap: [AppComponent],
