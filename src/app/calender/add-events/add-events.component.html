@@ -20,7 +20,7 @@
   <div class="date-container">
     <h3>Date:</h3>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date" [(ngModel)]="date">
+      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date" >
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -30,9 +30,11 @@
     <div class="clock">
       <h3>Choose a time:</h3>
       <p>Start</p>
-      <mat-form-field >
-          <input class="col-md-5 end" matInput id="timestart" name="start" type="time" formControlName="timestart">
-      </mat-form-field>
+      <!-- <mat-form-field >
+        
+        <input class="col-md-5 end" matInput id="timestart" name="start" type="time" formControlName="timestart">
+      </mat-form-field> -->
+      Hour:<input type="number" id="timestart" name="start" formControlName="timestart" min="0" max="23">
       <mat-hint align ="end">HH:MM:AM</mat-hint>
       <br>
       <p>End</p>

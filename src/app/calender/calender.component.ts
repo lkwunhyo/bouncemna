@@ -7,7 +7,9 @@ import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,Calenda
 import { events } from '../models/events';
 import { PERSONS } from '../models/person_mock';
 import { AddEventsService } from '../services/add-events.service';
+import { GetEventsService } from '../services/getEvents.service';
 import { setHours, setMinutes } from 'date-fns';
+import { dateToLocalArray } from '@fullcalendar/core/datelib/marker';
 
 const colors: any = {
   red: {
@@ -37,30 +39,67 @@ const colors: any = {
 export class CalenderComponent implements OnInit {
 
   public eventList = <any>[];
-  constructor(private modal: NgbModal , private _addeventsService: AddEventsService) {}
-  events = [];
+  constructor(private modal: NgbModal , private _addeventsService: GetEventsService) {}
+  //events = [];
   selectedEvents: events;
   eventsname: string;
   view: CalendarView = CalendarView.Day;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
   activeDayIsOpen: boolean = true;
+  eventsl: CalendarEvent<any>[];
   
   
   ngOnInit() {
     this._addeventsService.getEventsList()
           .subscribe((res: any[]) => {
-              console.log(res);
-              this.eventList = this._addeventsService.getEvents();
+              //console.log("res: " + res.length);
+              //this.eventList = this._addeventsService.getEvents();
+              this.eventList = res;
+              console.log("resE" + this.eventList);
+              this.eventsname = this.eventList[0].title;
+              
+              console.log(this.eventsname);
+              //console.log("Date:" + this.eventList[0].date);
+              //console.log("Time: " + this.eventList[7].timestart);
+
+
+              this.eventsl = [
+               
+                {
+                  title: this.eventsname,
+                  start: setHours(setMinutes(new Date(), 0), this.eventList[0].timestart),
+                  color: colors.blue
+                },
+                {
+                  title: '1No event end date',
+                  start: setHours(setMinutes(new Date(), 0), 5),
+                  color: colors.yellow
+                }
+
+
+              ];
+
+             
+
           });
-  }
+  
+  
+        }
+
+
+
+  /*gettitle(){
+    this.eventsname = this.eventList.title;
+    return this.eventsname;
+  }*/
 
  
   // ------------------------TO SET EVENTS OR EVENTS ARRAY LIST-------------------------
-  
-  eventsl: CalendarEvent[] = [
+/*
+  eventsl: CalendarEvent<any>[] = [
     {
-      title: 'No event end date',
+      title: this.eventsname,
       start: setHours(setMinutes(new Date(), 0), 3),
       color: colors.blue
     },
@@ -73,7 +112,7 @@ export class CalenderComponent implements OnInit {
   
   onSelect(events: events): void {
     this.selectedEvents = events;
-  }
+  }*/
 
 // ----------------------------To check active day for viewing---------------------------
 
