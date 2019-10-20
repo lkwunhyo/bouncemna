@@ -44,9 +44,9 @@ const port = 8080;
 var sess;
 
 //register
-//var db_name = 'heroku_d8b3eb522e9de9a' //Previous name was bouncemna
-var db_name = 'bouncemna'
-
+var db_name = 'heroku_d8b3eb522e9de9a' //Previous name was bouncemna
+//var db_name = 'bouncemna'
+/*
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'tryl',
@@ -54,17 +54,19 @@ var connection = mysql.createConnection({
     database: 'bouncemna',
     dateStrings: 'date',
     multipleStatements: true //!!!!! REQUIRED
-});
-
-/*
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'admin',
-    database: 'bouncemna',
-    dateStrings: 'date',
-    multipleStatements: true //!!!!! REQUIRED
 });*/
+
+let connection = mysql.createPool(
+    {
+        host: 'eu-cdbr-west-02.cleardb.net',
+        user: 'b6319c551c1252',
+        password: 'f2c8a865',
+        database: 'heroku_d8b3eb522e9de9a',
+        dateStrings: 'date',
+        multipleStatements: true //!!!!! REQUIRED
+    }
+);
+
 /*
 var connection = mysql.createConnection({ //Check db_name!!!!
     host: 'eu-cdbr-west-02.cleardb.net',
@@ -74,14 +76,14 @@ var connection = mysql.createConnection({ //Check db_name!!!!
     dateStrings: 'date',
     multipleStatements: true //!!!!! REQUIRED
 });*/
-
+/*
 connection.connect(function (error) {
     if (!!error) {
         console.log(error);
     } else {
         console.log('Connected!:)');
     }
-});
+});*/
 
 
 // Serve only the static files form the dist directory
