@@ -7,6 +7,8 @@
 
 <form [formGroup] = "calForm">
 
+  Value: {{calForm.value | json }}
+
   <div class="title-container">
     <mat-form-field>
       <input matInput id="title" placeholder="Enter title" formControlName="title">
@@ -18,7 +20,7 @@
   <div class="date-container">
     <h3>Date:</h3>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date" >
+      <input matInput id="date" [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -27,19 +29,17 @@
 
     <div class="clock">
       <h3>Choose a time:</h3>
-      <mat-hint align ="end">24 Hour Format</mat-hint>
-      <br>
-    <mat-form-field >
-      <input type="number" matInput id="timestart" name="start" formControlName="timestart" min="-1" max="23" placeholder="Hour:">
-      </mat-form-field> 
-      <mat-hint align ="end">Eg:14</mat-hint>
-      <br>
-      
+      <p>Start</p>
       <mat-form-field >
-          <input type="number" matInput id="timeend" name="end" formControlName="timeend" min="-1" max="59" placeholder="Minute:">
-
+          <input class="col-md-5 end" matInput id="timestart" name="start" type="time" formControlName="timestart">
       </mat-form-field>
-      <mat-hint align ="end">Eg:30</mat-hint>
+      <mat-hint align ="end">HH:MM:AM</mat-hint>
+      <br>
+      <p>End</p>
+      <mat-form-field >
+          <input class="col-md-5 end" matInput id="timeend" name="end" type="time" formControlName="timeend">
+      </mat-form-field>
+      <mat-hint align ="end">HH:MM:PM</mat-hint>
     </div>
   </div>
 
@@ -86,7 +86,7 @@
   </div>
 
   <div class="buttons">
-    <button mat-flat-button color="primary" (click) = "onSubmit()" >Save</button>
+    <button mat-flat-button color="primary">Save</button>
   </div>
 
 </form>

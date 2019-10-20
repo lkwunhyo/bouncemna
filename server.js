@@ -44,7 +44,7 @@ const port = 8080;
 var sess;
 
 //register
-var db_name = 'bouncemna' //Previous name was bouncemna
+var db_name = 'heroku_d8b3eb522e9de9a' //Previous name was bouncemna
 //var db_name = 'bouncemna'
 /*
 var connection = mysql.createConnection({
@@ -66,19 +66,13 @@ var connection = mysql.createConnection({
     multipleStatements: true //!!!!! REQUIRED
 });*/
 
-/*var connection = mysql.createConnection({ //Check db_name!!!!
+var connection = mysql.createConnection({ //Check db_name!!!!
     host: 'eu-cdbr-west-02.cleardb.net',
     user: 'b6319c551c1252',
     password: 'f2c8a865',
     database: 'heroku_d8b3eb522e9de9a',
     dateStrings: 'date',
     multipleStatements: true //!!!!! REQUIRED
-});*/
-
-var connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "12345678"
 });
 
 connection.connect(function (error) {
@@ -887,7 +881,6 @@ app.post('/editprofile', function (req, res) {
     }
 })
 
-  
 
 // Sexual Hisory Page
 /*
@@ -1129,129 +1122,5 @@ app.post('/sexualhistory', function (req, res, next) {
             }
         });*/
     }
-
-})
-
-app.post('/getEvents', function (req, res) { //validate then sanitize
-    //if (user) return res.status(400).send("User already registered.");
-    //console.dir("addevents: " + req.body.eventid);
-    /*
-    console.log("req.body");
-    console.log(req.body);
-    var addevents = {
-        userid: sess.userid,
-        title: req.sanitize(req.body.title),
-        date: req.sanitize(req.body.date),
-        timestart: req.sanitize(req.body.timestart),
-        timeend: req.sanitize(req.body.timeend),
-        alert: req.sanitize(req.body.alert),
-        repeat: req.sanitize(req.body.repeat),
-        note: req.sanitize(req.body.note),
-        //userID: sess.userid,
-
-    }
-
-    console.dir("addevents:");
-    console.dir(addevents);
-
-    connection.query('INSERT INTO bouncemna.addevents SET ?', addevents, function (err, result) {
-        if (err) {
-            req.flash('error', err)
-            console.log(err);
-            // render to views/user/add.ejs
-            //res.render('alert-partners', {
-            //  title: 'Add New Customer',
-            //name: user.name,
-            //email: user.email
-            //})
-        } else {
-            console.log("db post register success");
-            res.status(200).send({ "message": "data received" });
-        }
-    })
-
-*/
-//Add alert partner
-    console.dir("calling events");
-    if (isLoggedIn()) {
-        var userid = sess.userid;
-        connection.query('SELECT * FROM bouncemna.addevents WHERE userid = ?', [userid], function (error, results, fields) {
-            if (error) {
-                console.dir("query error");
-                res.json({
-                    status: false,
-                    message: 'there are some error with query'
-                })
-            }
-
-            else {
-                var objs = [];
-                for (var i = 0; i < results.length; i++) {
-                    //console.dir("/events" + results[i].firstName);
-                    objs.push({
-                        title: results[i].title,
-                        date: results[i].date,
-                        timestart: results[i].timestart,
-                        timeend: results[i].timeend,
-                        alert: results[i].alert,
-                        repeat: results[i].repeat,
-                        note: results[i].note,
-                    });
-                }
-                if (results.length > 0) {
-                    res.send(JSON.stringify(objs));
-                } else {
-                    res.end();
-                }
-            }
-        });
-    } else {
-        res.redirect('/login')
-    }
-
-
-
-
-
-})
-
-app.post('/addevents', function (req, res) { //validate then sanitize
-    //if (user) return res.status(400).send("User already registered.");
-    //console.dir("addevents: " + req.body.eventid);
-    
-    console.log("req.body");
-    console.log(req.body);
-    var addevents = {
-        userid: sess.userid,
-        title: req.sanitize(req.body.title),
-        date: req.sanitize(req.body.date),
-        timestart: req.sanitize(req.body.timestart),
-        timeend: req.sanitize(req.body.timeend),
-        alert: req.sanitize(req.body.alert),
-        repeat: req.sanitize(req.body.repeat),
-        note: req.sanitize(req.body.note),
-        //userID: sess.userid,
-
-    }
-
-    console.dir("addevents:");
-    console.dir(addevents);
-
-    connection.query('INSERT INTO bouncemna.addevents SET ?', addevents, function (err, result) {
-        if (err) {
-            req.flash('error', err)
-            console.log(err);
-            // render to views/user/add.ejs
-            //res.render('alert-partners', {
-            //  title: 'Add New Customer',
-            //name: user.name,
-            //email: user.email
-            //})
-        } else {
-            console.log("db post register success");
-            res.status(200).send({ "message": "data received" });
-        }
-    })
-
 
 })

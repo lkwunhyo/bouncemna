@@ -159,22 +159,6 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
--- -----------------------------------------------------
--- Table `bouncemna`.`addevents`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS  `addevents` (
-  `eventID` int(11) NOT NULL AUTO_INCREMENT,
-  `userID` varchar(45) DEFAULT NULL,
-  `title` varchar(45) DEFAULT NULL,
-  `date` varchar(45) DEFAULT NULL,
-  `timestart` int(5) DEFAULT NULL,
-  `timeend` int(5) DEFAULT NULL,
-  `alert` varchar(45) DEFAULT NULL,
-  `repeat` varchar(45) DEFAULT NULL,
-  `note` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`eventID`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 
 -- -----------------------------------------------------
 -- Table `bouncemna`.`sti`
