@@ -110,6 +110,7 @@ app.use(bodyParser.json());
 app.use(expressSanitizer());
 app.use(flash());
 app.use(session({
+
 	secret: 'secret',
 	resave: true,
     saveUninitialized: true,
@@ -127,9 +128,9 @@ app.post('/contact', function (req, res, next) {
     //next();
 
     console.dir("calling contact");
-    if (isLoggedIn()) {
+    if (req.session.loggedIn) {
         var userid = sess.userid;
-        connection.query('SELECT * FROM ' + db_name + '.contact WHERE userid = ?', [userid], function (error, results, fields) {
+        connection.query('SELECT * FROM ' + db_name + '.contact WHERE userid = ?', [req.session.userid], function (error, results, fields) {
             if (error) {
                 console.dir("query error");
                 res.json({
@@ -737,8 +738,10 @@ app.post('/login', function (req, res) { //validate then sanitize
 
                 if (password == results[0].hash) {
                     sess = req.session;
-                    sess.loggedin = true;
-                    sess.userid = userid; 
+                    //sess.loggedin = true;
+                    //sess.userid = userid; 
+                    req.session.userid = userid;
+                    req.session.loggedIn = true;
                     req.session.save();
                     logIn();
                     console.dir("session.save userid:" + req.session.userid);                                       
