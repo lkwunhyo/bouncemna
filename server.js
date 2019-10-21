@@ -161,7 +161,7 @@ app.post('/contact', function (req, res, next) {
     console.dir("calling diagnosis");
     if (req.session.loggedIn) {
         connection_pool.getConnection(function (err, connection) {
-            connection.query('SELECT * FROM ' + db_name + '.alert WHERE userID = ?', [req.session.userid], function (error, results, fields) {
+            connection.query('SELECT * FROM ' + db_name + '.alert WHERE userID = ?', [req.cookies['userid']], function (error, results, fields) {
                 if (error) {
                     console.dir("query error");
                     res.json({
@@ -212,7 +212,7 @@ app.post('/diagnosishistory', function (req, res) { //validate then sanitize
                     });
                 }
 
-                connection.query('SELECT * FROM ' + db_name + '.alert WHERE userID = ?', [req.session.userid], function (err, result) {
+                connection.query('SELECT * FROM ' + db_name + '.alert WHERE userID = ?', [req.cookies[userid]], function (err, result) {
                     if (err) {
                         connection.rollback(function () {
                             throw err;
@@ -294,7 +294,7 @@ app.post('/encountercontacts', function (req, res, next) { //for alertpartner
 
     if (req.session.loggedIn) {
         connection_pool.getConnection(function (err, connection) {
-            connection.query(query, [req.session.userid], function (error, results, fields) {
+            connection.query(query, [req.cookies[userid]], function (error, results, fields) {
                 if (error) {
                     console.dir("query error /encountercontacts");
                     console.dir(error);
@@ -395,7 +395,7 @@ app.post('/alertpartners', function (req, res) { //validate then sanitize
             anonymity: req.sanitize(req.body.anonymity),
             dateDiagnosed: req.sanitize(req.body.date),
             dateSent: req.sanitize(today),
-            userID: req.session.userid
+            userID: req.cookies[userid]
         }
 
 
@@ -453,7 +453,7 @@ app.post('/alertpartners', function (req, res) { //validate then sanitize
                             var text = 'One of your partners may have been exposed to ' + sti + ', please get tested immediately!'
 
                             if (alert.anonymity == "identified") {
-                                text = text + '<br>  \n Sent by ' + req.session.userid;
+                                text = text + ' Sent by ' + req.cookies[userid];
                             }
 
                             console.dir(text);
@@ -552,7 +552,7 @@ app.post('/contactform', function (req, res) { //validate then sanitize
             email: req.sanitize(req.body.email),
             notes: req.sanitize(req.body.comment),
             rating: req.sanitize(req.body.rating),
-            userid: req.session.userid
+            userid: req.cookies['userid']
         }
         connection_pool.getConnection(function (err, connection) {
             connection.query('INSERT INTO ' + db_name + '.contact SET ?', contact, function (err, result) {
@@ -788,7 +788,7 @@ app.post('/addpartner', function (req, res) {
     console.dir("calling contact");
     if (req.session.loggedIn) {
         connection_pool.getConnection(function (err, connection) {
-            connection.query('SELECT * FROM ' + db_name + '.contact WHERE userid = ?', [req.session.userid], function (error, results, fields) {
+            connection.query('SELECT * FROM ' + db_name + '.contact WHERE userid = ?', [req.cookies['userid']], function (error, results, fields) {
                 if (error) {
                     console.dir("query error");
                     res.json({
@@ -828,7 +828,7 @@ app.post('/profile', function (req, res, next) {
     console.dir("calling profile");
     if (req.session.loggedIn) {
         connection_pool.getConnection(function (err, connection) {
-            connection.query('SELECT * FROM ' + db_name + '.account WHERE userid = ?', [req.session.userid], function (error, results, fields) {
+            connection.query('SELECT * FROM ' + db_name + '.account WHERE userid = ?', [req.cookies['userid']], function (error, results, fields) {
                 if (error) {
                     console.dir("query error");
                     res.json({
@@ -1028,7 +1028,7 @@ app.post('/sexualhistory', function (req, res, next) {
                         throw err;
                     });
                 }
-                connection.query(query_e, [req.session.userid], function (err, result_e) { //connection.query(query_master, [userid,userid,userid], function (err, results) {
+                connection.query(query_e, [req.cookies['userid']], function (err, result_e) { //connection.query(query_master, [userid,userid,userid], function (err, results) {
                     var counter = 0;
                     if (err) {
                         connection.rollback(function () {
