@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const expressSanitizer = require('express-sanitizer');
 const app = express();
+const cookieParser = require('cookie-parser');
+
+app.use(cookieParser());
 
 /*----------NODEMAILER--------*/
 var nodemailer = require('nodemailer');
@@ -97,7 +100,7 @@ app.use(session({
 	resave: true,
     saveUninitialized: true,
     cookie: {
-        maxAge: 60000,
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
         secure: false,
     }
 }))
@@ -110,9 +113,9 @@ app.post('/contact', function (req, res, next) {
     //next();
 
     console.dir("calling contact");
-    if (req.session.loggedIn) {
+    if (req.cookies['loggedIn']) {
         connection_pool.getConnection(function (err, connection) {
-            connection.query('SELECT * FROM ' + db_name + '.contact WHERE userid = ?', [req.session.userid], function (error, results, fields) {
+            connection.query('SELECT * FROM ' + db_name + '.contact WHERE userid = ?', [req.cookies['userid']], function (error, results, fields) {
                 if (error) {
                     console.dir("query error");
                     res.json({
@@ -746,8 +749,11 @@ app.post('/login', function (req, res) { //validate then sanitize
                         //sess.userid = userid; 
                         req.session.userid = userid;
                         req.session.loggedIn = true;
-                        req.session.save();
+                        res.cookie('userid', userid); //working
+                        res.cookie('loggedIn', true);
+                        req.cookies['userid'];
                         console.dir("session.save userid:" + req.session.userid);
+
                         res.json({
                             status: true,
                             message: 'successfully authenticated'
@@ -1140,3 +1146,14 @@ app.post('/sexualhistory', function (req, res, next) {
     }
 
 })
+/*
+app.get('/logout', function (req, res) {
+    cookie = req.cookies;
+    for (var prop in cookie) {
+        if (!cookie.hasOwnProperty(prop)) {
+            continue;
+        }
+        res.cookie(prop, '', { expires: new Date(0) });
+    }
+    res.redirect('/login');
+});*/

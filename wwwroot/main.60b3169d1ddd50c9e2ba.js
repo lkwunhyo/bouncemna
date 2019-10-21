@@ -722,6 +722,7 @@ var AlertPartnersComponent = /** @class */ (function () {
     };
     AlertPartnersComponent.prototype.getTrace = function () {
         var _this = this;
+        console.log("getTrace");
         try {
             if (this.alert.date != null) { //is this needed? already got "try"
                 try {
@@ -2500,7 +2501,7 @@ var LoginComponent = /** @class */ (function () {
             _this.reg = registration;
         }, function (error) { return console.error('Error!', error); }, function () {
             if (_this.reg.status == true) {
-                alert("Login post successful");
+                alert(_this.reg.cookies.userid);
                 _this.router.navigateByUrl("/home");
             }
             else {
@@ -4185,4 +4186,4 @@ module.exports = __webpack_require__(/*! C:\Users\Daryl\Documents\GitHub\bouncem
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main.1c17431c8c8503578215.js.map
+//# sourceMappingURL=main.60b3169d1ddd50c9e2ba.js.map
