@@ -4,8 +4,66 @@
 
 <div class="defaultContainer">
 
-       <h2>Registration</h2>
+<h2>Registration</h2>
+<form (ngSubmit)="onRegisterSubmit()" #registerForm="ngForm" novalidate>
+       <div class="form-container">
+              Registration Details:<br>
+              <mat-form-field>
+                     <input matInput id="firstname" name="firstname" [(ngModel)]="user.firstname"
+                            placeholder="First name.." required/>
+                     <mat-icon matSuffix></mat-icon>
+              </mat-form-field>
 
+              <mat-form-field>
+                     <input matInput id="lastname" name="lastname" [(ngModel)]="user.lastname"
+                            placeholder="Last name.." required/>
+                     <mat-icon matSuffix></mat-icon>
+              </mat-form-field><br>
+
+              <mat-form-field>
+                     <input matInput id="phone" name="phone" [(ngModel)]="user.phone"
+                            placeholder="Phone number.." />
+                     <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field>
+                     <input matInput id="email" name="email" [(ngModel)]="user.email"
+                            placeholder="Email (Recommended).." />
+                     <mat-icon matSuffix>email</mat-icon>
+              </mat-form-field>
+              <br><br>
+
+              Gender*:<br>
+              <mat-radio-group aria-label="Select a Gender" [(ngModel)]="user.gender" name="gender">
+                     <mat-radio-button name="gender" value="m">
+                            Male</mat-radio-button><br>
+                     <mat-radio-button name="gender" value="f">
+                            Female</mat-radio-button><br>
+                     <mat-radio-button name="gender" value="o">
+                            Other</mat-radio-button><br>
+              </mat-radio-group><br><br>
+
+              User Details:<br>
+              <mat-form-field>
+                     <input matInput id="username" name="username" [(ngModel)]="user.username"
+                            placeholder="Username.." required/>
+                     <mat-icon matSuffix></mat-icon>
+              </mat-form-field>
+              <mat-form-field>
+                     <input matInput id="password" name="password" [(ngModel)]="user.password"
+                            placeholder="Password.." [type]="hide ? 'password':'text'" required/>
+                     <mat-icon matSuffix></mat-icon>
+              </mat-form-field><br><br><br>
+
+              <div class="btncontainer">
+                     <button mat-stroked-button type="submit" [disabled]="!registerForm.valid">Register</button>
+                     <button mat-stroked-button type="button" routerLink="/login">Login</button>
+              </div>
+       </div>
+</form>
+
+
+<!--
        <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && onRegisterSubmit()" novalidate>
               <div class="form-container">
                      First Name:<br>
@@ -46,7 +104,7 @@
                      <button button routerLink="/login">Login</button>
               </div>
        </form>
-
+-->
 </div>
 
 </html>
