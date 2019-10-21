@@ -38,7 +38,7 @@ var db_config = {
     database: 'heroku_d8b3eb522e9de9a',
     dateStrings: 'date',
     multipleStatements: true, //!!!!! REQUIRED
-    connectionLimit: 15,
+    connectionLimit: 5,
     queueLimit: 30,
     acquireTimeout: 1000000
 };
@@ -142,6 +142,7 @@ app.post('/contact', function (req, res, next) {
                     }
                 }
             });
+            console.dir("contact release con");
             connection.release();
         });
     } 
@@ -272,16 +273,20 @@ app.post('/diagnosishistory', function (req, res) { // havent done commit-rollba
 })*/
 
 
-app.post('/encountercontacts', function (req, res, next) {
-    /*
+app.post('/encountercontacts', function (req, res, next) { //for alertpartner
+    
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');*/
-    var attributes = 'contact.firstName, contact.lastName, contact.phone, contact.email, encounterpartners.contactID, encounterpartners.encounterID,  dateEncounter';//, row_number() over(partition by contactID order by dateEncounter desc) as rn';
-    var from = db_name + '.encounterpartners, ' + db_name +'.encounter, ' + db_name +'.contact';
-    var where = 'encounter.encounterID = encounterpartners.encounterID AND encounter.userID = ? AND encounterpartners.contactID = contact.contactID';
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    //var attributes = 'contact.firstName, contact.lastName, contact.phone, contact.email, encounterpartners.contactID, encounterpartners.encounterID,  dateEncounter';//, row_number() over(partition by contactID order by dateEncounter desc) as rn';
+   // var from = db_name + '.encounterpartners, ' + db_name +'.encounter, ' + db_name +'.contact';
+    //var where = 'encounter.encounterID = encounterpartners.encounterID AND encounter.userID = ? AND encounterpartners.contactID = contact.contactID';
     //var query = 'select * from (select ' + attributes + ' from ' + from + ' where ' + where + ') t'; //where t.rn = 1';
-    var query = 'select * from (select ' + attributes + ' from ' + from + ' GROUP BY contactID ORDER BY dateEncounter DESC) data ORDER BY dateEncounter ASC' ;
+    //var query = 'select * from (select ' + attributes + ' from ' + from + ' GROUP BY contactID ORDER BY dateEncounter DESC) data ORDER BY dateEncounter ASC' ;
+    var attributes = "encounterpartners.contactID, contact.firstName, contact.lastName, max(dateEncounter) md, encounter.encounterID, contact.email ";
+    var from = db_name + ".encounter, " + db_name + ".encounterpartners, " + db_name + ".contact ";
+    var where = "encounter.encounterID = encounterpartners.encounterID AND contact.contactID = encounterpartners.contactID ";
+    var query = "SELECT " + attributes + "FROM " + from + "WHERE " + where + "GROUP BY contactID ORDER BY md DESC";
     //console.dir(query);
 
     if (req.session.loggedIn) {
@@ -302,7 +307,7 @@ app.post('/encountercontacts', function (req, res, next) {
                         console.dir("/contact firstname" + results[i].firstName);
                         objs.push({
                             encounterID: results[i].encounterID,
-                            dateEncounter: results[i].dateEncounter,
+                            dateEncounter: results[i].md,
                             contactID: results[i].contactID,
                             firstname: results[i].firstName,
                             lastname: results[i].lastName,
@@ -318,6 +323,7 @@ app.post('/encountercontacts', function (req, res, next) {
                     }
                 }
             });
+            console.dir("encountercontact release con");
             connection.release();
         });
     }
@@ -489,6 +495,7 @@ app.post('/alertpartners', function (req, res) { //validate then sanitize
                 res.status(200).send({ "message": "data received" });                
             })
             connection.release();
+            console.dir("alert release con");
         })
     }
 })

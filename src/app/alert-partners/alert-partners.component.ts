@@ -136,6 +136,7 @@ export class AlertPartnersComponent implements OnInit {
   }
 
     getTrace() { //Verifies disease by name, gets tracing period and contacts within it.
+        console.log("getTrace");
         try {
             
             if (this.alert.date != null) {//is this needed? already got "try"
