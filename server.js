@@ -1141,6 +1141,69 @@ app.post('/sexualhistory', function (req, res, next) {
 
 })
 
+app.post('/deleteactivity', function (req, res) { //validate then sanitize
+
+    if (req.cookies['loggedIn']) {
+        var userid = req.cookies['userid'];
+        if (req.body[0]) {
+            var encounterId = req.body[0].encounterID;
+        } else {
+            var encounterId = undefined;
+        }
+        console.dir(encounterId);
+
+        connection_pool.getConnection(function (err, connection) {
+            connection.beginTransaction(function (err) {
+                if (err) {
+                    req.flash('error', err)
+                    console.dir(err);
+                    connection.rollback(function () {
+                        throw err;
+                    });
+                }
+
+                connection.query('SELECT * FROM ' + db_name + '.encounter WHERE userID = ?', [userid], function (err, result) {
+                    if (err) {
+                        connection.rollback(function () {
+                            throw err;
+                        });
+                    } else {
+                        //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
+
+                        //alertid = result.insertId; //needed for all queries in this transaction                    
+                        connection.query(
+                            'DELETE FROM ' + db_name + '.encounter WHERE encounterID = ?', [encounterId], function (err, result) {
+                                if (err) {
+                                    connection.rollback(function () {
+                                        throw err;
+                                    });
+                                }
+                            }
+                        )
+
+
+                    }
+                });
+
+                connection.commit(function (err) {
+                    if (err) {
+                        connection.rollback(function () {
+                            throw err;
+                        });
+                    }
+                })
+
+
+                console.log("db post register success");
+                res.status(200).send({ "message": "data received" });
+            })
+            connection.release();
+            
+        })
+        
+    }
+})
+
 
 app.get('/logout', function (req, res) {
     cookie = req.cookies;
