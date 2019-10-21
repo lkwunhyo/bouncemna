@@ -3,16 +3,85 @@
 
 <body>
     <div class="defaultContainer">
-        <h2>Sexual Activity</h2>
+        <!--<h2>Sexual Activity</h2>-->
+      <form [formGroup]="deleteActivityForm" (ngSubmit)="onSubmit()">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+          <!-- Diagnosis Column -->
+          <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumns">
+            <th mat-header-cell *matHeaderCellDef>
+              <h2 style="color: black;">
+                Sexual Activity
+                <button mat-stroked-button type="button" onclick="window.location.href = '../addactivity/'" style="float: right;">Add</button>
+                <!-- onclick="window.location.href = '../addactivity/'"  -->
+              </h2>
+            </th>
+            <td mat-cell *matCellDef="let item"> {{ convertDate(item[0].dateEncounter) }} <mat-icon style="float: right; color: lightgray">keyboard_arrow_down</mat-icon></td>
+          </ng-container>
+      
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let item" [attr.colspan]="displayedColumns.length">
+              <div class="example-element-detail"
+                   [@detailExpand]="item == expandedItem ? 'expanded' : 'collapsed'">
+                <div class="message-block">
+                  <div class="message">
+                    <!-- EXPANDED MESSAGE -->
+                    <h4>Participants: </h4>
+                    <div>
+                      <ul>
+                          <li>{{ item[0].name }}</li>
 
-        <div class="btncontainer">
-            <button mat-stroked-button onclick="window.location.href = '../addactivity/'">Add Activity</button>
-        </div>
+                      </ul>
+                    </div>
 
+                    <h4>Activities Performed: </h4>
+                    <div>
+                      <ul>
+                          <li>{{ item[0].actName }}</li>
+                      </ul>
+                    </div>
+
+                    <h4>Contraceptives Used: </h4>
+                    <div>
+                      <ul>
+                        <div *ngIf="item[0].protection; else noProtection"><li>{{ item[0].protection }}</li></div>
+                        <ng-template #noProtection><li style="color:lightgray">No protection was used...</li></ng-template>
+                        <!--<li>{{ item[0].protection }}</li>-->
+
+                      </ul>
+                    </div>
+
+                    <h4>Comments: </h4>
+                      <ul>
+                        <div *ngIf="item[0].notes; else noComments"><li>{{ item[0].notes }}</li></div>
+                        <ng-template #noComments><p style="color:lightgray">There are no comments...</p></ng-template>
+                      </ul>
+                      
+                    
+                  </div>
+                  <div style="width: 100%;">
+                      <button mat-icon-button class="delete-button"> <!--</button>(click)="navigateToParam(item.alertid)">-->
+                        <mat-icon>delete_outlined</mat-icon><br>
+                      </button><br>
+                  </div>
+                </div><br><br><br><br><br>
+              </div>
+            </td>
+          </ng-container>
+         
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let item; columns: displayedColumns;"
+              class="example-element-row"
+              [class.example-expanded-row]="expandedItem === item"
+              (click)="expandedItem = expandedItem === item ? null : item">
+          </tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </form>
+        <!--
         <mat-expansion-panel *ngFor="let encounter of activitylist">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <!-- <b>{{ encounter[0].encounterID }}</b>-->
                 </mat-panel-title>
                 <mat-panel-description>
 
@@ -20,11 +89,8 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <!--<h3>{{ encounter[0].encounterID }}&nbsp;&nbsp;&nbsp;&nbsp;{{ encounter[0].userID }}</h3>-->
             <h4>Participants: </h4>
             <div>
-
-                <!--*ngFor="let partner of partnerlist" //filter through encounter? -->
                 <ul>
                     <li>{{ encounter[0].name }}</li>
 
@@ -33,7 +99,6 @@
 
             <h4>Activities Performed: </h4>
             <div>
-                <!--*ngFor="let activity of activitylist" //filter through encounter? -->
                 <ul>
                     <li>{{ encounter[0].actName }}</li>
                 </ul>
@@ -41,7 +106,6 @@
 
             <h4>Contraceptives Used: </h4>
             <div>
-                <!--*ngFor="let contraceptive of contraceptivelist" //filter through encounter? -->
                 <ul>
                     <li>{{ encounter[0].protection }}</li>
 
@@ -50,7 +114,13 @@
 
             <h4>Comments: </h4>{{ encounter[0].notes }}<br><br>
 
-        </mat-expansion-panel>
+        </mat-expansion-panel>-->
+        <br><br>
+        <!--
+        <div class="btncontainer">
+          <button mat-stroked-button onclick="window.location.href = '../addactivity/'">Add Activity</button>
+        </div>
+      -->
 
         <!--
     <div class="activity_list">

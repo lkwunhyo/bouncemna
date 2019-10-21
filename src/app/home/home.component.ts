@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HEALTHINFO } from '../models/health-info_mock'
 import { HealthInfo } from '../models/health-info.model'
 import { AppHttpService } from '../services/apphttp.service'
+//import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 
 
@@ -18,6 +19,19 @@ export class HomeComponent implements OnInit {
   userId: string;
 
   constructor(private http: AppHttpService) { }
+ /*
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px',
+      data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
+*/
 
   ngOnInit() {
     setInterval(() => {

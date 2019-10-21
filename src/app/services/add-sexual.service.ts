@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 export class AddSexualService {
   private subject = new Subject<any>();
   private keepAfterNavigationChange = false;
+
   _url = '/addactivity';
 
   constructor(private router: Router, private _http: HttpClient) { 

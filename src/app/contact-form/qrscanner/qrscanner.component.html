@@ -2,12 +2,24 @@
 <html>
   <div class="defaultContainer">
     <h2>QR Code Scanner</h2><br>
+
     <div class="container">
-      <zxing-scanner class="zxingscanner" tart="true" 
-        (scanSuccess)="scanCode($event)"></zxing-scanner><br>
-      <mat-icon class="record-icon" aria-hidden="false" aria-label="camera icon" 
-        [ngStyle]="{'color':'red'}">fiber_manual_record</mat-icon>
-    </div><br>
+        <zxing-scanner
+          [enable]="scannerEnabled"
+          (scanSuccess)="scanCode($event)"
+          (permissionResponse)="onHasPermission($event)"
+          (camerasFound)="onCamerasFound($event)"
+        ></zxing-scanner><br>
+        
+        <mat-icon class="record-icon" aria-hidden="false" aria-label="camera icon" 
+          [ngStyle]="{'color':'red'}">fiber_manual_record</mat-icon>
+      </div><br>
+    
+    <div *ngIf="hasPermission === undefined; else permissionFalse"><p class="labels">Waiting for camera permissions.</p></div>
+      <ng-template #permissionFalse>
+        <ng-container *ngIf="hasPermission === false"><p class="labels">Camera permission denied.</p></ng-container>
+      </ng-template>
+
     <div *ngIf="errorMessage === null; else showError"></div>
     <ng-template #showError><p style="color: red;">{{ errorMessage }}</p></ng-template>
     <br>

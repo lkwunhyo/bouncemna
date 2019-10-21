@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { WebStorageService, SESSION_STORAGE } from 'angular-webstorage-service';
 import { Inject } from '@angular/core'; 
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AddSexualService } from '../../services/add-sexual.service';
 import { Router, NavigationStart } from '@angular/router';
 import { ContactService } from '../../services/contact.service';
+import * as moment from 'moment';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+
 
 @Component({
   selector: 'app-add-sexual',
@@ -25,9 +28,14 @@ export class AddSexualComponent implements OnInit {
   activities_performed = [];
   contraceptives_used = [];
   comment: string;
+  date = new Date();
+  selectedDate: string;
 
-    sexualpartners = [];
-    sexualpartnerID = [];
+  sexualpartners = [];
+  sexualpartnerID = [];
+
+  @Output() 
+  dateChange:EventEmitter<MatDatepickerInputEvent<any>>;
 
   OnCheckboxSelect(item, array, status:boolean) {
     if (array.indexOf(item) === -1 && status) {
@@ -41,21 +49,20 @@ export class AddSexualComponent implements OnInit {
     console.log(array);
   }
 
-  OnSubmit() {
-    var date;
-    date = new Date();
-    date = date.getUTCFullYear() + '-' +
-    ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
-    ('00' + date.getUTCDate()).slice(-2)/* + ' ' + 
-    ('00' + date.getUTCHours()).slice(-2) + ':' + 
-    ('00' + date.getUTCMinutes()).slice(-2) + ':' + 
-    ('00' + date.getUTCSeconds()).slice(-2)*/;
+  formatDate(eventdate: MatDatepickerInputEvent<Date>) {
+    console.log("date: " + eventdate.value);
+    let newdateValue = moment(eventdate.value).format("YYYY-MM-DD");
+    console.log("date: " + newdateValue);
 
+    this.selectedDate = newdateValue;
+  }
+
+  OnSubmit() {
     this.sexualActivityForm = this.formBuilder.group({
       contactid: [this.sexualpartnerID], 
       actid: [this.activities_performed],
       protid: [this.contraceptives_used],
-      date: date,
+      date: this.selectedDate,
       comment: this.comment
       // some other stuff
     });
@@ -79,7 +86,9 @@ export class AddSexualComponent implements OnInit {
   constructor(@Inject(SESSION_STORAGE) private storage: WebStorageService, private router: Router,
     private formBuilder: FormBuilder, private _addSexualService: AddSexualService, 
     private _contactService: ContactService) {
+
     this.sexualActivityForm = this.formBuilder.group({
+      'date': this.date,
     });
   }
 
@@ -99,6 +108,8 @@ export class AddSexualComponent implements OnInit {
 
   ngOnInit() {
     this.getFromSession();
+
+    this.selectedDate = moment(Date.now()).format("YYYY-MM-DD");
 
     this._contactService.getContactList()
           .subscribe((res: any[]) => {

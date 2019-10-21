@@ -10,7 +10,7 @@
     <div class="contact_list">
       <ul class="contacts">
         <li *ngFor="let person of persons | search:'lastname,firstname,rating':query">
-          <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image" height="18"
+          <img src="../../../../assets/contact.png" alt="User Image" height="18"
             width="18">&nbsp;&nbsp;
           <!--<mat-checkbox name="partner" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>-->
           <mat-checkbox [value]="add_persons" [(ngModel)]="person.selected"

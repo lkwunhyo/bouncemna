@@ -12,12 +12,19 @@
     <div class="contact_list">
       <ul class="contacts">
         <li *ngFor="let person of sexualpartners">
-            <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image"
+            <img src="../../../assets/contact.png" alt="User Image"
             height="15" width="15">&nbsp;&nbsp;
             {{ person.firstname }} {{ person.lastname}}<br>
         </li>
       </ul>
     </div>
+
+    <h3><u>Date of Encounter</u></h3>
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" (dateChange)="formatDate($event);" name="date" placeholder="Choose a date.." [(ngModel)]="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
     <h3><u>Activities Performed</u></h3>
     <li *ngFor="let activity of sexualactivity_list">

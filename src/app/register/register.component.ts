@@ -11,13 +11,16 @@ import { Router } from "@angular/router";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-user: RegisterModel = new RegisterModel();
+user = new RegisterModel();
 registerForm: FormGroup;
     hide = true;
     credentials: TokenPayload;
     _url = '/register'
     constructor(private formBuilder: FormBuilder, private _apphttpService: AppHttpService,
-    private router: Router) { }
+    private router: Router) { 
+      this.registerForm = this.formBuilder.group({
+      });
+    }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({

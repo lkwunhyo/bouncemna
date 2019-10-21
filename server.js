@@ -33,6 +33,7 @@ const port = 8080;
 var sess;
 
 //register
+//var db_name = 'bouncemna'
 var db_name = 'heroku_d8b3eb522e9de9a' //Previous name was bouncemna
 var db_config = {
     host: 'eu-cdbr-west-02.cleardb.net',
@@ -45,31 +46,22 @@ var db_config = {
     queueLimit: 30,
     acquireTimeout: 1000000
 };
-//var db_name = 'bouncemna'
-/*
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'tryl',
-    password: 'tryl',
-    database: 'bouncemna',
-    dateStrings: 'date',
-    multipleStatements: true //!!!!! REQUIRED
-});*/
+
+
 
 let connection_pool = mysql.createPool(
     db_config
 );
 
-
 /*
-connection.connect(function (error) {
-    if (!!error) {
-        console.log(error);
-    } else {
-        console.log('Connected!:)');
-    }
+var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'admin',
+    database: 'bouncemna',
+    dateStrings: 'date',
+    multipleStatements: true //!!!!! REQUIRED
 });*/
-
 
 // Serve only the static files form the dist directory
 // Replace the '/dist/<to_your_project_name>' -------------- src is the app name
@@ -1148,7 +1140,8 @@ app.post('/sexualhistory', function (req, res, next) {
     }
 
 })
-/*
+
+
 app.get('/logout', function (req, res) {
     cookie = req.cookies;
     for (var prop in cookie) {
@@ -1158,4 +1151,103 @@ app.get('/logout', function (req, res) {
         res.cookie(prop, '', { expires: new Date(0) });
     }
     res.redirect('/login');
-});*/
+});
+
+/* //-----------------Calendar---------------------------
+app.post('/', function (req, res) { //validate then sanitize
+
+    if (isLoggedIn()) {
+        var userid = sess.userid;
+        if (req.body[0]) {
+            var encounterId = req.body[0].encounterID;
+        } else {
+            var encounterId = undefined;
+        }
+        console.dir(encounterId);
+
+        connection.beginTransaction(function (err) {
+            if (err) {
+                req.flash('error', err)
+                console.dir(err);
+                connection.rollback(function () {
+                    throw err;
+                });
+            }
+
+            connection.query('SELECT * FROM ' + db_name + '.encounter WHERE userID = ?', [userid], function (err, result) {
+                if (err) {
+                    connection.rollback(function () {
+                        throw err;
+                    });
+                } else {
+                    //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
+
+                    //alertid = result.insertId; //needed for all queries in this transaction                    
+                    connection.query(
+                        'DELETE FROM ' + db_name + '.encounter WHERE encounterID = ?', [encounterId], function (err, result) {
+                            if (err) {
+                                connection.rollback(function () {
+                                    throw err;
+                                });
+                            }
+                        }
+                    )
+                        
+                    
+                }
+            });
+
+            connection.commit(function (err) {
+                if (err) {
+                    connection.rollback(function () {
+                        throw err;
+                    });
+                }
+            })
+
+
+            console.log("db post register success");
+            res.status(200).send({ "message": "data received" });
+        })
+    }
+})
+
+
+app.post('/getEvents', function (req, res) { //validate then sanitize
+    //if (user) return res.status(400).send("User already registered.");
+    //console.dir("addevents: " + req.body.eventid);
+    
+    console.log("req.body");
+    console.log(req.body);
+    var addevents = {
+        userid: sess.userid,
+        title: req.sanitize(req.body.title),
+        date: req.sanitize(req.body.date),
+        timestart: req.sanitize(req.body.timestart),
+        timeend: req.sanitize(req.body.timeend),
+        alert: req.sanitize(req.body.alert),
+        repeat: req.sanitize(req.body.repeat),
+        note: req.sanitize(req.body.note),
+        //userID: sess.userid,
+
+    }
+
+    console.dir("addevents:");
+    console.dir(addevents);
+
+    connection.query('INSERT INTO bouncemna.addevents SET ?', addevents, function (err, result) {
+        if (err) {
+            req.flash('error', err)
+            console.log(err);
+            // render to views/user/add.ejs
+            //res.render('alert-partners', {
+            //  title: 'Add New Customer',
+            //name: user.name,
+            //email: user.email
+            //})
+        } else {
+            console.log("db post register success");
+            res.status(200).send({ "message": "data received" });
+            }
+    });
+ }); */
