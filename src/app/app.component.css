@@ -53,3 +53,8 @@ a {
   bottom: 0px !important;
   top: 0px !important;
 }
+
+.dividerlabel {
+    width: 80%;
+    border-top-width: 2px;
+}

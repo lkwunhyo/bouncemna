@@ -17,17 +17,24 @@
      <sui-sidebar class="inverted vertical" #sidebar>
          <br><br>
          <ul>
-             <li> <a routerLink="/home" (click)="sidebar.toggle()">Home</a></li><br>
-             <li> <a routerLink="/profile" (click)="sidebar.toggle()">Profile</a></li><br>
-             <li> <a routerLink="/register" (click)="sidebar.toggle()">Register</a></li><br>
-             <li> <a routerLink="/login" (click)="sidebar.toggle()">Login</a></li><br>
-             <li> <a routerLink="/contact" (click)="sidebar.toggle()">Contact</a></li><br>
-             <li> <a routerLink="/calender" (click)="sidebar.toggle()">Calendar</a></li><br>
-             <li> <a routerLink="/alertpartners" (click)="sidebar.toggle()">Alert Partner</a></li><br>
-             <li> <a routerLink="/sexualhistory" (click)="sidebar.toggle()">Sexual Activity</a></li><br>
-             <li> <a routerLink="/diagnosishistory" (click)="sidebar.toggle()">Diagnosis History</a></li><br>
-             <li> <a routerLink="/rewards" (click)="sidebar.toggle()">Rewards</a></li><br>
-             <li> <a routerLink="/about" (click)="sidebar.toggle()">About Us</a></li><br>
+            <li> <a routerLink="/home" (click)="sidebar.toggle()">Home</a></li><br>
+            <li> <a routerLink="/profile" (click)="sidebar.toggle()">Profile</a></li><br>
+            <li> <a routerLink="/contact" (click)="sidebar.toggle()">Contacts</a></li><br>
+            <li> <a routerLink="/calender" (click)="sidebar.toggle()">Calendar</a></li><br>
+            <mat-divider class="dividerlabel"></mat-divider><br>
+            
+            <li> <a routerLink="/sexualhistory" (click)="sidebar.toggle()">Sexual Activity</a></li><br>
+            <li> <a routerLink="/alertpartners" (click)="sidebar.toggle()">Alert Partner</a></li><br>
+            <li> <a routerLink="/diagnosishistory" (click)="sidebar.toggle()">Diagnosis History</a></li><br>
+            <mat-divider class="dividerlabel"></mat-divider><br>
+
+            <li> <a routerLink="/login" (click)="sidebar.toggle()">Login</a></li><br>
+            <li> <a routerLink="/register" (click)="sidebar.toggle()">Register</a></li><br>
+            <li> <a routerLink="/logout" (click)="sidebar.toggle()">Logout</a></li><br>
+            <mat-divider class="dividerlabel"></mat-divider><br>
+
+            <li> <a routerLink="/rewards" (click)="sidebar.toggle()">Rewards</a></li><br>
+            <li> <a routerLink="/about" (click)="sidebar.toggle()">About Us</a></li><br>
          </ul>
        
      </sui-sidebar>
