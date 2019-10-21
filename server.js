@@ -159,7 +159,7 @@ app.post('/contact', function (req, res, next) {
     //next();
 
     console.dir("calling diagnosis");
-    if (req.session.loggedIn) {
+    if (req.cookies['loggedIn']) {
         connection_pool.getConnection(function (err, connection) {
             connection.query('SELECT * FROM ' + db_name + '.alert WHERE userID = ?', [req.cookies['userid']], function (error, results, fields) {
                 if (error) {
@@ -200,7 +200,7 @@ app.post('/contact', function (req, res, next) {
 
 app.post('/diagnosishistory', function (req, res) { //validate then sanitize
 
-    if (req.session.loggedIn) {
+    if (req.cookies['loggedIn']) {
         var alertId = req.body.alertid;
         connection_pool.getConnection(function (err, connection) {
             connection.beginTransaction(function (err) {
@@ -292,7 +292,7 @@ app.post('/encountercontacts', function (req, res, next) { //for alertpartner
     var query = "SELECT " + attributes + "FROM " + from + "WHERE " + where + "GROUP BY contactID ORDER BY md DESC";
     //console.dir(query);
 
-    if (req.session.loggedIn) {
+    if (req.cookies['loggedIn']) {
         connection_pool.getConnection(function (err, connection) {
             connection.query(query, [req.cookies['userid']], function (error, results, fields) {
                 if (error) {
@@ -340,7 +340,7 @@ app.post('/encountercontacts', function (req, res, next) { //for alertpartner
 
 //To get diseases info
     / app.post('/diseases', function (req, res) {
-    if (req.session.loggedIn) {
+    if (req.cookies['loggedIn']) {
         connection_pool.getConnection(function (err, connection) {
             connection.query('SELECT * FROM ' + db_name + '.sti', function (error, results, fields) {
                 if (error) {
@@ -387,7 +387,7 @@ app.post('/alertpartners', function (req, res) { //validate then sanitize
     var yyyy = today.getFullYear();
     today = yyyy + '-' + mm + '-' + dd;
 
-    if (req.session.loggedIn) {
+    if (req.cookies['loggedIn']) {
         console.dir(req.body.message);
         var alert = {
             diagnosis: req.sanitize(req.body.diagnosis),
@@ -543,7 +543,7 @@ app.post('/register', function (req, res) { //validate then sanitize
 // Add Contact Form
 app.post('/contactform', function (req, res) { //validate then sanitize
 
-    if (req.session.loggedIn) {
+    if (req.cookies['loggedIn']) {
         var contact = {
             firstName: req.sanitize(req.body.firstname),
             lastName: req.sanitize(req.body.lastname),
@@ -572,7 +572,7 @@ app.post('/contactform', function (req, res) { //validate then sanitize
 // Delete Contact Form
 app.post('/deletecontact', function (req, res) { // havent done commit-rollback
 
-    if (req.session.loggedIn) {
+    if (req.cookies['loggedIn']) {
         var delete_contacts = req.body;
         console.dir(req.body);
         connection_pool.getConnection(function (err, connection) {
@@ -597,129 +597,131 @@ app.post('/deletecontact', function (req, res) { // havent done commit-rollback
 
 // Add Activity Form
 app.post('/addactivity', function (req, res) { //validate then sanitize
-    console.dir("contacts: " + req.body.contactid);
-    var encounter = {
-        userID: req.session.userid,
-        dateEncounter: req.sanitize(req.body.date),
-        notes: req.sanitize(req.body.comment),
-        /*
-        contactid: req.sanitize(req.body.contactid),      
-        actID: req.sanitize(req.body.actid),
-        protectionID: req.sanitize(req.body.protid),*/
+    if (req.cookies['loggedIn']) {
+        console.dir("contacts: " + req.body.contactid);
+        var encounter = {
+            userID: req.session.userid,
+            dateEncounter: req.sanitize(req.body.date),
+            notes: req.sanitize(req.body.comment),
+            /*
+            contactid: req.sanitize(req.body.contactid),      
+            actID: req.sanitize(req.body.actid),
+            protectionID: req.sanitize(req.body.protid),*/
 
-    }
+        }
 
-    //Acquires array values by not sanitizing it
-    contactid = req.body.contactid;
-    actid = req.body.actid;
-    protectionid = req.body.protid;
+        //Acquires array values by not sanitizing it
+        contactid = req.body.contactid;
+        actid = req.body.actid;
+        protectionid = req.body.protid;
 
-    console.dir("encounter:");
-    console.dir(encounter);
-    var encounterid;
-    connection_pool.getConnection(function (err, connection) {
-        connection.beginTransaction(function (err) {
-            if (err) {
-                req.flash('error', err)
-                console.dir(err);
-                connection.rollback(function () {
-                    throw err;
+        console.dir("encounter:");
+        console.dir(encounter);
+        var encounterid;
+        connection_pool.getConnection(function (err, connection) {
+            connection.beginTransaction(function (err) {
+                if (err) {
+                    req.flash('error', err)
+                    console.dir(err);
+                    connection.rollback(function () {
+                        throw err;
+                    });
+                }
+
+                connection.query('INSERT INTO ' + db_name + '.encounter SET ?', encounter, function (err, result) {
+                    if (err) {
+                        connection.rollback(function () {
+                            throw err;
+                        });
+                    } else {
+                        //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
+
+                        encounterid = result.insertId; //needed for all queries in this transaction
+                        //-------encounterpartners---------------               
+                        console.dir("doing encounterpartners");
+                        var encounterpartners;
+                        for (var i = 0; i < contactid.length; i++) {
+
+                            encounterpartners = {
+                                encounterID: encounterid,
+                                contactID: contactid[i]
+                            }
+                            console.dir("encounterpartners:");
+                            console.dir(encounterpartners);
+                            connection.query(
+                                'INSERT INTO ' + db_name + '.encounterpartners SET ?', encounterpartners, function (err, result) {
+                                    if (err) {
+                                        connection.rollback(function () {
+                                            throw err;
+                                        });
+                                    }
+                                }
+                            )
+                        }
+
+                        //-----encounterProtection-----------
+                        console.dir("doing encounterprotection");
+                        var encounterprotection;
+                        for (var i = 0; i < protectionid.length; i++) {
+                            encounterprotection = {
+                                encounterID: encounterid,
+                                protectionID: protectionid[i][0]
+                            }
+                            console.dir("encounterprotection:");
+                            console.dir(encounterprotection);
+                            connection.query(
+                                'INSERT INTO ' + db_name + '.encounterprotection SET ?', encounterprotection, function (err, result) {
+                                    if (err) {
+                                        connection.rollback(function () {
+                                            throw err;
+                                        });
+                                    }
+                                }
+                            )
+                        }
+
+                        //-----encounterActs----------------
+                        console.dir("doing encounterprotection");
+                        var encounteract;
+                        for (var i = 0; i < actid.length; i++) {
+                            encounteract = {
+                                encounterID: encounterid,
+                                actID: actid[i][0]
+                            }
+                            console.dir("encounteract:");
+                            console.dir(encounteract);
+                            connection.query(
+                                'INSERT INTO ' + db_name + '.encounteracts SET ?', encounteract, function (err, result) {
+                                    if (err) {
+                                        connection.rollback(function () {
+                                            throw err;
+                                        });
+                                    }
+                                }
+                            )
+                        }
+
+                    }
                 });
-            }
 
-            connection.query('INSERT INTO ' + db_name + '.encounter SET ?', encounter, function (err, result) {
-                if (err) {
-                    connection.rollback(function () {
-                        throw err;
-                    });
-                } else {
-                    //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
 
-                    encounterid = result.insertId; //needed for all queries in this transaction
-                    //-------encounterpartners---------------               
-                    console.dir("doing encounterpartners");
-                    var encounterpartners;
-                    for (var i = 0; i < contactid.length; i++) {
 
-                        encounterpartners = {
-                            encounterID: encounterid,
-                            contactID: contactid[i]
-                        }
-                        console.dir("encounterpartners:");
-                        console.dir(encounterpartners);
-                        connection.query(
-                            'INSERT INTO ' + db_name + '.encounterpartners SET ?', encounterpartners, function (err, result) {
-                                if (err) {
-                                    connection.rollback(function () {
-                                        throw err;
-                                    });
-                                }
-                            }
-                        )
+
+                connection.commit(function (err) {
+                    if (err) {
+                        connection.rollback(function () {
+                            throw err;
+                        });
                     }
-
-                    //-----encounterProtection-----------
-                    console.dir("doing encounterprotection");
-                    var encounterprotection;
-                    for (var i = 0; i < protectionid.length; i++) {
-                        encounterprotection = {
-                            encounterID: encounterid,
-                            protectionID: protectionid[i][0]
-                        }
-                        console.dir("encounterprotection:");
-                        console.dir(encounterprotection);
-                        connection.query(
-                            'INSERT INTO ' + db_name + '.encounterprotection SET ?', encounterprotection, function (err, result) {
-                                if (err) {
-                                    connection.rollback(function () {
-                                        throw err;
-                                    });
-                                }
-                            }
-                        )
-                    }
-
-                    //-----encounterActs----------------
-                    console.dir("doing encounterprotection");
-                    var encounteract;
-                    for (var i = 0; i < actid.length; i++) {
-                        encounteract = {
-                            encounterID: encounterid,
-                            actID: actid[i][0]
-                        }
-                        console.dir("encounteract:");
-                        console.dir(encounteract);
-                        connection.query(
-                            'INSERT INTO ' + db_name + '.encounteracts SET ?', encounteract, function (err, result) {
-                                if (err) {
-                                    connection.rollback(function () {
-                                        throw err;
-                                    });
-                                }
-                            }
-                        )
-                    }
-
-                }
-            });
+                })
 
 
-
-
-            connection.commit(function (err) {
-                if (err) {
-                    connection.rollback(function () {
-                        throw err;
-                    });
-                }
+                console.log("db post register success");
+                res.status(200).send({ "message": "data received" });
             })
-
-
-            console.log("db post register success");
-            res.status(200).send({ "message": "data received" });
+            connection.release();
         })
-        connection.release();
-    })
+    }
 })
 
 module.exports = app;
@@ -786,7 +788,7 @@ app.post('/addpartner', function (req, res) {
     //next();
 
     console.dir("calling contact");
-    if (req.session.loggedIn) {
+    if (req.cookies['loggedIn']) {
         connection_pool.getConnection(function (err, connection) {
             connection.query('SELECT * FROM ' + db_name + '.contact WHERE userid = ?', [req.cookies['userid']], function (error, results, fields) {
                 if (error) {
@@ -826,7 +828,7 @@ app.post('/profile', function (req, res, next) {
     */
     //next();
     console.dir("calling profile");
-    if (req.session.loggedIn) {
+    if (req.cookies['loggedIn']) {
         connection_pool.getConnection(function (err, connection) {
             connection.query('SELECT * FROM ' + db_name + '.account WHERE userid = ?', [req.cookies['userid']], function (error, results, fields) {
                 if (error) {
@@ -871,7 +873,7 @@ app.post('/profile', function (req, res, next) {
 })
 
 app.post('/editprofile', function (req, res) {
-    if (req.session.loggedIn) {
+    if (req.cookies['loggedIn']) {
 
         var editProfile = {
             bio: req.sanitize(req.body.bio),
@@ -951,7 +953,7 @@ app.post('/sexualhistory', function (req, res, next) {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     //copy paste PLS CHANGE ACCORDINGLY
-    if (req.session.loggedIn) {
+    if (req.cookies['loggedIn']) {
 
         //var userid = sess.userid;
 
