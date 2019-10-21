@@ -1716,7 +1716,7 @@ var ContactFormComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".container {\r\n    border: 6px solid lightgray;\r\n    width: 80%;\r\n    margin: auto;\r\n    padding: 2%;\r\n}\r\n\r\n.zxingscanner {\r\n    height: 100%;\r\n}\r\n\r\n.record-icon {\r\n    width: 100%;\r\n    margin: auto;\r\n    text-align: center;\r\n    transform: scale(2);\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29udGFjdC1mb3JtL3Fyc2Nhbm5lci9xcnNjYW5uZXIuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLDJCQUEyQjtJQUMzQixVQUFVO0lBQ1YsWUFBWTtJQUNaLFdBQVc7QUFDZjs7QUFFQTtJQUNJLFlBQVk7QUFDaEI7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsWUFBWTtJQUNaLGtCQUFrQjtJQUNsQixtQkFBbUI7QUFDdkIiLCJmaWxlIjoic3JjL2FwcC9jb250YWN0LWZvcm0vcXJzY2FubmVyL3Fyc2Nhbm5lci5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNvbnRhaW5lciB7XHJcbiAgICBib3JkZXI6IDZweCBzb2xpZCBsaWdodGdyYXk7XHJcbiAgICB3aWR0aDogODAlO1xyXG4gICAgbWFyZ2luOiBhdXRvO1xyXG4gICAgcGFkZGluZzogMiU7XHJcbn1cclxuXHJcbi56eGluZ3NjYW5uZXIge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG4ucmVjb3JkLWljb24ge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBtYXJnaW46IGF1dG87XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICB0cmFuc2Zvcm06IHNjYWxlKDIpO1xyXG59Il19 */"
+module.exports = ".container {\r\n    border: 6px solid lightgray;\r\n    width: 80%;\r\n    margin: auto;\r\n    padding: 2%;\r\n}\r\n\r\n.zxingscanner {\r\n    height: 100%;\r\n}\r\n\r\n.record-icon {\r\n    width: 100%;\r\n    margin: auto;\r\n    text-align: center;\r\n    transform: scale(2);\r\n}\r\n\r\n.labels {\r\n    color: lightgray;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29udGFjdC1mb3JtL3Fyc2Nhbm5lci9xcnNjYW5uZXIuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLDJCQUEyQjtJQUMzQixVQUFVO0lBQ1YsWUFBWTtJQUNaLFdBQVc7QUFDZjs7QUFFQTtJQUNJLFlBQVk7QUFDaEI7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsWUFBWTtJQUNaLGtCQUFrQjtJQUNsQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxnQkFBZ0I7QUFDcEIiLCJmaWxlIjoic3JjL2FwcC9jb250YWN0LWZvcm0vcXJzY2FubmVyL3Fyc2Nhbm5lci5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNvbnRhaW5lciB7XHJcbiAgICBib3JkZXI6IDZweCBzb2xpZCBsaWdodGdyYXk7XHJcbiAgICB3aWR0aDogODAlO1xyXG4gICAgbWFyZ2luOiBhdXRvO1xyXG4gICAgcGFkZGluZzogMiU7XHJcbn1cclxuXHJcbi56eGluZ3NjYW5uZXIge1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG4ucmVjb3JkLWljb24ge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBtYXJnaW46IGF1dG87XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICB0cmFuc2Zvcm06IHNjYWxlKDIpO1xyXG59XHJcblxyXG4ubGFiZWxzIHtcclxuICAgIGNvbG9yOiBsaWdodGdyYXk7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1727,7 +1727,7 @@ module.exports = ".container {\r\n    border: 6px solid lightgray;\r\n    width:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\r\n<html>\r\n  <div class=\"defaultContainer\">\r\n    <h2>QR Code Scanner</h2><br>\r\n    <div class=\"container\">\r\n      <zxing-scanner class=\"zxingscanner\" tart=\"true\" \r\n        (scanSuccess)=\"scanCode($event)\"></zxing-scanner><br>\r\n      <mat-icon class=\"record-icon\" aria-hidden=\"false\" aria-label=\"camera icon\" \r\n        [ngStyle]=\"{'color':'red'}\">fiber_manual_record</mat-icon>\r\n    </div><br>\r\n    <div *ngIf=\"errorMessage === null; else showError\"></div>\r\n    <ng-template #showError><p style=\"color: red;\">{{ errorMessage }}</p></ng-template>\r\n    <br>\r\n    <p>* Aim your camera at the QR Code</p>\r\n    <br>\r\n    <button mat-stroked-button type=\"button\" \r\n      onclick=\"window.location.href = '../contactform/'\">Back</button>\r\n\r\n  </div>\r\n\r\n"
+module.exports = "<!DOCTYPE html>\r\n<html>\r\n  <div class=\"defaultContainer\">\r\n    <h2>QR Code Scanner</h2><br>\r\n\r\n    <div class=\"container\">\r\n        <zxing-scanner\r\n          [enable]=\"scannerEnabled\"\r\n          (scanSuccess)=\"scanCode($event)\"\r\n          (permissionResponse)=\"onHasPermission($event)\"\r\n          (camerasFound)=\"onCamerasFound($event)\"\r\n        ></zxing-scanner><br>\r\n        \r\n        <mat-icon class=\"record-icon\" aria-hidden=\"false\" aria-label=\"camera icon\" \r\n          [ngStyle]=\"{'color':'red'}\">fiber_manual_record</mat-icon>\r\n      </div><br>\r\n    \r\n    <div *ngIf=\"hasPermission === undefined; else permissionFalse\"><p class=\"labels\">Waiting for camera permissions.</p></div>\r\n      <ng-template #permissionFalse>\r\n        <ng-container *ngIf=\"hasPermission === false\"><p class=\"labels\">Camera permission denied.</p></ng-container>\r\n      </ng-template>\r\n\r\n    <div *ngIf=\"errorMessage === null; else showError\"></div>\r\n    <ng-template #showError><p style=\"color: red;\">{{ errorMessage }}</p></ng-template>\r\n    <br>\r\n    <p>* Aim your camera at the QR Code</p>\r\n    <br>\r\n    <button mat-stroked-button type=\"button\" \r\n      onclick=\"window.location.href = '../contactform/'\">Back</button>\r\n\r\n  </div>\r\n\r\n"
 
 /***/ }),
 
@@ -1760,6 +1760,8 @@ var QrscannerComponent = /** @class */ (function () {
         this._contactFormService = _contactFormService;
         this.qrData = null;
         this.hasCameras = false;
+        this.scannerEnabled = true;
+        this.currentDevice = null;
         this.contact = new _models_person__WEBPACK_IMPORTED_MODULE_3__["Person"]();
         this.errorMessage = null;
         this.errorCount = 0;
@@ -1782,6 +1784,7 @@ var QrscannerComponent = /** @class */ (function () {
                 rating: this.qrData.rating
                 // some other stuff
             });
+            this.scannerEnabled = false;
             console.log("Contact Form: " + JSON.stringify(this.contactForm.value));
             this._contactFormService.addcontact(this.qrData).subscribe(function (data) { return console.log('Success!', data); }, function (error) { return console.error('Error!', error); });
             var url = window.location.origin + "/contact";
@@ -1792,12 +1795,15 @@ var QrscannerComponent = /** @class */ (function () {
             this.errorMessage = "Please scan a valid user QR Code. (" + this.errorCount + ")";
         }
     };
+    QrscannerComponent.prototype.onHasPermission = function (has) {
+        this.hasPermission = has;
+    };
+    QrscannerComponent.prototype.onCamerasFound = function (devices) {
+        this.availableDevices = devices;
+        this.hasDevices = Boolean(devices && devices.length);
+    };
     QrscannerComponent.prototype.ngOnInit = function () {
     };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('scanner'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", QrscannerComponent)
-    ], QrscannerComponent.prototype, "scanner", void 0);
     QrscannerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-qrscanner',
@@ -2369,7 +2375,7 @@ module.exports = "\r\n.set_flex_column{\r\n    display: flex;\r\n    flex-direct
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n  <!--If Alert Partner is used. Uses longest remaining abstinence-->\r\n<!--\r\n  <div class=\"abstinence\">\r\n    <h3><img src=\"../../assets/danger.png\" alt=\"User Image\"\r\n      height=\"18\" width=\"18\"> Abstinence: 8 days left</h3>\r\n  </div>\r\n-->\r\n  <div class=\"defaultContainer\">\r\n    <!-- Welcoming Message -->\r\n    <div class=\"welcome\">\r\n      <h2>Hi {{ userId }}PERSONALIZED_USER!</h2>\r\n    </div><br>\r\n\r\n    <!-- Quick Access Links -->\r\n    <div class=\"quickaccess\">\r\n        <mat-grid-list cols=\"2\" rowHeight=\"3:2\">\r\n          <h3>Quick Access</h3>\r\n          <mat-grid-tile>\r\n            <div>\r\n              <a href=\"/addactivity/\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"addactivity\">book</mat-icon><br>\r\n                <p class=\"labels\"><br>Add Activity</p>\r\n              </a>\r\n            </div>\r\n          </mat-grid-tile>\r\n          \r\n          <mat-grid-tile>\r\n            <div>\r\n              <a href=\"/alertpartners/\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"alertpartners\">add_alert</mat-icon>\r\n                <p class=\"labels\"><br>Alert Partners</p>\r\n              </a>\r\n            </div>\r\n          </mat-grid-tile>\r\n  \r\n          <mat-grid-tile>\r\n            <div>\r\n              <a href=\"/calendar/\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"calendar\">calendar_today</mat-icon>\r\n                <p class=\"labels\"><br>Calendar</p>\r\n              </a>\r\n            </div>\r\n          </mat-grid-tile>\r\n  \r\n          <mat-grid-tile>\r\n            <div>\r\n              <a href=\"/contactform/\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"addcontact\">person_add</mat-icon>\r\n                <p class=\"labels\"><br>Add Contact</p>\r\n              </a>\r\n            </div>\r\n          </mat-grid-tile>\r\n\r\n          <mat-grid-tile>\r\n            <div>\r\n              <a href=\"/profile/\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"profile\">person</mat-icon>\r\n                <p class=\"labels\"><br>Profile</p>\r\n              </a>\r\n\r\n              <!--\r\n              <a (click)=\"openQR()\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"profile\">person</mat-icon>\r\n                <p class=\"labels\"><br>Profile</p>\r\n              </a>\r\n              -->\r\n            </div>\r\n          </mat-grid-tile>\r\n  \r\n          <mat-grid-tile>\r\n            <div>\r\n              <a href=\"/qrscanner/\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"qrscanner\">search</mat-icon>\r\n                <p class=\"labels\"><br>Scan QR</p>\r\n              </a>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </div>\r\n\r\n    <!--\r\n    <div class=\"headhm\">\r\n    <h2>Upcoming</h2>\r\n    </div>\r\n\r\n    <div class=\"pill\">\r\n      <div class=\"ui card pill\">\r\n        <div class=\"content set_flex_column\">\r\n          <div class=\"header set_center\">Reminder</div>\r\n          <div class=\"set_flex_row\">\r\n            <div>\r\n              <h4>Take Medication</h4>\r\n            </div>\r\n            <div>\r\n              <p>\r\n                10am<br>\r\n                Paracetemol<br>\r\n              </p>\r\n            </div>\r\n          </div>\r\n\r\n\r\n        </div>\r\n        <button class=\"ui button\">Done</button>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"headhm\">\r\n    <h2>Next Appointment</h2>\r\n  </div>\r\n\r\n    <div class=\"appointment\">\r\n      <div class=\"ui card appointment\">\r\n        <div class=\"content set_flex_column\">\r\n          <div class=\"header\">Appointment</div>\r\n          <div class=\"set_flex_row\">\r\n            <div><h4>Next Appointmennt</h4></div>\r\n          <div>\r\n            <p><br>\r\n              <a routerlink=\"/calender\">26 December 2019</a><br>\r\n              10am<br>\r\n              Roma Street Hospital<br>\r\n            </p>\r\n          </div>\r\n        </div>\r\n        </div>\r\n        <button class=\"ui button\">Done</button>\r\n      </div>\r\n    </div>\r\n  -->\r\n\r\n<!--\r\n    <div class=\"fact\">\r\n      <div class=\"ui card fact\">\r\n        <div class=\"content\">\r\n          <h4>\r\n            Did you know?\r\n          </h4>\r\n          <p>\r\n            {{v}}\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </div>--><br>\r\n    <div class=\"card\">\r\n      <div class=\"uicardfact\">\r\n        <div class=\"content\">\r\n          <h4>\r\n            Did you know?\r\n          </h4>\r\n          <p>\r\n            {{v}}\r\n          </p>\r\n        </div>\r\n      </div>\r\n      </div>\r\n\r\n  </div>\r\n\r\n\r\n<base href=\"/\">\r\n"
+module.exports = "\r\n  <!--If Alert Partner is used. Uses longest remaining abstinence-->\r\n<!--\r\n  <div class=\"abstinence\">\r\n    <h3><img src=\"../../assets/danger.png\" alt=\"User Image\"\r\n      height=\"18\" width=\"18\"> Abstinence: 8 days left</h3>\r\n  </div>\r\n-->\r\n  <div class=\"defaultContainer\">\r\n    <!-- Welcoming Message -->\r\n    <div class=\"welcome\">\r\n      <h2>Hi {{ userId }}PERSONALIZED_USER!</h2>\r\n    </div><br>\r\n\r\n    <!-- Quick Access Links -->\r\n    <div class=\"quickaccess\">\r\n        <mat-grid-list cols=\"2\" rowHeight=\"3:2\">\r\n          <h3>Quick Access</h3>\r\n          <mat-grid-tile>\r\n            <div>\r\n              <a href=\"/addactivity/\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"addactivity\">book</mat-icon><br>\r\n                <p class=\"labels\"><br>Add Activity</p>\r\n              </a>\r\n            </div>\r\n          </mat-grid-tile>\r\n          \r\n          <mat-grid-tile>\r\n            <div>\r\n              <a href=\"/alertpartners/\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"alertpartners\">add_alert</mat-icon>\r\n                <p class=\"labels\"><br>Alert Partners</p>\r\n              </a>\r\n            </div>\r\n          </mat-grid-tile>\r\n  \r\n          <mat-grid-tile>\r\n            <div>\r\n              <a href=\"/calender/\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"calendar\">calendar_today</mat-icon>\r\n                <p class=\"labels\"><br>Calendar</p>\r\n              </a>\r\n            </div>\r\n          </mat-grid-tile>\r\n  \r\n          <mat-grid-tile>\r\n            <div>\r\n              <a href=\"/contactform/\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"addcontact\">person_add</mat-icon>\r\n                <p class=\"labels\"><br>Add Contact</p>\r\n              </a>\r\n            </div>\r\n          </mat-grid-tile>\r\n\r\n          <mat-grid-tile>\r\n            <div>\r\n              <a href=\"/profile/\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"profile\">person</mat-icon>\r\n                <p class=\"labels\"><br>Profile</p>\r\n              </a>\r\n\r\n              <!--\r\n              <a (click)=\"openQR()\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"profile\">person</mat-icon>\r\n                <p class=\"labels\"><br>Profile</p>\r\n              </a>\r\n              -->\r\n            </div>\r\n          </mat-grid-tile>\r\n  \r\n          <mat-grid-tile>\r\n            <div>\r\n              <a href=\"/qrscanner/\">\r\n                <mat-icon aria-hidden=\"false\" aria-label=\"qrscanner\">search</mat-icon>\r\n                <p class=\"labels\"><br>Scan QR</p>\r\n              </a>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </div>\r\n\r\n    <!--\r\n    <div class=\"headhm\">\r\n    <h2>Upcoming</h2>\r\n    </div>\r\n\r\n    <div class=\"pill\">\r\n      <div class=\"ui card pill\">\r\n        <div class=\"content set_flex_column\">\r\n          <div class=\"header set_center\">Reminder</div>\r\n          <div class=\"set_flex_row\">\r\n            <div>\r\n              <h4>Take Medication</h4>\r\n            </div>\r\n            <div>\r\n              <p>\r\n                10am<br>\r\n                Paracetemol<br>\r\n              </p>\r\n            </div>\r\n          </div>\r\n\r\n\r\n        </div>\r\n        <button class=\"ui button\">Done</button>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"headhm\">\r\n    <h2>Next Appointment</h2>\r\n  </div>\r\n\r\n    <div class=\"appointment\">\r\n      <div class=\"ui card appointment\">\r\n        <div class=\"content set_flex_column\">\r\n          <div class=\"header\">Appointment</div>\r\n          <div class=\"set_flex_row\">\r\n            <div><h4>Next Appointmennt</h4></div>\r\n          <div>\r\n            <p><br>\r\n              <a routerlink=\"/calender\">26 December 2019</a><br>\r\n              10am<br>\r\n              Roma Street Hospital<br>\r\n            </p>\r\n          </div>\r\n        </div>\r\n        </div>\r\n        <button class=\"ui button\">Done</button>\r\n      </div>\r\n    </div>\r\n  -->\r\n\r\n<!--\r\n    <div class=\"fact\">\r\n      <div class=\"ui card fact\">\r\n        <div class=\"content\">\r\n          <h4>\r\n            Did you know?\r\n          </h4>\r\n          <p>\r\n            {{v}}\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </div>--><br>\r\n    <div class=\"card\">\r\n      <div class=\"uicardfact\">\r\n        <div class=\"content\">\r\n          <h4>\r\n            Did you know?\r\n          </h4>\r\n          <p>\r\n            {{v}}\r\n          </p>\r\n        </div>\r\n      </div>\r\n      </div>\r\n\r\n  </div>\r\n\r\n\r\n<base href=\"/\">\r\n"
 
 /***/ }),
 
@@ -2391,12 +2397,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+//import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 var HomeComponent = /** @class */ (function () {
     function HomeComponent(http) {
         this.http = http;
         this.counter = 0;
         this.v = _models_health_info_mock__WEBPACK_IMPORTED_MODULE_2__["HEALTHINFO"][0].info;
     }
+    /*
+     openDialog(): void {
+       const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+         width: '250px',
+         data: {name: this.name, animal: this.animal}
+       });
+   
+       dialogRef.afterClosed().subscribe(result => {
+         console.log('The dialog was closed');
+         this.animal = result;
+       });
+     }
+   */
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
         setInterval(function () {
@@ -2501,7 +2521,7 @@ var LoginComponent = /** @class */ (function () {
             _this.reg = registration;
         }, function (error) { return console.error('Error!', error); }, function () {
             if (_this.reg.status == true) {
-                alert(_this.reg.cookies.userid);
+                alert("Login post successful");
                 _this.router.navigateByUrl("/home");
             }
             else {
@@ -2873,7 +2893,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\r\n<html>\r\n\r\n\r\n<div class=\"defaultContainer\">\r\n\r\n       <h2>Registration</h2>\r\n\r\n       <form [formGroup]=\"registerForm\" (ngSubmit)=\"registerForm.valid && onRegisterSubmit()\" novalidate>\r\n              <div class=\"form-container\">\r\n                     First Name:<br>\r\n                     <input id=\"firstname\" formControlName=\"firstname\" [(ngModel)]=\"user.firstname\"\r\n                            placeholder=\"Enter your name\" /><br><br>\r\n\r\n                     Last Name:<br>\r\n                     <input id=\"lastname\" formControlName=\"lastname\" [(ngModel)]=\"user.lastname\"\r\n                            placeholder=\"Enter your name\" /><br><br>\r\n\r\n                     Sex:<br>\r\n                     <input type=\"radio\" name=\"gender\" value=\"m\" formControlName=\"gender\" [(ngModel)]=\"user.gender\">\r\n                     Male<br>\r\n                     <input type=\"radio\" name=\"gender\" value=\"f\" formControlName=\"gender\" [(ngModel)]=\"user.gender\">\r\n                     Female<br>\r\n\r\n                     Phone:<br><input id=\"phone\" formControlName=\"phone\" [(ngModel)]=\"user.phone\"\r\n                            placeholder=\"Enter your phone number\" /><br><br>\r\n\r\n\r\n                     Email:<br>\r\n                     <input id=\"email\" formControlName=\"email\" [(ngModel)]=\"user.email\"\r\n                            placeholder=\"Enter your email\" /><br><br>\r\n\r\n                     Username<br>\r\n                     <input id=\"username\" formControlName=\"username\" [(ngModel)]=\"user.username\"\r\n                            placeholder=\"Enter your name\" /><br><br>\r\n\r\n\r\n\r\n                     Password:<br><input id=\"password\" formControlName=\"password\" [(ngModel)]=\"user.password\"\r\n                            placeholder=\"Enter your password\" [type]=\"hide ? 'password':'text'\" /><br><br>\r\n\r\n\r\n\r\n\r\n                     <button type=\"submit\" [disabled]=\"!registerForm.valid\">Register</button>\r\n                     <button button routerLink=\"/login\">Login</button>\r\n              </div>\r\n       </form>\r\n\r\n</div>\r\n\r\n</html>"
+module.exports = "<!DOCTYPE html>\r\n<html>\r\n\r\n\r\n<div class=\"defaultContainer\">\r\n\r\n<h2>Registration</h2>\r\n<form (ngSubmit)=\"onRegisterSubmit()\" #registerForm=\"ngForm\" novalidate>\r\n       <div class=\"form-container\">\r\n              Registration Details:<br>\r\n              <mat-form-field>\r\n                     <input matInput id=\"firstname\" name=\"firstname\" [(ngModel)]=\"user.firstname\"\r\n                            placeholder=\"First name..\" required/>\r\n                     <mat-icon matSuffix></mat-icon>\r\n              </mat-form-field>\r\n\r\n              <mat-form-field>\r\n                     <input matInput id=\"lastname\" name=\"lastname\" [(ngModel)]=\"user.lastname\"\r\n                            placeholder=\"Last name..\" required/>\r\n                     <mat-icon matSuffix></mat-icon>\r\n              </mat-form-field><br>\r\n\r\n              <mat-form-field>\r\n                     <input matInput id=\"phone\" name=\"phone\" [(ngModel)]=\"user.phone\"\r\n                            placeholder=\"Phone number..\" />\r\n                     <mat-icon matSuffix>phone</mat-icon>\r\n              </mat-form-field>\r\n\r\n              <mat-form-field>\r\n                     <input matInput id=\"email\" name=\"email\" [(ngModel)]=\"user.email\"\r\n                            placeholder=\"Email (Recommended)..\" />\r\n                     <mat-icon matSuffix>email</mat-icon>\r\n              </mat-form-field>\r\n              <br><br>\r\n\r\n              Gender*:<br>\r\n              <mat-radio-group aria-label=\"Select a Gender\" [(ngModel)]=\"user.gender\" name=\"gender\">\r\n                     <mat-radio-button name=\"gender\" value=\"m\">\r\n                            Male</mat-radio-button><br>\r\n                     <mat-radio-button name=\"gender\" value=\"f\">\r\n                            Female</mat-radio-button><br>\r\n                     <mat-radio-button name=\"gender\" value=\"o\">\r\n                            Other</mat-radio-button><br>\r\n              </mat-radio-group><br><br>\r\n\r\n              User Details:<br>\r\n              <mat-form-field>\r\n                     <input matInput id=\"username\" name=\"username\" [(ngModel)]=\"user.username\"\r\n                            placeholder=\"Username..\" required/>\r\n                     <mat-icon matSuffix></mat-icon>\r\n              </mat-form-field>\r\n              <mat-form-field>\r\n                     <input matInput id=\"password\" name=\"password\" [(ngModel)]=\"user.password\"\r\n                            placeholder=\"Password..\" [type]=\"hide ? 'password':'text'\" required/>\r\n                     <mat-icon matSuffix></mat-icon>\r\n              </mat-form-field><br><br><br>\r\n\r\n              <div class=\"btncontainer\">\r\n                     <button mat-stroked-button type=\"submit\" [disabled]=\"!registerForm.valid\">Register</button>\r\n                     <button mat-stroked-button type=\"button\" routerLink=\"/login\">Login</button>\r\n              </div>\r\n       </div>\r\n</form>\r\n\r\n\r\n<!--\r\n       <form [formGroup]=\"registerForm\" (ngSubmit)=\"registerForm.valid && onRegisterSubmit()\" novalidate>\r\n              <div class=\"form-container\">\r\n                     First Name:<br>\r\n                     <input id=\"firstname\" formControlName=\"firstname\" [(ngModel)]=\"user.firstname\"\r\n                            placeholder=\"Enter your name\" /><br><br>\r\n\r\n                     Last Name:<br>\r\n                     <input id=\"lastname\" formControlName=\"lastname\" [(ngModel)]=\"user.lastname\"\r\n                            placeholder=\"Enter your name\" /><br><br>\r\n\r\n                     Sex:<br>\r\n                     <input type=\"radio\" name=\"gender\" value=\"m\" formControlName=\"gender\" [(ngModel)]=\"user.gender\">\r\n                     Male<br>\r\n                     <input type=\"radio\" name=\"gender\" value=\"f\" formControlName=\"gender\" [(ngModel)]=\"user.gender\">\r\n                     Female<br>\r\n\r\n                     Phone:<br><input id=\"phone\" formControlName=\"phone\" [(ngModel)]=\"user.phone\"\r\n                            placeholder=\"Enter your phone number\" /><br><br>\r\n\r\n\r\n                     Email:<br>\r\n                     <input id=\"email\" formControlName=\"email\" [(ngModel)]=\"user.email\"\r\n                            placeholder=\"Enter your email\" /><br><br>\r\n\r\n                     Username<br>\r\n                     <input id=\"username\" formControlName=\"username\" [(ngModel)]=\"user.username\"\r\n                            placeholder=\"Enter your name\" /><br><br>\r\n\r\n\r\n\r\n                     Password:<br><input id=\"password\" formControlName=\"password\" [(ngModel)]=\"user.password\"\r\n                            placeholder=\"Enter your password\" [type]=\"hide ? 'password':'text'\" /><br><br>\r\n\r\n\r\n\r\n\r\n                     <button type=\"submit\" [disabled]=\"!registerForm.valid\">Register</button>\r\n                     <button button routerLink=\"/login\">Login</button>\r\n              </div>\r\n       </form>\r\n-->\r\n</div>\r\n\r\n</html>"
 
 /***/ }),
 
@@ -2907,6 +2927,7 @@ var RegisterComponent = /** @class */ (function () {
         this.user = new _models_register_model__WEBPACK_IMPORTED_MODULE_2__["RegisterModel"]();
         this.hide = true;
         this._url = '/register';
+        this.registerForm = this.formBuilder.group({});
     }
     RegisterComponent.prototype.ngOnInit = function () {
         this.registerForm = this.formBuilder.group({
@@ -3678,10 +3699,19 @@ var SexualHistoryService = /** @class */ (function () {
         this.http = http;
         this.messageService = messageService;
         this.url_sexualhistory = '/sexualhistory'; // URL to web api
+        this._deleteurl = '/deleteactivity';
     }
     SexualHistoryService.prototype.getActivity = function () {
         console.dir("calling POST service");
         return this.http.post(this.url_sexualhistory, "BODY 2ND PARAM");
+    };
+    SexualHistoryService.prototype.deleteactivity = function (item) {
+        console.dir("calling DELETING POST service");
+        /*
+        console.dir(this.url_diagnosisparam + String(item.alertid));
+        return this.http.post<any>(this.url_diagnosisparam + String(item.alertid), item);
+        */
+        return this.http.post(this._deleteurl, item);
     };
     SexualHistoryService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -3714,7 +3744,7 @@ module.exports = ".addpartnercontainer{\r\n    width: 80%;\r\n    margin-left: 1
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\r\n<html>\r\n<div class=\"addpartnercontainer\">\r\n  <h2>Select Contacts</h2>\r\n  <div class=\"search\">\r\n    <input id=\"search\" class=\"autosearch\" [(ngModel)]=\"query\" type=\"text\" placeholder=\"Search a name..\"><br>\r\n  </div>\r\n\r\n  <form (ngSubmit)=\"OnSubmit()\">\r\n    <div class=\"contact_list\">\r\n      <ul class=\"contacts\">\r\n        <li *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\">\r\n          <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\" height=\"18\"\r\n            width=\"18\">&nbsp;&nbsp;\r\n          <!--<mat-checkbox name=\"partner\" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>-->\r\n          <mat-checkbox [value]=\"add_persons\" [(ngModel)]=\"person.selected\"\r\n            (change)=\"OnCheckboxSelect(person, $event.checked)\" name=\"persons\">{{ person.firstname }}\r\n            {{ person.lastname}} {{ person.rating }}</mat-checkbox>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n\r\n    <button mat-button type=\"submit\" onclick=\"window.location.href = '../addactivity/'\">Add</button><br>\r\n    <!---->\r\n  </form>\r\n</div>\r\n\r\n</html>"
+module.exports = "<!DOCTYPE html>\r\n<html>\r\n<div class=\"addpartnercontainer\">\r\n  <h2>Select Contacts</h2>\r\n  <div class=\"search\">\r\n    <input id=\"search\" class=\"autosearch\" [(ngModel)]=\"query\" type=\"text\" placeholder=\"Search a name..\"><br>\r\n  </div>\r\n\r\n  <form (ngSubmit)=\"OnSubmit()\">\r\n    <div class=\"contact_list\">\r\n      <ul class=\"contacts\">\r\n        <li *ngFor=\"let person of persons | search:'lastname,firstname,rating':query\">\r\n          <img src=\"../../../../assets/contact.png\" alt=\"User Image\" height=\"18\"\r\n            width=\"18\">&nbsp;&nbsp;\r\n          <!--<mat-checkbox name=\"partner\" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>-->\r\n          <mat-checkbox [value]=\"add_persons\" [(ngModel)]=\"person.selected\"\r\n            (change)=\"OnCheckboxSelect(person, $event.checked)\" name=\"persons\">{{ person.firstname }}\r\n            {{ person.lastname}} {{ person.rating }}</mat-checkbox>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n\r\n    <button mat-button type=\"submit\" onclick=\"window.location.href = '../addactivity/'\">Add</button><br>\r\n    <!---->\r\n  </form>\r\n</div>\r\n\r\n</html>"
 
 /***/ }),
 
@@ -3820,7 +3850,7 @@ module.exports = ".addsexualcontainer{\r\n    width: 80%;\r\n    margin-left: 15
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\r\n<html>\r\n<div class=\"defaultContainer\">\r\n<div class=\"addsexualcontainer\">\r\n  <h2>Add Sexual Activity</h2>\r\n  <h3><u>Participants </u>&nbsp;&nbsp;&nbsp;&nbsp;\r\n    <button mat-stroked-button onclick=\"window.location.href = '../addpartner/'\">Add</button>&nbsp;\r\n    <button mat-stroked-button onclick=\"window.location.href = '../deletepartner/'\">Delete</button><br>\r\n  </h3>\r\n\r\n  <form (ngSubmit)=\"OnSubmit()\" name=\"partnerlist\">\r\n    <div class=\"contact_list\">\r\n      <ul class=\"contacts\">\r\n        <li *ngFor=\"let person of sexualpartners\">\r\n            <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\"\r\n            height=\"15\" width=\"15\">&nbsp;&nbsp;\r\n            {{ person.firstname }} {{ person.lastname}}<br>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n\r\n    <h3><u>Activities Performed</u></h3>\r\n    <li *ngFor=\"let activity of sexualactivity_list\">\r\n        <mat-checkbox [value]=\"activity[0]\"\r\n                      [(ngModel)]=\"activity.selected\" (change)=\"OnCheckboxSelect(activity, activities_performed, $event.checked)\" name=\"activities\">{{ activity[1] }} Sex</mat-checkbox>\r\n    </li>\r\n    <h3><u>Contraceptives Used</u></h3>\r\n    <li *ngFor=\"let contraceptive of contraceptive_list\">\r\n        <mat-checkbox [value]=\"contraceptive[0]\"\r\n                      [(ngModel)]=\"contraceptive.selected\" (change)=\"OnCheckboxSelect(contraceptive, contraceptives_used, $event.checked)\" name=\"contraceptives\">{{ contraceptive[1] }}</mat-checkbox>\r\n    </li>\r\n\r\n    <h3><u>Comments</u></h3>\r\n    <mat-form-field>\r\n      <textarea matInput id=\"comment\" placeholder=\"Add your comments..\"\r\n        rows=\"5\" cols=\"10\" [(ngModel)]=\"comment\" name=\"comment\"></textarea>\r\n    </mat-form-field><br>\r\n    <button mat-button class=\"submitbutton\" type=\"submit\" onclick=\"window.location.href = '../sexualhistory/'\">Submit</button><br><!---->\r\n  </form>\r\n      <br><br>\r\n</div>\r\n</div>\r\n</html>"
+module.exports = "<!DOCTYPE html>\r\n<html>\r\n<div class=\"defaultContainer\">\r\n<div class=\"addsexualcontainer\">\r\n  <h2>Add Sexual Activity</h2>\r\n  <h3><u>Participants </u>&nbsp;&nbsp;&nbsp;&nbsp;\r\n    <button mat-stroked-button onclick=\"window.location.href = '../addpartner/'\">Add</button>&nbsp;\r\n    <button mat-stroked-button onclick=\"window.location.href = '../deletepartner/'\">Delete</button><br>\r\n  </h3>\r\n\r\n  <form (ngSubmit)=\"OnSubmit()\" name=\"partnerlist\">\r\n    <div class=\"contact_list\">\r\n      <ul class=\"contacts\">\r\n        <li *ngFor=\"let person of sexualpartners\">\r\n            <img src=\"../../../assets/contact.png\" alt=\"User Image\"\r\n            height=\"15\" width=\"15\">&nbsp;&nbsp;\r\n            {{ person.firstname }} {{ person.lastname}}<br>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n\r\n    <h3><u>Date of Encounter</u></h3>\r\n    <mat-form-field>\r\n        <input matInput [matDatepicker]=\"picker\" (dateChange)=\"formatDate($event);\" name=\"date\" placeholder=\"Choose a date..\" [(ngModel)]=\"date\">\r\n        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n        <mat-datepicker #picker></mat-datepicker>\r\n    </mat-form-field>\r\n\r\n    <h3><u>Activities Performed</u></h3>\r\n    <li *ngFor=\"let activity of sexualactivity_list\">\r\n        <mat-checkbox [value]=\"activity[0]\"\r\n                      [(ngModel)]=\"activity.selected\" (change)=\"OnCheckboxSelect(activity, activities_performed, $event.checked)\" name=\"activities\">{{ activity[1] }} Sex</mat-checkbox>\r\n    </li>\r\n    <h3><u>Contraceptives Used</u></h3>\r\n    <li *ngFor=\"let contraceptive of contraceptive_list\">\r\n        <mat-checkbox [value]=\"contraceptive[0]\"\r\n                      [(ngModel)]=\"contraceptive.selected\" (change)=\"OnCheckboxSelect(contraceptive, contraceptives_used, $event.checked)\" name=\"contraceptives\">{{ contraceptive[1] }}</mat-checkbox>\r\n    </li>\r\n\r\n    <h3><u>Comments</u></h3>\r\n    <mat-form-field>\r\n      <textarea matInput id=\"comment\" placeholder=\"Add your comments..\"\r\n        rows=\"5\" cols=\"10\" [(ngModel)]=\"comment\" name=\"comment\"></textarea>\r\n    </mat-form-field><br>\r\n    <button mat-button class=\"submitbutton\" type=\"submit\" onclick=\"window.location.href = '../sexualhistory/'\">Submit</button><br><!---->\r\n  </form>\r\n      <br><br>\r\n</div>\r\n</div>\r\n</html>"
 
 /***/ }),
 
@@ -3841,6 +3871,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_add_sexual_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/add-sexual.service */ "./src/app/services/add-sexual.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_contact_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/contact.service */ "./src/app/services/contact.service.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
+
 
 
 
@@ -3863,9 +3896,12 @@ var AddSexualComponent = /** @class */ (function () {
         this.contactlist = [];
         this.activities_performed = [];
         this.contraceptives_used = [];
+        this.date = new Date();
         this.sexualpartners = [];
         this.sexualpartnerID = [];
-        this.sexualActivityForm = this.formBuilder.group({});
+        this.sexualActivityForm = this.formBuilder.group({
+            'date': this.date,
+        });
     }
     AddSexualComponent.prototype.OnCheckboxSelect = function (item, array, status) {
         if (array.indexOf(item) === -1 && status) {
@@ -3877,20 +3913,18 @@ var AddSexualComponent = /** @class */ (function () {
         }
         console.log(array);
     };
+    AddSexualComponent.prototype.formatDate = function (eventdate) {
+        console.log("date: " + eventdate.value);
+        var newdateValue = moment__WEBPACK_IMPORTED_MODULE_7__(eventdate.value).format("YYYY-MM-DD");
+        console.log("date: " + newdateValue);
+        this.selectedDate = newdateValue;
+    };
     AddSexualComponent.prototype.OnSubmit = function () {
-        var date;
-        date = new Date();
-        date = date.getUTCFullYear() + '-' +
-            ('00' + (date.getUTCMonth() + 1)).slice(-2) + '-' +
-            ('00' + date.getUTCDate()).slice(-2) /* + ' ' +
-        ('00' + date.getUTCHours()).slice(-2) + ':' +
-        ('00' + date.getUTCMinutes()).slice(-2) + ':' +
-        ('00' + date.getUTCSeconds()).slice(-2)*/;
         this.sexualActivityForm = this.formBuilder.group({
             contactid: [this.sexualpartnerID],
             actid: [this.activities_performed],
             protid: [this.contraceptives_used],
-            date: date,
+            date: this.selectedDate,
             comment: this.comment
             // some other stuff
         });
@@ -3921,12 +3955,17 @@ var AddSexualComponent = /** @class */ (function () {
     AddSexualComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.getFromSession();
+        this.selectedDate = moment__WEBPACK_IMPORTED_MODULE_7__(Date.now()).format("YYYY-MM-DD");
         this._contactService.getContactList()
             .subscribe(function (res) {
             console.log(res);
             _this.contactlist = _this._contactService.filterBy(res);
         });
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
+    ], AddSexualComponent.prototype, "dateChange", void 0);
     AddSexualComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-add-sexual',
@@ -4055,7 +4094,7 @@ var DeletePartnerComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".mat-expansion-panel:not([class*='mat-elevation-z']) {\r\n    box-shadow: none;\r\n    border-radius: 0px;\r\n    border-bottom: 0.75px solid gainsboro;\r\n\r\n  }\r\n/*\r\n.user {\r\n    font-size: 120%;\r\n}*/\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2V4dWFsLWhpc3Rvcnkvc2V4dWFsLWhpc3RvcnkuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGdCQUFnQjtJQUNoQixrQkFBa0I7SUFDbEIscUNBQXFDOztFQUV2QztBQUNGOzs7RUFHRSIsImZpbGUiOiJzcmMvYXBwL3NleHVhbC1oaXN0b3J5L3NleHVhbC1oaXN0b3J5LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWF0LWV4cGFuc2lvbi1wYW5lbDpub3QoW2NsYXNzKj0nbWF0LWVsZXZhdGlvbi16J10pIHtcclxuICAgIGJveC1zaGFkb3c6IG5vbmU7XHJcbiAgICBib3JkZXItcmFkaXVzOiAwcHg7XHJcbiAgICBib3JkZXItYm90dG9tOiAwLjc1cHggc29saWQgZ2FpbnNib3JvO1xyXG5cclxuICB9XHJcbi8qXHJcbi51c2VyIHtcclxuICAgIGZvbnQtc2l6ZTogMTIwJTtcclxufSovIl19 */"
+module.exports = ".mat-expansion-panel:not([class*='mat-elevation-z']) {\r\n    box-shadow: none;\r\n    border-radius: 0px;\r\n    border-bottom: 0.75px solid gainsboro;\r\n\r\n}\r\ntable {\r\n  width: 100%;\r\n  transition: none !important;\r\n  box-shadow: none !important;\r\n}\r\ntr.example-detail-row {\r\n  height: 0;\r\n}\r\n/*\r\ntr.example-element-row:not(.example-expanded-row):hover {\r\n  background: whitesmoke;\r\n}\r\n*/\r\ntr.example-element-row:active {\r\n  background: #efefef;\r\n  transition: all 0.3s ease-out;\r\n}\r\n.example-element-row td {\r\n  border-bottom-width: 0;\r\n}\r\n.example-element-detail {\r\n  overflow: hidden;\r\n  display: flex;\r\n}\r\n/* Expanded Details */\r\n.message-block {\r\n  width: 100%;\r\n}\r\n.delete-button {\r\n  float: right;\r\n  margin: auto;\r\n}\r\n/*\r\n.user {\r\n    font-size: 120%;\r\n}*/\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2V4dWFsLWhpc3Rvcnkvc2V4dWFsLWhpc3RvcnkuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGdCQUFnQjtJQUNoQixrQkFBa0I7SUFDbEIscUNBQXFDOztBQUV6QztBQUNBO0VBQ0UsV0FBVztFQUNYLDJCQUEyQjtFQUMzQiwyQkFBMkI7QUFDN0I7QUFFQTtFQUNFLFNBQVM7QUFDWDtBQUNBOzs7O0NBSUM7QUFDRDtFQUNFLG1CQUFtQjtFQUNuQiw2QkFBNkI7QUFDL0I7QUFFQTtFQUNFLHNCQUFzQjtBQUN4QjtBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGFBQWE7QUFDZjtBQUVBLHFCQUFxQjtBQUNyQjtFQUNFLFdBQVc7QUFDYjtBQUNBO0VBQ0UsWUFBWTtFQUNaLFlBQVk7QUFDZDtBQUNBOzs7RUFHRSIsImZpbGUiOiJzcmMvYXBwL3NleHVhbC1oaXN0b3J5L3NleHVhbC1oaXN0b3J5LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWF0LWV4cGFuc2lvbi1wYW5lbDpub3QoW2NsYXNzKj0nbWF0LWVsZXZhdGlvbi16J10pIHtcclxuICAgIGJveC1zaGFkb3c6IG5vbmU7XHJcbiAgICBib3JkZXItcmFkaXVzOiAwcHg7XHJcbiAgICBib3JkZXItYm90dG9tOiAwLjc1cHggc29saWQgZ2FpbnNib3JvO1xyXG5cclxufVxyXG50YWJsZSB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgdHJhbnNpdGlvbjogbm9uZSAhaW1wb3J0YW50O1xyXG4gIGJveC1zaGFkb3c6IG5vbmUgIWltcG9ydGFudDtcclxufVxyXG5cclxudHIuZXhhbXBsZS1kZXRhaWwtcm93IHtcclxuICBoZWlnaHQ6IDA7XHJcbn1cclxuLypcclxudHIuZXhhbXBsZS1lbGVtZW50LXJvdzpub3QoLmV4YW1wbGUtZXhwYW5kZWQtcm93KTpob3ZlciB7XHJcbiAgYmFja2dyb3VuZDogd2hpdGVzbW9rZTtcclxufVxyXG4qL1xyXG50ci5leGFtcGxlLWVsZW1lbnQtcm93OmFjdGl2ZSB7XHJcbiAgYmFja2dyb3VuZDogI2VmZWZlZjtcclxuICB0cmFuc2l0aW9uOiBhbGwgMC4zcyBlYXNlLW91dDtcclxufVxyXG5cclxuLmV4YW1wbGUtZWxlbWVudC1yb3cgdGQge1xyXG4gIGJvcmRlci1ib3R0b20td2lkdGg6IDA7XHJcbn1cclxuXHJcbi5leGFtcGxlLWVsZW1lbnQtZGV0YWlsIHtcclxuICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbn1cclxuXHJcbi8qIEV4cGFuZGVkIERldGFpbHMgKi9cclxuLm1lc3NhZ2UtYmxvY2sge1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59XHJcbi5kZWxldGUtYnV0dG9uIHtcclxuICBmbG9hdDogcmlnaHQ7XHJcbiAgbWFyZ2luOiBhdXRvO1xyXG59XHJcbi8qXHJcbi51c2VyIHtcclxuICAgIGZvbnQtc2l6ZTogMTIwJTtcclxufSovIl19 */"
 
 /***/ }),
 
@@ -4066,7 +4105,7 @@ module.exports = ".mat-expansion-panel:not([class*='mat-elevation-z']) {\r\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\r\n<html>\r\n\r\n<body>\r\n    <div class=\"defaultContainer\">\r\n        <h2>Sexual Activity</h2>\r\n\r\n        <div class=\"btncontainer\">\r\n            <button mat-stroked-button onclick=\"window.location.href = '../addactivity/'\">Add Activity</button>\r\n        </div>\r\n\r\n        <mat-expansion-panel *ngFor=\"let encounter of activitylist\">\r\n            <mat-expansion-panel-header>\r\n                <mat-panel-title>\r\n                    <!-- <b>{{ encounter[0].encounterID }}</b>-->\r\n                </mat-panel-title>\r\n                <mat-panel-description>\r\n\r\n                    {{ convertDate(encounter[0].dateEncounter) }}\r\n                </mat-panel-description>\r\n            </mat-expansion-panel-header>\r\n\r\n            <!--<h3>{{ encounter[0].encounterID }}&nbsp;&nbsp;&nbsp;&nbsp;{{ encounter[0].userID }}</h3>-->\r\n            <h4>Participants: </h4>\r\n            <div>\r\n\r\n                <!--*ngFor=\"let partner of partnerlist\" //filter through encounter? -->\r\n                <ul>\r\n                    <li>{{ encounter[0].name }}</li>\r\n\r\n                </ul>\r\n            </div>\r\n\r\n            <h4>Activities Performed: </h4>\r\n            <div>\r\n                <!--*ngFor=\"let activity of activitylist\" //filter through encounter? -->\r\n                <ul>\r\n                    <li>{{ encounter[0].actName }}</li>\r\n                </ul>\r\n            </div>\r\n\r\n            <h4>Contraceptives Used: </h4>\r\n            <div>\r\n                <!--*ngFor=\"let contraceptive of contraceptivelist\" //filter through encounter? -->\r\n                <ul>\r\n                    <li>{{ encounter[0].protection }}</li>\r\n\r\n                </ul>\r\n            </div>\r\n\r\n            <h4>Comments: </h4>{{ encounter[0].notes }}<br><br>\r\n\r\n        </mat-expansion-panel>\r\n\r\n        <!--\r\n    <div class=\"activity_list\">\r\n      <ul class=\"activity\">\r\n          <li *ngFor=\"let encounter of activitylist\">\r\n              <img src=\"../../assets/book.png\" alt=\"Record Icon\" height=\"18\"\r\n              width=\"18\">&nbsp;&nbsp;\r\n            <a href=\"../sexualhistory/\"><b>{{ encounter[0].encounterID }}</b>&nbsp;&nbsp;&nbsp;&nbsp;{{ convertDate(encounter[0].dateEncounter) }} </a>\r\n        </li>\r\n      </ul>\r\n      <br>\r\n    </div>\r\n    -->\r\n        <!--\r\n    <h3 id=\"date\"><u>Saturday, 16th March 2019</u></h3>\r\n    <ul>\r\n      <li>\r\n        <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\" height=\"18\"\r\n          width=\"18\">&nbsp;&nbsp;\r\n        John Smith\r\n      </li>\r\n    </ul>\r\n\r\n    <h3 id=\"date\"><u>Friday, 1st March 2019</u></h3>\r\n    <ul>\r\n      <li>\r\n        <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\" height=\"18\"\r\n          width=\"18\">&nbsp;&nbsp;\r\n        John Smith\r\n      </li>\r\n      <li>\r\n        <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\" height=\"18\"\r\n          width=\"18\">&nbsp;&nbsp;\r\n        Sally West\r\n      </li>\r\n\r\n      <li>\r\n        <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\" height=\"18\"\r\n          width=\"18\">&nbsp;&nbsp;\r\n        Placeholder Contacts\r\n      </li>\r\n    </ul>-->\r\n\r\n        <!--    </div>\r\n      -->\r\n    </div>\r\n\r\n</body>\r\n</html>"
+module.exports = "<!DOCTYPE html>\r\n<html>\r\n\r\n<body>\r\n    <div class=\"defaultContainer\">\r\n        <!--<h2>Sexual Activity</h2>-->\r\n      <form [formGroup]=\"deleteActivityForm\" (ngSubmit)=\"onSubmit()\">\r\n        <table mat-table [dataSource]=\"dataSource\" multiTemplateDataRows class=\"mat-elevation-z8\">\r\n          <!-- Diagnosis Column -->\r\n          <ng-container matColumnDef=\"{{ column }}\" *ngFor=\"let column of displayedColumns\">\r\n            <th mat-header-cell *matHeaderCellDef>\r\n              <h2 style=\"color: black;\">\r\n                Sexual Activity\r\n                <button mat-stroked-button type=\"button\" onclick=\"window.location.href = '../addactivity/'\" style=\"float: right;\">Add</button>\r\n                <!-- onclick=\"window.location.href = '../addactivity/'\"  -->\r\n              </h2>\r\n            </th>\r\n            <td mat-cell *matCellDef=\"let item\"> {{ convertDate(item[0].dateEncounter) }} <mat-icon style=\"float: right; color: lightgray\">keyboard_arrow_down</mat-icon></td>\r\n          </ng-container>\r\n      \r\n          <ng-container matColumnDef=\"expandedDetail\">\r\n            <td mat-cell *matCellDef=\"let item\" [attr.colspan]=\"displayedColumns.length\">\r\n              <div class=\"example-element-detail\"\r\n                   [@detailExpand]=\"item == expandedItem ? 'expanded' : 'collapsed'\">\r\n                <div class=\"message-block\">\r\n                  <div class=\"message\">\r\n                    <!-- EXPANDED MESSAGE -->\r\n                    <h4>Participants: </h4>\r\n                    <div>\r\n                      <ul>\r\n                          <li>{{ item[0].name }}</li>\r\n\r\n                      </ul>\r\n                    </div>\r\n\r\n                    <h4>Activities Performed: </h4>\r\n                    <div>\r\n                      <ul>\r\n                          <li>{{ item[0].actName }}</li>\r\n                      </ul>\r\n                    </div>\r\n\r\n                    <h4>Contraceptives Used: </h4>\r\n                    <div>\r\n                      <ul>\r\n                        <div *ngIf=\"item[0].protection; else noProtection\"><li>{{ item[0].protection }}</li></div>\r\n                        <ng-template #noProtection><li style=\"color:lightgray\">No protection was used...</li></ng-template>\r\n                        <!--<li>{{ item[0].protection }}</li>-->\r\n\r\n                      </ul>\r\n                    </div>\r\n\r\n                    <h4>Comments: </h4>\r\n                      <ul>\r\n                        <div *ngIf=\"item[0].notes; else noComments\"><li>{{ item[0].notes }}</li></div>\r\n                        <ng-template #noComments><p style=\"color:lightgray\">There are no comments...</p></ng-template>\r\n                      </ul>\r\n                      \r\n                    \r\n                  </div>\r\n                  <div style=\"width: 100%;\">\r\n                      <button mat-icon-button class=\"delete-button\"> <!--</button>(click)=\"navigateToParam(item.alertid)\">-->\r\n                        <mat-icon>delete_outlined</mat-icon><br>\r\n                      </button><br>\r\n                  </div>\r\n                </div><br><br><br><br><br>\r\n              </div>\r\n            </td>\r\n          </ng-container>\r\n         \r\n          <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n          <tr mat-row *matRowDef=\"let item; columns: displayedColumns;\"\r\n              class=\"example-element-row\"\r\n              [class.example-expanded-row]=\"expandedItem === item\"\r\n              (click)=\"expandedItem = expandedItem === item ? null : item\">\r\n          </tr>\r\n          <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\r\n        </table>\r\n        <mat-paginator [pageSizeOptions]=\"[5, 10, 20]\" showFirstLastButtons></mat-paginator>\r\n      </form>\r\n        <!--\r\n        <mat-expansion-panel *ngFor=\"let encounter of activitylist\">\r\n            <mat-expansion-panel-header>\r\n                <mat-panel-title>\r\n                </mat-panel-title>\r\n                <mat-panel-description>\r\n\r\n                    {{ convertDate(encounter[0].dateEncounter) }}\r\n                </mat-panel-description>\r\n            </mat-expansion-panel-header>\r\n\r\n            <h4>Participants: </h4>\r\n            <div>\r\n                <ul>\r\n                    <li>{{ encounter[0].name }}</li>\r\n\r\n                </ul>\r\n            </div>\r\n\r\n            <h4>Activities Performed: </h4>\r\n            <div>\r\n                <ul>\r\n                    <li>{{ encounter[0].actName }}</li>\r\n                </ul>\r\n            </div>\r\n\r\n            <h4>Contraceptives Used: </h4>\r\n            <div>\r\n                <ul>\r\n                    <li>{{ encounter[0].protection }}</li>\r\n\r\n                </ul>\r\n            </div>\r\n\r\n            <h4>Comments: </h4>{{ encounter[0].notes }}<br><br>\r\n\r\n        </mat-expansion-panel>-->\r\n        <br><br>\r\n        <!--\r\n        <div class=\"btncontainer\">\r\n          <button mat-stroked-button onclick=\"window.location.href = '../addactivity/'\">Add Activity</button>\r\n        </div>\r\n      -->\r\n\r\n        <!--\r\n    <div class=\"activity_list\">\r\n      <ul class=\"activity\">\r\n          <li *ngFor=\"let encounter of activitylist\">\r\n              <img src=\"../../assets/book.png\" alt=\"Record Icon\" height=\"18\"\r\n              width=\"18\">&nbsp;&nbsp;\r\n            <a href=\"../sexualhistory/\"><b>{{ encounter[0].encounterID }}</b>&nbsp;&nbsp;&nbsp;&nbsp;{{ convertDate(encounter[0].dateEncounter) }} </a>\r\n        </li>\r\n      </ul>\r\n      <br>\r\n    </div>\r\n    -->\r\n        <!--\r\n    <h3 id=\"date\"><u>Saturday, 16th March 2019</u></h3>\r\n    <ul>\r\n      <li>\r\n        <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\" height=\"18\"\r\n          width=\"18\">&nbsp;&nbsp;\r\n        John Smith\r\n      </li>\r\n    </ul>\r\n\r\n    <h3 id=\"date\"><u>Friday, 1st March 2019</u></h3>\r\n    <ul>\r\n      <li>\r\n        <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\" height=\"18\"\r\n          width=\"18\">&nbsp;&nbsp;\r\n        John Smith\r\n      </li>\r\n      <li>\r\n        <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\" height=\"18\"\r\n          width=\"18\">&nbsp;&nbsp;\r\n        Sally West\r\n      </li>\r\n\r\n      <li>\r\n        <img src=\"http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png\" alt=\"User Image\" height=\"18\"\r\n          width=\"18\">&nbsp;&nbsp;\r\n        Placeholder Contacts\r\n      </li>\r\n    </ul>-->\r\n\r\n        <!--    </div>\r\n      -->\r\n    </div>\r\n\r\n</body>\r\n</html>"
 
 /***/ }),
 
@@ -4083,14 +4122,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_sexual_history_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/sexual-history.service */ "./src/app/services/sexual-history.service.ts");
+/* harmony import */ var _angular_material_paginator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/paginator */ "./node_modules/@angular/material/esm5/paginator.es5.js");
+/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm5/table.es5.js");
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+
 
 
 
 var SexualHistoryComponent = /** @class */ (function () {
-    function SexualHistoryComponent(_sexualHistoryService) {
+    function SexualHistoryComponent(_sexualHistoryService, router, formBuilder, _route, _router) {
         this._sexualHistoryService = _sexualHistoryService;
+        this.router = router;
+        this.formBuilder = formBuilder;
+        this._route = _route;
+        this._router = _router;
         this.activitylist = [];
         this.partnerslist = [];
+        this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]([]);
+        this.displayedColumns = ['dateEncounter'];
+        this.deleteActivityForm = this.formBuilder.group({
+            deleteDiagnosis: new _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormControl"]([])
+        });
     }
     SexualHistoryComponent.prototype.convertDate = function (date) {
         var sqlDate = new Date(date);
@@ -4101,16 +4159,43 @@ var SexualHistoryComponent = /** @class */ (function () {
         this._sexualHistoryService.getActivity()
             .subscribe(function (res) {
             console.log(res);
-            _this.activitylist = res;
+            //this.activitylist = res;
+            if (res != null) { // If the database is empty
+                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](res);
+            }
+            setTimeout(function () { return _this.dataSource.paginator = _this.paginator; });
         });
     };
+    SexualHistoryComponent.prototype.onSubmit = function () {
+        this.deleteActivityForm = this.formBuilder.group({
+            deleteActivity: new _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormControl"](this.expandedItem)
+        });
+        this._sexualHistoryService.deleteactivity(this.expandedItem).subscribe(function (data) {
+            console.log('Success!', data);
+            location.reload();
+        }, function (error) { return console.error('Error!', error); });
+        //console.log(this.expandedItem[0]);
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material_paginator__WEBPACK_IMPORTED_MODULE_3__["MatPaginator"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material_paginator__WEBPACK_IMPORTED_MODULE_3__["MatPaginator"])
+    ], SexualHistoryComponent.prototype, "paginator", void 0);
     SexualHistoryComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-sexual-history',
             template: __webpack_require__(/*! ./sexual-history.component.html */ "./src/app/sexual-history/sexual-history.component.html"),
+            animations: [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["trigger"])('detailExpand', [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["state"])('collapsed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["style"])({ height: '0px', minHeight: '0' })),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["state"])('expanded', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["style"])({ height: '*' })),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["transition"])('expanded <=> collapsed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_5__["animate"])('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+                ]),
+            ],
             styles: [__webpack_require__(/*! ./sexual-history.component.css */ "./src/app/sexual-history/sexual-history.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_sexual_history_service__WEBPACK_IMPORTED_MODULE_2__["SexualHistoryService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_sexual_history_service__WEBPACK_IMPORTED_MODULE_2__["SexualHistoryService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"], _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormBuilder"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_7__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]])
     ], SexualHistoryComponent);
     return SexualHistoryComponent;
 }());
@@ -4186,4 +4271,4 @@ module.exports = __webpack_require__(/*! C:\Users\Daryl\Documents\GitHub\bouncem
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main.60b3169d1ddd50c9e2ba.js.map
+//# sourceMappingURL=main.8f2c7d466fa4426abd8d.js.map
