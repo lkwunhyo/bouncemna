@@ -128,7 +128,8 @@ export class AlertPartnersComponent implements OnInit {
         );
 
         var url = window.location.origin + "/diagnosishistory";
-        location.replace(url);
+        //location.replace(url);
+        window.location.href = "/diagnosishistory";
     } //
 
   onSelect(person: Person): void {
