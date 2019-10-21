@@ -12,7 +12,7 @@ export class AddSexualService {
   private subject = new Subject<any>();
   private keepAfterNavigationChange = false;
   _url = 'http://localhost:8080/addactivity';
-
+  
   constructor(private router: Router, private _http: HttpClient) { 
     // clear alert message on route change
     router.events.subscribe(event => {
