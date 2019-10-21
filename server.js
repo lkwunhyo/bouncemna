@@ -212,7 +212,7 @@ app.post('/diagnosishistory', function (req, res) { //validate then sanitize
                     });
                 }
 
-                connection.query('SELECT * FROM ' + db_name + '.alert WHERE userID = ?', [req.cookies[userid]], function (err, result) {
+                connection.query('SELECT * FROM ' + db_name + '.alert WHERE userID = ?', [req.cookies['userid']], function (err, result) {
                     if (err) {
                         connection.rollback(function () {
                             throw err;
@@ -294,7 +294,7 @@ app.post('/encountercontacts', function (req, res, next) { //for alertpartner
 
     if (req.session.loggedIn) {
         connection_pool.getConnection(function (err, connection) {
-            connection.query(query, [req.cookies[userid]], function (error, results, fields) {
+            connection.query(query, [req.cookies['userid']], function (error, results, fields) {
                 if (error) {
                     console.dir("query error /encountercontacts");
                     console.dir(error);
@@ -395,7 +395,7 @@ app.post('/alertpartners', function (req, res) { //validate then sanitize
             anonymity: req.sanitize(req.body.anonymity),
             dateDiagnosed: req.sanitize(req.body.date),
             dateSent: req.sanitize(today),
-            userID: req.cookies[userid]
+            userID: req.cookies['userid']
         }
 
 
@@ -453,7 +453,7 @@ app.post('/alertpartners', function (req, res) { //validate then sanitize
                             var text = 'One of your partners may have been exposed to ' + sti + ', please get tested immediately!'
 
                             if (alert.anonymity == "identified") {
-                                text = text + ' Sent by ' + req.cookies[userid];
+                                text = text + ' Sent by ' + req.cookies['userid'];
                             }
 
                             console.dir(text);
