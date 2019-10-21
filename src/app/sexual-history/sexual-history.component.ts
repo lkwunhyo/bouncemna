@@ -66,7 +66,10 @@ export class SexualHistoryComponent implements OnInit {
       )
     });
     this._sexualHistoryService.deleteactivity(this.expandedItem).subscribe(
-      data => console.log('Success!', data),
+      data => {
+        console.log('Success!', data);
+        location.reload();
+      },
       error => console.error('Error!', error)
     );
 
