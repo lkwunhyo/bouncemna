@@ -19,6 +19,13 @@
       </ul>
     </div>
 
+    <h3><u>Date of Encounter</u></h3>
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" (dateChange)="formatDate($event);" name="date" placeholder="Choose a date.." [(ngModel)]="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
     <h3><u>Activities Performed</u></h3>
     <li *ngFor="let activity of sexualactivity_list">
         <mat-checkbox [value]="activity[0]"
