@@ -15,3 +15,7 @@
     text-align: center;
     transform: scale(2);
 }
+
+.labels {
+    color: lightgray;
+}
