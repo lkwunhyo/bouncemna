@@ -57,7 +57,7 @@ var connection = mysql.createConnection({
     multipleStatements: true //!!!!! REQUIRED
 });
 */
-/*
+
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -65,7 +65,7 @@ var connection = mysql.createConnection({
     database: 'bouncemna',
     dateStrings: 'date',
     multipleStatements: true //!!!!! REQUIRED
-});*/
+});
 
 /*var connection = mysql.createConnection({ //Check db_name!!!!
     host: 'eu-cdbr-west-02.cleardb.net',
@@ -75,12 +75,13 @@ var connection = mysql.createConnection({
     dateStrings: 'date',
     multipleStatements: true //!!!!! REQUIRED
 });*/
-
+/*
 var connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "12345678"
 });
+*/
 
 connection.connect(function (error) {
     if (!!error) {
@@ -1047,7 +1048,7 @@ app.post('/sexualhistory', function (req, res, next) {
                                 if (i == 0) {
                                     single_encounter_acts = results[0][i].actName;
                                 } else {
-                                    single_encounter_acts += "," + results[0][i].actName;
+                                    single_encounter_acts += ", " + results[0][i].actName;
                                 }
                                 internal_counter += 1;
                             }
@@ -1058,7 +1059,7 @@ app.post('/sexualhistory', function (req, res, next) {
                                 if (i == 0) {
                                     single_encounter_names = results[1][i].firstName + " " + results[1][i].lastName;
                                 } else {
-                                    single_encounter_names += "," + results[1][i].firstName + " " + results[1][i].lastName;
+                                    single_encounter_names += ", " + results[1][i].firstName + " " + results[1][i].lastName;
                                 }
                                 internal_counter += 1;
                             }
@@ -1067,7 +1068,7 @@ app.post('/sexualhistory', function (req, res, next) {
                                 if (i == 0) {
                                     single_encounter_protection = results[2][i].protectionName;
                                 } else {
-                                    single_encounter_protection += "," + results[2][i].protectionName;
+                                    single_encounter_protection += ", " + results[2][i].protectionName;
                                 }
                                 internal_counter += 1;
                             }
@@ -1137,6 +1138,65 @@ app.post('/sexualhistory', function (req, res, next) {
     }
 
 })
+
+app.post('/deleteactivity', function (req, res) { //validate then sanitize
+
+    if (isLoggedIn()) {
+        var userid = sess.userid;
+        if (req.body[0]) {
+            var encounterId = req.body[0].encounterID;
+        } else {
+            var encounterId = undefined;
+        }
+        console.dir(encounterId);
+
+        connection.beginTransaction(function (err) {
+            if (err) {
+                req.flash('error', err)
+                console.dir(err);
+                connection.rollback(function () {
+                    throw err;
+                });
+            }
+
+            connection.query('SELECT * FROM ' + db_name + '.encounter WHERE userID = ?', [userid], function (err, result) {
+                if (err) {
+                    connection.rollback(function () {
+                        throw err;
+                    });
+                } else {
+                    //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
+
+                    //alertid = result.insertId; //needed for all queries in this transaction                    
+                    connection.query(
+                        'DELETE FROM ' + db_name + '.encounter WHERE encounterID = ?', [encounterId], function (err, result) {
+                            if (err) {
+                                connection.rollback(function () {
+                                    throw err;
+                                });
+                            }
+                        }
+                    )
+                        
+                    
+                }
+            });
+
+            connection.commit(function (err) {
+                if (err) {
+                    connection.rollback(function () {
+                        throw err;
+                    });
+                }
+            })
+
+
+            console.log("db post register success");
+            res.status(200).send({ "message": "data received" });
+        })
+    }
+})
+
 
 app.post('/getEvents', function (req, res) { //validate then sanitize
     //if (user) return res.status(400).send("User already registered.");
