@@ -16,7 +16,7 @@ private subject = new Subject<any>();
 private keepAfterNavigationChange = false;
 
 
-    _url = 'http://localhost:8080/addevents';
+    _url = '/addevents';
 
 constructor(private router: Router, private _http: HttpClient) {
         // clear alert message on route change
