@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <div class="defaultContainer">
   <h2>Diagnosis History</h2><br>
 </div>
@@ -7,32 +5,37 @@
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
     <!-- Diagnosis Column -->
     <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
-      <td mat-cell *matCellDef="let item"> {{item[column]}} </td>
+        <tr>
+          <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
+          <td mat-cell *matCellDef="let item"> {{item[column]}} </td>
+        </tr>
     </ng-container>
 
     <ng-container matColumnDef="expandedDetail">
-      <td mat-cell *matCellDef="let item" [attr.colspan]="displayedColumns.length">
-        <div class="example-element-detail"
-             [@detailExpand]="item == expandedItem ? 'expanded' : 'collapsed'">
-          <div class="message-block">
-            <div class="message">
-              <div *ngIf="item.sendmessage == 'true'; else elseBlock">
-                  <mat-icon class="message-icon" aria-hidden="false" aria-label="Message Icon">mail_outlined</mat-icon>
-                An {{item.anonymity}} message was sent.
-              </div>
-              <ng-template #elseBlock>
-                <mat-icon class="message-icon" aria-hidden="false" aria-label="Message Icon">space_bar</mat-icon>
-                A message was not sent.
-              </ng-template>
-            </div><br>
-            <!--<button mat-icon-button [routerLink]="['/diagnosishistory', item.alertid]" class="delete-button">-->
-            <button mat-icon-button onclick="window.location.href = '../diagnosishistory'" class="delete-button"> <!--</button>(click)="navigateToParam(item.alertid)">-->
-                <mat-icon>delete_outlined</mat-icon>
-            </button>
-          </div><br><br><br><br><br>
-        </div>
-      </td>
+        <tr>
+            <td mat-cell *matCellDef="let item" [attr.colspan]="displayedColumns.length">
+                <div class="example-element-detail"
+                     [@detailExpand]="item == expandedItem ? 'expanded' : 'collapsed'">
+                    <div class="message-block">
+                        <div class="message">
+                            <div *ngIf="item.sendmessage == 'true'; else elseBlock">
+                                <mat-icon class="message-icon" aria-hidden="false" aria-label="Message Icon">mail_outlined</mat-icon>
+                                An {{item.anonymity}} message was sent.
+                            </div>
+                            <ng-template #elseBlock>
+                                <mat-icon class="message-icon" aria-hidden="false" aria-label="Message Icon">space_bar</mat-icon>
+                                A message was not sent.
+                            </ng-template>
+                        </div><br>
+                        <!--<button mat-icon-button [routerLink]="['/diagnosishistory', item.alertid]" class="delete-button">-->
+                        <button mat-icon-button onclick="window.location.href = '../diagnosishistory'" class="delete-button">
+                            <!--</button>(click)="navigateToParam(item.alertid)">-->
+                            <mat-icon>delete_outlined</mat-icon>
+                        </button>
+                    </div><br><br><br><br><br>
+                </div>
+            </td>
+        </tr>
     </ng-container>
    
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -46,8 +49,7 @@
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   
 </form>
-  <br><br>
-  </html>
+
      <!-- Diagnosis Date Column -->
     <!--
     <ng-container matColumnDef="Diagnosis Date">
