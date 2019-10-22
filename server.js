@@ -1218,6 +1218,22 @@ app.post('/deleteactivity', function (req, res) { //validate then sanitize
     }
 })
 
+app.post('/getauth', function (req, res) { //validate then sanitize
+    if (req.cookies['loggedIn']) {
+        auth = {
+            'loggedIn': req.cookies.loggedIn,
+            'userid': req.cookies.userid
+        }
+        console.log("auth:");
+        console.log(auth);
+        res.send(JSON.stringify(auth));
+
+    } else {
+        res.end();
+
+    }
+});
+
 
 app.get('*', function (req, res) {
     // Replace the '/dist/<to_your_project_name>/index.html'

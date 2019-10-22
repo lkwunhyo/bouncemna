@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 export class AppHttpService {
     constructor(private http: Http, private _http: HttpClient) { }
 
+    _authurl = '/getauth'
+
     post(url: string, data: any) {
         console.dir("called post service");
         //console.dir("json: " + JSON.stringify(alert));
@@ -19,4 +21,10 @@ export class AppHttpService {
         //console.dir("json: " + JSON.stringify(alert));
         return this._http.get<any>(url, data);
     }
+
+    getAuth() {
+        console.dir("called post service");
+        return this._http.post<any>(this._authurl, "BODY 2ND PARAM");
+    }
+    
 }

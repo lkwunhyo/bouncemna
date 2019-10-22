@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   counter = 0;
   v = HEALTHINFO[0].info
 
-  userId: string;
+  userId: String;
 
   constructor(private http: AppHttpService) { }
  /*
@@ -42,6 +42,14 @@ export class HomeComponent implements OnInit {
       }
     }, 5000); //slightly less than 5 seconds
     //this.userId = sess.userid;
+    this.http.getAuth().subscribe((res: any) => {
+      console.log(res);
+      if (res) {
+        this.userId = res.userid;
+      }
+
+    });
+    console.log(this.userId);
     /*
           .subscribe((res: any[]) => {
               console.log(res);
