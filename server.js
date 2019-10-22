@@ -280,8 +280,8 @@ app.post('/encountercontacts', function (req, res, next) { //for alertpartner
     //var query = 'select * from (select ' + attributes + ' from ' + from + ' where ' + where + ') t'; //where t.rn = 1';
     //var query = 'select * from (select ' + attributes + ' from ' + from + ' GROUP BY contactID ORDER BY dateEncounter DESC) data ORDER BY dateEncounter ASC' ;
     var attributes = "encounterpartners.contactID, contact.firstName, contact.lastName, max(dateEncounter) md, encounter.encounterID, contact.email ";
-    var from = db_name + ".encounter, " + db_name + ".encounterpartners, " + db_name + ".contact ";
-    var where = "encounter.encounterID = encounterpartners.encounterID AND contact.contactID = encounterpartners.contactID ";
+    var from = db_name + ".encounter, " + db_name + ".encounterpartners, " + db_name + ".contact, " + db_name + ".account ";
+    var where = "encounter.encounterID = encounterpartners.encounterID AND contact.contactID = encounterpartners.contactID AND encounter.userID = ?  ";
     var query = "SELECT " + attributes + "FROM " + from + "WHERE " + where + "GROUP BY contactID ORDER BY md DESC";
     //console.dir(query);
 

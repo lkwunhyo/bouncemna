@@ -1,15 +1,15 @@
 {
   "ExpandedNodes": [
     "",
-    "\\dist",
-    "\\dist\\bounce",
     "\\e2e",
-    "\\e2e\\src",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\home",
+    "\\src\\app\\editprofile",
     "\\src\\app\\login",
-    "\\src\\app\\register"
+    "\\src\\app\\models",
+    "\\src\\app\\register",
+    "\\wwwroot"
   ],
+  "SelectedNode": "\\src\\app\\register\\register.component.html",
   "PreviewInSolutionExplorer": false
 }
