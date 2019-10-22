@@ -52,7 +52,7 @@ export class ContactService {
             return 0;
         }
         if(values) {
-          values.sort(orderByDate)
+          values.sort(orderByDate) //before filtering by tracing period
         }
         if (dateDiagnosed != 0 && tracingPeriod != 0) {
             console.log("month difference");

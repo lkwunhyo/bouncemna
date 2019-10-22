@@ -35,7 +35,7 @@ export class AlertPartnersComponent implements OnInit {
   selected_persons = [];
   selectedPerson: Person;
   tracing_period;
-  v = null;
+  v = null; //tracing period
   diseases = [];
   selectedDisease: Disease;
     sti = "sexually transmitted infection";
@@ -99,6 +99,38 @@ export class AlertPartnersComponent implements OnInit {
     })
     }
 
+
+    html_config() {
+         //Finally configures html to show "no contact" or "these contacts are within traciing period"
+            var node;
+            //conditional html
+            try {
+                if (this.alert.date != null) {
+                    if (this.persons.length > 0 && this.alert.diagnosis != "HIV") {
+                        node = document.getElementById('recent_contacts');
+                        node.style.visibility = 'visible';
+                    } else {
+                        node = document.getElementById('recent_contacts');
+                        node.style.visibility = 'hidden';
+                    }
+                }
+                console.log("contact length");
+                console.log(this.persons.length);
+                if (this.persons.length <= 0) {
+                    node = document.getElementById('no_recent_contacts');
+                    node.style.visibility = 'visible';
+                    document.getElementById('recent_contacts').style.visibility = 'hidden';
+                } else {
+                    node = document.getElementById('no_recent_contacts');
+                    node.style.visibility = 'hidden';
+                    document.getElementById('recent_contacts').style.visibility = 'visible';
+                }
+            } catch {
+                //Can't think of any possible errors to catch
+            }
+    }
+    
+
     //stackoverflow.com/questions/34835516/how-to-submit-form-to-server-in-angular2
     onSubmit() {
         var contactid = [];
@@ -151,7 +183,10 @@ export class AlertPartnersComponent implements OnInit {
                                 .subscribe((res: any[]) => {
                                     //console.log(res);
                                     //res is persons
-                                    this.persons = this._contactService.filterByDate(res, this.alert.date, this.tracing_period);
+                                    if (res != null) {
+                                        this.persons = this._contactService.filterByDate(res, this.alert.date, this.tracing_period);
+                                        this.html_config();
+                                    }
                                 });
                         }
                     }
@@ -160,7 +195,8 @@ export class AlertPartnersComponent implements OnInit {
                     this._contactService.getEncounterContacts()
                         .subscribe((res: any[]) => {
                             //console.log(res);
-                            this.persons = this._contactService.filterByDate(res, 0, 0);
+                            this.persons = this._contactService.filterByDate(res, 0, 0); //res, no alert date, no tracing period
+                            this.html_config();
                         });
                 }
             }
@@ -168,7 +204,8 @@ export class AlertPartnersComponent implements OnInit {
             console.log("no valid diagnosis date");
             this._contactService.getEncounterContacts()
                 .subscribe((res: any[]) => {
-                    this.persons = this._contactService.filterByDate(res, 0, 0);
+                    this.persons = this._contactService.filterByDate(res, 0, 0); //res, no alert date, no tracing period
+                    this.html_config();
                 });
         }
 
@@ -187,29 +224,6 @@ export class AlertPartnersComponent implements OnInit {
             this.sti = "a sexually transmitted infection";
         } else {
             this.sti = this.alert.diagnosis;
-        }
-
-        var node;
-        //conditional html
-        try {
-            if (this.alert.date != null) {
-                if (this.persons.length > 0 && this.alert.diagnosis != "HIV") {
-                    node = document.getElementById('recent_contacts');
-                    node.style.visibility = 'visible';
-                } else {
-                    node = document.getElementById('recent_contacts');
-                    node.style.visibility = 'hidden';
-                }
-            }
-            if (this.persons.length < 0) {
-                node = document.getElementById('no_recent_contacts');
-                node.style.visibility = 'visible';
-            } else {
-                node = document.getElementById('no_recent_contacts');
-                node.style.visibility = 'hidden';
-            }
-        } catch {
-            //Can't think of any possible errors to catch
         }
 
     return this.v;

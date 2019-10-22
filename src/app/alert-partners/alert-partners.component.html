@@ -38,36 +38,39 @@
     <mat-step [stepControl]="alertPartnersForm2" *ngIf="isSendMessage" [editable]="isEditable" [completed]="false">
         <form [formGroup]="alertPartnersForm2">
             <ng-template matStepLabel>Choose your contacts</ng-template>
-            <div id="no_recent_contacts" style='visibility: hidden'> None of your contacts are within the tracing period. </div>
-            <div id="recent_contacts" style='visibility: hidden'>These contacts are within the tracing period: </div> 
-            <div class="contact_list">
-                <ul class="contacts">
-                    <li *ngFor="let person of persons">
+            <div *ngIf="persons; else noContacts">
+                <div id="no_recent_contacts" style='visibility: hidden'> None of your contacts are within the tracing period. </div>
+                <div id="recent_contacts" style='visibility: hidden'>These contacts are within the tracing period: </div>
+                <div class="contact_list">
+                    <ul class="contacts">
+                        <li *ngFor="let person of persons">
 
-                        <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image" height="18"
-                             width="18">&nbsp;&nbsp;
-                        <mat-checkbox [value]="add_persons" formControlName="contacts" [(ngModel)]="person.selected"
-                                      (change)="OnCheckboxSelect(person, $event.checked)" name="persons">
-                            {{ person.firstname }}
-                            {{ person.lastname}} ({{ person.dateEncounter }})
-                        </mat-checkbox>
-                    </li>
-                </ul>
+                            <!--<img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image" height="18"
+                         width="18">-->
+                            &nbsp;&nbsp;
+                            <mat-checkbox [value]="add_persons" formControlName="contacts" [(ngModel)]="person.selected"
+                                          (change)="OnCheckboxSelect(person, $event.checked)" name="persons">
+                                {{ person.firstname }}
+                                {{ person.lastname}} ({{ person.dateEncounter }})
+                            </mat-checkbox>
+                        </li>
+                    </ul>
+                </div>
             </div>
+            <ng-template #noContacts><p style="color: lightgray; font-size: 140%;">You have no contacts...</p></ng-template>
+                <br><br>
+                <mat-radio-group formControlName="anonymity" [(ngModel)]="alert.anonymity">
+                    <mat-radio-button value="anonymous" ng-value="true">Send message anonymously</mat-radio-button> <br>
+                    <mat-radio-button value="identified">Include your name in message</mat-radio-button>
+                </mat-radio-group>
 
-            <br><br>
-            <mat-radio-group formControlName="anonymity" [(ngModel)]="alert.anonymity">
-                <mat-radio-button value="anonymous" ng-value="true">Send message anonymously</mat-radio-button> <br>
-                <mat-radio-button value="identified">Include your name in message</mat-radio-button>
-            </mat-radio-group>
-
-            <br><br>Message:<br> Your partner may have been exposed to <br>{{sti}}, please get tested immediately
-            <div>
-                <!-->
-        <button mat-button matStepperPrevious>Back</button><-->
-                <button mat-button type="submit" (click)="resetForm();stepper.reset();">Reset</button>
-                <button mat-button matStepperNext>Next</button>
-            </div>
+                <br><br>Message:<br> Your partner may have been exposed to <br>{{sti}}, please get tested immediately
+                <div>
+                    <!-->
+            <button mat-button matStepperPrevious>Back</button><-->
+                    <button mat-button type="submit" (click)="resetForm();stepper.reset();">Reset</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
         </form>
     </mat-step>
     <mat-step [stepControl]="alertPartnersForm2" [editable]="isEditable" [completed]="false">
