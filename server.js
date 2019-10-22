@@ -1251,7 +1251,7 @@ app.post('/addevents', function (req, res) { //validate then sanitize
         console.log("req.body");
         console.log(req.body);
         var addevents = {
-            userid: sess.userid,
+            userid: req.cookies['userid'],
             title: req.sanitize(req.body.title),
             date: req.sanitize(req.body.date),
             timestart: req.sanitize(req.body.timestart),
@@ -1294,7 +1294,7 @@ app.post('/getEvents', function (req, res) { //validate then sanitize
             console.log("req.body");
             console.log(req.body);
             var addevents = {
-                userid: sess.userid,
+                userid: req.cookies['userid'],
                 title: req.sanitize(req.body.title),
                 date: req.sanitize(req.body.date),
                 timestart: req.sanitize(req.body.timestart),
