@@ -1250,7 +1250,7 @@ app.post('/addevents', function (req, res) { //validate then sanitize
 
         console.log("req.body");
         console.log(req.body);
-        var addevents = {
+        var db_name  = {
             userid: req.cookies['userid'],
             title: req.sanitize(req.body.title),
             date: req.sanitize(req.body.date),
@@ -1267,6 +1267,7 @@ app.post('/addevents', function (req, res) { //validate then sanitize
         console.dir(addevents);
         connection_pool.getConnection(function (err, connection) {
             connection.query('INSERT INTO ' + db_name + '.addevents SET ?', addevents, function (err, result) {
+                console.log("result2:" + result[0]);
                 if (err) {
                     req.flash('error', err)
                     console.log(err);
@@ -1278,7 +1279,7 @@ app.post('/addevents', function (req, res) { //validate then sanitize
                     //})
                 } else {
                     console.log("db post register success");
-                    res.status(200).send({ "message": "data received" });
+                    res.send(JSON.stringify(result)); 
                 }
             });
             connection.release();
@@ -1308,8 +1309,10 @@ app.post('/getEvents', function (req, res) { //validate then sanitize
 
             console.dir("addevents:");
             console.dir(addevents);
+            
 
             connection.query('INSERT INTO ' + db_name + '.addevents SET ?', addevents, function (err, result) {
+                console.log("result:" + result[0]);
                 if (err) {
                     req.flash('error', err)
                     console.log(err);
@@ -1321,7 +1324,7 @@ app.post('/getEvents', function (req, res) { //validate then sanitize
                     //})
                 } else {
                     console.log("db post register success");
-                    res.status(200).send({ "message": "data received" });
+                    res.send(JSON.stringify(result)); 
                 }
             });
             connection.release();

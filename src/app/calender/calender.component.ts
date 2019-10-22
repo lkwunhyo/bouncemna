@@ -55,7 +55,7 @@ export class CalenderComponent implements OnInit {
           .subscribe((res: any[]) => {
               
               this.eventList = res;
-              console.log("resE" + this.eventList);
+              console.log("resE" + this.eventList.title);
 
                this.eventsl = [
                 {
