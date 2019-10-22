@@ -1240,67 +1240,56 @@ app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname + '/wwwroot/index.html'));
 });
 
-/* //-----------------Calendar---------------------------
-app.post('/', function (req, res) { //validate then sanitize
+ //-----------------Calendar---------------------------
 
+//Get Events
+app.post('/getEvents', function (req, res) { 
+
+    console.dir("calling events");
     if (isLoggedIn()) {
         var userid = sess.userid;
-        if (req.body[0]) {
-            var encounterId = req.body[0].encounterID;
-        } else {
-            var encounterId = undefined;
-        }
-        console.dir(encounterId);
-
-        connection.beginTransaction(function (err) {
-            if (err) {
-                req.flash('error', err)
-                console.dir(err);
-                connection.rollback(function () {
-                    throw err;
-                });
+        connection.query('SELECT * FROM bouncemna.addevents WHERE userid = ?', [userid], function (error, results, fields) {
+            if (error) {
+                console.dir("query error");
+                res.json({
+                    status: false,
+                    message: 'there are some error with query'
+                })
             }
 
-            connection.query('SELECT * FROM ' + db_name + '.encounter WHERE userID = ?', [userid], function (err, result) {
-                if (err) {
-                    connection.rollback(function () {
-                        throw err;
+            else {
+                var objs = [];
+                for (var i = 0; i < results.length; i++) {
+                    //console.dir("/events" + results[i].firstName);
+                    objs.push({
+                        title: results[i].title,
+                        date: results[i].date,
+                        timestart: results[i].timestart,
+                        timeend: results[i].timeend,
+                        alert: results[i].alert,
+                        repeat: results[i].repeat,
+                        note: results[i].note,
                     });
+                }
+                if (results.length > 0) {
+                    res.send(JSON.stringify(objs));
                 } else {
-                    //Query must be in else, because begin transaction is not thread-safe (meaning queries can unintentionally run in any order)
-
-                    //alertid = result.insertId; //needed for all queries in this transaction                    
-                    connection.query(
-                        'DELETE FROM ' + db_name + '.encounter WHERE encounterID = ?', [encounterId], function (err, result) {
-                            if (err) {
-                                connection.rollback(function () {
-                                    throw err;
-                                });
-                            }
-                        }
-                    )
-                        
-                    
+                    res.end();
                 }
-            });
-
-            connection.commit(function (err) {
-                if (err) {
-                    connection.rollback(function () {
-                        throw err;
-                    });
-                }
-            })
-
-
-            console.log("db post register success");
-            res.status(200).send({ "message": "data received" });
-        })
+            }
+        });
+    } else {
+        res.redirect('/login')
     }
+
+
+
+
+
 })
 
-
-app.post('/getEvents', function (req, res) { //validate then sanitize
+//Add Events
+app.post('/addevents', function (req, res) { //validate then sanitize
     //if (user) return res.status(400).send("User already registered.");
     //console.dir("addevents: " + req.body.eventid);
     
@@ -1335,6 +1324,8 @@ app.post('/getEvents', function (req, res) { //validate then sanitize
         } else {
             console.log("db post register success");
             res.status(200).send({ "message": "data received" });
-            }
-    });
- }); */
+        }
+    })
+
+
+})
