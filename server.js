@@ -1266,7 +1266,7 @@ app.post('/addevents', function (req, res) { //validate then sanitize
         console.dir("addevents:");
         console.dir(addevents);
         connection_pool.getConnection(function (err, connection) {
-            connection.query('INSERT INTO bouncemna.addevents SET ?', addevents, function (err, result) {
+            connection.query('INSERT INTO ' + db_name + '.addevents SET ?', addevents, function (err, result) {
                 if (err) {
                     req.flash('error', err)
                     console.log(err);
@@ -1309,7 +1309,7 @@ app.post('/getEvents', function (req, res) { //validate then sanitize
             console.dir("addevents:");
             console.dir(addevents);
 
-            connection.query('INSERT INTO bouncemna.addevents SET ?', addevents, function (err, result) {
+            connection.query('INSERT INTO ' + db_name + '.addevents SET ?', addevents, function (err, result) {
                 if (err) {
                     req.flash('error', err)
                     console.log(err);
