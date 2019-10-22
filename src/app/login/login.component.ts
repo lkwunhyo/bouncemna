@@ -41,7 +41,8 @@ loginForm: FormGroup;
           () => {
               if (this.reg.status == true) {
                   alert("Login post successful");
-                  this.router.navigateByUrl("/home");
+                  //this.router.navigateByUrl("/home");
+                  location.href = "/home";
               } else {
                   alert(this.reg.message);
               }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppHttpService } from 'src/app/services/apphttp.service';
 import { Router } from '@angular/router';
 
@@ -9,10 +9,15 @@ declare var $: any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Bounce';
   _url = '/logout';
+  _barurl = '/sidebar';
   log;
+
+  auth = null;
+  userId = null;
+  loggedIn = false;
 
   constructor(private _apphttpService: AppHttpService,
     private router: Router) { }
@@ -27,5 +32,18 @@ export class AppComponent {
       logout => {console.log('Success!', logout);},
       error => {console.error('Error!', error)}
     );
+  }
+
+  ngOnInit() {
+    this._apphttpService.getAuth().subscribe((res: any) => {
+        console.log(res);
+        if (res) {
+          this.auth = res;
+          this.userId = res.userid;
+          this.loggedIn = res.loggedIn;
+        }
+
+    });
+
   }
 }
