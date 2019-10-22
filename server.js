@@ -1280,6 +1280,7 @@ app.post('/getEvents', function (req, res) { //validate then sanitize
                     res.status(200).send({ "message": "data received" });
                 }
             });
+            connection.release();
         });
     }
  }); 
