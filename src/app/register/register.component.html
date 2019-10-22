@@ -49,7 +49,8 @@
               </mat-form-field>
               <mat-form-field>
                      <input matInput id="password" name="password" [(ngModel)]="user.password"
-                            placeholder="Password.." [type]="hide ? 'password':'text'" required/>
+                            placeholder="Password.." [type]="hide ? 'password':'text'" 
+                            minlength="6" maxlength="30" required/>
                      <mat-icon matSuffix></mat-icon>
               </mat-form-field><br><br><br>
 

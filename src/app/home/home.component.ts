@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   v = HEALTHINFO[0].info
 
   userId: String;
+  loggedIn;
 
   constructor(private http: AppHttpService) { }
  /*
@@ -46,10 +47,16 @@ export class HomeComponent implements OnInit {
       console.log(res);
       if (res) {
         this.userId = res.userid;
+        this.loggedIn = res.loggedIn;
+      }
+      
+      if(!this.loggedIn) {
+        location.href = "/login";
       }
 
     });
     console.log(this.userId);
+
     /*
           .subscribe((res: any[]) => {
               console.log(res);
