@@ -14,4 +14,9 @@ export class AppHttpService {
         return this._http.post<any>(url, data);
     }
 
+    get(url: string, data: any) {
+        console.dir("called get service");
+        //console.dir("json: " + JSON.stringify(alert));
+        return this._http.get<any>(url, data);
+    }
 }

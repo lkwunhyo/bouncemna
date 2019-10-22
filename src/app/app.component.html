@@ -30,7 +30,7 @@
 
             <li> <a routerLink="/login" (click)="sidebar.toggle()">Login</a></li><br>
             <li> <a routerLink="/register" (click)="sidebar.toggle()">Register</a></li><br>
-            <li> <a routerLink="/logout" (click)="sidebar.toggle()">Logout</a></li><br>
+            <li> <a routerLink="/login" (click)="sidebar.toggle(); logoutClick();">Logout</a></li><br>
             <mat-divider class="dividerlabel"></mat-divider><br>
 
             <li> <a routerLink="/rewards" (click)="sidebar.toggle()">Rewards</a></li><br>

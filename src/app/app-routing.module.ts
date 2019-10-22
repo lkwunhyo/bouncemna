@@ -53,7 +53,7 @@ const routes: Routes = [
 { path: 'contactprofile', component: ContactProfileComponent },
 { path: 'contactprofile/:id', component: ContactProfileComponent },
 { path: 'rewards', component: RewardsComponent },
-{ path: 'qrscanner', component: QrscannerComponent },
+{ path: 'qrscanner', component: QrscannerComponent }
 //{ path: 'diagnosishistory?alertid:alertid', component: DiagnosisHistoryComponent }
 //{ path: 'diagnosishistory/:alertid', component: DiagnosisHistoryComponent }
 ];

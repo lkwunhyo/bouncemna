@@ -67,11 +67,12 @@ var connection = mysql.createConnection({
 // Replace the '/dist/<to_your_project_name>' -------------- src is the app name
 app.use(express.static(__dirname + '/wwwroot'));
 
-
+/*
 app.get('*', function (req, res) {
     // Replace the '/dist/<to_your_project_name>/index.html'
     res.sendFile(path.join(__dirname + '/wwwroot/index.html'));
 });
+*/
 
 
 //Start the app by listening on the default Heroku port
@@ -718,6 +719,19 @@ app.post('/addactivity', function (req, res) { //validate then sanitize
 
 module.exports = app;
 /*end of connection stuff*/
+app.get('/logout', function (req, res) {
+    console.dir("logging out...");
+    cookie = req.cookies;
+    for (var prop in cookie) {
+        if (!cookie.hasOwnProperty(prop)) {
+            continue;
+        }
+        res.cookie(prop, '', { expires: new Date(0) });
+    }
+    //console.log(res);
+    res.send({url: "login"});
+    
+});
 
 app.post('/login', function (req, res) { //validate then sanitize
 
@@ -1205,15 +1219,9 @@ app.post('/deleteactivity', function (req, res) { //validate then sanitize
 })
 
 
-app.get('/logout', function (req, res) {
-    cookie = req.cookies;
-    for (var prop in cookie) {
-        if (!cookie.hasOwnProperty(prop)) {
-            continue;
-        }
-        res.cookie(prop, '', { expires: new Date(0) });
-    }
-    res.redirect('/login');
+app.get('*', function (req, res) {
+    // Replace the '/dist/<to_your_project_name>/index.html'
+    res.sendFile(path.join(__dirname + '/wwwroot/index.html'));
 });
 
 /* //-----------------Calendar---------------------------
