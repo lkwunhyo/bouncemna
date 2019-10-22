@@ -11,11 +11,15 @@
   <form (ngSubmit)="OnSubmit()" name="partnerlist">
     <div class="contact_list">
       <ul class="contacts">
-        <li *ngFor="let person of sexualpartners">
+        <div *ngIf="sexualpartners.length != 0; else noSexualPartners">
+          <li *ngFor="let person of sexualpartners">
             <img src="../../../assets/contact.png" alt="User Image"
-            height="15" width="15">&nbsp;&nbsp;
-            {{ person.firstname }} {{ person.lastname}}<br>
-        </li>
+              height="15" width="15">&nbsp;&nbsp;
+              {{ person.firstname }} {{ person.lastname}}<br>
+          </li>
+        </div>
+        <ng-template #noSexualPartners><li style="color:lightgray">Click Add to add sexual partners...</li></ng-template>
+        
       </ul>
     </div>
 
