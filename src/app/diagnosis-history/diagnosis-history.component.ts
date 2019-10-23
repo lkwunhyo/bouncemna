@@ -46,7 +46,16 @@ export class DiagnosisHistoryComponent implements OnInit {
               console.log(res);
               if (res != null) {  // If the database is empty
                 var sorted = res.sort(function(a, b) {
-                  return Number(b["Diagnosis Date"].replace(/-/g, "")) - Number(a["Diagnosis Date"].replace(/-/g, ""))
+                  var a1 = 0;
+                  var b1 = 0;
+                  if (a["Diagnosis Date"]) {
+                    a1 = Number(a["Diagnosis Date"].replace(/-/g, ""));
+                  }
+                  if (b["Diagnosis Date"]) {
+                    b1 = Number(b["Diagnosis Date"].replace(/-/g, ""));
+                  }
+                  return b1 - a1
+                  //return Number(b["Diagnosis Date"].replace(/-/g, "")) - Number(a["Diagnosis Date"].replace(/-/g, ""))
                 });
                 this.dataSource = new MatTableDataSource<any>(sorted);
               }
