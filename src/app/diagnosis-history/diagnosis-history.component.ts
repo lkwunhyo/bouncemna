@@ -5,6 +5,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { DiagnosisHistoryService } from '../services/diagnosis-history.service';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-diagnosis-history',
@@ -28,6 +29,7 @@ export class DiagnosisHistoryComponent implements OnInit {
   deleteDiagnosisForm: FormGroup;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private _diagnosisHistoryService: DiagnosisHistoryService, 
     private router: Router, private formBuilder: FormBuilder,
@@ -39,13 +41,14 @@ export class DiagnosisHistoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.dataSource.paginator = this.paginator;
-
     this._diagnosisHistoryService.getDiagnosis()
           .subscribe((res: any[]) => {
-              console.log("Diagnosis: " + res);
+              console.log(res);
               if (res != null) {  // If the database is empty
-                this.dataSource = new MatTableDataSource<any>(res);
+                var sorted = res.sort(function(a, b) {
+                  return Number(b["Diagnosis Date"].replace(/-/g, "")) - Number(a["Diagnosis Date"].replace(/-/g, ""))
+                });
+                this.dataSource = new MatTableDataSource<any>(sorted);
               }
               setTimeout(() => this.dataSource.paginator = this.paginator);
           });
