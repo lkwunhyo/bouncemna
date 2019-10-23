@@ -46,7 +46,8 @@
       <textarea matInput id="comment" placeholder="Add your comments.."
         rows="5" cols="10" [(ngModel)]="comment" name="comment"></textarea>
     </mat-form-field><br>
-    <button mat-button class="submitbutton" type="submit" onclick="window.location.href = '../sexualhistory/'">Submit</button><br><!---->
+    <button mat-button class="submitbutton" type="submit" [disabled]="sexualpartners.length == 0"
+      onclick="window.location.href = '../sexualhistory/'">Submit</button><br><!---->
   </form>
       <br><br>
 </div>
