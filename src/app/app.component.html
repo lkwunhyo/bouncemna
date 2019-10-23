@@ -2,15 +2,15 @@
 
 
 <div class="ui top attached demo menu">
-    <div>
+    <div class="ham-menu">
          <a class="item" (click)="sidebar.toggle()">
              <i class="sidebar icon"></i>
          </a>
     </div>
-     <div class="titlecontainer alignmentadj">
-         <div *ngIf="loggedIn; else loggedOut"><h2><a href="/home">{{title}}</a></h2></div>
-         <ng-template #loggedOut><h2><a href="/login">{{title}}</a></h2></ng-template>
-     </div>
+    <div class="titlecontainer alignmentadj">
+        <div *ngIf="loggedIn; else loggedOut"><h2><a href="/home">{{title}}</a></h2></div>
+        <ng-template #loggedOut><h2><a href="/login">{{title}}</a></h2></ng-template>
+    </div>
  </div>
  
  
