@@ -29,6 +29,7 @@ const colors: any = {
 
 @Component({
   selector: 'app-calender',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './calender.component.html',
   styleUrls: ['./calender.component.css',],
   
@@ -45,7 +46,7 @@ export class CalenderComponent implements OnInit {
   view: CalendarView = CalendarView.Day;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = false;
   eventsl: CalendarEvent<any>[];
   
   
@@ -53,7 +54,7 @@ export class CalenderComponent implements OnInit {
       console.log("geteventslist")
     this.eventsService.getEventsList()
           .subscribe((res: any[]) => {
-              
+              console.log(res);
               this.eventList = res;
               for (let count of this.eventList) {     
                   try {
@@ -87,7 +88,7 @@ export class CalenderComponent implements OnInit {
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
-      this.viewDate = date;
+      //this.viewDate = date;
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
         events.length === 0
@@ -96,6 +97,9 @@ export class CalenderComponent implements OnInit {
       } else {
         this.activeDayIsOpen = true;
       }
+      //console.log(this.activeDayIsOpen);
+      this.viewDate = date;
+      console.log(this.viewDate);
     }
   }
 
