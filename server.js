@@ -32,14 +32,13 @@ var session = require('express-session');
 const port = 8080;
 var sess;
 
-//register
-//var db_name = 'bouncemna'
 var db_name = 'heroku_d8b3eb522e9de9a' //Previous name was bouncemna
 var db_config = {
-    host: 'eu-cdbr-west-02.cleardb.net',
+    host: 'eu-cdbr-west-02.cleardb.net', //localhost or the domain of the online server
     user: 'b6319c551c1252',
     password: 'f2c8a865',
-    database: 'heroku_d8b3eb522e9de9a',
+    database: 'heroku_d8b3eb522e9de9a', //db_name should be same as this
+    //--------
     dateStrings: 'date',
     multipleStatements: true, //!!!!! REQUIRED
     connectionLimit: 5,
