@@ -61,7 +61,7 @@ export class CalenderComponent implements OnInit {
                       this.eventsl = [
                           ...this.eventsl,
                           {
-                              title: count.title,
+                              title: count.title + " - " + count.timestart + ":" + count.timeend,
                               start: setHours(setMinutes(count.date, count.timeend), count.timestart),
                               color: colors.blue
                           },
@@ -69,7 +69,7 @@ export class CalenderComponent implements OnInit {
                   } catch {
                       this.eventsl = [
                           {
-                              title: count.title,
+                              title: count.title + " - " + count.timestart + ":" + count.timeend,
                               start: setHours(setMinutes(count.date, count.timeend), count.timestart),
                               color: colors.blue
                           },
