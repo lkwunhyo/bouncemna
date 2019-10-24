@@ -49,6 +49,7 @@ export class AddEventsComponent implements OnInit {
       error => console.error('Error!', error),
       () => console.log("onsubmit"),
   );
+  location.replace("/calender");
     
 
   }
