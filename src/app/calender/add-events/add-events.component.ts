@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarMomentDateFormatter } from 'angular-calendar';
 import {FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { AddEventsService } from '../../services/add-events.service';
 import * as moment from 'moment';
+import { EventsService } from '../../services/events.service';
 
 @Component({
   selector: 'app-add-events',
@@ -13,14 +13,14 @@ import * as moment from 'moment';
 export class AddEventsComponent implements OnInit {
 
   calForm: FormGroup;
-  SERVER_URL = "http://localhost:8080/add-events";
+  add_events_url = "/add-events";
 
   //Form state
   loading = false;
   success = false;
 
 
-  constructor(private fb: FormBuilder, private httpClient: HttpClient, private _addeventsService:AddEventsService) { }
+    constructor(private fb: FormBuilder, private httpClient: HttpClient, private eventsService: EventsService) { }
 
   ngOnInit() {
 
@@ -44,7 +44,7 @@ export class AddEventsComponent implements OnInit {
     this.loading = true;
     const formValue = this.calForm.value;
 
-    this._addeventsService.addEvents(this.calForm.getRawValue()).subscribe( //this is json type
+    this.eventsService.addEvents(this.calForm.getRawValue()).subscribe( //this is json type
       alert => console.log('Success!', alert),
       error => console.error('Error!', error),
       () => console.log("onsubmit"),

@@ -1,15 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\e2e",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\editprofile",
-    "\\src\\app\\login",
-    "\\src\\app\\models",
-    "\\src\\app\\register",
-    "\\wwwroot"
+    "\\src\\app\\diagnosis-history",
+    "\\src\\app\\services"
   ],
-  "SelectedNode": "\\src\\app\\register\\register.component.html",
+  "SelectedNode": "\\src\\app\\diagnosis-history\\diagnosis-history.component.ts",
   "PreviewInSolutionExplorer": false
 }

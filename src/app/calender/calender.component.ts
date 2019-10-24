@@ -6,10 +6,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView} from 'angular-calendar';
 import { events } from '../models/events';
 import { PERSONS } from '../models/person_mock';
-import { AddEventsService } from '../services/add-events.service';
-import { GetEventsService } from '../services/getEvents.service';
+import { EventsService } from '../services/events.service';
 import { setHours, setMinutes } from 'date-fns';
-import { dateToLocalArray } from '@fullcalendar/core/datelib/marker';
+
 
 const colors: any = {
   red: {
@@ -38,8 +37,8 @@ const colors: any = {
 
 export class CalenderComponent implements OnInit {
 
-  public eventList = <any>[];
-  constructor(private modal: NgbModal , private _addeventsService: GetEventsService) {}
+  private eventList = <any>[];
+  constructor(private modal: NgbModal , private eventsService: EventsService) {}
   //events = [];
   selectedEvents: events;
   eventsname: string;
@@ -50,33 +49,31 @@ export class CalenderComponent implements OnInit {
   eventsl: CalendarEvent<any>[];
   
   
-  ngOnInit() {
-    this._addeventsService.getEventsList()
+    ngOnInit() {
+      console.log("geteventslist")
+    this.eventsService.getEventsList()
           .subscribe((res: any[]) => {
               
               this.eventList = res;
-              console.log("resE" + this.eventList.title);
-
-               this.eventsl = [
-                {
-                  title: 'EXAMPLE',
-                  start: setHours(setMinutes(new Date(), 0), 5),
-                  color: colors.yellow
-                }
-              ];
-
-              for (let count of this.eventList){
-                
-              this.eventsl = [
-               ...this.eventsl,
-                {
-                  title: count.title,
-                  start: setHours(setMinutes(count.date, count.timeend), count.timestart),
-                  color: colors.blue
-                },
-               
-              ];
-
+              for (let count of this.eventList) {     
+                  try {
+                      this.eventsl = [
+                          ...this.eventsl,
+                          {
+                              title: count.title,
+                              start: setHours(setMinutes(count.date, count.timeend), count.timestart),
+                              color: colors.blue
+                          },
+                      ];
+                  } catch {
+                      this.eventsl = [
+                          {
+                              title: count.title,
+                              start: setHours(setMinutes(count.date, count.timeend), count.timestart),
+                              color: colors.blue
+                          },
+                      ];
+                  }
             }
 
           });

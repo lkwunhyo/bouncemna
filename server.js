@@ -1244,13 +1244,9 @@ app.get('*', function (req, res) {
 
 //Add Events
 app.post('/addevents', function (req, res) { //validate then sanitize
-    //if (user) return res.status(400).send("User already registered.");
-    //console.dir("addevents: " + req.body.eventid);
     if (req.cookies['loggedIn']) {
 
-        console.log("req.body");
-        console.log(req.body);
-        var db_name  = {
+        var addevents  = {
             userid: req.cookies['userid'],
             title: req.sanitize(req.body.title),
             date: req.sanitize(req.body.date),
@@ -1259,7 +1255,6 @@ app.post('/addevents', function (req, res) { //validate then sanitize
             alert: req.sanitize(req.body.alert),
             repeat: req.sanitize(req.body.repeat),
             note: req.sanitize(req.body.note),
-            //userID: sess.userid,
 
         }
 
@@ -1278,55 +1273,52 @@ app.post('/addevents', function (req, res) { //validate then sanitize
                     //email: user.email
                     //})
                 } else {
-                    console.log("db post register success");
+                    console.log("db post addevents success");
                     res.send(JSON.stringify(result)); 
                 }
             });
+            connection.release();
+            console.dir("add event release con");
             connection.release();
         });
     }
 })
 
-app.post('/getEvents', function (req, res) { //validate then sanitize
-    //if (user) return res.status(400).send("User already registered.");
-    //console.dir("addevents: " + req.body.eventid);
+app.post('/events', function (req, res) { //validate then sanitize
+    console.log("get events")
     if (req.cookies['loggedIn']) {
         connection_pool.getConnection(function (err, connection) {
-            console.log("req.body");
-            console.log(req.body);
-            var addevents = {
-                userid: req.cookies['userid'],
-                title: req.sanitize(req.body.title),
-                date: req.sanitize(req.body.date),
-                timestart: req.sanitize(req.body.timestart),
-                timeend: req.sanitize(req.body.timeend),
-                alert: req.sanitize(req.body.alert),
-                repeat: req.sanitize(req.body.repeat),
-                note: req.sanitize(req.body.note),
-                //userID: sess.userid,
-
-            }
-
-            console.dir("addevents:");
-            console.dir(addevents);
-            
-
-            connection.query('INSERT INTO ' + db_name + '.addevents SET ?', addevents, function (err, result) {
-                console.log("result:" + result[0]);
+           
+            connection.query('SELECT * FROM ' + db_name + '.addevents WHERE userID = ?', req.cookies['userid'], function (err, results) {
                 if (err) {
-                    req.flash('error', err)
-                    console.log(err);
-                    // render to views/user/add.ejs
-                    //res.render('alert-partners', {
-                    //  title: 'Add New Customer',
-                    //name: user.name,
-                    //email: user.email
-                    //})
-                } else {
-                    console.log("db post register success");
-                    res.send(JSON.stringify(result)); 
+                    console.dir("query error");
+                    res.json({
+                        status: false,
+                        message: 'there are some error with query'
+                    })
+                }
+
+                else {
+                    var objs = [];
+                    for (var i = 0; i < results.length; i++) {
+                        objs.push({
+                            title: results[i].title,
+                            date: results[i].date,
+                            timestart: results[i].timestart,
+                            timeend: results[i].timeend,
+                            alert: results[i].alert, //alert time before event
+                            repeat: results[i].repeat, //interval
+                            note: results[i].note,
+                        });
+                    }
+                    if (results.length > 0) {
+                        res.send(JSON.stringify(objs));
+                    } else {
+                        res.end();
+                    }
                 }
             });
+            console.dir("get event release con");
             connection.release();
         });
     }
