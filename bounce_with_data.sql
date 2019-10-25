@@ -166,7 +166,7 @@ COLLATE = utf8_general_ci;
 CREATE TABLE IF NOT EXISTS  `addevents` (
   `eventID` int(11) NOT NULL AUTO_INCREMENT,
   `userID` varchar(45) DEFAULT NULL,
-  `title` varchar(45) DEFAULT NULL,
+  `title` varchar(70) DEFAULT NULL,
   `date` varchar(45) DEFAULT NULL,
   `timestart` int(5) DEFAULT NULL,
   `timeend` int(5) DEFAULT NULL,
@@ -174,8 +174,9 @@ CREATE TABLE IF NOT EXISTS  `addevents` (
   `repeat` varchar(45) DEFAULT NULL,
   `note` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`eventID`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+) ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 
 -- -----------------------------------------------------
 -- Table `bouncemna`.`sti`
@@ -190,21 +191,6 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
-
-CREATE TABLE IF NOT EXISTS  `addevents` (
-  `eventID` int(11) NOT NULL AUTO_INCREMENT,
-  `userID` varchar(45) DEFAULT NULL,
-  `title` varchar(45) DEFAULT NULL,
-  `date` varchar(45) DEFAULT NULL,
-  `timestart` int(5) DEFAULT NULL,
-  `timeend` int(5) DEFAULT NULL,
-  `alert` varchar(45) DEFAULT NULL,
-  `repeat` varchar(45) DEFAULT NULL,
-  `note` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`eventID`)
-) ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
 
 INSERT INTO `sti` VALUES (1,'Chlamydia','6 months',6),(2,'Gonorrhea','2 months',2),(3,'HIV','Onset of risk behaviour or latest negative HIV test',0),(4,'Mycoplasma genitalium','6 months or guided by sexual history',6),(5,'Primary Syphilis','3 months before symptoms',3),(6,'Secondary Syphilis','6 months before symptoms',6),(7,'Early Latent Syphilis','12 months before symptoms',12);
 
