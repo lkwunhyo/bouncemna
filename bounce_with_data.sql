@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`account` (
   `dob` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`userID`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
+DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci;
 
 
