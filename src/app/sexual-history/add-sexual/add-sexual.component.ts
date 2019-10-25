@@ -20,7 +20,7 @@ export class AddSexualComponent implements OnInit {
 
   sexualactivity_list = [[1,"Vaginal"], [2,"Anal"], [3,"Oral"], [4,"Other"]]; //Should we use db or just store it here as a variable? db seems to be a hassle
   sexualactivity_value_list = [1, 2, 3, 4];
-  contraceptive_list = [[1,"PrEP"], [2,"Condom"]];
+  contraceptive_list = [[1,"Condom"], [2,"PrEP"]];
   contraceptive_value_list = [1, 2];
 
   public contactlist = [];
