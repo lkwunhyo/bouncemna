@@ -21,9 +21,9 @@
             [(ngModel)]="person.selected" (change)="OnCheckboxSelect(person, $event.checked)" name="persons">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</mat-checkbox>
 
           </li>
-      </ul>
+      </ul><br>
       <!--<button mat-button name="delete" onclick="window.location.href = '../contact/'">Delete</button><br>-->
-      <button mat-button name="delete" >Delete</button><br>
+      <button mat-stroked-button class="deleteBtn" name="delete">Delete</button><br>
     </form>
   </div>
 </div>

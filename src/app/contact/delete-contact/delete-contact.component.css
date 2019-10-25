@@ -18,3 +18,7 @@ input[id=search]{
     font-size: 17px;
 }
 
+.deleteBtn {
+  left: 10%;
+}
+
