@@ -592,7 +592,7 @@ app.post('/addactivity', function (req, res) { //validate then sanitize
     if (req.cookies['loggedIn']) {
         console.dir("contacts: " + req.body.contactid);
         var encounter = {
-            userID: req.session.userid,
+            userID: req.cookies['userid'],
             dateEncounter: req.sanitize(req.body.date),
             notes: req.sanitize(req.body.comment),
             /*
@@ -754,12 +754,10 @@ app.post('/login', function (req, res) { //validate then sanitize
                         //sess = req.session;
                         //sess.loggedin = true;
                         //sess.userid = userid; 
-                        req.session.userid = userid;
-                        req.session.loggedIn = true;
                         res.cookie('userid', userid); //working
                         res.cookie('loggedIn', true);
                         req.cookies['userid'];
-                        console.dir("session.save userid:" + req.session.userid);
+                        console.dir("session.save userid:" + req.cookies['userid']);
 
                         res.json({
                             status: true,
@@ -889,7 +887,7 @@ app.post('/editprofile', function (req, res) {
             phone: req.sanitize(req.body.phone),
         }
 
-        var sql = "UPDATE " + db_name + ".account SET ? WHERE userID = '" + req.session.userid + "'";
+        var sql = "UPDATE " + db_name + ".account SET ? WHERE userID = '" + req.cookies['userid'] + "'";
         connection_pool.getConnection(function (err, connection) {
             connection.query(sql, editProfile, function (err, result) {
                 if (err) {
