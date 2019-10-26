@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`contact` (
   `gender` VARCHAR(1) NULL DEFAULT NULL,
   `phone` VARCHAR(20) NULL DEFAULT NULL,
   `email` VARCHAR(45) NULL DEFAULT NULL,
-  `notes` VARCHAR(45) NULL DEFAULT NULL,
+  `notes` VARCHAR(255) NULL DEFAULT NULL,
   `rating` VARCHAR(45) NULL DEFAULT NULL,
   `userID` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`contactID`))
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `bouncemna`.`encounter` (
   `encounterID` INT(11) NOT NULL AUTO_INCREMENT,
   `userID` VARCHAR(45) NULL DEFAULT NULL,
   `dateEncounter` DATE NULL DEFAULT NULL,
-  `notes` VARCHAR(45) NULL DEFAULT NULL,
+  `notes` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`encounterID`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 36
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS  `addevents` (
   `timeend` int(5) DEFAULT NULL,
   `alert` varchar(45) DEFAULT NULL,
   `repeat` varchar(45) DEFAULT NULL,
-  `note` varchar(45) DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`eventID`)
 ) ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8

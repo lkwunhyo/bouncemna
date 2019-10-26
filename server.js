@@ -21,7 +21,7 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-
+//for ng serve
 app.use(cors(/*{
     origin: [
         "http://localhost:4200"
@@ -30,7 +30,6 @@ app.use(cors(/*{
 var flash = require('connect-flash');
 var session = require('express-session');
 const port = 8080;
-var sess;
 
 var db_name = 'heroku_d8b3eb522e9de9a' //Previous name was bouncemna
 var db_config = {
@@ -751,13 +750,10 @@ app.post('/login', function (req, res) { //validate then sanitize
                 if (results.length > 0) {
 
                     if (password == results[0].hash) {
-                        //sess = req.session;
-                        //sess.loggedin = true;
-                        //sess.userid = userid; 
                         res.cookie('userid', userid); //working
                         res.cookie('loggedIn', true);
                         req.cookies['userid'];
-                        console.dir("session.save userid:" + req.cookies['userid']);
+                        console.dir("cookie userid:" + req.cookies['userid']);
 
                         res.json({
                             status: true,
@@ -907,58 +903,12 @@ app.post('/editprofile', function (req, res) {
 })
 
 
-// Sexual Hisory Page
-/*
-app.post('/sexualhistory', function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-
-    console.dir("calling sexual history");
-    if (isLoggedIn()) {
-        var userid = sess.userid;
-        connection.query('SELECT * FROM bouncemna.encounter WHERE userid = ?', [userid], function (error, results, fields) {
-            if (error) {
-                console.dir("query error");
-                res.json({
-                    status: false,
-                    message: 'there are some error with query'
-                })
-            }
-
-            else {
-                var objs = [];
-                for (var i = 0; i < results.length; i++) {
-                    console.dir("/sexualhistory userid" + results[i].userID);
-                    objs.push({
-                        encounterID: results[i].encounterID,
-                        userID: results[i].userID,
-                        dateEncounter: results[i].dateEncounter,
-                        notes: results[i].notes
-                    });
-                }
-                if (results.length > 0) {
-                    res.send(JSON.stringify(objs));
-                } else {
-                    res.end();
-                }
-            }
-        });
-    } else {
-        res.redirect('/login')
-    }
-
-})*/
-
-
 app.post('/sexualhistory', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     //copy paste PLS CHANGE ACCORDINGLY
     if (req.cookies['loggedIn']) {
-
-        //var userid = sess.userid;
 
         //find all encounters by user
         //for each encounter retrieved, query act -> sexact, partners, protection
