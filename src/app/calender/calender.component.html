@@ -27,26 +27,6 @@
 
 </div>
 
-<div class="row">
-  <div class="col">
-    <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
-      <button mat-stroked-button>Month</button>
-    </div>
-  </div> 
-
-  <div class="col">
-    <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
-      <button mat-stroked-button>Week</button>
-    </div>
-  </div>
-  <div class="col">
-    <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
-      <button mat-stroked-button>Day</button>
-    </div>
-  </div>
-
-</div>
-
 <div [ngSwitch]="view">
   <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="eventsl" (dayClicked)="dayClicked($event.day)"
   [activeDayIsOpen]="activeDayIsOpen">

@@ -29,7 +29,7 @@ const colors: any = {
 
 @Component({
   selector: 'app-calender',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './calender.component.html',
   styleUrls: ['./calender.component.css',],
   
@@ -42,9 +42,9 @@ export class CalenderComponent implements OnInit {
   constructor(private modal: NgbModal , private eventsService: EventsService) {}
   //events = [];
   selectedEvents: events;
-  eventsname: string;
-  view: CalendarView = CalendarView.Day;
-  CalendarView = CalendarView;
+    eventsname: string;
+    view: CalendarView = CalendarView.Month;
+  //CalendarView = CalendarView;
   viewDate: Date = new Date();
   activeDayIsOpen: boolean = false;
   eventsl: CalendarEvent<any>[];
@@ -75,11 +75,8 @@ export class CalenderComponent implements OnInit {
                           },
                       ];
                   }
-            }
-
-          });
-  
-  
+              }
+            });
         }
 
 
