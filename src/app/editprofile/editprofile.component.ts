@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { RegisterModel } from '../models/register.model';
 import { ProfileService } from '../services/profile.service';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { Inject } from '@angular/core'; 
+import { Inject } from '@angular/core';
 import { Router } from "@angular/router";
 import { Person } from '../models/person';
 import { PERSONS } from '../models/person_mock';
 import { ContactService } from '../services/contact.service';
 
 @Component({
-  selector: 'app-editprofile',
-  templateUrl: './editprofile.component.html',
-  styleUrls: ['./editprofile.component.css']
+    selector: 'app-editprofile',
+    templateUrl: './editprofile.component.html',
+    styleUrls: ['./editprofile.component.css']
 })
 
 
@@ -19,7 +19,7 @@ export class EditprofileComponent implements OnInit {
     profileForm: FormGroup;
     editprofile: RegisterModel = new RegisterModel();
     reg;
-    constructor(private _profileService: ProfileService, private formBuilder: FormBuilder, private router:Router) {
+    constructor(private _profileService: ProfileService, private formBuilder: FormBuilder, private router: Router) {
         this.profileForm = this.formBuilder.group({
             firstname: this.editprofile.firstname,
             lastname: this.editprofile.lastname,

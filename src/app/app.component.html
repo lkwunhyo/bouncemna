@@ -3,33 +3,38 @@
 
 <div class="ui top attached demo menu">
     <div class="ham-menu">
-         <a class="item" (click)="sidebar.toggle()">
-             <i class="sidebar icon"></i>
-         </a>
+        <a class="item" (click)="sidebar.toggle()">
+            <i class="sidebar icon"></i>
+        </a>
     </div>
     <div class="titlecontainer alignmentadj">
-        <div *ngIf="loggedIn; else loggedOut"><h2><a href="/home">{{title}}</a></h2></div>
-        <ng-template #loggedOut><h2><a href="/login">{{title}}</a></h2></ng-template>
+        <div *ngIf="loggedIn; else loggedOut">
+            <h2><a href="/home">{{title}}</a></h2>
+        </div>
+        <ng-template #loggedOut>
+            <h2><a href="/login">{{title}}</a></h2>
+        </ng-template>
     </div>
- </div>
- 
- 
- <sui-sidebar-container class="ui attached segment pushable"> <!--Removed bottom <-->
-     <sui-sidebar class="inverted vertical" #sidebar>
-         <br><br>
-         <ul>
+</div>
+
+
+<sui-sidebar-container class="ui attached segment pushable">
+    <!--Removed bottom <-->
+    <sui-sidebar class="inverted vertical" #sidebar>
+        <br><br>
+        <ul>
             <div *ngIf="loggedIn">
                 <li> <a routerLink="/home" (click)="sidebar.toggle()">Home</a></li><br>
                 <li> <a routerLink="/profile" (click)="sidebar.toggle()">Profile</a></li><br>
                 <li> <a routerLink="/contact" (click)="sidebar.toggle()">Contacts</a></li><br>
                 <li> <a routerLink="/calender" (click)="sidebar.toggle()">Calendar</a></li><br>
                 <mat-divider class="dividerlabel"></mat-divider><br>
-                
+
                 <li> <a routerLink="/sexualhistory" (click)="sidebar.toggle()">Sexual Activity</a></li><br>
                 <li> <a routerLink="/alertpartners" (click)="sidebar.toggle()">Alert Partner</a></li><br>
                 <li> <a routerLink="/diagnosishistory" (click)="sidebar.toggle()">Diagnosis History</a></li><br>
                 <mat-divider class="dividerlabel"></mat-divider><br>
-            </div>  
+            </div>
 
             <div *ngIf="!loggedIn">
                 <li> <a routerLink="/login" (click)="sidebar.toggle()">Login</a></li><br>
@@ -40,16 +45,12 @@
 
             <li> <a routerLink="/rewards" (click)="sidebar.toggle()">Rewards</a></li><br>
             <li> <a routerLink="/about" (click)="sidebar.toggle()">About Us</a></li><br>
-         </ul>
-       
-     </sui-sidebar>
-     <sui-sidebar-sibling [isDimmedWhenVisible]="true">
-         <div class="rendercontainer">
-             <router-outlet></router-outlet>
-         </div>
-     </sui-sidebar-sibling>
- </sui-sidebar-container>
- 
- 
- 
- 
+        </ul>
+
+    </sui-sidebar>
+    <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+        <div class="rendercontainer">
+            <router-outlet></router-outlet>
+        </div>
+    </sui-sidebar-sibling>
+</sui-sidebar-container>

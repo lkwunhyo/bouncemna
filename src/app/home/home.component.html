@@ -1,162 +1,85 @@
+<div class="defaultContainer">
+  <!-- Welcoming Message -->
+  <div class="welcome">
+    <h2>Welcome {{ userId }}!</h2>
+  </div><br>
 
-  <!--If Alert Partner is used. Uses longest remaining abstinence-->
-<!--
-  <div class="abstinence">
-    <h3><img src="../../assets/danger.png" alt="User Image"
-      height="18" width="18"> Abstinence: 8 days left</h3>
-  </div>
--->
-  <div class="defaultContainer">
-    <!-- Welcoming Message -->
-    <div class="welcome">
-      <h2>Welcome {{ userId }}!</h2>
-    </div><br>
+  <!-- Quick Access Links -->
+  <div class="quickaccess">
+    <mat-grid-list cols="2" rowHeight="3:2">
+      <h3>Quick Access</h3>
+      <mat-grid-tile>
+        <div>
+          <a href="/addactivity/">
+            <mat-icon aria-hidden="false" aria-label="addactivity">book</mat-icon><br>
+            <p class="labels"><br>Add Activity</p>
+          </a>
+        </div>
+      </mat-grid-tile>
 
-    <!-- Quick Access Links -->
-    <div class="quickaccess">
-        <mat-grid-list cols="2" rowHeight="3:2">
-          <h3>Quick Access</h3>
-          <mat-grid-tile>
-            <div>
-              <a href="/addactivity/">
-                <mat-icon aria-hidden="false" aria-label="addactivity">book</mat-icon><br>
-                <p class="labels"><br>Add Activity</p>
-              </a>
-            </div>
-          </mat-grid-tile>
-          
-          <mat-grid-tile>
-            <div>
-              <a href="/alertpartners/">
-                <mat-icon aria-hidden="false" aria-label="alertpartners">add_alert</mat-icon>
-                <p class="labels"><br>Alert Partners</p>
-              </a>
-            </div>
-          </mat-grid-tile>
-  
-          <mat-grid-tile>
-            <div>
-              <a href="/calender/">
-                <mat-icon aria-hidden="false" aria-label="calendar">calendar_today</mat-icon>
-                <p class="labels"><br>Calendar</p>
-              </a>
-            </div>
-          </mat-grid-tile>
-  
-          <mat-grid-tile>
-            <div>
-              <a href="/contactform/">
-                <mat-icon aria-hidden="false" aria-label="addcontact">person_add</mat-icon>
-                <p class="labels"><br>Add Contact</p>
-              </a>
-            </div>
-          </mat-grid-tile>
+      <mat-grid-tile>
+        <div>
+          <a href="/alertpartners/">
+            <mat-icon aria-hidden="false" aria-label="alertpartners">add_alert</mat-icon>
+            <p class="labels"><br>Alert Partners</p>
+          </a>
+        </div>
+      </mat-grid-tile>
 
-          <mat-grid-tile>
-            <div>
-              <a href="/profile/">
-                <mat-icon aria-hidden="false" aria-label="profile">person</mat-icon>
-                <p class="labels"><br>Profile</p>
-              </a>
+      <mat-grid-tile>
+        <div>
+          <a href="/calender/">
+            <mat-icon aria-hidden="false" aria-label="calendar">calendar_today</mat-icon>
+            <p class="labels"><br>Calendar</p>
+          </a>
+        </div>
+      </mat-grid-tile>
 
-              <!--
-              <a (click)="openQR()">
-                <mat-icon aria-hidden="false" aria-label="profile">person</mat-icon>
-                <p class="labels"><br>Profile</p>
-              </a>
-              -->
-            </div>
-          </mat-grid-tile>
-  
-          <mat-grid-tile>
-            <div>
-              <a href="/qrscanner/">
-                <mat-icon aria-hidden="false" aria-label="qrscanner">search</mat-icon>
-                <p class="labels"><br>Scan QR</p>
-              </a>
-            </div>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </div>
+      <mat-grid-tile>
+        <div>
+          <a href="/contactform/">
+            <mat-icon aria-hidden="false" aria-label="addcontact">person_add</mat-icon>
+            <p class="labels"><br>Add Contact</p>
+          </a>
+        </div>
+      </mat-grid-tile>
 
-    <!--
-    <div class="headhm">
-    <h2>Upcoming</h2>
-    </div>
-
-    <div class="pill">
-      <div class="ui card pill">
-        <div class="content set_flex_column">
-          <div class="header set_center">Reminder</div>
-          <div class="set_flex_row">
-            <div>
-              <h4>Take Medication</h4>
-            </div>
-            <div>
-              <p>
-                10am<br>
-                Paracetemol<br>
-              </p>
-            </div>
-          </div>
-
+      <mat-grid-tile>
+        <div>
+          <a href="/profile/">
+            <mat-icon aria-hidden="false" aria-label="profile">person</mat-icon>
+            <p class="labels"><br>Profile</p>
+          </a>
 
         </div>
-        <button class="ui button">Done</button>
-      </div>
-    </div>
+      </mat-grid-tile>
 
-    <div class="headhm">
-    <h2>Next Appointment</h2>
+      <mat-grid-tile>
+        <div>
+          <a href="/qrscanner/">
+            <mat-icon aria-hidden="false" aria-label="qrscanner">search</mat-icon>
+            <p class="labels"><br>Scan QR</p>
+          </a>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
   </div>
 
-    <div class="appointment">
-      <div class="ui card appointment">
-        <div class="content set_flex_column">
-          <div class="header">Appointment</div>
-          <div class="set_flex_row">
-            <div><h4>Next Appointmennt</h4></div>
-          <div>
-            <p><br>
-              <a routerlink="/calender">26 December 2019</a><br>
-              10am<br>
-              Roma Street Hospital<br>
-            </p>
-          </div>
-        </div>
-        </div>
-        <button class="ui button">Done</button>
+  <br>
+  <div class="card">
+    <div class="uicardfact">
+      <div class="content">
+        <h4>
+          Did you know?
+        </h4>
+        <p>
+          {{v}}
+        </p>
       </div>
     </div>
-  -->
-
-<!--
-    <div class="fact">
-      <div class="ui card fact">
-        <div class="content">
-          <h4>
-            Did you know?
-          </h4>
-          <p>
-            {{v}}
-          </p>
-        </div>
-      </div>
-    </div>--><br>
-    <div class="card">
-      <div class="uicardfact">
-        <div class="content">
-          <h4>
-            Did you know?
-          </h4>
-          <p>
-            {{v}}
-          </p>
-        </div>
-      </div>
-      </div>
-
   </div>
+
+</div>
 
 
 <base href="/">

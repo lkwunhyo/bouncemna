@@ -1,15 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView} from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { events } from '../models/events';
 import { PERSONS } from '../models/person_mock';
 import { EventsService } from '../services/events.service';
 import { setHours, setMinutes } from 'date-fns';
 
-
+// Calendar events button
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -29,63 +29,66 @@ const colors: any = {
 
 @Component({
   selector: 'app-calender',
-  //changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './calender.component.html',
   styleUrls: ['./calender.component.css',],
-  
+
 })
 
 
 export class CalenderComponent implements OnInit {
 
   private eventList = <any>[];
-  constructor(private modal: NgbModal , private eventsService: EventsService) {}
-  //events = [];
+  constructor(private modal: NgbModal, private eventsService: EventsService) { }
+
   selectedEvents: events;
-    eventsname: string;
-    view: CalendarView = CalendarView.Month;
-  //CalendarView = CalendarView;
+  eventsname: string;
+  view: CalendarView = CalendarView.Month;
+
   viewDate: Date = new Date();
   activeDayIsOpen: boolean = false;
   eventsl: CalendarEvent<any>[];
-  
-  
-    ngOnInit() {
-      console.log("geteventslist")
+
+
+  ngOnInit() {
+    console.log("geteventslist")
     this.eventsService.getEventsList()
-          .subscribe((res: any[]) => {
-              console.log(res);
-              this.eventList = res;
-              for (let count of this.eventList) {     
-                  try {
-                      this.eventsl = [
-                          ...this.eventsl,
-                          {
-                              title: count.title + " - " + count.timestart + ":" + count.timeend,
-                              start: setHours(setMinutes(count.date, count.timeend), count.timestart),
-                              color: colors.blue
-                          },
-                      ];
-                  } catch {
-                      this.eventsl = [
-                          {
-                              title: count.title + " - " + count.timestart + ":" + count.timeend,
-                              start: setHours(setMinutes(count.date, count.timeend), count.timestart),
-                              color: colors.blue
-                          },
-                      ];
-                  }
-              }
-            });
+      .subscribe((res: any[]) => {
+        console.log(res);
+
+        //Gets events from the database
+        this.eventList = res;
+
+        //Loop through the events from database and print it out to the front end
+        for (let count of this.eventList) {
+          try {
+            this.eventsl = [
+              ...this.eventsl,
+              {
+                title: count.title + " - " + count.timestart + ":" + count.timeend,
+                start: setHours(setMinutes(count.date, count.timeend), count.timestart),
+                color: colors.blue
+              },
+            ];
+          } catch {
+            this.eventsl = [
+              {
+                title: count.title + " - " + count.timestart + ":" + count.timeend,
+                start: setHours(setMinutes(count.date, count.timeend), count.timestart),
+                color: colors.blue
+              },
+            ];
+          }
         }
+      });
+  }
 
 
 
-// ----------------------------To check active day for viewing---------------------------
+  // ----------------------------To check active day for viewing---------------------------
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
-      //this.viewDate = date;
+
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
         events.length === 0
@@ -94,13 +97,12 @@ export class CalenderComponent implements OnInit {
       } else {
         this.activeDayIsOpen = true;
       }
-      //console.log(this.activeDayIsOpen);
       this.viewDate = date;
       console.log(this.viewDate);
     }
   }
 
- 
+
   setView(view: CalendarView) {
     this.view = view;
   }
