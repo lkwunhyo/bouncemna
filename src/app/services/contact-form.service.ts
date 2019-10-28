@@ -7,6 +7,7 @@ import { Person } from '../models/person';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ContactFormService {
   private subject = new Subject<any>();
   private keepAfterNavigationChange = false;
@@ -27,6 +28,7 @@ export class ContactFormService {
    });
   }
 
+  /* Action URL Post for Adding Contact */
   addcontact(contact: Person) {
   return this._http.post<any>(this._url, contact);
   }
@@ -44,6 +46,4 @@ export class ContactFormService {
   getMessage(): Observable<any> {
     return this.subject.asObservable();
   }
-
-  
 }

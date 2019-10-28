@@ -14,17 +14,15 @@ export class SexualHistoryService {
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
+  /* Action URL Post for Getting Sexual Activity */
   getActivity(): Observable<Person[]> {
     console.dir("calling POST service");
     return this.http.post<any>(this.url_sexualhistory,"BODY 2ND PARAM");
   }
 
+  /* Action URL Post for Deleting Sexual Activity */
   deleteactivity(item: any) {
     console.dir("calling DELETING POST service");
-    /*
-    console.dir(this.url_diagnosisparam + String(item.alertid));
-    return this.http.post<any>(this.url_diagnosisparam + String(item.alertid), item);
-    */
     return this.http.post<any>(this._deleteurl, item);
   }
 

@@ -8,11 +8,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DiagnosisHistoryService {
 
-  /*
-  private url_diagnosis = '/diagnosishistory';  // URL to web api
-  private url_diagnosisparam = '/diagnosishistory';  // URL to web api
-  */
-
   private _url = '/diagnosishistory';  // URL to web api
   private url_diagnosis = '/diagnosis';  // URL to web api
 
@@ -36,18 +31,16 @@ export class DiagnosisHistoryService {
     });
   }
 
+  /* Action URL Post for Getting Diagnosis History */
   getDiagnosis() {
     console.dir("calling POST service");
     //return this.http.post<any>(this.url_diagnosis,"BODY 2ND PARAM");
     return this.http.post<any>(this.url_diagnosis,"BODY 2ND PARAM");
   }
 
+  /* Action URL Post for Deleting Diagnosis History */
   deleteDiagnosis(item: any) {
     console.dir("calling DELETING POST service");
-    /*
-    console.dir(this.url_diagnosisparam + String(item.alertid));
-    return this.http.post<any>(this.url_diagnosisparam + String(item.alertid), item);
-    */
     return this.http.post<any>(this._url, item);
   }
 
