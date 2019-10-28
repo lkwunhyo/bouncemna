@@ -27,6 +27,7 @@ export class DeleteContactService {
    });
   }
 
+  /* Action URL Post for Deleting Contact */
   deletecontacts(contacts: any) {
     return this._http.post<any>(this._url, contacts);
   }
