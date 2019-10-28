@@ -8,14 +8,13 @@ import { ContactService } from '../../services/contact.service';
 import * as moment from 'moment';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
-
 @Component({
   selector: 'app-add-sexual',
   templateUrl: './add-sexual.component.html',
   styleUrls: ['./add-sexual.component.css']
 })
-export class AddSexualComponent implements OnInit {
 
+export class AddSexualComponent implements OnInit {
   sexualActivityForm: FormGroup;
 
   sexualactivity_list = [[1,"Vaginal"], [2,"Anal"], [3,"Oral"], [4,"Other"]]; //Should we use db or just store it here as a variable? db seems to be a hassle
@@ -37,6 +36,7 @@ export class AddSexualComponent implements OnInit {
   @Output() 
   dateChange:EventEmitter<MatDatepickerInputEvent<any>>;
 
+  /* Checks for checkbox selection and pushes the selected item to the input array */
   OnCheckboxSelect(item, array, status:boolean) {
     if (array.indexOf(item) === -1 && status) {
       array.push(item);
@@ -49,6 +49,7 @@ export class AddSexualComponent implements OnInit {
     console.log(array);
   }
 
+  /* Formats the date in YYYY-MM-DD format */
   formatDate(eventdate: MatDatepickerInputEvent<Date>) {
     console.log("date: " + eventdate.value);
     let newdateValue = moment(eventdate.value).format("YYYY-MM-DD");
@@ -57,17 +58,19 @@ export class AddSexualComponent implements OnInit {
     this.selectedDate = newdateValue;
   }
 
+  /* On Submit Functionality */
   OnSubmit() {
+    /* Sexual Activity FormBuilder */
     this.sexualActivityForm = this.formBuilder.group({
       contactid: [this.sexualpartnerID], 
       actid: [this.activities_performed],
       protid: [this.contraceptives_used],
       date: this.selectedDate,
       comment: this.comment
-      // some other stuff
     });
-
     console.log("Activity Form: " + JSON.stringify(this.sexualActivityForm.value));
+
+    /* Calling Add Sexual Activity Service */
     this._addSexualService.addactivity(this.sexualActivityForm.value).subscribe(
       data => console.log('Success!', data),
       error => console.error('Error!', error)
@@ -77,10 +80,10 @@ export class AddSexualComponent implements OnInit {
     for(var contact of this.contactlist) {
       this.storage.remove(contact.contactID);
     }
+
+    // Redirecting to the Sexual History Page
     var url = window.location.origin + "/sexualhistory";
-    location.replace(url);
-    //this.router.navigate(['/sexualhistory']);
-    
+    location.replace(url);    
   }
 
   constructor(@Inject(SESSION_STORAGE) private storage: WebStorageService, private router: Router,
@@ -92,30 +95,29 @@ export class AddSexualComponent implements OnInit {
     });
   }
 
+  /* Gets All Items from Session Storage */
   getFromSession() {
     // Get from Session Storage
-    //this.sexualpartners = Object.values(this.storage);
-      var values = Object.values(this.storage);
-    //this.sexualpartners = Object.values(values[0]);
+    var values = Object.values(this.storage);
     var keys = Object.keys(values[0]);
     console.log("keys:"+ keys);
 
-      this.sexualpartners = keys.map(key => this.storage.get(key));
-      this.sexualpartnerID = keys;
-      console.log("partners below: ");
-      console.log(this.sexualpartners);
+    this.sexualpartners = keys.map(key => this.storage.get(key));
+    this.sexualpartnerID = keys;
+    console.log("partners below: ");
+    console.log(this.sexualpartners);
   }
 
   ngOnInit() {
-    this.getFromSession();
+    this.getFromSession(); // Retrieve partners from session storage
+    this.selectedDate = moment(Date.now()).format("YYYY-MM-DD");  // Format date to YY-MM-DD
 
-    this.selectedDate = moment(Date.now()).format("YYYY-MM-DD");
-
+    // Calling Contact Service to get all Contacts
     this._contactService.getContactList()
-          .subscribe((res: any[]) => {
-              console.log(res);
-              this.contactlist = this._contactService.filterBy(res);
-          });
+      .subscribe((res: any[]) => {
+          console.log(res);
+          this.contactlist = this._contactService.filterBy(res);
+      });
   }
 
 }

@@ -19,12 +19,10 @@ import {MatSort} from '@angular/material/sort';
     ]),
   ]
 })
-export class DiagnosisHistoryComponent implements OnInit {
 
-  //dataSource = [];
+export class DiagnosisHistoryComponent implements OnInit {
   dataSource = new MatTableDataSource<any>([]);
-  displayedColumns = ['Diagnosis', 'Diagnosis Date', 'Date Alerted'];//, 'Anonymity'];
-  //displayedColumns = ['diagnosis', 'datediagnosed', 'datesent'];
+  displayedColumns = ['Diagnosis', 'Diagnosis Date', 'Date Alerted'];
   expandedItem;
   deleteDiagnosisForm: FormGroup;
 
@@ -41,6 +39,7 @@ export class DiagnosisHistoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    /* Retrieving Diagnosis History from Database */
     this._diagnosisHistoryService.getDiagnosis()
           .subscribe((res: any[]) => {
               console.log(res);
@@ -55,7 +54,6 @@ export class DiagnosisHistoryComponent implements OnInit {
                     b1 = Number(b["Diagnosis Date"].replace(/-/g, ""));
                   }
                   return b1 - a1
-                  //return Number(b["Diagnosis Date"].replace(/-/g, "")) - Number(a["Diagnosis Date"].replace(/-/g, ""))
                 });
                 this.dataSource = new MatTableDataSource<any>(sorted);
               }
@@ -76,39 +74,23 @@ export class DiagnosisHistoryComponent implements OnInit {
    });
   }
 
+  /* On Submit Functionality for Deleting Diagnosis */
   onSubmit() {
+    /* Delete Diagnosis FormBuilder */
     this.deleteDiagnosisForm = this.formBuilder.group({
       deleteContact: new FormControl(
         this.expandedItem
       )
     });
+
+    /* Calling Diagnosis Service */
     this._diagnosisHistoryService.deleteDiagnosis(this.expandedItem).subscribe(
       data => console.log('Success!', data),
       error => console.error('Error!', error)
     );
 
     console.log(this.expandedItem);
-    //console.log(this.expandedItem.alertid);
   }
 
 
 }
-/*
-export interface Diagnosis {
-  startdate: string;
-  diagnosis: string;
-  enddate: string;
-  abstinencedate: string;
-}
-
-const DIAGNOSIS_DATA: Diagnosis[] = [
-  {startdate: '12/05/2019', diagnosis: 'Gonorrhoea', enddate: '12/11/2019', abstinencedate: '12/03/2020'},
-  {startdate: '12/05/2015', diagnosis: 'Chlamydia', enddate: '12/11/2016', abstinencedate: '12/03/2017'},
-  {startdate: '12/05/2012', diagnosis: 'Genital Herpes', enddate: '12/11/2013', abstinencedate: '12/03/2014'},
-  {startdate: '12/05/2011', diagnosis: 'Genital Warts', enddate: '12/11/2012', abstinencedate: '12/03/2012'},
-  {startdate: '12/05/2010', diagnosis: 'Syphilis', enddate: '12/11/2019', abstinencedate: '12/03/2011'},
-  {startdate: '12/05/2007', diagnosis: 'Hepatitis B', enddate: '12/11/2016', abstinencedate: '12/03/2008'},
-  {startdate: '12/05/2002', diagnosis: 'AIDS', enddate: '12/11/2013', abstinencedate: '12/03/2003'},
-  {startdate: '12/05/2000', diagnosis: 'HIV', enddate: '12/11/2012', abstinencedate: '12/03/2001'}
-];
-*/

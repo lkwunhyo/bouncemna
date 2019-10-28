@@ -10,22 +10,24 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
-    public contactlist = [];
-    @Input() query: Person;
+  public contactlist = [];
+  @Input() query: Person;
+
   constructor(private _contactService: ContactService) { };
 
   persons = [];
   selectedPerson: Person;
 
   ngOnInit() {
-      /*this.persons = this._contactService.filterBy();*/
-      this._contactService.getContactList()
-          .subscribe((res: any[]) => {
-              console.log(res);
-              this.contactlist = this._contactService.filterBy(res);
-          });
+    /* Retrieving Contact from Database */
+    this._contactService.getContactList()
+        .subscribe((res: any[]) => {
+            console.log(res);
+            this.contactlist = this._contactService.filterBy(res);
+        });
   }
 
+  /* Records the Selected Contact */
   onSelect(person: Person): void {
     this.selectedPerson = person;
   }

@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
 <div class="addpartnercontainer">
+  <!-- Add Partner Page Header -->
   <h2>Select Contacts</h2>
   <div class="search">
     <input id="search" class="autosearch" [(ngModel)]="query" type="text" placeholder="Search a name.."><br>
   </div>
 
+  <!-- Add Partner Form -->
   <form (ngSubmit)="OnSubmit()">
     <div class="contact_list">
       <ul class="contacts">
         <li *ngFor="let person of persons | search:'lastname,firstname,rating':query">
           <img src="../../../../assets/contact.png" alt="User Image" height="18"
             width="18">&nbsp;&nbsp;
-          <!--<mat-checkbox name="partner" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>-->
           <mat-checkbox [value]="add_persons" [(ngModel)]="person.selected"
             (change)="OnCheckboxSelect(person, $event.checked)" name="persons">{{ person.firstname }}
             {{ person.lastname}} {{ person.rating }}</mat-checkbox>
@@ -20,9 +21,8 @@
       </ul>
     </div>
 
+    <!-- Form Submission Button -->
     <button mat-button type="submit" onclick="window.location.href = '../addactivity/'">Add</button><br>
-    <!---->
   </form>
 </div>
-
 </html>

@@ -20,7 +20,6 @@ import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 })
 
 export class SexualHistoryComponent implements OnInit {
-
   public activitylist = [];
   public partnerslist = [];
   dataSource = new MatTableDataSource<any>([]);
@@ -39,6 +38,7 @@ export class SexualHistoryComponent implements OnInit {
     });
   }
 
+  /* Formats the date according to MM/DD/YYYY */
   public convertDate(date) {
     var sqlDate = new Date(date);
     return (sqlDate.getMonth() + 1) + '/' + sqlDate.getDate() + '/' + sqlDate.getFullYear();
@@ -46,25 +46,27 @@ export class SexualHistoryComponent implements OnInit {
 
   ngOnInit() {
     this._sexualHistoryService.getActivity()
-          .subscribe((res: any[]) => {
-              console.log(res);
-              //this.activitylist = res;
+      .subscribe((res: any[]) => {
+          console.log(res);
+          if (res != null) {  // If the database is empty
+            this.dataSource = new MatTableDataSource<any>(res);
+          }
+          setTimeout(() => this.dataSource.paginator = this.paginator);
 
-              if (res != null) {  // If the database is empty
-                this.dataSource = new MatTableDataSource<any>(res);
-              }
-              setTimeout(() => this.dataSource.paginator = this.paginator);
-
-          });
+      });
     
   }
 
+  /* On Submit Functionality */
   onSubmit() {
+    /* Activity Deletion FormBuilder */
     this.deleteActivityForm = this.formBuilder.group({
       deleteActivity: new FormControl(
         this.expandedItem
       )
     });
+
+    /* Calling Sexual History Service */
     this._sexualHistoryService.deleteactivity(this.expandedItem).subscribe(
       data => {
         console.log('Success!', data);
@@ -73,7 +75,6 @@ export class SexualHistoryComponent implements OnInit {
       error => console.error('Error!', error)
     );
 
-    //console.log(this.expandedItem[0]);
   }
 
 }

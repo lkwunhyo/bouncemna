@@ -11,14 +11,17 @@ import { forEach } from '@angular/router/src/utils/collection';
   templateUrl: './delete-partner.component.html',
   styleUrls: ['./delete-partner.component.css']
 })
+
 export class DeletePartnerComponent implements OnInit {
-    @Input() query: Person;
+  @Input() query: Person;
+
   constructor(private _contactService: ContactService, @Inject(SESSION_STORAGE) private storage: WebStorageService) { };
 
   persons = [];
   selected_persons = [];
   selectedPerson: Person;
 
+  /* Checks for checkbox selection and pushes the selected item to the input array */
   OnCheckboxSelect(person, status:boolean) {
     if (this.selected_persons.indexOf(person) === -1 && status) {
       this.selected_persons.push(person);
@@ -30,11 +33,11 @@ export class DeletePartnerComponent implements OnInit {
     console.log(this.selected_persons);
   }
 
+  /* On Submit Functionality */
   OnSubmit() {
     // Submit every person where person.selected == true
     var values = Object.values(this.storage);
     var keys = this.selected_persons.map(person => person.contactID);
-
     for(let key of keys) {
       this.storage.remove(key);
     }
@@ -42,14 +45,15 @@ export class DeletePartnerComponent implements OnInit {
   }
 
   ngOnInit() {
-      this._contactService.getContactList()
-          .subscribe((res: any[]) => {
-              console.log(res);
-              this.persons = this._contactService.filterBy(res);
-          });
-      //this.persons = this._contactService.filterBy();
+    /* Calling Contact Service to retrieve Contacts */
+    this._contactService.getContactList()
+      .subscribe((res: any[]) => {
+          console.log(res);
+          this.persons = this._contactService.filterBy(res);
+      });
   }
 
+  /* Records Selected Contact */
   onSelect(person: Person): void {
     this.selectedPerson = person;
   }
