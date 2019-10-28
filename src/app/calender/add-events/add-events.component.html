@@ -5,8 +5,9 @@
   <h2>New event</h2>
 </div>
 
-<form [formGroup] = "calForm">
+<form [formGroup]="calForm">
 
+  <!-- Add events title -->
   <div class="title-container">
     <mat-form-field>
       <input matInput id="title" placeholder="Enter title" formControlName="title">
@@ -15,31 +16,35 @@
 
   <mat-divider></mat-divider>
 
+  <!-- Add events date -->
   <div class="date-container">
     <h3>Date:</h3>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date" >
+      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <mat-hint align ="end">mm/dd/yyyy</mat-hint>
+    <mat-hint align="end">mm/dd/yyyy</mat-hint>
     <mat-divider></mat-divider>
 
+    <!-- Add events clock -->
     <div class="clock">
       <h3>Choose a time:</h3>
-      <mat-hint align ="end">24 Hour Format</mat-hint>
+      <mat-hint align="end">24 Hour Format</mat-hint>
       <br>
-    <mat-form-field >
-      <input type="number" matInput id="timestart" name="start" formControlName="timestart" min="-1" max="23" placeholder="Hour:">
-      </mat-form-field> 
-      <mat-hint align ="end">Eg:14</mat-hint>
+      <mat-form-field>
+        <input type="number" matInput id="timestart" name="start" formControlName="timestart" min="-1" max="23"
+          placeholder="Hour:">
+      </mat-form-field>
+      <mat-hint align="end">Eg:14</mat-hint>
       <br>
-      
-      <mat-form-field >
-          <input type="number" matInput id="timeend" name="end" formControlName="timeend" min="-1" max="59" placeholder="Minute:">
+
+      <mat-form-field>
+        <input type="number" matInput id="timeend" name="end" formControlName="timeend" min="-1" max="59"
+          placeholder="Minute:">
 
       </mat-form-field>
-      <mat-hint align ="end">Eg:30</mat-hint>
+      <mat-hint align="end">Eg:30</mat-hint>
     </div>
   </div>
 
@@ -47,10 +52,11 @@
 
   <mat-divider></mat-divider>
 
+  <!-- Add events alert -->
   <div class="alert-container">
     <h3>Select Alert:</h3>
     <mat-form-field>
-      <mat-select placeholder="Alert" id="alert"  formControlName="alert">
+      <mat-select placeholder="Alert" id="alert" formControlName="alert">
         <mat-option value="None">None</mat-option>
         <mat-option value="On time">On time</mat-option>
         <mat-option value="5">5 mins before</mat-option>
@@ -63,6 +69,7 @@
   </div>
   <mat-divider></mat-divider>
 
+  <!-- Add events alert repeat -->
   <div class="repeat-container">
     <h3>Select Repeat:</h3>
     <mat-form-field>
@@ -77,16 +84,16 @@
   </div>
   <mat-divider></mat-divider>
 
+  <!-- Add events note -->
   <div class="events-container">
     <mat-form-field class="note">
-      <textarea matInput id="note" placeholder="Note"  formControlName="note"></textarea>
+      <textarea matInput id="note" placeholder="Note" formControlName="note"></textarea>
     </mat-form-field>
-
-
   </div>
 
+  <!-- Add events save button -->
   <div class="buttons">
-    <button mat-flat-button color="primary" (click) = "onSubmit()" >Save</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()">Save</button>
   </div>
 
 </form>

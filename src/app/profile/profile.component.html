@@ -1,25 +1,29 @@
-
 <!DOCTYPE html>
 <html>
 
 <div class="defaultContainer">
     <h1>Profile</h1><br>
 
-    <!--<img class="profileimg" src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg">-->
     <br>
     <div>
-        <!--
-        <h4>Bio:</h4> <p>{{profile?.bio}} </p><br>
-        -->
+
 
         <table>
             <tr>
-                <td><h4>First name:</h4></td>
-                <td><h4>Last name:</h4></td>
+                <td>
+                    <h4>First name:</h4>
+                </td>
+                <td>
+                    <h4>Last name:</h4>
+                </td>
             </tr>
             <tr>
-                <td><p>&nbsp;{{profile?.firstname}} </p></td>
-                <td><p>&nbsp;{{profile?.lastname}} </p></td>
+                <td>
+                    <p>&nbsp;{{profile?.firstname}} </p>
+                </td>
+                <td>
+                    <p>&nbsp;{{profile?.lastname}} </p>
+                </td>
             </tr>
         </table>
     </div>
@@ -39,22 +43,11 @@
 
     <h4>QR Code:</h4>
     <qrcode [qrdata]="profileQR" [size]="200" [level]="'M'" class="qrcode"></qrcode><br><br>
-    </div>
+</div>
 
 <div class="btncontainer">
-    <!--<button mat-button><a href= "../editprofile">Edit Profile</a></button>-->
+
     <button mat-stroked-button onclick="window.location.href = '../editprofile'">Edit Profile</button>
 </div><br><br>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-

@@ -3,18 +3,18 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import {ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // --------------------------------All Angular Material component------------------------------------------------
 import { MatTableModule } from '@angular/material';
-import { MatFormFieldModule,MatStepperModule, MatInputModule, MatButtonModule, MatAutocompleteModule,MatSelectModule, MatRadioModule,MatCheckboxModule } from '@angular/material';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatCardModule} from '@angular/material/card';
-import {MatExpansionModule} from '@angular/material';
+import { MatFormFieldModule, MatStepperModule, MatInputModule, MatButtonModule, MatAutocompleteModule, MatSelectModule, MatRadioModule, MatCheckboxModule } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material';
 
@@ -40,12 +40,12 @@ import { DeleteContactComponent } from './contact/delete-contact/delete-contact.
 import { DeletePartnerComponent } from './sexual-history/add-sexual/delete-partner/delete-partner.component';
 import { AddEventsComponent } from './calender/add-events/add-events.component';
 import { CalenderComponent } from './calender/calender.component';
-import { RewardsComponent }   from './rewards/rewards.component';
+import { RewardsComponent } from './rewards/rewards.component';
 
 // ---------------------------------------Other components-------------------------------------------------
 import { ContactService } from './services/contact.service';
 import { SearchPipe } from './pipes/search.pipe';
-import {SuiModule} from 'ng2-semantic-ui';
+import { SuiModule } from 'ng2-semantic-ui';
 import { HereMapComponent } from './about/clinic-location/map/here-map/here-map.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -105,13 +105,13 @@ import { QrscannerComponent } from './contact-form/qrscanner/qrscanner.component
     MatStepperModule,
     MatInputModule,
     MatButtonModule,
-    MatAutocompleteModule, 
+    MatAutocompleteModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatTableModule, 
+    MatTableModule,
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -122,7 +122,7 @@ import { QrscannerComponent } from './contact-form/qrscanner/qrscanner.component
     HttpModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
-        useFactory: adapterFactory,
+      useFactory: adapterFactory,
     }),
     StorageServiceModule,
     MatExpansionModule,
@@ -131,9 +131,9 @@ import { QrscannerComponent } from './contact-form/qrscanner/qrscanner.component
     ZXingScannerModule,
     MatGridListModule
   ],
-    providers: [AppHttpService, AuthenticationService, AuthGuardService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{ provide: APP_BASE_HREF, useValue: '/'}, ContactService,MatDatepickerModule],
+  providers: [AppHttpService, AuthenticationService, AuthGuardService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, { provide: APP_BASE_HREF, useValue: '/' }, ContactService, MatDatepickerModule],
   bootstrap: [AppComponent],
-  
+
 })
 export class AppModule { }
 

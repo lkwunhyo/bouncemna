@@ -24,6 +24,7 @@ export class AddEventsComponent implements OnInit {
 
   ngOnInit() {
 
+    // Add events database model templete
     this.calForm = this.fb.group({
       title: '',
       date: '',

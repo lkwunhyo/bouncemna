@@ -1,109 +1,77 @@
-
 <!DOCTYPE html>
 <html>
-    
-<div class = "defaultContainer"> 
+
+<div class="defaultContainer">
     <div class="titlecontainer">
-    <h1>Edit Profile</h1>
-</div>
+        <h1>Edit Profile</h1>
+    </div>
 
-<div class ="cardcontainer">
-    <mat-card>
-        <!--<img class ="profileimg"  src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg">-->
-        <br>
-
-        <div class="biocontainer">
-            <mat-form-field>
-                <textarea matInput placeholder="Bio" name="bio" [(ngModel)]="editprofile.bio"></textarea>
-            </mat-form-field>
-        </div>
-
-    </mat-card>
-</div>
-
-<div class="name">
-    <mat-card>
-        
-        <form>
-            <div class="style">
-                <mat-form-field>
-                    <input matInput placeholder="First Name" name="firstname" [(ngModel)]="editprofile.firstname" value="{{profile?.firstname}}">
-                </mat-form-field>
-            </div>
-            <br>
-            <div class="style">
-                <mat-form-field>
-                    <input matInput placeholder="Last Name" name="lastname" [(ngModel)]="editprofile.lastname" value="{{profile?.lastname}}">
-                </mat-form-field>
-            </div>
-            <br>
-            <div class="style">
-                <mat-form-field>
-                    <input matInput placeholder="Phone number" name="phone" [(ngModel)]="editprofile.phone" value="{{profile?.phone}}">
-                </mat-form-field> <br>
-            </div>
-            <div class="style">
-                <mat-form-field>
-                    <input matInput placeholder="Email" name="email" [(ngModel)]="editprofile.email" value="{{profile?.email}}"> <br>
-                </mat-form-field>
-            </div>
+    <div class="cardcontainer">
+        <mat-card>
             <br>
 
-            <div class="style">
-                <label>Sex</label><br>
-                <mat-radio-group class="sexlabel" name="gender" [(ngModel)]="editprofile.gender">
-                    <mat-radio-button value="m" checked="{{isMale}}">Male</mat-radio-button> &nbsp;
-                    <mat-radio-button value="f" checked="{{isFemale}}">Female</mat-radio-button> &nbsp;
-                </mat-radio-group>
+            <div class="biocontainer">
+                <mat-form-field>
+                    <textarea matInput placeholder="Bio" name="bio" [(ngModel)]="editprofile.bio"></textarea>
+                </mat-form-field>
             </div>
-        </form>
-      
-    </mat-card>
 
-</div>
+        </mat-card>
+    </div>
 
-    <!--<form [formGroup]="editprofileForm">
+    <div class="name">
+        <mat-card>
 
-        <h4>First name:<br>
-        <input type="text" name="firstname" value="John">
-        </h4>
-        
-        <h4>Last name:<br>
-        <input type="text" name="lastname" value="Smith">
-        </h4>
-        
-        <h4>Phone:<br>
-        <input type="text" name="Phone" value="0123-456-789">
-        </h4>
-        
-        <h4>Email:<br>
-        <input type="text" name="Email" value="JohnSmth89@gamail.com">
-        </h4>
-        
-        <h4>Sex:<br>
-        <input type="radio" name="gender" value="male"> Male<br>
-        <input type="radio" name="gender" value="female"> Female<br>
-        <input type="radio" name="gender" value="other"> Other<br>
-        </h4>
-        
-        <h4>Bio:<br>
-        <textarea rows="4" cols="30">
-            My ideal date? I pick you up in my car, and there’s candles gently licking the air on the dashboard ‘Rich, 
-            there’s candles on the dashboard’, I smile. ‘Yeah, I know.’ We take a drive, go to a restaurant, have a wonderful 
-            meal and talk about life, goals, and ideals.  As we leave, you notice my car is ablaze. ‘Rich, your car is on fire!’.
-            ‘It’s okay – it’s not mine’ – at which point I pull out marshmallows. We cook them & eat them. Then I kiss you passionately. In front of the burning car.
-        </textarea></h4>
-        <br><br><br>
-      </form>-->
+            <form>
+                <div class="style">
+                    <mat-form-field>
+                        <input matInput placeholder="First Name" name="firstname" [(ngModel)]="editprofile.firstname"
+                            value="{{profile?.firstname}}">
+                    </mat-form-field>
+                </div>
+                <br>
+                <div class="style">
+                    <mat-form-field>
+                        <input matInput placeholder="Last Name" name="lastname" [(ngModel)]="editprofile.lastname"
+                            value="{{profile?.lastname}}">
+                    </mat-form-field>
+                </div>
+                <br>
+                <div class="style">
+                    <mat-form-field>
+                        <input matInput placeholder="Phone number" name="phone" [(ngModel)]="editprofile.phone"
+                            value="{{profile?.phone}}">
+                    </mat-form-field> <br>
+                </div>
+                <div class="style">
+                    <mat-form-field>
+                        <input matInput placeholder="Email" name="email" [(ngModel)]="editprofile.email"
+                            value="{{profile?.email}}"> <br>
+                    </mat-form-field>
+                </div>
+                <br>
 
+                <div class="style">
+                    <label>Sex</label><br>
+                    <mat-radio-group class="sexlabel" name="gender" [(ngModel)]="editprofile.gender">
+                        <mat-radio-button value="m" checked="{{isMale}}">Male</mat-radio-button> &nbsp;
+                        <mat-radio-button value="f" checked="{{isFemale}}">Female</mat-radio-button> &nbsp;
+                    </mat-radio-group>
+                </div>
+            </form>
 
-
-      <div class= "btncontainer">
-          <button mat-button (click)="onSubmit()">Submit</button>
-      </div>
+        </mat-card>
 
     </div>
-    
-   
+
+
+
+    <div class="btncontainer">
+        <button mat-button (click)="onSubmit()">Submit</button>
+    </div>
+
+</div>
+
+
 
 </html>
