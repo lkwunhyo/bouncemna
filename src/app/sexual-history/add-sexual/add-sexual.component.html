@@ -1,55 +1,68 @@
 <!DOCTYPE html>
 <html>
 <div class="defaultContainer">
-<div class="addsexualcontainer">
-  <h2>Add Sexual Activity</h2>
-  <h3><u>Participants </u>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button mat-stroked-button onclick="window.location.href = '../addpartner/'">Add</button>&nbsp;
-    <button mat-stroked-button onclick="window.location.href = '../deletepartner/'">Delete</button><br>
-  </h3>
+  <div class="addsexualcontainer">
+    <!-- Add Sexual Activity Page Header -->
+    <h2>Add Sexual Activity</h2>
 
-  <form (ngSubmit)="OnSubmit()" name="partnerlist">
-    <div class="contact_list">
-      <ul class="contacts">
-        <div *ngIf="sexualpartners.length != 0; else noSexualPartners">
-          <li *ngFor="let person of sexualpartners">
-            <img src="../../../assets/contact.png" alt="User Image"
-              height="15" width="15">&nbsp;&nbsp;
-              {{ person.firstname }} {{ person.lastname}}<br>
-          </li>
-        </div>
-        <ng-template #noSexualPartners><li style="color:lightgray">Click Add to add sexual partners...</li></ng-template>
-        
-      </ul>
-    </div>
+    <!-- Participants Field -->
+    <h3><u>Participants </u>&nbsp;&nbsp;&nbsp;&nbsp;
+      <!-- Add/Delete Participants Buttons -->
+      <button mat-stroked-button onclick="window.location.href = '../addpartner/'">Add</button>&nbsp;
+      <button mat-stroked-button onclick="window.location.href = '../deletepartner/'">Delete</button><br>
+    </h3>
 
-    <h3><u>Date of Encounter</u></h3>
-    <mat-form-field>
-        <input matInput [matDatepicker]="picker" (dateChange)="formatDate($event);" name="date" placeholder="Choose a date.." [(ngModel)]="date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    <!-- Add Sexual Activity Form -->
+    <form (ngSubmit)="OnSubmit()" name="partnerlist">
+      <!-- Listing all added participants -->
+      <div class="contact_list">
+        <ul class="contacts">
+          <div *ngIf="sexualpartners.length != 0; else noSexualPartners">
+            <li *ngFor="let person of sexualpartners">
+              <img src="../../../assets/contact.png" alt="User Image"
+                height="15" width="15">&nbsp;&nbsp;
+                {{ person.firstname }} {{ person.lastname}}<br>
+            </li>
+          </div>
+          <!-- Notice if user has no added participants -->
+          <ng-template #noSexualPartners><li style="color:lightgray">Click Add to add sexual partners...</li></ng-template>
+        </ul>
+      </div>
 
-    <h3><u>Activities Performed</u></h3>
-    <li *ngFor="let activity of sexualactivity_list">
-        <mat-checkbox [value]="activity[0]"
-                      [(ngModel)]="activity.selected" (change)="OnCheckboxSelect(activity, activities_performed, $event.checked)" name="activities">{{ activity[1] }} Sex</mat-checkbox>
-    </li>
-    <h3><u>Contraceptives Used</u></h3>
-    <li *ngFor="let contraceptive of contraceptive_list">
-        <mat-checkbox [value]="contraceptive[0]"
-                      [(ngModel)]="contraceptive.selected" (change)="OnCheckboxSelect(contraceptive, contraceptives_used, $event.checked)" name="contraceptives">{{ contraceptive[1] }}</mat-checkbox>
-    </li>
+      <!-- DatePicker Field -->
+      <h3><u>Date of Encounter</u></h3>
+      <mat-form-field>
+          <input matInput [matDatepicker]="picker" (dateChange)="formatDate($event);" name="date" placeholder="Choose a date.." [(ngModel)]="date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-    <h3><u>Comments</u></h3>
-    <mat-form-field>
-      <textarea matInput id="comment" placeholder="Add your comments.."
-        rows="5" cols="10" [(ngModel)]="comment" name="comment"></textarea>
-    </mat-form-field><br><br>
-    <button mat-stroked-button class="submitbutton" type="submit" [disabled]="sexualpartners.length == 0"
-      onclick="window.location.href = '../sexualhistory/'">Submit</button><br><!---->
-  </form>
-      <br><br>
-</div>
+      <!-- Activities Performed Field -->
+      <h3><u>Activities Performed</u></h3>
+      <li *ngFor="let activity of sexualactivity_list">
+          <mat-checkbox [value]="activity[0]"
+            [(ngModel)]="activity.selected" (change)="OnCheckboxSelect(activity, activities_performed, $event.checked)" name="activities">{{ activity[1] }} Sex</mat-checkbox>
+      </li>
+
+      <!-- Contraceptives Used Field -->
+      <h3><u>Contraceptives Used</u></h3>
+      <li *ngFor="let contraceptive of contraceptive_list">
+          <mat-checkbox [value]="contraceptive[0]"
+            [(ngModel)]="contraceptive.selected" (change)="OnCheckboxSelect(contraceptive, contraceptives_used, $event.checked)" name="contraceptives">{{ contraceptive[1] }}</mat-checkbox>
+      </li>
+
+      <!-- Comments Field -->
+      <h3><u>Comments</u></h3>
+      <mat-form-field>
+        <textarea matInput id="comment" placeholder="Add your comments.."
+          rows="5" cols="10" [(ngModel)]="comment" name="comment"></textarea>
+      </mat-form-field><br><br>
+
+      <!-- Form Submission Button -->
+      <button mat-stroked-button class="submitbutton" type="submit" [disabled]="sexualpartners.length == 0"
+        onclick="window.location.href = '../sexualhistory/'">Submit</button><br>
+    </form>
+    <br><br>
+  </div>
 </div>
 </html>

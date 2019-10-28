@@ -12,13 +12,16 @@ import { forEach } from '@angular/router/src/utils/collection';
   styleUrls: ['./add-partner.component.css']
 })
 export class AddPartnerComponent implements OnInit {
-    @Input() query: Person;
+  @Input() query: Person;
+
   constructor(private _contactService: ContactService, @Inject(SESSION_STORAGE) private storage: WebStorageService) { };
+  
   public contactlist = [];
   persons = [];
   selected_persons = [];
   selectedPerson: Person;
 
+  /* Checks for checkbox selection and pushes the selected item to the input array */
   OnCheckboxSelect(person, status:boolean) {
     if (this.selected_persons.indexOf(person) === -1 && status) {
       this.selected_persons.push(person);
@@ -28,32 +31,33 @@ export class AddPartnerComponent implements OnInit {
       this.selected_persons.splice(index, 1);
     }
     console.log(this.selected_persons);
-    
   }
 
+  /* On Submit Functionality */
   OnSubmit() {
     // Submit every person where person.selected == true
       console.log("length of selected: " + this.selected_persons.length);
       for (let i = 0; i < this.selected_persons.length; i++) {
         //storage already checks if object is not in storage, then add. Thus no duplicate
-          console.log("selected person contactID/KEY " + this.selected_persons[i].contactID);
-          this.storage.set(this.selected_persons[i].contactID, this.selected_persons[i]);
-          console.log("storage get value from key:" + this.storage.get(this.selected_persons[i].contactID).firstname);
+        console.log("selected person contactID/KEY " + this.selected_persons[i].contactID);
+        this.storage.set(this.selected_persons[i].contactID, this.selected_persons[i]);
+        console.log("storage get value from key:" + this.storage.get(this.selected_persons[i].contactID).firstname);
     }
     //storage keeps item in "key,value(object)" pair
-
   }
 
     ngOnInit() {
-        this._contactService.getContactList()
-            .subscribe((res: any[]) => {
-                console.log("res: " + res);
-                //this.persons = res;
-                this.persons = this._contactService.filterBy(res);
-            });
-        console.dir(this.persons);
+    /* Calling Contact Service to retrieve Contacts */
+      this._contactService.getContactList()
+        .subscribe((res: any[]) => {
+            console.log("res: " + res);
+            //this.persons = res;
+            this.persons = this._contactService.filterBy(res);
+        });
+      console.dir(this.persons);
   }
 
+  /* Records Selected Contact */
   onSelect(person: Person): void {
     this.selectedPerson = person;
   }

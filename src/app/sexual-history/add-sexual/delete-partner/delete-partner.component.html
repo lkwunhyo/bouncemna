@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
 <div class="deletepartnercontainer">
+  <!-- Delete Partner Page Header -->
   <h2>Select Contacts</h2>
+
+  <!-- Contact Search Input -->
   <div class="search">
     <input id="search" class="autosearch" [(ngModel)]="query" type="text" placeholder="Search a name.."><br>
   </div>
 
+  <!-- Delete Partner Form -->
   <form (ngSubmit)="OnSubmit()">
     <div class="contact_list">
       <ul class="contacts">
         <li *ngFor="let person of persons | search:'lastname,firstname,rating':query">
-          <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image" height="18"
+          <img src="../../../../assets/contact.png" alt="User Image" height="18"
             width="18">&nbsp;&nbsp;
-          <!--<mat-checkbox name="partner" > {{ person.firstname }} {{ person.lastname}}</mat-checkbox> <br>-->
           <mat-checkbox [value]="delete_persons" [(ngModel)]="person.selected"
             (change)="OnCheckboxSelect(person, $event.checked)" name="persons">{{ person.firstname }}
             {{ person.lastname}} {{ person.rating }}</mat-checkbox>
@@ -20,8 +23,8 @@
       </ul>
     </div>
 
+    <!-- Form Submission Button -->
     <button mat-button type="submit" onclick="window.location.href = '../addactivity/'">Delete</button><br>
-    <!---->
   </form>
 </div>
 

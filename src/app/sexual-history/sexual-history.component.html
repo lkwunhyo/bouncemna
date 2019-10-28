@@ -3,36 +3,43 @@
 
 <body>
     <div class="defaultContainer">
-        <!--<h2>Sexual Activity</h2>-->
+        <!-- Sexual Activity Form -->
       <form [formGroup]="deleteActivityForm" (ngSubmit)="onSubmit()">
         <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
           <!-- Diagnosis Column -->
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumns">
             <th mat-header-cell *matHeaderCellDef>
+
+              <!-- Sexual Activity Page Header -->
               <h2 style="color: black;">
                 Sexual Activity
-                <button mat-stroked-button type="button" onclick="window.location.href = '../addactivity/'" style="float: right;">Add</button>
-                <!-- onclick="window.location.href = '../addactivity/'"  -->
+
+                <!-- Add Activity Button -->
+                <button mat-stroked-button type="button" 
+                  onclick="window.location.href = '../addactivity/'" style="float: right;">Add</button>
               </h2>
             </th>
             <td mat-cell *matCellDef="let item"> {{ convertDate(item[0].dateEncounter) }} <mat-icon style="float: right; color: lightgray">keyboard_arrow_down</mat-icon></td>
           </ng-container>
-      
+          
+          <!-- Expanded Details of Interactive Table -->
           <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let item" [attr.colspan]="displayedColumns.length">
               <div class="example-element-detail"
                    [@detailExpand]="item == expandedItem ? 'expanded' : 'collapsed'">
                 <div class="message-block">
                   <div class="message">
-                    <!-- EXPANDED MESSAGE -->
+                    <!-- Expanded Message Content -->
+                      <!-- Participants Field -->
                     <h4>Participants: </h4>
                     <div>
                       <ul>
                           <li>{{ item[0].name }}</li>
-
                       </ul>
                     </div>
 
+                    <!-- Activities Performed Field -->
                     <h4>Activities Performed: </h4>
                     <div>
                       <ul>
@@ -40,16 +47,16 @@
                       </ul>
                     </div>
 
+                    <!-- Contraceptives Used Field -->
                     <h4>Contraceptives Used: </h4>
                     <div>
                       <ul>
                         <div *ngIf="item[0].protection; else noProtection"><li>{{ item[0].protection }}</li></div>
                         <ng-template #noProtection><li style="color:lightgray">No protection was used...</li></ng-template>
-                        <!--<li>{{ item[0].protection }}</li>-->
-
                       </ul>
                     </div>
 
+                    <!-- Comments Field -->
                     <h4>Comments: </h4>
                       <ul>
                         <div *ngIf="item[0].notes; else noComments"><li>{{ item[0].notes }}</li></div>
@@ -59,9 +66,10 @@
                     
                   </div>
                   <div style="width: 100%;">
-                      <button mat-icon-button class="delete-button"> <!--</button>(click)="navigateToParam(item.alertid)">-->
-                        <mat-icon>delete_outlined</mat-icon><br>
-                      </button><br>
+                    <!-- Delete Activity Button -->
+                    <button mat-icon-button class="delete-button">
+                      <mat-icon>delete_outlined</mat-icon><br>
+                    </button><br>
                   </div>
                 </div><br><br><br><br><br>
               </div>
@@ -76,96 +84,11 @@
           </tr>
           <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
         </table>
+
+        <!-- Table Paginator Details-->
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
       </form>
-        <!--
-        <mat-expansion-panel *ngFor="let encounter of activitylist">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                </mat-panel-title>
-                <mat-panel-description>
-
-                    {{ convertDate(encounter[0].dateEncounter) }}
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-
-            <h4>Participants: </h4>
-            <div>
-                <ul>
-                    <li>{{ encounter[0].name }}</li>
-
-                </ul>
-            </div>
-
-            <h4>Activities Performed: </h4>
-            <div>
-                <ul>
-                    <li>{{ encounter[0].actName }}</li>
-                </ul>
-            </div>
-
-            <h4>Contraceptives Used: </h4>
-            <div>
-                <ul>
-                    <li>{{ encounter[0].protection }}</li>
-
-                </ul>
-            </div>
-
-            <h4>Comments: </h4>{{ encounter[0].notes }}<br><br>
-
-        </mat-expansion-panel>-->
-        <br><br>
-        <!--
-        <div class="btncontainer">
-          <button mat-stroked-button onclick="window.location.href = '../addactivity/'">Add Activity</button>
-        </div>
-      -->
-
-        <!--
-    <div class="activity_list">
-      <ul class="activity">
-          <li *ngFor="let encounter of activitylist">
-              <img src="../../assets/book.png" alt="Record Icon" height="18"
-              width="18">&nbsp;&nbsp;
-            <a href="../sexualhistory/"><b>{{ encounter[0].encounterID }}</b>&nbsp;&nbsp;&nbsp;&nbsp;{{ convertDate(encounter[0].dateEncounter) }} </a>
-        </li>
-      </ul>
-      <br>
-    </div>
-    -->
-        <!--
-    <h3 id="date"><u>Saturday, 16th March 2019</u></h3>
-    <ul>
-      <li>
-        <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image" height="18"
-          width="18">&nbsp;&nbsp;
-        John Smith
-      </li>
-    </ul>
-
-    <h3 id="date"><u>Friday, 1st March 2019</u></h3>
-    <ul>
-      <li>
-        <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image" height="18"
-          width="18">&nbsp;&nbsp;
-        John Smith
-      </li>
-      <li>
-        <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image" height="18"
-          width="18">&nbsp;&nbsp;
-        Sally West
-      </li>
-
-      <li>
-        <img src="http://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" alt="User Image" height="18"
-          width="18">&nbsp;&nbsp;
-        Placeholder Contacts
-      </li>
-    </ul>-->
-
-        <!--    </div>
-      -->
+      <br><br>
     </div>
 
 </body>

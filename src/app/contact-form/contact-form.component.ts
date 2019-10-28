@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { ContactFormService } from '../services/contact-form.service';
 import { Router, NavigationStart } from '@angular/router';
 
+/* Contact Age Interface */
 export interface Age {
   value: number;
   viewValue: number;
@@ -25,13 +26,13 @@ export class ContactFormComponent implements OnInit {
 
   }
   
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
 
+  /* On Submit Functionality */
   onSubmit() {
+    // Contact Form Builder
     this.contactForm = this.formBuilder.group({
-      //'id': this.contact.id,
+      /* 'id': this.contact.id, */    // Not implemented
       firstname: this.contact.firstname,
       lastname: this.contact.lastname,
       phone: this.contact.phone,
@@ -40,31 +41,31 @@ export class ContactFormComponent implements OnInit {
       gender: this.contact.gender,
       comment: this.contact.comment,
       rating: this.contact.rating
-      // some other stuff
     });
 
+    // Calling Contact Form Service
     console.log("Contact Form: " + JSON.stringify(this.contactForm.value));
     this._contactFormService.addcontact(this.contact).subscribe(
       data => console.log('Success!', data),
       error => console.error('Error!', error)
       );
-      //this.router.navigated = false;
-      //this.router.navigate(['/contact']).then(() => {
-      //    window.location.reload();
-      //});
-      var url = window.location.origin + "/contact";
-      location.replace(url);
-
+    
+    // Redirecting to the Contact Page on Form Submission
+    var url = window.location.origin + "/contact";
+    location.replace(url);
   }
 
+  /* Email FormControl */
   email = new FormControl('', [Validators.required, Validators.email]);
 
+  /* Email Error Message */
   getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
         this.email.hasError('email') ? 'Not a valid email' :
             '';
   }
 
+  /* Age Model */
   ages: Age[] = [
     {value: 18, viewValue: 18},
     {value: 19, viewValue: 19},

@@ -1,9 +1,13 @@
 <div class="defaultContainer">
+  <!-- Contact Page Header -->
   <h2>Contacts</h2>
+
+  <!-- Search Bar -->
   <div class="search">
     <input id="search" class="autosearch" [(ngModel)]="query" type="text" placeholder="Search a name.."><br>
   </div><br>
 
+  <!-- Contact List -->
   <div class="contact_list">
     <ul class="contacts">
       <div *ngIf="contactlist; else noContacts">
@@ -12,18 +16,21 @@
           (click)="onSelect(person)">
           <img src="../../assets/contact.png" alt="User Image"
             height="18" width="18">&nbsp;&nbsp;
-          <!--<a href="../contactprofile/:person.id">{{ person.firstname }} {{ person.lastname}} {{ person.rating }}</a>-->
           <a [routerLink]="['/contactprofile', person.contactID]">
             {{ person.firstname }} {{ person.lastname}} {{ person.rating }}</a>
         </li>
       </div>
+
+      <!-- Label if no contacts exist -->
       <ng-template #noContacts><p style="color: lightgray; font-size: 140%;">You have no contacts...</p>
         <p style="color: lightgray; font-size: 100%;">&nbsp;&nbsp;&nbsp;&nbsp;Click Add to add your first contact.</p></ng-template>
     </ul>
     <br>
   </div>
+
+  <!-- Submit Buttons -->
   <div class ="btncontainer">
-  <button mat-stroked-button onclick="window.location.href = '../contactform/'">Add</button>
-  <button mat-stroked-button [disabled]="!contactlist" onclick="window.location.href = '../deletecontact/'">Delete</button>
-</div>
+    <button mat-stroked-button onclick="window.location.href = '../contactform/'">Add</button>
+    <button mat-stroked-button [disabled]="!contactlist" onclick="window.location.href = '../deletecontact/'">Delete</button>
+  </div>
 </div>
