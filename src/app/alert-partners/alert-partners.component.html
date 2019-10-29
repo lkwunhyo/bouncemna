@@ -23,7 +23,7 @@
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            <h4>Send STI alert to partners?</h4>
+            <h4>Send STI alert to sexual contacts?</h4>
             <mat-button-toggle-group>
                 <mat-button-toggle (click)="isSendMessage = true; sendMessage()">Yes</mat-button-toggle>
                 <mat-button-toggle (click)="isSendMessage = false; sendMessage()">No</mat-button-toggle>
@@ -64,7 +64,7 @@
                     <mat-radio-button value="identified">Include your name in message</mat-radio-button>
                 </mat-radio-group>
 
-                <br><br>Message:<br> Your partner may have been exposed to <br>{{sti}}, please get tested immediately
+                <br><br>Message:<br> One of your sexual contacts may have been exposed to {{sti}}, please get tested immediately.
                 <div>
                     <!-->
             <button mat-button matStepperPrevious>Back</button><-->
