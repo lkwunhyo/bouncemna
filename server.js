@@ -441,7 +441,7 @@ app.post('/alertpartners', function (req, res) { //validate then sanitize
                             }
 
 
-                            var text = 'One of your partners may have been exposed to ' + sti + ', please get tested immediately!'
+                            var text = 'One of your sexual contacts may have been exposed to ' + sti + ', please get tested immediately!'
 
                             if (alert.anonymity == "identified") {
                                 text = text + ' Sent by ' + req.cookies['userid'];
